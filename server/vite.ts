@@ -25,7 +25,6 @@ export async function setupVite(app: Express, server: Server) {
     hmr: {
       server,
       port: 5000,
-      host: "localhost",
     },
     allowedHosts: true,
   };
