@@ -50,7 +50,7 @@ export function TransformationInsights({
         {insights.map((result, idx) => (
           <div
             key={result.name}
-            className="rounded-lg bg-charcoal border border-zinc-800er px-4 py-3 shadow transition-all hover:shadow-md"
+            className="rounded-lg bg-zinc-900 border border-zinc-800er px-4 py-3 shadow transition-all hover:shadow-md"
           >
             <div className="flex items-center gap-2 mb-2">
               <Badge variant={result.success ? "default" : "destructive"}>

@@ -215,7 +215,7 @@ const TeamSettings = () => {
                     id="teamName"
                     value={teamName}
                     onChange={(e) => setTeamName(e.target.value)}
-                    className="bg-charcoal border-zinc-800 text-white"
+                    className="bg-zinc-900 border-zinc-800 text-white"
                   />
                 </div>
 
@@ -350,7 +350,7 @@ const TeamSettings = () => {
                             permissions.map((perm) => (
                               <Badge
                                 key={perm}
-                                className="bg-charcoal text-zinc-400"
+                                className="bg-zinc-900 text-zinc-400"
                               >
                                 {perm.replace("-", " ")}
                               </Badge>
@@ -401,7 +401,7 @@ const TeamSettings = () => {
                             {rule.layers.map((layer) => (
                               <Badge
                                 key={layer}
-                                className="bg-charcoal text-white text-xs"
+                                className="bg-zinc-900 text-white text-xs"
                               >
                                 {layer}
                               </Badge>
@@ -414,7 +414,7 @@ const TeamSettings = () => {
                             {rule.conditions.map((condition) => (
                               <Badge
                                 key={condition}
-                                className="bg-charcoal text-white text-xs"
+                                className="bg-zinc-900 text-white text-xs"
                               >
                                 {condition}
                               </Badge>
@@ -466,7 +466,7 @@ const TeamSettings = () => {
                         slackWebhook: e.target.value,
                       })
                     }
-                    className="bg-charcoal border-zinc-800 text-white"
+                    className="bg-zinc-900 border-zinc-800 text-white"
                     placeholder="https://hooks.slack.com/services/..."
                   />
                 </div>

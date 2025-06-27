@@ -355,7 +355,7 @@ const TeamAnalytics = () => {
                           {category}
                         </span>
                         <div className="flex items-center gap-2">
-                          <div className="w-32 bg-charcoal h-2 rounded-full">
+                          <div className="w-32 bg-zinc-900 h-2 rounded-full">
                             <div
                               className={`h-2 rounded-full ${
                                 score >= 90
@@ -505,7 +505,7 @@ const TeamAnalytics = () => {
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-3">
-                              <Badge className="bg-charcoal text-white capitalize">
+                              <Badge className="bg-zinc-900 text-white capitalize">
                                 {insight.type}
                               </Badge>
                               <div className="flex items-center gap-1">
@@ -551,7 +551,7 @@ const TeamAnalytics = () => {
                               {insight.metrics.map((metric) => (
                                 <Badge
                                   key={metric}
-                                  className="bg-charcoal text-zinc-400 text-xs"
+                                  className="bg-zinc-900 text-zinc-400 text-xs"
                                 >
                                   {metric}
                                 </Badge>
@@ -725,7 +725,7 @@ const TeamAnalytics = () => {
                       >
                         <span className="text-white">{item.metric}</span>
                         <div className="flex items-center gap-2">
-                          <div className="w-24 bg-charcoal h-2 rounded-full">
+                          <div className="w-24 bg-zinc-900 h-2 rounded-full">
                             <div
                               className={`h-2 rounded-full ${
                                 item.reverse
@@ -876,7 +876,7 @@ const TeamAnalytics = () => {
                             {goal.probability}%
                           </Badge>
                         </div>
-                        <div className="w-full bg-charcoal h-2 rounded-full">
+                        <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
                             className={`h-2 rounded-full ${
                               goal.probability >= 80

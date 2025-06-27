@@ -56,7 +56,7 @@ export const SiteHeader = () => {
           {/* Auth Section */}
           <div className="hidden md:flex items-center space-x-4">
             {loading ? (
-              <div className="w-8 h-8 rounded-full bg-charcoal animate-pulse" />
+              <div className="w-8 h-8 rounded-full bg-zinc-900 animate-pulse" />
             ) : isAuthenticated ? (
               <UserButton />
             ) : (
@@ -84,7 +84,7 @@ export const SiteHeader = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 border-t border-zinc-800 bg-charcoal/90 backdrop-blur-lg">
+            <div className="px-2 pt-2 pb-3 space-y-1 border-t border-zinc-800 bg-zinc-900/90 backdrop-blur-lg">
               <Link
                 to="/app"
                 className="block px-3 py-2 !text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
@@ -113,7 +113,7 @@ export const SiteHeader = () => {
               )}
               <div className="px-3 py-2">
                 {loading ? (
-                  <div className="w-8 h-8 rounded-full bg-charcoal animate-pulse" />
+                  <div className="w-8 h-8 rounded-full bg-zinc-900 animate-pulse" />
                 ) : isAuthenticated ? (
                   <UserButton />
                 ) : (

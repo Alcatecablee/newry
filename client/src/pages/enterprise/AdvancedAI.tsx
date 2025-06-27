@@ -614,7 +614,7 @@ const AdvancedAI = () => {
                                 className="mt-3 p-3 bg-zinc-950 rounded-lg border border-zinc-800"
                               >
                                 <div className="flex items-center justify-between mb-2">
-                                  <Badge className="bg-charcoal text-zinc-400 text-xs">
+                                  <Badge className="bg-zinc-900 text-zinc-400 text-xs">
                                     {block.language}
                                   </Badge>
                                   <Button size="sm" variant="ghost">
@@ -641,7 +641,7 @@ const AdvancedAI = () => {
                                 >
                                   <div className="flex items-center justify-between mb-2">
                                     <div className="flex items-center gap-2">
-                                      <Badge className="bg-charcoal text-white text-xs">
+                                      <Badge className="bg-zinc-900 text-white text-xs">
                                         {suggestion.type}
                                       </Badge>
                                       <Badge
@@ -703,7 +703,7 @@ const AdvancedAI = () => {
                       value={currentMessage}
                       onChange={(e) => setCurrentMessage(e.target.value)}
                       placeholder="Ask the AI assistant anything about your code..."
-                      className="bg-charcoal border-zinc-800 text-white"
+                      className="bg-zinc-900 border-zinc-800 text-white"
                       onKeyPress={(e) =>
                         e.key === "Enter" && handleSendMessage()
                       }
@@ -799,7 +799,7 @@ const AdvancedAI = () => {
                           {assistant.specialization.map((spec) => (
                             <Badge
                               key={spec}
-                              className="bg-charcoal text-zinc-400 text-xs"
+                              className="bg-zinc-900 text-zinc-400 text-xs"
                             >
                               {spec}
                             </Badge>
@@ -816,7 +816,7 @@ const AdvancedAI = () => {
                             {assistant.confidence}%
                           </span>
                         </div>
-                        <div className="w-full bg-charcoal h-2 rounded-full">
+                        <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
                             className="bg-blue-400 h-2 rounded-full"
                             style={{ width: `${assistant.confidence}%` }}
@@ -833,7 +833,7 @@ const AdvancedAI = () => {
                             {assistant.learningProgress}%
                           </span>
                         </div>
-                        <div className="w-full bg-charcoal h-2 rounded-full">
+                        <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
                             className="bg-purple-400 h-2 rounded-full"
                             style={{ width: `${assistant.learningProgress}%` }}
@@ -883,7 +883,7 @@ const AdvancedAI = () => {
                           >
                             {capability.maturity}
                           </Badge>
-                          <Badge className="bg-charcoal text-zinc-400 capitalize">
+                          <Badge className="bg-zinc-900 text-zinc-400 capitalize">
                             {capability.category}
                           </Badge>
                         </div>
@@ -897,7 +897,7 @@ const AdvancedAI = () => {
                               Usage
                             </p>
                             <div className="flex items-center gap-2">
-                              <div className="w-16 bg-charcoal h-2 rounded-full">
+                              <div className="w-16 bg-zinc-900 h-2 rounded-full">
                                 <div
                                   className="bg-blue-400 h-2 rounded-full"
                                   style={{ width: `${capability.usage}%` }}
@@ -913,7 +913,7 @@ const AdvancedAI = () => {
                               Accuracy
                             </p>
                             <div className="flex items-center gap-2">
-                              <div className="w-16 bg-charcoal h-2 rounded-full">
+                              <div className="w-16 bg-zinc-900 h-2 rounded-full">
                                 <div
                                   className="bg-green-400 h-2 rounded-full"
                                   style={{ width: `${capability.accuracy}%` }}
@@ -987,7 +987,7 @@ const AdvancedAI = () => {
                           </span>
                           <span className="text-white">{model.accuracy}%</span>
                         </div>
-                        <div className="w-full bg-charcoal h-2 rounded-full">
+                        <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
                             className="bg-green-400 h-2 rounded-full"
                             style={{ width: `${model.accuracy}%` }}
@@ -1083,7 +1083,7 @@ const AdvancedAI = () => {
                       >
                         <span className="text-white">{stage.stage}</span>
                         <div className="flex items-center gap-2">
-                          <div className="w-20 bg-charcoal h-2 rounded-full">
+                          <div className="w-20 bg-zinc-900 h-2 rounded-full">
                             <div
                               className={`h-2 rounded-full ${
                                 stage.status === "completed"

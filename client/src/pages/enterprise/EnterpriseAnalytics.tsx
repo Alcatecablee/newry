@@ -527,7 +527,7 @@ const EnterpriseAnalytics = () => {
                               {dimension}
                             </span>
                             <div className="flex items-center gap-2">
-                              <div className="w-32 bg-charcoal h-2 rounded-full">
+                              <div className="w-32 bg-zinc-900 h-2 rounded-full">
                                 <div
                                   className={`h-2 rounded-full ${
                                     score >= 90
@@ -827,7 +827,7 @@ const EnterpriseAnalytics = () => {
                             {item.date}
                           </p>
                         </div>
-                        <Badge className="bg-charcoal text-zinc-400 capitalize">
+                        <Badge className="bg-zinc-900 text-zinc-400 capitalize">
                           {item.type}
                         </Badge>
                       </div>
@@ -863,7 +863,7 @@ const EnterpriseAnalytics = () => {
                               >
                                 {risk.severity}
                               </Badge>
-                              <Badge className="bg-charcoal text-zinc-400 capitalize">
+                              <Badge className="bg-zinc-900 text-zinc-400 capitalize">
                                 {risk.type}
                               </Badge>
                             </div>
@@ -944,7 +944,7 @@ const EnterpriseAnalytics = () => {
                               >
                                 {opportunity.effort} effort
                               </Badge>
-                              <Badge className="bg-charcoal text-zinc-400 capitalize">
+                              <Badge className="bg-zinc-900 text-zinc-400 capitalize">
                                 {opportunity.type}
                               </Badge>
                             </div>

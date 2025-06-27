@@ -732,7 +732,7 @@ const MarketPositioning = () => {
                         <p className="text-zinc-400 text-sm mb-1">
                           Targetable Market
                         </p>
-                        <div className="w-full bg-charcoal h-2 rounded-full">
+                        <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
                             className="bg-blue-400 h-2 rounded-full"
                             style={{ width: `${segment.targetable}%` }}
@@ -751,7 +751,7 @@ const MarketPositioning = () => {
                           {segment.competition.map((comp) => (
                             <Badge
                               key={comp.name}
-                              className="bg-charcoal text-zinc-400 text-xs"
+                              className="bg-zinc-900 text-zinc-400 text-xs"
                             >
                               {comp.name}
                             </Badge>
@@ -838,7 +838,7 @@ const MarketPositioning = () => {
                           {persona.decision_factors.map((factor) => (
                             <Badge
                               key={factor}
-                              className="bg-charcoal text-zinc-400 text-xs"
+                              className="bg-zinc-900 text-zinc-400 text-xs"
                             >
                               {factor}
                             </Badge>
@@ -974,7 +974,7 @@ const MarketPositioning = () => {
                         <Badge className={getStatusColor(strategy.status)}>
                           {strategy.status}
                         </Badge>
-                        <Badge className="bg-charcoal text-zinc-400">
+                        <Badge className="bg-zinc-900 text-zinc-400">
                           {strategy.timeline}
                         </Badge>
                       </div>
@@ -1042,7 +1042,7 @@ const MarketPositioning = () => {
                                     </span>
                                   </div>
                                 </div>
-                                <div className="w-full bg-charcoal h-2 rounded-full">
+                                <div className="w-full bg-zinc-900 h-2 rounded-full">
                                   <div
                                     className={`h-2 rounded-full ${
                                       metric.current >= metric.target
@@ -1131,7 +1131,7 @@ const MarketPositioning = () => {
                           </div>
                         </div>
 
-                        <div className="mt-3 pt-3 border-t border-charcoal">
+                        <div className="mt-3 pt-3 border-t border-zinc-800">
                           <p className="text-zinc-400 text-xs">
                             Pricing:{" "}
                             <span className="text-white">

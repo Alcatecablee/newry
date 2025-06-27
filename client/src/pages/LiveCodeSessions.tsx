@@ -220,7 +220,7 @@ const LiveCodeSessions = () => {
         {/* Main Code Editor Area */}
         <div className="flex-1 flex flex-col">
           {/* Session Header */}
-          <div className="bg-charcoal border-b border-zinc-800 p-4">
+          <div className="bg-zinc-900 border-b border-zinc-800 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
@@ -437,7 +437,7 @@ const LiveCodeSessions = () => {
         </div>
 
         {/* Right Sidebar - Collaboration Tools */}
-        <div className="w-96 bg-charcoal border-l border-zinc-800 flex flex-col">
+        <div className="w-96 bg-zinc-900 border-l border-zinc-800 flex flex-col">
           {/* Participants Panel */}
           <div className="p-4 border-b border-zinc-800">
             <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
@@ -460,7 +460,7 @@ const LiveCodeSessions = () => {
                       </AvatarFallback>
                     </Avatar>
                     <div
-                      className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-charcoal-dark"
+                      className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-zinc-800-dark"
                       style={{ backgroundColor: participant.cursor.color }}
                     />
                   </div>
@@ -469,7 +469,7 @@ const LiveCodeSessions = () => {
                       <span className="text-white text-sm font-medium">
                         {participant.name}
                       </span>
-                      <Badge className="text-xs bg-charcoal text-white">
+                      <Badge className="text-xs bg-zinc-900 text-white">
                         {participant.role}
                       </Badge>
                     </div>
@@ -683,7 +683,7 @@ const LiveCodeSessions = () => {
               <div className="flex items-center gap-2">
                 <input
                   placeholder="Type a message..."
-                  className="flex-1 bg-charcoal border border-zinc-800 rounded px-3 py-2 text-white text-sm"
+                  className="flex-1 bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-white text-sm"
                 />
                 <Button size="sm">
                   <Send className="w-3 h-3" />

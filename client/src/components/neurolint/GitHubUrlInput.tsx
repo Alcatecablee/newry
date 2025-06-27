@@ -24,7 +24,7 @@ export function GitHubUrlInput({
         placeholder="https://github.com/username/repository or 'test' for demo"
         value={repoUrl}
         onChange={(e) => setRepoUrl(e.target.value)}
-        className="bg-charcoal border-zinc-800er text-white placeholder:text-gray-400"
+        className="bg-zinc-900 border-zinc-800er text-white placeholder:text-gray-400"
         disabled={uploading || processing}
       />
       

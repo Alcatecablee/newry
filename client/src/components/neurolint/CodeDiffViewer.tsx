@@ -26,7 +26,7 @@ export function CodeDiffViewer({
 
   if (!original && !loading)
     return (
-      <div className="h-full min-h-[300px] flex flex-col items-center justify-center text-zinc-400 border border-zinc-800 rounded-lg bg-charcoal/50">
+      <div className="h-full min-h-[300px] flex flex-col items-center justify-center text-zinc-400 border border-zinc-800 rounded-lg bg-zinc-900/50">
         <FileText className="mb-2 opacity-40 w-12 h-12" />
         <div className="text-center">
           <div className="text-lg font-medium text-white">No file selected</div>
@@ -39,7 +39,7 @@ export function CodeDiffViewer({
 
   if (loading)
     return (
-      <div className="h-full min-h-[300px] flex items-center justify-center animate-pulse text-zinc-400 border border-zinc-800 rounded-lg bg-charcoal/50">
+      <div className="h-full min-h-[300px] flex items-center justify-center animate-pulse text-zinc-400 border border-zinc-800 rounded-lg bg-zinc-900/50">
         <FilePlus className="mr-2 animate-bounce w-6 h-6" />
         <span className="text-lg">Processing...</span>
       </div>
@@ -94,7 +94,7 @@ export function CodeDiffViewer({
   };
 
   return (
-    <div className="h-[85vh] bg-charcoal border border-zinc-800 rounded-lg overflow-hidden transition-all font-mono backdrop-blur-xl flex flex-col">
+    <div className="h-[85vh] bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden transition-all font-mono backdrop-blur-xl flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800 bg-zinc-900 rounded-t-lg backdrop-blur font-sans flex-shrink-0">
         <div className="flex gap-2 items-center">
@@ -120,7 +120,7 @@ export function CodeDiffViewer({
               <Button
                 size="icon"
                 variant="ghost"
-                className="hover:bg-charcoal hover:text-white h-6 w-6"
+                className="hover:bg-zinc-900 hover:text-white h-6 w-6"
                 aria-label="Copy transformed code"
                 onClick={handleCopyTransformed}
               >
@@ -129,7 +129,7 @@ export function CodeDiffViewer({
               <Button
                 size="icon"
                 variant="ghost"
-                className="hover:bg-charcoal hover:text-white h-6 w-6"
+                className="hover:bg-zinc-900 hover:text-white h-6 w-6"
                 aria-label="Download transformed code"
                 onClick={handleDownloadTransformed}
               >
@@ -164,7 +164,7 @@ export function CodeDiffViewer({
               <Button
                 size="icon"
                 variant="ghost"
-                className="hover:bg-charcoal hover:text-white h-6 w-6"
+                className="hover:bg-zinc-900 hover:text-white h-6 w-6"
                 aria-label="Copy original code"
                 onClick={handleCopyOriginal}
               >
@@ -173,7 +173,7 @@ export function CodeDiffViewer({
               <Button
                 size="icon"
                 variant="ghost"
-                className="hover:bg-charcoal hover:text-white h-6 w-6"
+                className="hover:bg-zinc-900 hover:text-white h-6 w-6"
                 aria-label="Download original code"
                 onClick={handleDownloadOriginal}
               >

@@ -651,7 +651,7 @@ export default function Index() {
                 <h3 className="text-2xl font-semibold text-white">
                   Quick Installation
                 </h3>
-                <div className="bg-charcoal border border-zinc-800 rounded-xl p-4">
+                <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm text-zinc-400">
                       Terminal
@@ -667,7 +667,7 @@ export default function Index() {
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-zinc-800 rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Terminal className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">
@@ -678,7 +678,7 @@ export default function Index() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-zinc-800 rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <GitBranch className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">
@@ -690,7 +690,7 @@ export default function Index() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-zinc-800 rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Settings className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">
@@ -704,7 +704,7 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="bg-charcoal border border-zinc-800 rounded-2xl overflow-hidden">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
               <div className="bg-zinc-900 px-4 py-3 flex items-center gap-2 border-b border-zinc-800">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 bg-red-500 rounded-full"></div>
@@ -762,7 +762,7 @@ export default function Index() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="bg-charcoal border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl">
               <div className="bg-zinc-900 px-4 py-3 flex items-center gap-2 border-b border-zinc-800">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 bg-red-500 rounded-full"></div>
@@ -836,7 +836,7 @@ export default function Index() {
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-zinc-800 rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Monitor className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">
@@ -847,7 +847,7 @@ export default function Index() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-zinc-800 rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Zap className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">Quick Fixes</h4>
@@ -856,7 +856,7 @@ export default function Index() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-zinc-800 rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Database className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">
@@ -896,7 +896,7 @@ export default function Index() {
                   API Endpoints
                 </h3>
                 <div className="space-y-3">
-                  <div className="flex items-center gap-3 p-3 bg-charcoal/50 border border-zinc-800 rounded-lg">
+                  <div className="flex items-center gap-3 p-3 bg-zinc-900/50 border border-zinc-800 rounded-lg">
                     <span className="bg-white text-black px-2 py-1 rounded text-xs font-mono">
                       POST
                     </span>
@@ -905,7 +905,7 @@ export default function Index() {
                       Analyze code
                     </span>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-charcoal/50 border border-zinc-800 rounded-lg">
+                  <div className="flex items-center gap-3 p-3 bg-zinc-900/50 border border-zinc-800 rounded-lg">
                     <span className="bg-white text-black px-2 py-1 rounded text-xs font-mono">
                       POST
                     </span>
@@ -914,7 +914,7 @@ export default function Index() {
                       Transform code
                     </span>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-charcoal/50 border border-zinc-800 rounded-lg">
+                  <div className="flex items-center gap-3 p-3 bg-zinc-900/50 border border-zinc-800 rounded-lg">
                     <span className="bg-white text-black px-2 py-1 rounded text-xs font-mono">
                       GET
                     </span>
@@ -927,7 +927,7 @@ export default function Index() {
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-zinc-800 rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Shield className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">
@@ -938,7 +938,7 @@ export default function Index() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-zinc-800 rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Cpu className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">
@@ -949,7 +949,7 @@ export default function Index() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-zinc-800 rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <BarChart3 className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">
@@ -963,7 +963,7 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="bg-charcoal border border-zinc-800 rounded-2xl overflow-hidden">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
               <div className="bg-zinc-900 px-4 py-3 flex items-center gap-2 border-b border-zinc-800">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 bg-red-500 rounded-full"></div>
@@ -1032,7 +1032,7 @@ export default function Index() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="p-6 bg-charcoal/50 border border-zinc-800 rounded-xl hover:border-white transition-colors">
+            <div className="p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:border-white transition-colors">
               <div className="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center mb-4">
                 <GitBranch className="w-6 h-6 text-white" />
               </div>
@@ -1044,7 +1044,7 @@ export default function Index() {
               </p>
             </div>
 
-            <div className="p-6 bg-charcoal/50 border border-zinc-800 rounded-xl hover:border-white transition-colors">
+            <div className="p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:border-white transition-colors">
               <div className="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center mb-4">
                 <Settings className="w-6 h-6 text-white" />
               </div>
@@ -1054,7 +1054,7 @@ export default function Index() {
               </p>
             </div>
 
-            <div className="p-6 bg-charcoal/50 border border-zinc-800 rounded-xl hover:border-white transition-colors">
+            <div className="p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:border-white transition-colors">
               <div className="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center mb-4">
                 <Users className="w-6 h-6 text-white" />
               </div>
@@ -1064,7 +1064,7 @@ export default function Index() {
               </p>
             </div>
 
-            <div className="p-6 bg-charcoal/50 border border-zinc-800 rounded-xl hover:border-white transition-colors">
+            <div className="p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:border-white transition-colors">
               <div className="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center mb-4">
                 <Code className="w-6 h-6 text-white" />
               </div>

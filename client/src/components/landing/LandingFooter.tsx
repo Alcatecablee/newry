@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export function LandingFooter() {
   return (
-    <footer className="w-full py-8 px-6 bg-charcoal border-t border-zinc-800">
+    <footer className="w-full py-8 px-6 bg-zinc-900 border-t border-zinc-800">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-4 gap-8">
           <div>

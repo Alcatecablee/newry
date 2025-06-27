@@ -457,7 +457,7 @@ const SSOIntegration = () => {
                                 <Input
                                   id="entityId"
                                   value={provider.configuration.entityId}
-                                  className="bg-charcoal border-zinc-800 text-white"
+                                  className="bg-zinc-900 border-zinc-800 text-white"
                                 />
                               </div>
                               <div>
@@ -465,7 +465,7 @@ const SSOIntegration = () => {
                                 <Input
                                   id="ssoUrl"
                                   value={provider.configuration.ssoUrl}
-                                  className="bg-charcoal border-zinc-800 text-white"
+                                  className="bg-zinc-900 border-zinc-800 text-white"
                                 />
                               </div>
                               <div>
@@ -480,7 +480,7 @@ const SSOIntegration = () => {
                                         .certificateFingerprint
                                     }
                                     type={showSecrets ? "text" : "password"}
-                                    className="bg-charcoal border-zinc-800 text-white"
+                                    className="bg-zinc-900 border-zinc-800 text-white"
                                   />
                                   <Button
                                     size="sm"
@@ -505,7 +505,7 @@ const SSOIntegration = () => {
                                 <Input
                                   id="clientId"
                                   value={provider.configuration.clientId}
-                                  className="bg-charcoal border-zinc-800 text-white"
+                                  className="bg-zinc-900 border-zinc-800 text-white"
                                 />
                               </div>
                               <div>
@@ -517,7 +517,7 @@ const SSOIntegration = () => {
                                     id="clientSecret"
                                     value={provider.configuration.clientSecret}
                                     type={showSecrets ? "text" : "password"}
-                                    className="bg-charcoal border-zinc-800 text-white"
+                                    className="bg-zinc-900 border-zinc-800 text-white"
                                   />
                                   <Button size="sm" variant="ghost">
                                     <Copy className="w-4 h-4" />
@@ -529,7 +529,7 @@ const SSOIntegration = () => {
                                 <Input
                                   id="issuer"
                                   value={provider.configuration.issuer}
-                                  className="bg-charcoal border-zinc-800 text-white"
+                                  className="bg-zinc-900 border-zinc-800 text-white"
                                 />
                               </div>
                             </>
@@ -550,7 +550,7 @@ const SSOIntegration = () => {
                                   <Input
                                     id={key}
                                     value={value}
-                                    className="bg-charcoal border-zinc-800 text-white"
+                                    className="bg-zinc-900 border-zinc-800 text-white"
                                   />
                                 </div>
                               ))}

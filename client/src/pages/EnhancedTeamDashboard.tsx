@@ -277,7 +277,7 @@ const EnhancedTeamDashboard = () => {
       case "Senior":
         return "bg-zinc-900 text-white";
       case "Mid":
-        return "bg-charcoal text-gray-300";
+        return "bg-zinc-900 text-gray-300";
       default:
         return "bg-black text-gray-400";
     }
@@ -286,13 +286,13 @@ const EnhancedTeamDashboard = () => {
   const getInsightColor = (type: string) => {
     switch (type) {
       case "optimization":
-        return "border-zinc-800er bg-charcoal/50";
+        return "border-zinc-800er bg-zinc-900/50";
       case "risk":
-        return "border-zinc-800er bg-charcoal/50";
+        return "border-zinc-800er bg-zinc-900/50";
       case "opportunity":
-        return "border-zinc-800er bg-charcoal/50";
+        return "border-zinc-800er bg-zinc-900/50";
       case "prediction":
-        return "border-zinc-800er bg-charcoal/50";
+        return "border-zinc-800er bg-zinc-900/50";
       default:
         return "border-zinc-800 bg-zinc-900";
     }
@@ -345,7 +345,7 @@ const EnhancedTeamDashboard = () => {
 
         {/* Enhanced Metrics with Gamification */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
-          <Card className="bg-charcoal border-zinc-800er">
+          <Card className="bg-zinc-900 border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -363,7 +363,7 @@ const EnhancedTeamDashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-charcoal border-zinc-800er">
+          <Card className="bg-zinc-900 border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -381,7 +381,7 @@ const EnhancedTeamDashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-charcoal border-zinc-800er">
+          <Card className="bg-zinc-900 border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -399,7 +399,7 @@ const EnhancedTeamDashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-charcoal border-zinc-800er">
+          <Card className="bg-zinc-900 border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -417,7 +417,7 @@ const EnhancedTeamDashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-charcoal border-zinc-800er">
+          <Card className="bg-zinc-900 border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -512,7 +512,7 @@ const EnhancedTeamDashboard = () => {
                             return participant ? (
                               <Avatar
                                 key={participant.id}
-                                className="w-6 h-6 border-2 border-charcoal-dark"
+                                className="w-6 h-6 border-2 border-zinc-800-dark"
                               >
                                 <AvatarFallback className="text-xs">
                                   {participant.name
@@ -628,7 +628,7 @@ const EnhancedTeamDashboard = () => {
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-2">
-                              <Badge className="bg-charcoal text-white">
+                              <Badge className="bg-zinc-900 text-white">
                                 {insight.type}
                               </Badge>
                               <div className="flex items-center gap-1">
@@ -785,7 +785,7 @@ const EnhancedTeamDashboard = () => {
                             {member.specialties.map((specialty) => (
                               <Badge
                                 key={specialty}
-                                className="bg-charcoal text-zinc-400 text-xs"
+                                className="bg-zinc-900 text-zinc-400 text-xs"
                               >
                                 {specialty}
                               </Badge>
@@ -824,7 +824,7 @@ const EnhancedTeamDashboard = () => {
                               .map((member) => (
                                 <Avatar
                                   key={member.id}
-                                  className="w-6 h-6 border-2 border-charcoal-dark"
+                                  className="w-6 h-6 border-2 border-zinc-800-dark"
                                 >
                                   <AvatarFallback className="text-xs">
                                     {member.name
@@ -907,7 +907,7 @@ const EnhancedTeamDashboard = () => {
                             </p>
                           </div>
                         </div>
-                        <div className="w-full bg-charcoal h-2 rounded-full">
+                        <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
                             className={`h-2 rounded-full ${
                               achievement.progress === 100
@@ -954,7 +954,7 @@ const EnhancedTeamDashboard = () => {
                                   ? "bg-gray-400 text-black"
                                   : index === 2
                                     ? "bg-orange-600 text-white"
-                                    : "bg-charcoal text-white"
+                                    : "bg-zinc-900 text-white"
                             }`}
                           >
                             {index + 1}

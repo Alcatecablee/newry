@@ -135,7 +135,7 @@ const AppPage = () => {
                     onClick={() => toggleLayer(layer.id)}
                     className={`group relative p-4 rounded-xl border transition-all duration-200 text-left ${
                       isEnabled
-                        ? "bg-charcoal border-white/20 shadow-lg"
+                        ? "bg-zinc-900 border-white/20 shadow-lg"
                         : "bg-zinc-900 border-zinc-800er hover:border-white/30 hover:bg-zinc-900"
                     }`}
                   >
@@ -210,7 +210,7 @@ const AppPage = () => {
               </TabsList>
 
               <TabsContent value="single" className="mt-8 space-y-8">
-                <div className="bg-charcoal/30 border border-zinc-800er rounded-2xl p-6">
+                <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
                   <FileUploadZone
                     onFile={handleFileUpload}
                     processing={processing}
@@ -232,7 +232,7 @@ const AppPage = () => {
 
                 {stats && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="bg-charcoal border border-zinc-800er rounded-xl p-4">
+                    <div className="bg-zinc-900 border border-zinc-800er rounded-xl p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <TrendingUp className="w-5 h-5 text-white" />
                         <span className="text-zinc-400 font-medium">
@@ -244,7 +244,7 @@ const AppPage = () => {
                       </div>
                     </div>
 
-                    <div className="bg-charcoal border border-zinc-800er rounded-xl p-4">
+                    <div className="bg-zinc-900 border border-zinc-800er rounded-xl p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Clock className="w-5 h-5 text-white" />
                         <span className="text-zinc-400 font-medium">
@@ -256,7 +256,7 @@ const AppPage = () => {
                       </div>
                     </div>
 
-                    <div className="bg-charcoal border border-zinc-800er rounded-xl p-4">
+                    <div className="bg-zinc-900 border border-zinc-800er rounded-xl p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Zap className="w-5 h-5 text-white" />
                         <span className="text-zinc-400 font-medium">
@@ -270,7 +270,7 @@ const AppPage = () => {
                   </div>
                 )}
 
-                <div className="bg-charcoal/30 border border-zinc-800er rounded-2xl overflow-hidden">
+                <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl overflow-hidden">
                   <CodeDiffViewer
                     original={originalCode}
                     transformed={transformedCode}
@@ -279,19 +279,19 @@ const AppPage = () => {
                 </div>
 
                 {insights.length > 0 && (
-                  <div className="bg-charcoal/30 border border-zinc-800er rounded-2xl p-6">
+                  <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
                     <TransformationInsights insights={insights} />
                   </div>
                 )}
               </TabsContent>
 
               <TabsContent value="repo" className="mt-8 space-y-8">
-                <div className="bg-charcoal/30 border border-zinc-800er rounded-2xl p-6">
+                <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
                   <GitHubUpload onRepoUpload={handleRepoUpload} />
                 </div>
 
                 {repoFiles.length > 0 && (
-                  <div className="bg-charcoal/30 border border-zinc-800er rounded-2xl p-6">
+                  <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
                     <RepoProcessor
                       files={repoFiles}
                       enabledLayers={enabledLayers}

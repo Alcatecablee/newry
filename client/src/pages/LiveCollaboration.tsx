@@ -283,7 +283,7 @@ const LiveCollaboration = () => {
                     </AvatarFallback>
                   </Avatar>
                   <div
-                    className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-charcoal-dark ${
+                    className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-zinc-800-dark ${
                       participant.isOnline ? "bg-green-400" : "bg-gray-400"
                     }`}
                   />
@@ -424,7 +424,7 @@ const LiveCollaboration = () => {
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge className="bg-charcoal text-white">
+                            <Badge className="bg-zinc-900 text-white">
                               Layer {fix.layer}
                             </Badge>
                             <span className="text-white font-medium">
@@ -606,7 +606,7 @@ const LiveCollaboration = () => {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Add a comment..."
-                    className="flex-1 bg-charcoal border border-zinc-800 rounded px-3 py-2 text-white text-sm"
+                    className="flex-1 bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-white text-sm"
                     onKeyPress={(e) =>
                       e.key === "Enter" &&
                       handleAddComment(selectedFix || undefined)
@@ -652,7 +652,7 @@ const LiveCollaboration = () => {
                           </AvatarFallback>
                         </Avatar>
                         <div
-                          className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-charcoal-dark ${
+                          className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-zinc-800-dark ${
                             participant.isOnline
                               ? "bg-green-400"
                               : "bg-gray-400"
@@ -668,7 +668,7 @@ const LiveCollaboration = () => {
                         </p>
                       </div>
                       {participant.cursor && (
-                        <Badge className="bg-charcoal text-zinc-400 text-xs">
+                        <Badge className="bg-zinc-900 text-zinc-400 text-xs">
                           Line {participant.cursor.line}
                         </Badge>
                       )}

@@ -17,7 +17,7 @@ body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
   min-height: 100vh;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 /* Smooth scrolling */
@@ -85,14 +85,14 @@ html {
 }
 
 .feature-card::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
   background: transparent;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -101,56 +101,50 @@ html {
 
 /* Syntax Analysis Card */
 .syntax-card::before {
-  background: radial-gradient(500px circle at var(--mouse-x) var(--mouse-y), var(--glow-syntax), transparent 40%);
+  background: transparent;
   opacity: 0;
-  animation: cardGlow 4s infinite;
-  animation-delay: calc(random(5) + 5s);
 }
 
 /* Pattern Detection Card */
 .pattern-card::before {
-  background: radial-gradient(500px circle at var(--mouse-x) var(--mouse-y), var(--glow-pattern), transparent 40%);
+  background: transparent;
   opacity: 0;
-  animation: cardGlow 5s infinite;
-  animation-delay: calc(random(8) + 8s);
 }
 
 /* Component Analysis Card */
 .component-card::before {
-  background: radial-gradient(500px circle at var(--mouse-x) var(--mouse-y), var(--glow-component), transparent 40%);
+  background: transparent;
   opacity: 0;
-  animation: cardGlow 6s infinite;
-  animation-delay: calc(random(10) + 10s);
 }
 
 /* Data Flow Card */
 .data-card::before {
-  background: radial-gradient(500px circle at var(--mouse-x) var(--mouse-y), var(--glow-data), transparent 40%);
+  background: transparent;
   opacity: 0;
-  animation: cardGlow 4s infinite;
-  animation-delay: calc(random(5) + 5s);
 }
 
 /* Framework Card */
 .framework-card::before {
-  background: radial-gradient(500px circle at var(--mouse-x) var(--mouse-y), var(--glow-framework), transparent 40%);
+  background: transparent;
   opacity: 0;
-  animation: cardGlow 5s infinite;
-  animation-delay: calc(random(8) + 8s);
 }
 
 /* Testing Card */
 .testing-card::before {
-  background: radial-gradient(500px circle at var(--mouse-x) var(--mouse-y), var(--glow-testing), transparent 40%);
+  background: transparent;
   opacity: 0;
-  animation: cardGlow 6s infinite;
-  animation-delay: calc(random(10) + 10s);
 }
 
 @keyframes cardGlow {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 /* Random Animation Delays */
@@ -177,4 +171,4 @@ html {
 
 .random-duration-long {
   animation-duration: calc(random(4) + 4s) !important;
-} 
+}

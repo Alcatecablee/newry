@@ -270,7 +270,7 @@ export function FileUploadZone({ onFile, processing }: FileUploadZoneProps) {
 
       {/* File Upload Zone */}
       <div
-        className={`border-2 border-dashed border-zinc-800er rounded-lg bg-charcoal/30 py-8 flex flex-col items-center justify-center text-center shadow hover:border-white/50 transition-all cursor-pointer ${
+        className={`border-2 border-dashed border-zinc-800er rounded-lg bg-zinc-900/30 py-8 flex flex-col items-center justify-center text-center shadow hover:border-white/50 transition-all cursor-pointer ${
           processing ? "opacity-50 pointer-events-none animate-pulse" : ""
         }`}
         onClick={() => inputRef.current?.click()}
@@ -374,7 +374,7 @@ export function FileUploadZone({ onFile, processing }: FileUploadZoneProps) {
           placeholder="Paste your React, TypeScript, or JavaScript code here..."
           value={pastedCode}
           onChange={(e) => setPastedCode(e.target.value)}
-          className="min-h-[120px] bg-charcoal/90 border-zinc-800er text-white placeholder:text-muted-foreground font-mono text-sm resize-none focus:border-white/50"
+          className="min-h-[120px] bg-zinc-900/90 border-zinc-800er text-white placeholder:text-muted-foreground font-mono text-sm resize-none focus:border-white/50"
           disabled={processing}
           maxLength={1024 * 1024} // 1MB limit
         />

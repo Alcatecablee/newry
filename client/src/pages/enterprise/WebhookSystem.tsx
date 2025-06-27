@@ -539,13 +539,13 @@ const WebhookSystem = () => {
                           {endpoint.events.slice(0, 2).map((event) => (
                             <Badge
                               key={event}
-                              className="bg-charcoal text-zinc-400 text-xs"
+                              className="bg-zinc-900 text-zinc-400 text-xs"
                             >
                               {event}
                             </Badge>
                           ))}
                           {endpoint.events.length > 2 && (
-                            <Badge className="bg-charcoal text-zinc-400 text-xs">
+                            <Badge className="bg-zinc-900 text-zinc-400 text-xs">
                               +{endpoint.events.length - 2} more
                             </Badge>
                           )}
@@ -596,7 +596,7 @@ const WebhookSystem = () => {
                             <Input
                               id="name"
                               value={endpoint.name}
-                              className="bg-charcoal border-zinc-800 text-white"
+                              className="bg-zinc-900 border-zinc-800 text-white"
                             />
                           </div>
 
@@ -605,7 +605,7 @@ const WebhookSystem = () => {
                             <Input
                               id="url"
                               value={endpoint.url}
-                              className="bg-charcoal border-zinc-800 text-white"
+                              className="bg-zinc-900 border-zinc-800 text-white"
                             />
                           </div>
 
@@ -616,7 +616,7 @@ const WebhookSystem = () => {
                                 id="secret"
                                 value={endpoint.secret}
                                 type={showSecrets ? "text" : "password"}
-                                className="bg-charcoal border-zinc-800 text-white"
+                                className="bg-zinc-900 border-zinc-800 text-white"
                               />
                               <Button size="sm" variant="ghost">
                                 <Copy className="w-4 h-4" />
@@ -658,7 +658,7 @@ const WebhookSystem = () => {
                                 <Input
                                   value={endpoint.retryPolicy.maxRetries}
                                   type="number"
-                                  className="bg-charcoal border-zinc-800 text-white"
+                                  className="bg-zinc-900 border-zinc-800 text-white"
                                 />
                               </div>
                               <div>
@@ -666,7 +666,7 @@ const WebhookSystem = () => {
                                 <Input
                                   value={endpoint.retryPolicy.timeout}
                                   type="number"
-                                  className="bg-charcoal border-zinc-800 text-white"
+                                  className="bg-zinc-900 border-zinc-800 text-white"
                                 />
                               </div>
                             </div>
@@ -686,12 +686,12 @@ const WebhookSystem = () => {
                                     <Input
                                       value={key}
                                       placeholder="Header name"
-                                      className="bg-charcoal border-zinc-800 text-white"
+                                      className="bg-zinc-900 border-zinc-800 text-white"
                                     />
                                     <Input
                                       value={value}
                                       placeholder="Header value"
-                                      className="bg-charcoal border-zinc-800 text-white"
+                                      className="bg-zinc-900 border-zinc-800 text-white"
                                     />
                                   </div>
                                 ),
@@ -728,7 +728,7 @@ const WebhookSystem = () => {
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <div className="flex items-center gap-2">
-                            <Badge className="bg-charcoal text-white">
+                            <Badge className="bg-zinc-900 text-white">
                               {event.type}
                             </Badge>
                             <Badge
@@ -786,7 +786,7 @@ const WebhookSystem = () => {
                         <summary className="text-zinc-400 text-sm cursor-pointer">
                           View Payload
                         </summary>
-                        <pre className="mt-2 p-2 bg-charcoal rounded text-xs text-zinc-400 overflow-auto">
+                        <pre className="mt-2 p-2 bg-zinc-900 rounded text-xs text-zinc-400 overflow-auto">
                           {JSON.stringify(event.payload, null, 2)}
                         </pre>
                       </details>
@@ -820,7 +820,7 @@ const WebhookSystem = () => {
                         <CardTitle className="text-lg">
                           {template.name}
                         </CardTitle>
-                        <Badge className="bg-charcoal text-zinc-400 text-xs capitalize">
+                        <Badge className="bg-zinc-900 text-zinc-400 text-xs capitalize">
                           {template.category}
                         </Badge>
                       </div>
@@ -838,7 +838,7 @@ const WebhookSystem = () => {
                         {template.events.map((event) => (
                           <Badge
                             key={event}
-                            className="bg-charcoal text-zinc-400 text-xs"
+                            className="bg-zinc-900 text-zinc-400 text-xs"
                           >
                             {event}
                           </Badge>
@@ -898,7 +898,7 @@ const WebhookSystem = () => {
                           {endpoint.name}
                         </span>
                         <div className="flex items-center gap-2">
-                          <div className="w-16 bg-charcoal h-2 rounded-full">
+                          <div className="w-16 bg-zinc-900 h-2 rounded-full">
                             <div
                               className="bg-blue-400 h-2 rounded-full"
                               style={{
@@ -943,7 +943,7 @@ const WebhookSystem = () => {
                           <span className="text-zinc-400 text-xs">
                             {error.count}
                           </span>
-                          <div className="w-16 bg-charcoal h-2 rounded-full">
+                          <div className="w-16 bg-zinc-900 h-2 rounded-full">
                             <div
                               className="bg-red-400 h-2 rounded-full"
                               style={{ width: `${error.percentage}%` }}

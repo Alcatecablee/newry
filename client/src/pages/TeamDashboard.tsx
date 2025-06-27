@@ -450,13 +450,13 @@ const TeamDashboard = () => {
                 <div className="flex items-center justify-between">
                   <CardTitle>Activity Feed</CardTitle>
                   <div className="flex items-center gap-2">
-                    <select className="bg-charcoal border border-zinc-800 rounded px-2 py-1 text-sm text-white">
+                    <select className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 text-sm text-white">
                       <option>All Projects</option>
                       {projects.map((p) => (
                         <option key={p.id}>{p.name}</option>
                       ))}
                     </select>
-                    <select className="bg-charcoal border border-zinc-800 rounded px-2 py-1 text-sm text-white">
+                    <select className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 text-sm text-white">
                       <option>Last 7 days</option>
                       <option>Last 30 days</option>
                       <option>Last 3 months</option>
