@@ -50,7 +50,7 @@ const TypewriterHeadline: React.FC = () => {
 
   return (
     <div className="mb-8">
-      <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent leading-tight">
+      <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-zinc-900">
         <span className="block">AI-Powered</span>
         <span className="block min-h-[1.2em]">
           {currentText}

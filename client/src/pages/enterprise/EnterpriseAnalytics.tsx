@@ -357,7 +357,7 @@ const EnterpriseAnalytics = () => {
   };
 
   return (
-    <div className="min-h-screen bg-charcoal-dark p-6">
+    <div className="min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
         {/* Executive Header */}
         <div className="flex items-center justify-between mb-8">
@@ -368,7 +368,7 @@ const EnterpriseAnalytics = () => {
                 <h1 className="text-3xl font-bold text-white">
                   Enterprise Analytics
                 </h1>
-                <p className="text-charcoal-lighter">
+                <p className="text-zinc-400">
                   Executive insights and compliance overview
                 </p>
               </div>
@@ -420,7 +420,7 @@ const EnterpriseAnalytics = () => {
               />
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-charcoal-lighter text-xs uppercase tracking-wide">
+                  <span className="text-zinc-400 text-xs uppercase tracking-wide">
                     {metric.name}
                   </span>
                   <div className="flex items-center">
@@ -443,7 +443,7 @@ const EnterpriseAnalytics = () => {
                   vs target: {metric.target}
                   {metric.unit}
                 </div>
-                <div className="text-xs text-charcoal-light">
+                <div className="text-xs text-zinc-400">
                   {metric.current > metric.previous ? "+" : ""}
                   {(
                     ((metric.current - metric.previous) / metric.previous) *
@@ -457,38 +457,38 @@ const EnterpriseAnalytics = () => {
         </div>
 
         <Tabs defaultValue="executive" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="executive"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Crown className="w-4 h-4 mr-2" />
               Executive Overview
             </TabsTrigger>
             <TabsTrigger
               value="compliance"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Shield className="w-4 h-4 mr-2" />
               Compliance
             </TabsTrigger>
             <TabsTrigger
               value="risk"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <AlertTriangle className="w-4 h-4 mr-2" />
               Risk Management
             </TabsTrigger>
             <TabsTrigger
               value="performance"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <BarChart3 className="w-4 h-4 mr-2" />
               Performance
             </TabsTrigger>
             <TabsTrigger
               value="roi"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <DollarSign className="w-4 h-4 mr-2" />
               ROI Analysis
@@ -511,7 +511,7 @@ const EnterpriseAnalytics = () => {
                       <div className="text-6xl font-bold text-green-400">
                         {organizationHealth.overall}
                       </div>
-                      <div className="text-charcoal-lighter">
+                      <div className="text-zinc-400">
                         Overall Health
                       </div>
                     </div>
@@ -527,7 +527,7 @@ const EnterpriseAnalytics = () => {
                               {dimension}
                             </span>
                             <div className="flex items-center gap-2">
-                              <div className="w-32 bg-charcoal h-2 rounded-full">
+                              <div className="w-32 bg-zinc-900 h-2 rounded-full">
                                 <div
                                   className={`h-2 rounded-full ${
                                     score >= 90
@@ -652,40 +652,40 @@ const EnterpriseAnalytics = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="p-4 bg-charcoal-light rounded-lg">
+                    <div className="p-4 bg-zinc-900 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-white font-medium">
                           Cost Savings
                         </span>
                         <span className="text-green-400 font-bold">$4.2M</span>
                       </div>
-                      <p className="text-charcoal-lighter text-sm">
+                      <p className="text-zinc-400 text-sm">
                         Annual savings from improved code quality and reduced
                         bug fixing time
                       </p>
                     </div>
 
-                    <div className="p-4 bg-charcoal-light rounded-lg">
+                    <div className="p-4 bg-zinc-900 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-white font-medium">
                           Risk Reduction
                         </span>
                         <span className="text-blue-400 font-bold">87%</span>
                       </div>
-                      <p className="text-charcoal-lighter text-sm">
+                      <p className="text-zinc-400 text-sm">
                         Decrease in security-related incidents compared to last
                         year
                       </p>
                     </div>
 
-                    <div className="p-4 bg-charcoal-light rounded-lg">
+                    <div className="p-4 bg-zinc-900 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-white font-medium">
                           Developer Efficiency
                         </span>
                         <span className="text-purple-400 font-bold">+34%</span>
                       </div>
-                      <p className="text-charcoal-lighter text-sm">
+                      <p className="text-zinc-400 text-sm">
                         Improvement in developer productivity metrics
                         quarter-over-quarter
                       </p>
@@ -708,7 +708,7 @@ const EnterpriseAnalytics = () => {
                     {complianceFrameworks.map((framework) => (
                       <div
                         key={framework.id}
-                        className="p-4 bg-charcoal-light rounded-lg border border-charcoal-lighter"
+                        className="p-4 bg-zinc-900 rounded-lg border border-zinc-800er"
                       >
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
@@ -738,7 +738,7 @@ const EnterpriseAnalytics = () => {
 
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
-                            <span className="text-charcoal-lighter">
+                            <span className="text-zinc-400">
                               Last Audit:
                             </span>
                             <div className="text-white">
@@ -746,7 +746,7 @@ const EnterpriseAnalytics = () => {
                             </div>
                           </div>
                           <div>
-                            <span className="text-charcoal-lighter">
+                            <span className="text-zinc-400">
                               Next Audit:
                             </span>
                             <div className="text-white">
@@ -763,7 +763,7 @@ const EnterpriseAnalytics = () => {
                           >
                             {framework.riskLevel} risk
                           </Badge>
-                          <span className="text-charcoal-light text-sm">
+                          <span className="text-zinc-400 text-sm">
                             {framework.requirements.length} requirements
                           </span>
                         </div>
@@ -808,7 +808,7 @@ const EnterpriseAnalytics = () => {
                     ].map((item, index) => (
                       <div
                         key={index}
-                        className="flex items-center gap-3 p-3 bg-charcoal-light rounded"
+                        className="flex items-center gap-3 p-3 bg-zinc-900 rounded"
                       >
                         <div
                           className={`w-3 h-3 rounded-full ${
@@ -823,11 +823,11 @@ const EnterpriseAnalytics = () => {
                           <p className="text-white font-medium">
                             {item.activity}
                           </p>
-                          <p className="text-charcoal-lighter text-sm">
+                          <p className="text-zinc-400 text-sm">
                             {item.date}
                           </p>
                         </div>
-                        <Badge className="bg-charcoal text-charcoal-lighter capitalize">
+                        <Badge className="bg-zinc-900 text-zinc-400 capitalize">
                           {item.type}
                         </Badge>
                       </div>
@@ -853,7 +853,7 @@ const EnterpriseAnalytics = () => {
                     {organizationHealth.riskFactors.map((risk) => (
                       <div
                         key={risk.id}
-                        className="p-4 bg-charcoal-light rounded-lg border border-charcoal-lighter"
+                        className="p-4 bg-zinc-900 rounded-lg border border-zinc-800er"
                       >
                         <div className="flex items-start justify-between mb-2">
                           <div>
@@ -863,7 +863,7 @@ const EnterpriseAnalytics = () => {
                               >
                                 {risk.severity}
                               </Badge>
-                              <Badge className="bg-charcoal text-charcoal-lighter capitalize">
+                              <Badge className="bg-zinc-900 text-zinc-400 capitalize">
                                 {risk.type}
                               </Badge>
                             </div>
@@ -872,7 +872,7 @@ const EnterpriseAnalytics = () => {
                             </p>
                           </div>
                           <div className="text-right">
-                            <div className="text-sm text-charcoal-lighter">
+                            <div className="text-sm text-zinc-400">
                               Likelihood
                             </div>
                             <div className="text-white font-bold">
@@ -881,19 +881,19 @@ const EnterpriseAnalytics = () => {
                           </div>
                         </div>
 
-                        <p className="text-charcoal-lighter text-sm mb-3">
+                        <p className="text-zinc-400 text-sm mb-3">
                           {risk.description}
                         </p>
 
                         <div className="space-y-2">
                           <div>
-                            <span className="text-charcoal-lighter text-xs">
+                            <span className="text-zinc-400 text-xs">
                               Impact:
                             </span>
                             <p className="text-white text-sm">{risk.impact}</p>
                           </div>
                           <div>
-                            <span className="text-charcoal-lighter text-xs">
+                            <span className="text-zinc-400 text-xs">
                               Owner:
                             </span>
                             <span className="text-white text-sm ml-2">
@@ -901,7 +901,7 @@ const EnterpriseAnalytics = () => {
                             </span>
                           </div>
                           <div>
-                            <span className="text-charcoal-lighter text-xs">
+                            <span className="text-zinc-400 text-xs">
                               Due Date:
                             </span>
                             <span className="text-white text-sm ml-2">
@@ -928,7 +928,7 @@ const EnterpriseAnalytics = () => {
                     {organizationHealth.opportunities.map((opportunity) => (
                       <div
                         key={opportunity.id}
-                        className="p-4 bg-charcoal-light rounded-lg border border-charcoal-lighter"
+                        className="p-4 bg-zinc-900 rounded-lg border border-zinc-800er"
                       >
                         <div className="flex items-start justify-between mb-2">
                           <div>
@@ -944,7 +944,7 @@ const EnterpriseAnalytics = () => {
                               >
                                 {opportunity.effort} effort
                               </Badge>
-                              <Badge className="bg-charcoal text-charcoal-lighter capitalize">
+                              <Badge className="bg-zinc-900 text-zinc-400 capitalize">
                                 {opportunity.type}
                               </Badge>
                             </div>
@@ -953,7 +953,7 @@ const EnterpriseAnalytics = () => {
                             </p>
                           </div>
                           <div className="text-right">
-                            <div className="text-sm text-charcoal-lighter">
+                            <div className="text-sm text-zinc-400">
                               Priority
                             </div>
                             <div className="text-white font-bold">
@@ -962,13 +962,13 @@ const EnterpriseAnalytics = () => {
                           </div>
                         </div>
 
-                        <p className="text-charcoal-lighter text-sm mb-3">
+                        <p className="text-zinc-400 text-sm mb-3">
                           {opportunity.description}
                         </p>
 
                         <div className="flex items-center justify-between">
                           <div>
-                            <span className="text-charcoal-lighter text-xs">
+                            <span className="text-zinc-400 text-xs">
                               Value:
                             </span>
                             <span className="text-green-400 text-sm font-bold ml-2">
@@ -976,7 +976,7 @@ const EnterpriseAnalytics = () => {
                             </span>
                           </div>
                           <div>
-                            <span className="text-charcoal-lighter text-xs">
+                            <span className="text-zinc-400 text-xs">
                               Timeline:
                             </span>
                             <span className="text-white text-sm ml-2">
@@ -999,8 +999,8 @@ const EnterpriseAnalytics = () => {
                   <CardTitle>Team Performance Trends</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
-                    <p className="text-charcoal-lighter">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                    <p className="text-zinc-400">
                       Performance trend charts would be here
                     </p>
                   </div>
@@ -1012,8 +1012,8 @@ const EnterpriseAnalytics = () => {
                   <CardTitle>Quality Metrics</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
-                    <p className="text-charcoal-lighter">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                    <p className="text-zinc-400">
                       Quality metrics visualization
                     </p>
                   </div>
@@ -1025,8 +1025,8 @@ const EnterpriseAnalytics = () => {
                   <CardTitle>Security Posture</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
-                    <p className="text-charcoal-lighter">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                    <p className="text-zinc-400">
                       Security metrics dashboard
                     </p>
                   </div>
@@ -1038,8 +1038,8 @@ const EnterpriseAnalytics = () => {
                   <CardTitle>Compliance Trends</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
-                    <p className="text-charcoal-lighter">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                    <p className="text-zinc-400">
                       Compliance trend analysis
                     </p>
                   </div>
@@ -1059,25 +1059,25 @@ const EnterpriseAnalytics = () => {
                     <div className="text-4xl font-bold text-green-400 mb-2">
                       $4.2M
                     </div>
-                    <div className="text-charcoal-lighter text-sm">
+                    <div className="text-zinc-400 text-sm">
                       Annual Savings
                     </div>
                   </div>
                   <div className="mt-4 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-charcoal-lighter">
+                      <span className="text-zinc-400">
                         Bug Fix Reduction
                       </span>
                       <span className="text-white">$2.1M</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-charcoal-lighter">
+                      <span className="text-zinc-400">
                         Security Incidents
                       </span>
                       <span className="text-white">$1.5M</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-charcoal-lighter">
+                      <span className="text-zinc-400">
                         Compliance Fines
                       </span>
                       <span className="text-white">$0.6M</span>
@@ -1095,25 +1095,25 @@ const EnterpriseAnalytics = () => {
                     <div className="text-4xl font-bold text-blue-400 mb-2">
                       34%
                     </div>
-                    <div className="text-charcoal-lighter text-sm">
+                    <div className="text-zinc-400 text-sm">
                       Efficiency Increase
                     </div>
                   </div>
                   <div className="mt-4 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-charcoal-lighter">
+                      <span className="text-zinc-400">
                         Code Review Time
                       </span>
                       <span className="text-white">-45%</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-charcoal-lighter">
+                      <span className="text-zinc-400">
                         Issue Resolution
                       </span>
                       <span className="text-white">-58%</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-charcoal-lighter">
+                      <span className="text-zinc-400">
                         Deploy Frequency
                       </span>
                       <span className="text-white">+67%</span>
@@ -1131,23 +1131,23 @@ const EnterpriseAnalytics = () => {
                     <div className="text-4xl font-bold text-purple-400 mb-2">
                       340%
                     </div>
-                    <div className="text-charcoal-lighter text-sm">
+                    <div className="text-zinc-400 text-sm">
                       Return on Investment
                     </div>
                   </div>
                   <div className="mt-4 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-charcoal-lighter">Investment</span>
+                      <span className="text-zinc-400">Investment</span>
                       <span className="text-white">$1.2M</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-charcoal-lighter">
+                      <span className="text-zinc-400">
                         Annual Return
                       </span>
                       <span className="text-white">$4.2M</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-charcoal-lighter">
+                      <span className="text-zinc-400">
                         Payback Period
                       </span>
                       <span className="text-white">3.4 months</span>

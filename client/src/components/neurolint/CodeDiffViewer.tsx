@@ -26,11 +26,11 @@ export function CodeDiffViewer({
 
   if (!original && !loading)
     return (
-      <div className="h-full min-h-[300px] flex flex-col items-center justify-center text-charcoal-lighter border border-charcoal-light rounded-lg bg-charcoal/50">
+      <div className="h-full min-h-[300px] flex flex-col items-center justify-center text-zinc-400 border border-zinc-800 rounded-lg bg-zinc-900/50">
         <FileText className="mb-2 opacity-40 w-12 h-12" />
         <div className="text-center">
           <div className="text-lg font-medium text-white">No file selected</div>
-          <span className="text-sm text-charcoal-lighter">
+          <span className="text-sm text-zinc-400">
             Choose or drop a file to begin transforming!
           </span>
         </div>
@@ -39,7 +39,7 @@ export function CodeDiffViewer({
 
   if (loading)
     return (
-      <div className="h-full min-h-[300px] flex items-center justify-center animate-pulse text-charcoal-lighter border border-charcoal-light rounded-lg bg-charcoal/50">
+      <div className="h-full min-h-[300px] flex items-center justify-center animate-pulse text-zinc-400 border border-zinc-800 rounded-lg bg-zinc-900/50">
         <FilePlus className="mr-2 animate-bounce w-6 h-6" />
         <span className="text-lg">Processing...</span>
       </div>
@@ -94,9 +94,9 @@ export function CodeDiffViewer({
   };
 
   return (
-    <div className="h-[85vh] bg-charcoal border border-charcoal-light rounded-lg overflow-hidden transition-all font-mono backdrop-blur-xl flex flex-col">
+    <div className="h-[85vh] bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden transition-all font-mono backdrop-blur-xl flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-charcoal-light bg-charcoal-light rounded-t-lg backdrop-blur font-sans flex-shrink-0">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800 bg-zinc-900 rounded-t-lg backdrop-blur font-sans flex-shrink-0">
         <div className="flex gap-2 items-center">
           <FileText className="w-4 h-4 text-white" />
           <span className="text-sm font-semibold text-white">
@@ -108,8 +108,8 @@ export function CodeDiffViewer({
       {/* Content Area */}
       <div className="flex-1 flex flex-col min-h-0">
         {/* Transformed Code Panel (Top Half) */}
-        <div className="flex-1 border-b border-charcoal-light flex flex-col min-h-0">
-          <div className="flex items-center justify-between px-4 py-2 bg-charcoal-light border-b border-charcoal-lighter flex-shrink-0">
+        <div className="flex-1 border-b border-zinc-800 flex flex-col min-h-0">
+          <div className="flex items-center justify-between px-4 py-2 bg-zinc-900 border-b border-zinc-800er flex-shrink-0">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-white rounded-full"></div>
               <span className="text-sm font-medium text-white">
@@ -120,7 +120,7 @@ export function CodeDiffViewer({
               <Button
                 size="icon"
                 variant="ghost"
-                className="hover:bg-charcoal hover:text-white h-6 w-6"
+                className="hover:bg-zinc-900 hover:text-white h-6 w-6"
                 aria-label="Copy transformed code"
                 onClick={handleCopyTransformed}
               >
@@ -129,7 +129,7 @@ export function CodeDiffViewer({
               <Button
                 size="icon"
                 variant="ghost"
-                className="hover:bg-charcoal hover:text-white h-6 w-6"
+                className="hover:bg-zinc-900 hover:text-white h-6 w-6"
                 aria-label="Download transformed code"
                 onClick={handleDownloadTransformed}
               >
@@ -137,7 +137,7 @@ export function CodeDiffViewer({
               </Button>
             </div>
           </div>
-          <div className="flex-1 p-4 overflow-auto bg-charcoal-darker min-h-0">
+          <div className="flex-1 p-4 overflow-auto bg-zinc-950 min-h-0">
             <pre className="text-sm text-white whitespace-pre-wrap">
               <code>{highlighted(transformed)}</code>
             </pre>
@@ -145,18 +145,18 @@ export function CodeDiffViewer({
         </div>
 
         {/* Transformation Arrow */}
-        <div className="flex justify-center py-2 bg-charcoal-light flex-shrink-0">
+        <div className="flex justify-center py-2 bg-zinc-900 flex-shrink-0">
           <div className="bg-white rounded-full p-2 shadow-lg backdrop-blur">
-            <ArrowDown className="w-4 h-4 text-charcoal-dark" />
+            <ArrowDown className="w-4 h-4 text-black" />
           </div>
         </div>
 
         {/* Original Code Panel (Bottom Half) */}
         <div className="flex-1 flex flex-col min-h-0">
-          <div className="flex items-center justify-between px-4 py-2 bg-charcoal-light border-b border-charcoal-lighter flex-shrink-0">
+          <div className="flex items-center justify-between px-4 py-2 bg-zinc-900 border-b border-zinc-800er flex-shrink-0">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-charcoal-lighter rounded-full"></div>
-              <span className="text-sm font-medium text-charcoal-lighter">
+              <div className="w-2 h-2 bg-zinc-900er rounded-full"></div>
+              <span className="text-sm font-medium text-zinc-400">
                 Original
               </span>
             </div>
@@ -164,7 +164,7 @@ export function CodeDiffViewer({
               <Button
                 size="icon"
                 variant="ghost"
-                className="hover:bg-charcoal hover:text-white h-6 w-6"
+                className="hover:bg-zinc-900 hover:text-white h-6 w-6"
                 aria-label="Copy original code"
                 onClick={handleCopyOriginal}
               >
@@ -173,7 +173,7 @@ export function CodeDiffViewer({
               <Button
                 size="icon"
                 variant="ghost"
-                className="hover:bg-charcoal hover:text-white h-6 w-6"
+                className="hover:bg-zinc-900 hover:text-white h-6 w-6"
                 aria-label="Download original code"
                 onClick={handleDownloadOriginal}
               >
@@ -181,8 +181,8 @@ export function CodeDiffViewer({
               </Button>
             </div>
           </div>
-          <div className="flex-1 p-4 overflow-auto bg-charcoal-darker min-h-0">
-            <pre className="text-sm text-charcoal-lighter whitespace-pre-wrap">
+          <div className="flex-1 p-4 overflow-auto bg-zinc-950 min-h-0">
+            <pre className="text-sm text-zinc-400 whitespace-pre-wrap">
               <code>{highlighted(original)}</code>
             </pre>
           </div>

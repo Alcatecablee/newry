@@ -629,77 +629,116 @@ export default function Index() {
       </section>
 
       {/* CLI Tool Section */}
-      <section id="cli" className="py-20 bg-charcoal-dark border-t border-charcoal-light">
+      <section
+        id="cli"
+        className="py-20 bg-black border-t border-zinc-800"
+      >
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
               Command Line Interface
             </h2>
-            <p className="text-xl text-charcoal-lighter max-w-3xl mx-auto">
-              Integrate NeuroLint into your development workflow with our powerful CLI tool. 
-              Perfect for CI/CD pipelines and automated code quality checks.
+            <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
+              Integrate NeuroLint into your development workflow with our
+              powerful CLI tool. Perfect for CI/CD pipelines and automated code
+              quality checks.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="space-y-6">
-                <h3 className="text-2xl font-semibold text-white">Quick Installation</h3>
-                <div className="bg-charcoal border border-charcoal-light rounded-xl p-4">
+                <h3 className="text-2xl font-semibold text-white">
+                  Quick Installation
+                </h3>
+                <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-charcoal-lighter">Terminal</span>
-                    <button className="text-charcoal-lighter hover:text-white transition-colors">
+                    <span className="text-sm text-zinc-400">
+                      Terminal
+                    </span>
+                    <button className="text-zinc-400 hover:text-white transition-colors">
                       <Copy className="w-4 h-4" />
                     </button>
                   </div>
-                  <code className="text-white font-mono">npm install -g @neurolint/cli</code>
+                  <code className="text-white font-mono">
+                    npm install -g @neurolint/cli
+                  </code>
                 </div>
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-charcoal-light rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Terminal className="w-6 h-6 text-white" />
                   <div>
-                    <h4 className="font-semibold text-white">Automated Analysis</h4>
-                    <p className="text-charcoal-lighter text-sm">Run comprehensive code analysis with simple commands</p>
+                    <h4 className="font-semibold text-white">
+                      Automated Analysis
+                    </h4>
+                    <p className="text-zinc-400 text-sm">
+                      Run comprehensive code analysis with simple commands
+                    </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-charcoal-light rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <GitBranch className="w-6 h-6 text-white" />
                   <div>
-                    <h4 className="font-semibold text-white">CI/CD Integration</h4>
-                    <p className="text-charcoal-lighter text-sm">Seamlessly integrate with GitHub Actions, Jenkins, and more</p>
+                    <h4 className="font-semibold text-white">
+                      CI/CD Integration
+                    </h4>
+                    <p className="text-zinc-400 text-sm">
+                      Seamlessly integrate with GitHub Actions, Jenkins, and
+                      more
+                    </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-charcoal-light rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Settings className="w-6 h-6 text-white" />
                   <div>
-                    <h4 className="font-semibold text-white">Configurable Rules</h4>
-                    <p className="text-charcoal-lighter text-sm">Customize analysis layers and rules for your project needs</p>
+                    <h4 className="font-semibold text-white">
+                      Configurable Rules
+                    </h4>
+                    <p className="text-zinc-400 text-sm">
+                      Customize analysis layers and rules for your project needs
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-charcoal border border-charcoal-light rounded-2xl overflow-hidden">
-              <div className="bg-charcoal-light px-4 py-3 flex items-center gap-2 border-b border-charcoal-light">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
+              <div className="bg-zinc-900 px-4 py-3 flex items-center gap-2 border-b border-zinc-800">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                   <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                   <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                 </div>
-                <span className="text-sm text-charcoal-lighter ml-4">Terminal</span>
+                <span className="text-sm text-zinc-400 ml-4">
+                  Terminal
+                </span>
               </div>
               <div className="p-6 font-mono text-sm space-y-2">
                 <div className="text-white">$ neurolint analyze src/</div>
-                <div className="text-charcoal-lighter">🔍 Analyzing 24 files...</div>
-                <div className="text-white">✓ Layer 1: Configuration (0.2s)</div>
-                <div className="text-white">✓ Layer 2: Pattern Detection (0.8s)</div>
-                <div className="text-white">✓ Layer 3: Component Analysis (1.2s)</div>
-                <div className="text-charcoal-lighter">! Found 12 issues, 8 auto-fixable</div>
+                <div className="text-zinc-400">
+                  🔍 Analyzing 24 files...
+                </div>
+                <div className="text-white">
+                  ✓ Layer 1: Configuration (0.2s)
+                </div>
+                <div className="text-white">
+                  ✓ Layer 2: Pattern Detection (0.8s)
+                </div>
+                <div className="text-white">
+                  ✓ Layer 3: Component Analysis (1.2s)
+                </div>
+                <div className="text-zinc-400">
+                  ! Found 12 issues, 8 auto-fixable
+                </div>
                 <div className="text-white">$ neurolint fix --auto</div>
-                <div className="text-charcoal-lighter">🔧 Applying automatic fixes...</div>
-                <div className="text-white">✅ Fixed 8/12 issues successfully</div>
+                <div className="text-zinc-400">
+                  🔧 Applying automatic fixes...
+                </div>
+                <div className="text-white">
+                  ✅ Fixed 8/12 issues successfully
+                </div>
               </div>
             </div>
           </div>
@@ -707,57 +746,70 @@ export default function Index() {
       </section>
 
       {/* VS Code Extension Section */}
-      <section id="vscode" className="py-20 bg-charcoal border-t border-charcoal-light">
+      <section
+        id="vscode"
+        className="py-20 bg-black border-t border-zinc-800"
+      >
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
               VS Code Extension
             </h2>
-            <p className="text-xl text-charcoal-lighter max-w-3xl mx-auto">
-              Get real-time code analysis and intelligent suggestions directly in your favorite editor. 
-              Never leave your development environment.
+            <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
+              Get real-time code analysis and intelligent suggestions directly
+              in your favorite editor. Never leave your development environment.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="bg-charcoal border border-charcoal-light rounded-2xl overflow-hidden shadow-2xl">
-              <div className="bg-charcoal-light px-4 py-3 flex items-center gap-2 border-b border-charcoal-light">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl">
+              <div className="bg-zinc-900 px-4 py-3 flex items-center gap-2 border-b border-zinc-800">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                   <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                   <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                 </div>
-                <span className="text-sm text-charcoal-lighter ml-4">component.tsx - NeuroLint</span>
+                <span className="text-sm text-zinc-400 ml-4">
+                  component.tsx - NeuroLint
+                </span>
               </div>
               <div className="p-6">
                 <div className="font-mono text-sm space-y-2">
-                  <div className="text-charcoal-lighter">1  import React from 'react';</div>
-                  <div className="text-charcoal-lighter">2  </div>
-                  <div className="text-charcoal-lighter">3  export function Header() &#123;</div>
-                  <div className="text-charcoal-lighter">4    const items = ['Home', 'About', 'Contact'];</div>
-                  <div className="text-charcoal-lighter">5  </div>
+                  <div className="text-zinc-400">
+                    1 import React from 'react';
+                  </div>
+                  <div className="text-zinc-400">2 </div>
+                  <div className="text-zinc-400">
+                    3 export function Header() &#123;
+                  </div>
+                  <div className="text-zinc-400">
+                    4 const items = ['Home', 'About', 'Contact'];
+                  </div>
+                  <div className="text-zinc-400">5 </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-charcoal-lighter">6</span>
-                    <span className="text-white">  return (</span>
-                    <div className="bg-charcoal-light border border-charcoal-lighter rounded px-2 py-1 text-xs text-white ml-4">
+                    <span className="text-zinc-400">6</span>
+                    <span className="text-white"> return (</span>
+                    <div className="bg-zinc-900 border border-zinc-800er rounded px-2 py-1 text-xs text-white ml-4">
                       Missing key prop
                     </div>
                   </div>
-                  <div className="text-charcoal-lighter">7    &lt;nav&gt;</div>
+                  <div className="text-zinc-400">7 &lt;nav&gt;</div>
                   <div className="flex items-center">
-                    <span className="text-charcoal-lighter">8</span>
-                    <span className="text-white ml-4">&#123;items.map(item =&gt;</span>
-                    <span className="bg-charcoal-light border-l-2 border-white pl-2 text-white">
+                    <span className="text-zinc-400">8</span>
+                    <span className="text-white ml-4">
+                      &#123;items.map(item =&gt;
+                    </span>
+                    <span className="bg-zinc-900 border-l-2 border-white pl-2 text-white">
                       &lt;li&gt;&#123;item&#125;&lt;/li&gt;
                     </span>
                   </div>
-                  <div className="text-charcoal-lighter">9    )&#125;</div>
-                  <div className="text-charcoal-lighter">10   &lt;/nav&gt;</div>
-                  <div className="text-charcoal-lighter">11 );</div>
-                  <div className="text-charcoal-lighter">12 &#125;</div>
+                  <div className="text-zinc-400">9 )&#125;</div>
+                  <div className="text-zinc-400">10 &lt;/nav&gt;</div>
+                  <div className="text-zinc-400">11 );</div>
+                  <div className="text-zinc-400">12 &#125;</div>
                 </div>
-                
-                <div className="mt-4 p-3 bg-charcoal-light border border-charcoal-lighter rounded-lg">
+
+                <div className="mt-4 p-3 bg-zinc-900 border border-zinc-800er rounded-lg">
                   <div className="flex items-center gap-2 text-white text-sm">
                     <Code className="w-4 h-4" />
                     <span>NeuroLint suggests: Add key prop to list items</span>
@@ -768,13 +820,15 @@ export default function Index() {
 
             <div className="space-y-8">
               <div className="space-y-6">
-                <h3 className="text-2xl font-semibold text-white">Install from Marketplace</h3>
+                <h3 className="text-2xl font-semibold text-white">
+                  Install from Marketplace
+                </h3>
                 <div className="flex gap-4">
                   <button className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
                     <Download className="w-5 h-5" />
                     Install Extension
                   </button>
-                  <button className="border border-charcoal-light text-white px-6 py-3 rounded-lg font-medium hover:border-white transition-colors flex items-center gap-2">
+                  <button className="border border-zinc-800 text-white px-6 py-3 rounded-lg font-medium hover:border-white transition-colors flex items-center gap-2">
                     <ExternalLink className="w-4 h-4" />
                     View on Marketplace
                   </button>
@@ -782,25 +836,35 @@ export default function Index() {
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-charcoal-light rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Monitor className="w-6 h-6 text-white" />
                   <div>
-                    <h4 className="font-semibold text-white">Real-time Analysis</h4>
-                    <p className="text-charcoal-lighter text-sm">Get instant feedback as you type</p>
+                    <h4 className="font-semibold text-white">
+                      Real-time Analysis
+                    </h4>
+                    <p className="text-zinc-400 text-sm">
+                      Get instant feedback as you type
+                    </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-charcoal-light rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Zap className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">Quick Fixes</h4>
-                    <p className="text-charcoal-lighter text-sm">One-click solutions for common issues</p>
+                    <p className="text-zinc-400 text-sm">
+                      One-click solutions for common issues
+                    </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-charcoal-light rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Database className="w-6 h-6 text-white" />
                   <div>
-                    <h4 className="font-semibold text-white">Workspace Analysis</h4>
-                    <p className="text-charcoal-lighter text-sm">Analyze entire projects with detailed reports</p>
+                    <h4 className="font-semibold text-white">
+                      Workspace Analysis
+                    </h4>
+                    <p className="text-zinc-400 text-sm">
+                      Analyze entire projects with detailed reports
+                    </p>
                   </div>
                 </div>
               </div>
@@ -810,95 +874,142 @@ export default function Index() {
       </section>
 
       {/* REST API Section */}
-      <section id="api" className="py-20 bg-charcoal-dark border-t border-charcoal-light">
+      <section
+        id="api"
+        className="py-20 bg-black border-t border-zinc-800"
+      >
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
               REST API
             </h2>
-            <p className="text-xl text-charcoal-lighter max-w-3xl mx-auto">
-              Integrate NeuroLint's powerful analysis capabilities into your own applications 
-              with our comprehensive REST API.
+            <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
+              Integrate NeuroLint's powerful analysis capabilities into your own
+              applications with our comprehensive REST API.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div className="space-y-8">
               <div className="space-y-6">
-                <h3 className="text-2xl font-semibold text-white">API Endpoints</h3>
+                <h3 className="text-2xl font-semibold text-white">
+                  API Endpoints
+                </h3>
                 <div className="space-y-3">
-                  <div className="flex items-center gap-3 p-3 bg-charcoal/50 border border-charcoal-light rounded-lg">
-                    <span className="bg-white text-black px-2 py-1 rounded text-xs font-mono">POST</span>
+                  <div className="flex items-center gap-3 p-3 bg-zinc-900/50 border border-zinc-800 rounded-lg">
+                    <span className="bg-white text-black px-2 py-1 rounded text-xs font-mono">
+                      POST
+                    </span>
                     <code className="text-white">/api/analyze</code>
-                    <span className="text-charcoal-lighter text-sm">Analyze code</span>
+                    <span className="text-zinc-400 text-sm">
+                      Analyze code
+                    </span>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-charcoal/50 border border-charcoal-light rounded-lg">
-                    <span className="bg-white text-black px-2 py-1 rounded text-xs font-mono">POST</span>
+                  <div className="flex items-center gap-3 p-3 bg-zinc-900/50 border border-zinc-800 rounded-lg">
+                    <span className="bg-white text-black px-2 py-1 rounded text-xs font-mono">
+                      POST
+                    </span>
                     <code className="text-white">/api/transform</code>
-                    <span className="text-charcoal-lighter text-sm">Transform code</span>
+                    <span className="text-zinc-400 text-sm">
+                      Transform code
+                    </span>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-charcoal/50 border border-charcoal-light rounded-lg">
-                    <span className="bg-white text-black px-2 py-1 rounded text-xs font-mono">GET</span>
+                  <div className="flex items-center gap-3 p-3 bg-zinc-900/50 border border-zinc-800 rounded-lg">
+                    <span className="bg-white text-black px-2 py-1 rounded text-xs font-mono">
+                      GET
+                    </span>
                     <code className="text-white">/api/layers</code>
-                    <span className="text-charcoal-lighter text-sm">Get available layers</span>
+                    <span className="text-zinc-400 text-sm">
+                      Get available layers
+                    </span>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-charcoal-light rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Shield className="w-6 h-6 text-white" />
                   <div>
-                    <h4 className="font-semibold text-white">Secure Authentication</h4>
-                    <p className="text-charcoal-lighter text-sm">API key-based authentication with rate limiting</p>
+                    <h4 className="font-semibold text-white">
+                      Secure Authentication
+                    </h4>
+                    <p className="text-zinc-400 text-sm">
+                      API key-based authentication with rate limiting
+                    </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-charcoal-light rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <Cpu className="w-6 h-6 text-white" />
                   <div>
-                    <h4 className="font-semibold text-white">High Performance</h4>
-                    <p className="text-charcoal-lighter text-sm">Optimized for speed with sub-second response times</p>
+                    <h4 className="font-semibold text-white">
+                      High Performance
+                    </h4>
+                    <p className="text-zinc-400 text-sm">
+                      Optimized for speed with sub-second response times
+                    </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-charcoal/50 border border-charcoal-light rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
                   <BarChart3 className="w-6 h-6 text-white" />
                   <div>
-                    <h4 className="font-semibold text-white">Detailed Analytics</h4>
-                    <p className="text-charcoal-lighter text-sm">Comprehensive usage analytics and insights</p>
+                    <h4 className="font-semibold text-white">
+                      Detailed Analytics
+                    </h4>
+                    <p className="text-zinc-400 text-sm">
+                      Comprehensive usage analytics and insights
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-charcoal border border-charcoal-light rounded-2xl overflow-hidden">
-              <div className="bg-charcoal-light px-4 py-3 flex items-center gap-2 border-b border-charcoal-light">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
+              <div className="bg-zinc-900 px-4 py-3 flex items-center gap-2 border-b border-zinc-800">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                   <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                   <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                 </div>
-                <span className="text-sm text-charcoal-lighter ml-4">API Example</span>
+                <span className="text-sm text-zinc-400 ml-4">
+                  API Example
+                </span>
               </div>
               <div className="p-6 font-mono text-sm space-y-4">
                 <div>
-                  <div className="text-charcoal-lighter mb-2">// Request</div>
-                  <div className="text-white">curl -X POST https://api.neurolint.com/analyze \\</div>
-                  <div className="text-charcoal-lighter ml-4">-H "Authorization: Bearer YOUR_API_KEY" \\</div>
-                  <div className="text-charcoal-lighter ml-4">-H "Content-Type: application/json" \\</div>
-                  <div className="text-charcoal-lighter ml-4">-d '&#123;</div>
-                  <div className="text-charcoal-lighter ml-8">"code": "function test() &#123; ... &#125;",</div>
-                  <div className="text-charcoal-lighter ml-8">"layers": [1, 2, 3]</div>
-                  <div className="text-charcoal-lighter ml-4">&#125;'</div>
+                  <div className="text-zinc-400 mb-2">// Request</div>
+                  <div className="text-white">
+                    curl -X POST https://api.neurolint.com/analyze \\
+                  </div>
+                  <div className="text-zinc-400 ml-4">
+                    -H "Authorization: Bearer YOUR_API_KEY" \\
+                  </div>
+                  <div className="text-zinc-400 ml-4">
+                    -H "Content-Type: application/json" \\
+                  </div>
+                  <div className="text-zinc-400 ml-4">-d '&#123;</div>
+                  <div className="text-zinc-400 ml-8">
+                    "code": "function test() &#123; ... &#125;",
+                  </div>
+                  <div className="text-zinc-400 ml-8">
+                    "layers": [1, 2, 3]
+                  </div>
+                  <div className="text-zinc-400 ml-4">&#125;'</div>
                 </div>
-                
+
                 <div>
-                  <div className="text-charcoal-lighter mb-2">// Response</div>
+                  <div className="text-zinc-400 mb-2">// Response</div>
                   <div className="text-white">&#123;</div>
-                  <div className="text-charcoal-lighter ml-4">"layers": [</div>
-                  <div className="text-charcoal-lighter ml-8">&#123; "id": 1, "status": "success", "changes": 2 &#125;,</div>
-                  <div className="text-charcoal-lighter ml-8">&#123; "id": 2, "status": "success", "changes": 1 &#125;</div>
-                  <div className="text-charcoal-lighter ml-4">],</div>
-                  <div className="text-charcoal-lighter ml-4">"performance": &#123; "totalTime": 0.85 &#125;</div>
+                  <div className="text-zinc-400 ml-4">"layers": [</div>
+                  <div className="text-zinc-400 ml-8">
+                    &#123; "id": 1, "status": "success", "changes": 2 &#125;,
+                  </div>
+                  <div className="text-zinc-400 ml-8">
+                    &#123; "id": 2, "status": "success", "changes": 1 &#125;
+                  </div>
+                  <div className="text-zinc-400 ml-4">],</div>
+                  <div className="text-zinc-400 ml-4">
+                    "performance": &#123; "totalTime": 0.85 &#125;
+                  </div>
                   <div className="text-white">&#125;</div>
                 </div>
               </div>
@@ -908,48 +1019,61 @@ export default function Index() {
       </section>
 
       {/* Integrations Section */}
-      <section className="py-20 bg-charcoal border-t border-charcoal-light">
+      <section className="py-20 bg-black border-t border-zinc-800">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
               Seamless Integrations
             </h2>
-            <p className="text-xl text-charcoal-lighter max-w-3xl mx-auto">
-              Connect NeuroLint with your existing development tools and workflows
+            <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
+              Connect NeuroLint with your existing development tools and
+              workflows
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="p-6 bg-charcoal/50 border border-charcoal-light rounded-xl hover:border-white transition-colors">
-              <div className="w-12 h-12 bg-charcoal-light rounded-lg flex items-center justify-center mb-4">
+            <div className="p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:border-white transition-colors">
+              <div className="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center mb-4">
                 <GitBranch className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">GitHub Actions</h3>
-              <p className="text-charcoal-lighter text-sm">Automated code analysis on every pull request</p>
+              <h3 className="text-lg font-semibold text-white mb-2">
+                GitHub Actions
+              </h3>
+              <p className="text-zinc-400 text-sm">
+                Automated code analysis on every pull request
+              </p>
             </div>
 
-            <div className="p-6 bg-charcoal/50 border border-charcoal-light rounded-xl hover:border-white transition-colors">
-              <div className="w-12 h-12 bg-charcoal-light rounded-lg flex items-center justify-center mb-4">
+            <div className="p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:border-white transition-colors">
+              <div className="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center mb-4">
                 <Settings className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Jenkins</h3>
-              <p className="text-charcoal-lighter text-sm">Integrate with your CI/CD pipeline</p>
+              <p className="text-zinc-400 text-sm">
+                Integrate with your CI/CD pipeline
+              </p>
             </div>
 
-            <div className="p-6 bg-charcoal/50 border border-charcoal-light rounded-xl hover:border-white transition-colors">
-              <div className="w-12 h-12 bg-charcoal-light rounded-lg flex items-center justify-center mb-4">
+            <div className="p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:border-white transition-colors">
+              <div className="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center mb-4">
                 <Users className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Slack</h3>
-              <p className="text-charcoal-lighter text-sm">Get notifications in your team channels</p>
+              <p className="text-zinc-400 text-sm">
+                Get notifications in your team channels
+              </p>
             </div>
 
-            <div className="p-6 bg-charcoal/50 border border-charcoal-light rounded-xl hover:border-white transition-colors">
-              <div className="w-12 h-12 bg-charcoal-light rounded-lg flex items-center justify-center mb-4">
+            <div className="p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:border-white transition-colors">
+              <div className="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center mb-4">
                 <Code className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Webhooks</h3>
-              <p className="text-charcoal-lighter text-sm">Custom integrations with any platform</p>
+              <h3 className="text-lg font-semibold text-white mb-2">
+                Webhooks
+              </h3>
+              <p className="text-zinc-400 text-sm">
+                Custom integrations with any platform
+              </p>
             </div>
           </div>
         </div>

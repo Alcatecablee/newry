@@ -215,12 +215,12 @@ const LiveCodeSessions = () => {
   });
 
   return (
-    <div className="min-h-screen bg-charcoal-dark">
+    <div className="min-h-screen bg-black">
       <div className="flex h-screen">
         {/* Main Code Editor Area */}
         <div className="flex-1 flex flex-col">
           {/* Session Header */}
-          <div className="bg-charcoal border-b border-charcoal-light p-4">
+          <div className="bg-zinc-900 border-b border-zinc-800 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
@@ -228,7 +228,7 @@ const LiveCodeSessions = () => {
                   <span className="text-white font-semibold">Live Session</span>
                   <Badge className="bg-green-900 text-green-200">Active</Badge>
                 </div>
-                <div className="flex items-center gap-2 text-charcoal-lighter">
+                <div className="flex items-center gap-2 text-zinc-400">
                   <GitBranch className="w-4 h-4" />
                   <span>frontend-app/components/UserProfile.tsx</span>
                 </div>
@@ -293,7 +293,7 @@ const LiveCodeSessions = () => {
           </div>
 
           {/* Code Editor with Real-time Cursors */}
-          <div className="flex-1 bg-charcoal-darker relative">
+          <div className="flex-1 bg-blacker relative">
             <div className="absolute top-4 right-4 z-10">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-purple-400" />
@@ -412,7 +412,7 @@ const LiveCodeSessions = () => {
                           : ""
                     }`}
                   >
-                    <span className="text-charcoal-light w-12 select-none text-right pr-4">
+                    <span className="text-zinc-400 w-12 select-none text-right pr-4">
                       {line.line}
                     </span>
                     <span className="text-white flex-1">{line.content}</span>
@@ -437,9 +437,9 @@ const LiveCodeSessions = () => {
         </div>
 
         {/* Right Sidebar - Collaboration Tools */}
-        <div className="w-96 bg-charcoal border-l border-charcoal-light flex flex-col">
+        <div className="w-96 bg-zinc-900 border-l border-zinc-800 flex flex-col">
           {/* Participants Panel */}
-          <div className="p-4 border-b border-charcoal-light">
+          <div className="p-4 border-b border-zinc-800">
             <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
               <Users className="w-4 h-4" />
               Participants ({participants.length})
@@ -448,7 +448,7 @@ const LiveCodeSessions = () => {
               {participants.map((participant) => (
                 <div
                   key={participant.id}
-                  className="flex items-center gap-3 p-2 bg-charcoal-light rounded-lg"
+                  className="flex items-center gap-3 p-2 bg-zinc-900 rounded-lg"
                 >
                   <div className="relative">
                     <Avatar className="w-8 h-8">
@@ -460,7 +460,7 @@ const LiveCodeSessions = () => {
                       </AvatarFallback>
                     </Avatar>
                     <div
-                      className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-charcoal-dark"
+                      className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-zinc-800-dark"
                       style={{ backgroundColor: participant.cursor.color }}
                     />
                   </div>
@@ -469,7 +469,7 @@ const LiveCodeSessions = () => {
                       <span className="text-white text-sm font-medium">
                         {participant.name}
                       </span>
-                      <Badge className="text-xs bg-charcoal text-white">
+                      <Badge className="text-xs bg-zinc-900 text-white">
                         {participant.role}
                       </Badge>
                     </div>
@@ -481,7 +481,7 @@ const LiveCodeSessions = () => {
                       >
                         ●
                       </span>
-                      <span className="text-charcoal-lighter">
+                      <span className="text-zinc-400">
                         {participant.contributions} contributions
                       </span>
                     </div>
@@ -504,7 +504,7 @@ const LiveCodeSessions = () => {
 
           {/* AI Assistant Panel */}
           {aiAssistantActive && (
-            <div className="p-4 border-b border-charcoal-light">
+            <div className="p-4 border-b border-zinc-800">
               <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
                 <Bot className="w-4 h-4 text-blue-400" />
                 AI Assistant
@@ -533,7 +533,7 @@ const LiveCodeSessions = () => {
                       {ai.suggestions.map((suggestion) => (
                         <div
                           key={suggestion.id}
-                          className="p-2 bg-charcoal-light rounded border border-blue-400/20"
+                          className="p-2 bg-zinc-900 rounded border border-blue-400/20"
                         >
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-white text-xs font-medium">
@@ -543,7 +543,7 @@ const LiveCodeSessions = () => {
                               {suggestion.confidence}%
                             </Badge>
                           </div>
-                          <p className="text-charcoal-lighter text-xs mb-2">
+                          <p className="text-zinc-400 text-xs mb-2">
                             {suggestion.description}
                           </p>
                           <div className="flex items-center gap-1">
@@ -580,7 +580,7 @@ const LiveCodeSessions = () => {
 
           {/* Gamification Panel */}
           {gamificationActive && sessionMode === "compete" && (
-            <div className="p-4 border-b border-charcoal-light">
+            <div className="p-4 border-b border-zinc-800">
               <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
                 <Gamepad2 className="w-4 h-4 text-purple-400" />
                 Live Challenges
@@ -632,7 +632,7 @@ const LiveCodeSessions = () => {
 
           {/* Chat/Comments Panel */}
           <div className="flex-1 flex flex-col">
-            <div className="p-4 border-b border-charcoal-light">
+            <div className="p-4 border-b border-zinc-800">
               <h3 className="text-white font-semibold flex items-center gap-2">
                 <MessageCircle className="w-4 h-4" />
                 Live Chat
@@ -649,7 +649,7 @@ const LiveCodeSessions = () => {
                       <span className="font-medium">Sarah:</span> What do you
                       think about the AI suggestion for memoization?
                     </p>
-                    <p className="text-charcoal-light text-xs">2 min ago</p>
+                    <p className="text-zinc-400 text-xs">2 min ago</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2">
@@ -661,7 +661,7 @@ const LiveCodeSessions = () => {
                       <span className="font-medium">Alex:</span> Looks good! The
                       props are stable here.
                     </p>
-                    <p className="text-charcoal-light text-xs">1 min ago</p>
+                    <p className="text-zinc-400 text-xs">1 min ago</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2">
@@ -674,16 +674,16 @@ const LiveCodeSessions = () => {
                       analyzed the render frequency - this optimization could
                       save 23% render time.
                     </p>
-                    <p className="text-charcoal-light text-xs">30 sec ago</p>
+                    <p className="text-zinc-400 text-xs">30 sec ago</p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="p-4 border-t border-charcoal-light">
+            <div className="p-4 border-t border-zinc-800">
               <div className="flex items-center gap-2">
                 <input
                   placeholder="Type a message..."
-                  className="flex-1 bg-charcoal border border-charcoal-light rounded px-3 py-2 text-white text-sm"
+                  className="flex-1 bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-white text-sm"
                 />
                 <Button size="sm">
                   <Send className="w-3 h-3" />

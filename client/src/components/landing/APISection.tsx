@@ -53,10 +53,10 @@ export function APISection() {
   };
 
   return (
-    <section id="api" className="relative z-10 py-20 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm">
+    <section id="api" className="relative z-10 py-20 bg-black backdrop-blur-sm">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-zinc-900">
             REST API Integration
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -221,7 +221,7 @@ export function APISection() {
 
         {/* Get Started */}
         <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-2xl p-8">
+          <div className="bg-zinc-900">
             <h3 className="text-2xl font-semibold mb-4 text-white">Start Building with NeuroLint API</h3>
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
               Get your API key and start integrating powerful code analysis into your applications today.

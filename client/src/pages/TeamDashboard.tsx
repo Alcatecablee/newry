@@ -61,7 +61,7 @@ const TeamDashboard = () => {
 
   if (teamsLoading || teamLoading || analyticsLoading) {
     return (
-      <div className="min-h-screen bg-charcoal-dark p-6 flex items-center justify-center">
+      <div className="min-h-screen bg-black p-6 flex items-center justify-center">
         <div className="text-white text-lg">Loading team dashboard...</div>
       </div>
     );
@@ -165,12 +165,12 @@ const TeamDashboard = () => {
       case "Auditor":
         return "bg-gray-700 text-gray-200";
       default:
-        return "bg-charcoal-light text-white";
+        return "bg-zinc-900 text-white";
     }
   };
 
   return (
-    <div className="min-h-screen bg-charcoal-dark p-6">
+    <div className="min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -178,7 +178,7 @@ const TeamDashboard = () => {
             <h1 className="text-3xl font-bold text-white mb-2">
               Team Dashboard
             </h1>
-            <p className="text-charcoal-lighter">
+            <p className="text-zinc-400">
               Monitor code quality and team productivity across all projects
             </p>
           </div>
@@ -204,7 +204,7 @@ const TeamDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Code Quality
                   </p>
                   <p className="text-3xl font-bold text-white">{analytics?.codeQuality.current || 0}%</p>
@@ -221,7 +221,7 @@ const TeamDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Fixed Issues
                   </p>
                   <p className="text-3xl font-bold text-white">
@@ -240,7 +240,7 @@ const TeamDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">Open Issues</p>
+                  <p className="text-zinc-400 text-sm">Open Issues</p>
                   <p className="text-3xl font-bold text-white">
                     {teamData?.projects.reduce((sum, p) => sum + (p.totalIssues - p.fixedIssues), 0) || 0}
                   </p>
@@ -257,7 +257,7 @@ const TeamDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">Team Members</p>
+                  <p className="text-zinc-400 text-sm">Team Members</p>
                   <p className="text-3xl font-bold text-white">
                     {teamData?.members.length || 0}
                   </p>
@@ -270,34 +270,34 @@ const TeamDashboard = () => {
         </div>
 
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="overview"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               Overview
             </TabsTrigger>
             <TabsTrigger
               value="projects"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               Projects
             </TabsTrigger>
             <TabsTrigger
               value="team"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               Team
             </TabsTrigger>
             <TabsTrigger
               value="activity"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               Activity
             </TabsTrigger>
             <TabsTrigger
               value="analytics"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               Analytics
             </TabsTrigger>
@@ -318,7 +318,7 @@ const TeamDashboard = () => {
                     {recentActivity.map((activity) => (
                       <div
                         key={activity.id}
-                        className="flex items-start gap-3 p-3 bg-charcoal-light rounded-lg"
+                        className="flex items-start gap-3 p-3 bg-zinc-900 rounded-lg"
                       >
                         <div
                           className={`w-2 h-2 rounded-full mt-2 ${
@@ -336,7 +336,7 @@ const TeamDashboard = () => {
                             <span className="font-medium">{activity.user}</span>{" "}
                             {activity.action}
                           </p>
-                          <p className="text-charcoal-lighter text-xs">
+                          <p className="text-zinc-400 text-xs">
                             {activity.project} • {activity.timestamp}
                           </p>
                         </div>
@@ -364,16 +364,16 @@ const TeamDashboard = () => {
                       teamData?.projects.map((project) => (
                         <div
                           key={project.id}
-                          className="flex items-center justify-between p-3 bg-charcoal-light rounded-lg"
+                          className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
                         >
                           <div className="flex-1">
                             <div className="flex items-center gap-2">
-                              <GitBranch className="w-4 h-4 text-charcoal-lighter" />
+                              <GitBranch className="w-4 h-4 text-zinc-400" />
                               <span className="text-white font-medium">
                                 {project.name}
                               </span>
                             </div>
-                            <p className="text-charcoal-lighter text-xs mt-1">
+                            <p className="text-zinc-400 text-xs mt-1">
                               {project.repository || 'No repository'} • Last scan {project.lastScan ? new Date(project.lastScan).toLocaleDateString() : 'Never'}
                             </p>
                           </div>
@@ -381,7 +381,7 @@ const TeamDashboard = () => {
                             <div className="text-lg font-bold text-white">
                               {project.healthScore}%
                             </div>
-                            <p className="text-charcoal-lighter text-xs">
+                            <p className="text-zinc-400 text-xs">
                               {project.fixedIssues}/{project.totalIssues} issues fixed
                             </p>
                           </div>
@@ -409,11 +409,11 @@ const TeamDashboard = () => {
                     teamData?.members.map((member) => (
                     <div
                       key={member.id}
-                      className="flex items-center justify-between p-4 bg-charcoal-light rounded-lg"
+                      className="flex items-center justify-between p-4 bg-zinc-900 rounded-lg"
                     >
                       <div className="flex items-center gap-3">
                         <Avatar>
-                          <AvatarFallback className="bg-charcoal-lighter text-white">
+                          <AvatarFallback className="bg-zinc-900er text-white">
                             {member.userId.substring(0, 2).toUpperCase()}
                           </AvatarFallback>
                         </Avatar>
@@ -421,7 +421,7 @@ const TeamDashboard = () => {
                           <p className="text-white font-medium">
                             User {member.userId}
                           </p>
-                          <p className="text-charcoal-lighter text-sm">
+                          <p className="text-zinc-400 text-sm">
                             Member ID: {member.id}
                           </p>
                         </div>
@@ -431,7 +431,7 @@ const TeamDashboard = () => {
                           {member.role}
                         </Badge>
                         <div className="text-right">
-                          <p className="text-charcoal-lighter text-xs">
+                          <p className="text-zinc-400 text-xs">
                             Joined {new Date(member.joinedAt).toLocaleDateString()}
                           </p>
                         </div>
@@ -450,13 +450,13 @@ const TeamDashboard = () => {
                 <div className="flex items-center justify-between">
                   <CardTitle>Activity Feed</CardTitle>
                   <div className="flex items-center gap-2">
-                    <select className="bg-charcoal border border-charcoal-light rounded px-2 py-1 text-sm text-white">
+                    <select className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 text-sm text-white">
                       <option>All Projects</option>
                       {projects.map((p) => (
                         <option key={p.id}>{p.name}</option>
                       ))}
                     </select>
-                    <select className="bg-charcoal border border-charcoal-light rounded px-2 py-1 text-sm text-white">
+                    <select className="bg-zinc-900 border border-zinc-800 rounded px-2 py-1 text-sm text-white">
                       <option>Last 7 days</option>
                       <option>Last 30 days</option>
                       <option>Last 3 months</option>
@@ -470,7 +470,7 @@ const TeamDashboard = () => {
                     (activity, index) => (
                       <div
                         key={`${activity.id}-${index}`}
-                        className="flex items-start gap-3 p-3 hover:bg-charcoal-light rounded-lg transition-colors"
+                        className="flex items-start gap-3 p-3 hover:bg-zinc-900 rounded-lg transition-colors"
                       >
                         <div
                           className={`w-3 h-3 rounded-full mt-1.5 ${
@@ -488,11 +488,11 @@ const TeamDashboard = () => {
                             <span className="font-medium">{activity.user}</span>{" "}
                             {activity.action}
                           </p>
-                          <p className="text-charcoal-lighter text-sm">
+                          <p className="text-zinc-400 text-sm">
                             {activity.project} • {activity.timestamp}
                           </p>
                         </div>
-                        <Clock className="w-4 h-4 text-charcoal-lighter mt-1" />
+                        <Clock className="w-4 h-4 text-zinc-400 mt-1" />
                       </div>
                     ),
                   )}
@@ -508,8 +508,8 @@ const TeamDashboard = () => {
                   <CardTitle>Fix Success Rate</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
-                    <p className="text-charcoal-lighter">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                    <p className="text-zinc-400">
                       Chart showing success rates over time
                     </p>
                   </div>
@@ -530,11 +530,11 @@ const TeamDashboard = () => {
                     ].map((item, index) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-3 bg-charcoal-light rounded-lg"
+                        className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
                       >
                         <span className="text-white">{item.issue}</span>
                         <div className="flex items-center gap-2">
-                          <span className="text-charcoal-lighter">
+                          <span className="text-zinc-400">
                             {item.count}
                           </span>
                           <TrendingUp

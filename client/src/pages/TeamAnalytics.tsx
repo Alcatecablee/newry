@@ -263,7 +263,7 @@ const TeamAnalytics = () => {
       case "recommendation":
         return "border-purple-400 bg-purple-900/20";
       default:
-        return "border-charcoal-light bg-charcoal-light";
+        return "border-zinc-800 bg-zinc-900";
     }
   };
 
@@ -275,7 +275,7 @@ const TeamAnalytics = () => {
   };
 
   return (
-    <div className="min-h-screen bg-charcoal-dark p-6">
+    <div className="min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -283,7 +283,7 @@ const TeamAnalytics = () => {
             <h1 className="text-3xl font-bold text-white mb-2">
               Advanced Team Analytics
             </h1>
-            <p className="text-charcoal-lighter">
+            <p className="text-zinc-400">
               AI-powered insights and predictive analytics for your development
               team
             </p>
@@ -330,7 +330,7 @@ const TeamAnalytics = () => {
                   >
                     {teamHealthScore.overall}
                   </div>
-                  <div className="text-charcoal-lighter">Overall Health</div>
+                  <div className="text-zinc-400">Overall Health</div>
                   <Badge
                     className={`mt-2 ${
                       teamHealthScore.trend === "improving"
@@ -355,7 +355,7 @@ const TeamAnalytics = () => {
                           {category}
                         </span>
                         <div className="flex items-center gap-2">
-                          <div className="w-32 bg-charcoal h-2 rounded-full">
+                          <div className="w-32 bg-zinc-900 h-2 rounded-full">
                             <div
                               className={`h-2 rounded-full ${
                                 score >= 90
@@ -430,7 +430,7 @@ const TeamAnalytics = () => {
             <Card key={key}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-charcoal-lighter text-sm capitalize">
+                  <span className="text-zinc-400 text-sm capitalize">
                     {key.replace(/([A-Z])/g, " $1").trim()}
                   </span>
                   {getTrendIcon(metric.trend)}
@@ -455,31 +455,31 @@ const TeamAnalytics = () => {
         </div>
 
         <Tabs defaultValue="insights" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="insights"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Brain className="w-4 h-4 mr-2" />
               AI Insights
             </TabsTrigger>
             <TabsTrigger
               value="trends"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <TrendingUp className="w-4 h-4 mr-2" />
               Trends
             </TabsTrigger>
             <TabsTrigger
               value="performance"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Target className="w-4 h-4 mr-2" />
               Performance
             </TabsTrigger>
             <TabsTrigger
               value="predictions"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Eye className="w-4 h-4 mr-2" />
               Predictions
@@ -505,11 +505,11 @@ const TeamAnalytics = () => {
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-3">
-                              <Badge className="bg-charcoal text-white capitalize">
+                              <Badge className="bg-zinc-900 text-white capitalize">
                                 {insight.type}
                               </Badge>
                               <div className="flex items-center gap-1">
-                                <span className="text-xs text-charcoal-lighter">
+                                <span className="text-xs text-zinc-400">
                                   Confidence:
                                 </span>
                                 <span className="text-xs text-white">
@@ -530,8 +530,8 @@ const TeamAnalytics = () => {
                                 {insight.impact} impact
                               </Badge>
                               <div className="flex items-center gap-1">
-                                <Clock className="w-3 h-3 text-charcoal-lighter" />
-                                <span className="text-xs text-charcoal-lighter">
+                                <Clock className="w-3 h-3 text-zinc-400" />
+                                <span className="text-xs text-zinc-400">
                                   {insight.timeframe}
                                 </span>
                               </div>
@@ -540,18 +540,18 @@ const TeamAnalytics = () => {
                             <h3 className="text-white font-semibold text-lg mb-2">
                               {insight.title}
                             </h3>
-                            <p className="text-charcoal-lighter mb-4">
+                            <p className="text-zinc-400 mb-4">
                               {insight.description}
                             </p>
 
                             <div className="flex items-center gap-2 mb-3">
-                              <span className="text-xs text-charcoal-light">
+                              <span className="text-xs text-zinc-400">
                                 Affected metrics:
                               </span>
                               {insight.metrics.map((metric) => (
                                 <Badge
                                   key={metric}
-                                  className="bg-charcoal text-charcoal-lighter text-xs"
+                                  className="bg-zinc-900 text-zinc-400 text-xs"
                                 >
                                   {metric}
                                 </Badge>
@@ -570,7 +570,7 @@ const TeamAnalytics = () => {
                                       (action, index) => (
                                         <p
                                           key={index}
-                                          className="text-charcoal-lighter text-sm"
+                                          className="text-zinc-400 text-sm"
                                         >
                                           • {action}
                                         </p>
@@ -609,8 +609,8 @@ const TeamAnalytics = () => {
                   <CardTitle>Quality Trends</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
-                    <p className="text-charcoal-lighter">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                    <p className="text-zinc-400">
                       Quality trend chart visualization
                     </p>
                   </div>
@@ -622,10 +622,8 @@ const TeamAnalytics = () => {
                   <CardTitle>Velocity Patterns</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
-                    <p className="text-charcoal-lighter">
-                      Velocity pattern analysis
-                    </p>
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                    <p className="text-zinc-400">Velocity pattern analysis</p>
                   </div>
                 </CardContent>
               </Card>
@@ -635,8 +633,8 @@ const TeamAnalytics = () => {
                   <CardTitle>Collaboration Network</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
-                    <p className="text-charcoal-lighter">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                    <p className="text-zinc-400">
                       Team collaboration network visualization
                     </p>
                   </div>
@@ -648,8 +646,8 @@ const TeamAnalytics = () => {
                   <CardTitle>Innovation Index</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
-                    <p className="text-charcoal-lighter">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                    <p className="text-zinc-400">
                       Innovation metrics and patterns
                     </p>
                   </div>
@@ -674,7 +672,7 @@ const TeamAnalytics = () => {
                     ].map((sprint) => (
                       <div
                         key={sprint.sprint}
-                        className="p-3 bg-charcoal-light rounded-lg"
+                        className="p-3 bg-zinc-900 rounded-lg"
                       >
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-white font-medium">
@@ -684,13 +682,13 @@ const TeamAnalytics = () => {
                             {sprint.completion}% complete
                           </Badge>
                         </div>
-                        <div className="w-full bg-charcoal h-2 rounded-full">
+                        <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
-                            className="bg-gradient-to-r from-blue-400 to-green-400 h-2 rounded-full"
+                            className="bg-zinc-600 h-2 rounded-full"
                             style={{ width: `${sprint.completion}%` }}
                           />
                         </div>
-                        <p className="text-charcoal-lighter text-xs mt-1">
+                        <p className="text-zinc-400 text-xs mt-1">
                           Velocity: {sprint.velocity} points
                         </p>
                       </div>
@@ -727,7 +725,7 @@ const TeamAnalytics = () => {
                       >
                         <span className="text-white">{item.metric}</span>
                         <div className="flex items-center gap-2">
-                          <div className="w-24 bg-charcoal h-2 rounded-full">
+                          <div className="w-24 bg-zinc-900 h-2 rounded-full">
                             <div
                               className={`h-2 rounded-full ${
                                 item.reverse
@@ -766,7 +764,7 @@ const TeamAnalytics = () => {
                     ].map((member) => (
                       <div
                         key={member.name}
-                        className="flex items-center justify-between p-2 bg-charcoal-light rounded"
+                        className="flex items-center justify-between p-2 bg-zinc-900 rounded"
                       >
                         <span className="text-white text-sm">
                           {member.name}
@@ -799,13 +797,13 @@ const TeamAnalytics = () => {
                     {Object.entries(teamMetrics).map(([key, metric]) => (
                       <div
                         key={key}
-                        className="flex items-center justify-between p-3 bg-charcoal-light rounded-lg"
+                        className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
                       >
                         <span className="text-white capitalize">
                           {key.replace(/([A-Z])/g, " $1").trim()}
                         </span>
                         <div className="flex items-center gap-3">
-                          <span className="text-charcoal-lighter text-sm">
+                          <span className="text-zinc-400 text-sm">
                             Current: {metric.current}%
                           </span>
                           <span className="text-purple-300 text-sm font-medium">
@@ -860,7 +858,7 @@ const TeamAnalytics = () => {
                     ].map((goal) => (
                       <div
                         key={goal.goal}
-                        className="p-3 bg-charcoal-light rounded-lg"
+                        className="p-3 bg-zinc-900 rounded-lg"
                       >
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-white font-medium">
@@ -878,7 +876,7 @@ const TeamAnalytics = () => {
                             {goal.probability}%
                           </Badge>
                         </div>
-                        <div className="w-full bg-charcoal h-2 rounded-full">
+                        <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
                             className={`h-2 rounded-full ${
                               goal.probability >= 80
@@ -890,7 +888,7 @@ const TeamAnalytics = () => {
                             style={{ width: `${goal.probability}%` }}
                           />
                         </div>
-                        <p className="text-charcoal-lighter text-xs mt-1">
+                        <p className="text-zinc-400 text-xs mt-1">
                           Expected timeline: {goal.timeline}
                         </p>
                       </div>

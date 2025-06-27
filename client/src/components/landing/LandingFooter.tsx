@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 
 export function LandingFooter() {
   return (
-    <footer className="w-full py-8 px-6 bg-charcoal border-t border-charcoal-light">
+    <footer className="w-full py-8 px-6 bg-zinc-900 border-t border-zinc-800">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-white font-semibold mb-4">NeuroLint</h3>
-            <p className="text-charcoal-lighter text-sm">
+            <p className="text-zinc-400 text-sm">
               AI-powered code transformation for React and TypeScript projects.
             </p>
           </div>
@@ -18,7 +18,7 @@ export function LandingFooter() {
               <li>
                 <Link
                   to="/app"
-                  className="text-charcoal-lighter hover:text-white transition-colors"
+                  className="text-zinc-400 hover:text-white transition-colors"
                 >
                   Try Now
                 </Link>
@@ -26,7 +26,7 @@ export function LandingFooter() {
               <li>
                 <a
                   href="#cli"
-                  className="text-charcoal-lighter hover:text-white transition-colors"
+                  className="text-zinc-400 hover:text-white transition-colors"
                 >
                   CLI Tool
                 </a>
@@ -34,7 +34,7 @@ export function LandingFooter() {
               <li>
                 <a
                   href="#vscode"
-                  className="text-charcoal-lighter hover:text-white transition-colors"
+                  className="text-zinc-400 hover:text-white transition-colors"
                 >
                   VS Code Extension
                 </a>
@@ -42,7 +42,7 @@ export function LandingFooter() {
               <li>
                 <a
                   href="#api"
-                  className="text-charcoal-lighter hover:text-white transition-colors"
+                  className="text-zinc-400 hover:text-white transition-colors"
                 >
                   REST API
                 </a>
@@ -56,7 +56,7 @@ export function LandingFooter() {
               <li>
                 <Link
                   to="/test"
-                  className="text-charcoal-lighter hover:text-white transition-colors"
+                  className="text-zinc-400 hover:text-white transition-colors"
                 >
                   Test Suite
                 </Link>
@@ -64,7 +64,7 @@ export function LandingFooter() {
               <li>
                 <a
                   href="mailto:founder@neurolint.com"
-                  className="text-charcoal-lighter hover:text-white transition-colors"
+                  className="text-zinc-400 hover:text-white transition-colors"
                 >
                   Support
                 </a>
@@ -78,23 +78,23 @@ export function LandingFooter() {
               <li>
                 <a
                   href="mailto:founder@neurolint.com"
-                  className="text-charcoal-lighter hover:text-white transition-colors"
+                  className="text-zinc-400 hover:text-white transition-colors"
                 >
                   Contact
                 </a>
               </li>
               <li>
-                <span className="text-charcoal-lighter">Privacy Policy</span>
+                <span className="text-zinc-400">Privacy Policy</span>
               </li>
               <li>
-                <span className="text-charcoal-lighter">Terms of Service</span>
+                <span className="text-zinc-400">Terms of Service</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-charcoal-light mt-8 pt-6 text-center">
-          <p className="text-charcoal-light text-sm">
+        <div className="border-t border-zinc-800 mt-8 pt-6 text-center">
+          <p className="text-zinc-400 text-sm">
             &copy; {new Date().getFullYear()} NeuroLint. All rights reserved.
           </p>
         </div>

@@ -22,7 +22,7 @@ export function GitHubUpload({ onRepoUpload, processing }: GitHubUploadProps) {
   };
 
   return (
-    <Card className="bg-charcoal/90 border-charcoal-lighter">
+    <Card className="bg-zinc-900/90 border-zinc-800er">
       <CardContent className="p-6 space-y-4">
         <div className="flex items-center gap-2 text-white">
           <Github className="w-5 h-5 text-white" />

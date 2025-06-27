@@ -105,7 +105,8 @@ const EnhancedTeamDashboard = () => {
   // Fetch teams data
   const { data: teams, isLoading: teamsLoading } = useTeams();
   const { data: teamData, isLoading: teamLoading } = useTeam(selectedTeamId);
-  const { data: analytics, isLoading: analyticsLoading } = useTeamAnalytics(selectedTeamId);
+  const { data: analytics, isLoading: analyticsLoading } =
+    useTeamAnalytics(selectedTeamId);
   const createTeam = useCreateTeam();
   const createProject = useCreateProject();
 
@@ -114,7 +115,7 @@ const EnhancedTeamDashboard = () => {
     if (!teamsLoading && (!teams || teams.length === 0)) {
       createTeam.mutate({
         name: "Development Team",
-        description: "Main development team working on NeuroLint platform"
+        description: "Main development team working on NeuroLint platform",
       });
     }
   }, [teams, teamsLoading, createTeam]);
@@ -126,15 +127,15 @@ const EnhancedTeamDashboard = () => {
         teamId: selectedTeamId,
         project: {
           name: "NeuroLint Platform",
-          repository: "company/neurolint-platform"
-        }
+          repository: "company/neurolint-platform",
+        },
       });
     }
   }, [teamData, selectedTeamId, createProject]);
 
   if (teamsLoading || teamLoading || analyticsLoading) {
     return (
-      <div className="min-h-screen bg-charcoal-dark p-6 flex items-center justify-center">
+      <div className="min-h-screen bg-black p-6 flex items-center justify-center">
         <div className="text-white text-lg">Loading team data...</div>
       </div>
     );
@@ -272,33 +273,33 @@ const EnhancedTeamDashboard = () => {
   const getSkillLevelColor = (level: string) => {
     switch (level) {
       case "Lead":
-        return "bg-charcoal-lighter text-white";
+        return "bg-zinc-900er text-white";
       case "Senior":
-        return "bg-charcoal-light text-white";
+        return "bg-zinc-900 text-white";
       case "Mid":
-        return "bg-charcoal text-gray-300";
+        return "bg-zinc-900 text-gray-300";
       default:
-        return "bg-charcoal-dark text-gray-400";
+        return "bg-black text-gray-400";
     }
   };
 
   const getInsightColor = (type: string) => {
     switch (type) {
       case "optimization":
-        return "border-charcoal-lighter bg-charcoal/50";
+        return "border-zinc-800er bg-zinc-900/50";
       case "risk":
-        return "border-charcoal-lighter bg-charcoal/50";
+        return "border-zinc-800er bg-zinc-900/50";
       case "opportunity":
-        return "border-charcoal-lighter bg-charcoal/50";
+        return "border-zinc-800er bg-zinc-900/50";
       case "prediction":
-        return "border-charcoal-lighter bg-charcoal/50";
+        return "border-zinc-800er bg-zinc-900/50";
       default:
-        return "border-charcoal-light bg-charcoal-light";
+        return "border-zinc-800 bg-zinc-900";
     }
   };
 
   return (
-    <div className="min-h-screen bg-charcoal-dark p-6">
+    <div className="min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
         {/* Enhanced Header with Live Status */}
         <div className="flex items-center justify-between mb-8">
@@ -307,7 +308,7 @@ const EnhancedTeamDashboard = () => {
               <h1 className="text-3xl font-bold text-white mb-2">
                 Team Command Center
               </h1>
-              <div className="flex items-center gap-4 text-charcoal-lighter">
+              <div className="flex items-center gap-4 text-zinc-400">
                 <div className="flex items-center gap-2">
                   <div
                     className={`w-2 h-2 rounded-full ${liveMode ? "bg-white animate-pulse" : "bg-gray-400"}`}
@@ -316,9 +317,7 @@ const EnhancedTeamDashboard = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="w-4 h-4" />
-                  <span>
-                    {teamData?.members.length || 0} team members
-                  </span>
+                  <span>{teamData?.members.length || 0} team members</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Activity className="w-4 h-4" />
@@ -346,115 +345,130 @@ const EnhancedTeamDashboard = () => {
 
         {/* Enhanced Metrics with Gamification */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
-          <Card className="bg-charcoal border-charcoal-lighter">
+          <Card className="bg-zinc-900 border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-300 text-sm">Code Quality</p>
-                  <p className="text-3xl font-bold text-white">{analytics?.codeQuality.current || 0}%</p>
+                  <p className="text-3xl font-bold text-white">
+                    {analytics?.codeQuality.current || 0}%
+                  </p>
                 </div>
                 <Trophy className="w-8 h-8 text-white" />
               </div>
               <p className="text-xs text-gray-400 mt-2">
-                {analytics?.codeQuality.change > 0 ? '+' : ''}{analytics?.codeQuality.change || 0}% from last period
+                {analytics?.codeQuality.change > 0 ? "+" : ""}
+                {analytics?.codeQuality.change || 0}% from last period
               </p>
             </CardContent>
           </Card>
 
-          <Card className="bg-charcoal border-charcoal-lighter">
+          <Card className="bg-zinc-900 border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-300 text-sm">Team Velocity</p>
-                  <p className="text-3xl font-bold text-white">{analytics?.velocity.current || 0}%</p>
+                  <p className="text-3xl font-bold text-white">
+                    {analytics?.velocity.current || 0}%
+                  </p>
                 </div>
                 <Bot className="w-8 h-8 text-white" />
               </div>
               <p className="text-xs text-gray-400 mt-2">
-                {analytics?.velocity.change > 0 ? '+' : ''}{analytics?.velocity.change || 0}% this period
+                {analytics?.velocity.change > 0 ? "+" : ""}
+                {analytics?.velocity.change || 0}% this period
               </p>
             </CardContent>
           </Card>
 
-          <Card className="bg-charcoal border-charcoal-lighter">
+          <Card className="bg-zinc-900 border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-300 text-sm">Innovation Score</p>
-                  <p className="text-3xl font-bold text-white">{analytics?.innovation.current || 0}%</p>
+                  <p className="text-3xl font-bold text-white">
+                    {analytics?.innovation.current || 0}%
+                  </p>
                 </div>
                 <Lightbulb className="w-8 h-8 text-white" />
               </div>
               <p className="text-xs text-gray-400 mt-2">
-                {analytics?.innovation.change > 0 ? '+' : ''}{analytics?.innovation.change || 0}% change
+                {analytics?.innovation.change > 0 ? "+" : ""}
+                {analytics?.innovation.change || 0}% change
               </p>
             </CardContent>
           </Card>
 
-          <Card className="bg-charcoal border-charcoal-lighter">
+          <Card className="bg-zinc-900 border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-300 text-sm">Collaboration</p>
-                  <p className="text-3xl font-bold text-white">{analytics?.collaboration.current || 0}%</p>
+                  <p className="text-3xl font-bold text-white">
+                    {analytics?.collaboration.current || 0}%
+                  </p>
                 </div>
                 <Heart className="w-8 h-8 text-white" />
               </div>
               <p className="text-xs text-gray-400 mt-2">
-                {analytics?.collaboration.change > 0 ? '+' : ''}{analytics?.collaboration.change || 0}% change
+                {analytics?.collaboration.change > 0 ? "+" : ""}
+                {analytics?.collaboration.change || 0}% change
               </p>
             </CardContent>
           </Card>
 
-          <Card className="bg-charcoal border-charcoal-lighter">
+          <Card className="bg-zinc-900 border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-300 text-sm">Bug Rate</p>
-                  <p className="text-3xl font-bold text-white">{analytics?.bugRate.current || 0}%</p>
+                  <p className="text-3xl font-bold text-white">
+                    {analytics?.bugRate.current || 0}%
+                  </p>
                 </div>
                 <AlertTriangle className="w-8 h-8 text-white" />
               </div>
               <p className="text-xs text-gray-400 mt-2">
-                {analytics?.bugRate.change > 0 ? '+' : ''}{analytics?.bugRate.change || 0}% change
+                {analytics?.bugRate.change > 0 ? "+" : ""}
+                {analytics?.bugRate.change || 0}% change
               </p>
             </CardContent>
           </Card>
         </div>
 
         <Tabs defaultValue="live" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="live"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Activity className="w-4 h-4 mr-2" />
               Live Activity
             </TabsTrigger>
             <TabsTrigger
               value="ai-insights"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Brain className="w-4 h-4 mr-2" />
               AI Insights
             </TabsTrigger>
             <TabsTrigger
               value="team"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Users className="w-4 h-4 mr-2" />
               Team Performance
             </TabsTrigger>
             <TabsTrigger
               value="achievements"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Award className="w-4 h-4 mr-2" />
               Achievements
             </TabsTrigger>
             <TabsTrigger
               value="analytics"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <BarChart3 className="w-4 h-4 mr-2" />
               Deep Analytics
@@ -475,7 +489,7 @@ const EnhancedTeamDashboard = () => {
                   {liveSessions.map((session) => (
                     <div
                       key={session.id}
-                      className="p-4 bg-charcoal-light rounded-lg border border-yellow-400/30"
+                      className="p-4 bg-zinc-900 rounded-lg border border-yellow-400/30"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <Badge className="bg-yellow-900 text-yellow-200">
@@ -498,7 +512,7 @@ const EnhancedTeamDashboard = () => {
                             return participant ? (
                               <Avatar
                                 key={participant.id}
-                                className="w-6 h-6 border-2 border-charcoal-dark"
+                                className="w-6 h-6 border-2 border-zinc-800-dark"
                               >
                                 <AvatarFallback className="text-xs">
                                   {participant.name
@@ -510,7 +524,7 @@ const EnhancedTeamDashboard = () => {
                             ) : null;
                           })}
                         </div>
-                        <span className="text-charcoal-lighter text-xs">
+                        <span className="text-zinc-400 text-xs">
                           {session.startedAt}
                         </span>
                         <Button size="sm" variant="outline" className="ml-auto">
@@ -536,7 +550,7 @@ const EnhancedTeamDashboard = () => {
                     {teamMembers.map((member) => (
                       <div
                         key={member.id}
-                        className="flex items-center gap-3 p-3 bg-charcoal-light rounded-lg"
+                        className="flex items-center gap-3 p-3 bg-zinc-900 rounded-lg"
                       >
                         <div className="relative">
                           <Avatar className="w-8 h-8">
@@ -562,7 +576,7 @@ const EnhancedTeamDashboard = () => {
                               {member.skillLevel}
                             </Badge>
                           </div>
-                          <p className="text-charcoal-lighter text-sm">
+                          <p className="text-zinc-400 text-sm">
                             {member.currentActivity.status === "coding" &&
                               `Coding in ${member.currentActivity.currentFile}`}
                             {member.currentActivity.status === "reviewing" &&
@@ -580,7 +594,7 @@ const EnhancedTeamDashboard = () => {
                               {member.stats.streak}
                             </span>
                           </div>
-                          <p className="text-charcoal-light text-xs">
+                          <p className="text-zinc-400 text-xs">
                             {member.currentActivity.lastSeen}
                           </p>
                         </div>
@@ -614,11 +628,11 @@ const EnhancedTeamDashboard = () => {
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-2">
-                              <Badge className="bg-charcoal text-white">
+                              <Badge className="bg-zinc-900 text-white">
                                 {insight.type}
                               </Badge>
                               <div className="flex items-center gap-1">
-                                <span className="text-xs text-charcoal-lighter">
+                                <span className="text-xs text-zinc-400">
                                   Confidence:
                                 </span>
                                 <span className="text-xs text-white">
@@ -642,11 +656,11 @@ const EnhancedTeamDashboard = () => {
                             <h3 className="text-white font-medium mb-2">
                               {insight.title}
                             </h3>
-                            <p className="text-charcoal-lighter text-sm mb-3">
+                            <p className="text-zinc-400 text-sm mb-3">
                               {insight.description}
                             </p>
 
-                            <div className="flex items-center gap-4 text-xs text-charcoal-light">
+                            <div className="flex items-center gap-4 text-xs text-zinc-400">
                               <span>
                                 Time to fix: {insight.estimatedTimeToFix}
                               </span>
@@ -690,7 +704,7 @@ const EnhancedTeamDashboard = () => {
                     {teamMembers.map((member) => (
                       <div
                         key={member.id}
-                        className="p-4 bg-charcoal-light rounded-lg"
+                        className="p-4 bg-zinc-900 rounded-lg"
                       >
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-3">
@@ -727,7 +741,7 @@ const EnhancedTeamDashboard = () => {
                             <div className="text-2xl font-bold text-white">
                               {member.stats.codeQualityScore}
                             </div>
-                            <div className="text-xs text-charcoal-lighter">
+                            <div className="text-xs text-zinc-400">
                               Quality Score
                             </div>
                           </div>
@@ -736,15 +750,13 @@ const EnhancedTeamDashboard = () => {
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
                             <div className="flex items-center justify-between">
-                              <span className="text-charcoal-lighter">
-                                Fixes
-                              </span>
+                              <span className="text-zinc-400">Fixes</span>
                               <span className="text-white">
                                 {member.stats.fixesThisWeek}
                               </span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-charcoal-lighter">
+                              <span className="text-zinc-400">
                                 Collaboration
                               </span>
                               <span className="text-white">
@@ -754,17 +766,13 @@ const EnhancedTeamDashboard = () => {
                           </div>
                           <div>
                             <div className="flex items-center justify-between">
-                              <span className="text-charcoal-lighter">
-                                Innovation
-                              </span>
+                              <span className="text-zinc-400">Innovation</span>
                               <span className="text-white">
                                 {member.stats.innovationPoints}
                               </span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-charcoal-lighter">
-                                Mentoring
-                              </span>
+                              <span className="text-zinc-400">Mentoring</span>
                               <span className="text-white">
                                 {member.stats.mentorshipHours}h
                               </span>
@@ -777,7 +785,7 @@ const EnhancedTeamDashboard = () => {
                             {member.specialties.map((specialty) => (
                               <Badge
                                 key={specialty}
-                                className="bg-charcoal text-charcoal-lighter text-xs"
+                                className="bg-zinc-900 text-zinc-400 text-xs"
                               >
                                 {specialty}
                               </Badge>
@@ -805,10 +813,7 @@ const EnhancedTeamDashboard = () => {
                       "APIs",
                       "Performance",
                     ].map((skill) => (
-                      <div
-                        key={skill}
-                        className="p-3 bg-charcoal-light rounded-lg"
-                      >
+                      <div key={skill} className="p-3 bg-zinc-900 rounded-lg">
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-white font-medium">
                             {skill}
@@ -819,7 +824,7 @@ const EnhancedTeamDashboard = () => {
                               .map((member) => (
                                 <Avatar
                                   key={member.id}
-                                  className="w-6 h-6 border-2 border-charcoal-dark"
+                                  className="w-6 h-6 border-2 border-zinc-800-dark"
                                 >
                                   <AvatarFallback className="text-xs">
                                     {member.name
@@ -831,9 +836,9 @@ const EnhancedTeamDashboard = () => {
                               ))}
                           </div>
                         </div>
-                        <div className="w-full bg-charcoal h-2 rounded-full">
+                        <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
-                            className="bg-gradient-to-r from-blue-400 to-purple-400 h-2 rounded-full"
+                            className="bg-zinc-600 h-2 rounded-full"
                             style={{ width: `${Math.random() * 50 + 50}%` }}
                           />
                         </div>
@@ -889,7 +894,7 @@ const EnhancedTeamDashboard = () => {
                     ].map((achievement) => (
                       <div
                         key={achievement.name}
-                        className="p-4 bg-charcoal-light rounded-lg border border-yellow-400/30"
+                        className="p-4 bg-zinc-900 rounded-lg border border-yellow-400/30"
                       >
                         <div className="flex items-center gap-3 mb-2">
                           <span className="text-2xl">{achievement.icon}</span>
@@ -897,22 +902,22 @@ const EnhancedTeamDashboard = () => {
                             <p className="text-white font-medium">
                               {achievement.name}
                             </p>
-                            <p className="text-charcoal-lighter text-xs">
+                            <p className="text-zinc-400 text-xs">
                               {achievement.description}
                             </p>
                           </div>
                         </div>
-                        <div className="w-full bg-charcoal h-2 rounded-full">
+                        <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
                             className={`h-2 rounded-full ${
                               achievement.progress === 100
-                                ? "bg-gradient-to-r from-yellow-400 to-orange-400"
-                                : "bg-gradient-to-r from-blue-400 to-purple-400"
+                                ? '"bg-zinc-900"'
+                                : '"bg-zinc-900"'
                             }`}
                             style={{ width: `${achievement.progress}%` }}
                           />
                         </div>
-                        <p className="text-xs text-charcoal-light mt-1">
+                        <p className="text-xs text-zinc-400 mt-1">
                           {achievement.progress}% complete
                         </p>
                       </div>
@@ -939,17 +944,17 @@ const EnhancedTeamDashboard = () => {
                       .map((member, index) => (
                         <div
                           key={member.id}
-                          className="flex items-center gap-3 p-2 bg-charcoal-light rounded-lg"
+                          className="flex items-center gap-3 p-2 bg-zinc-900 rounded-lg"
                         >
                           <div
                             className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                               index === 0
-                                ? "bg-yellow-400 text-charcoal-dark"
+                                ? "bg-yellow-400 text-black"
                                 : index === 1
-                                  ? "bg-gray-400 text-charcoal-dark"
+                                  ? "bg-gray-400 text-black"
                                   : index === 2
                                     ? "bg-orange-600 text-white"
-                                    : "bg-charcoal text-white"
+                                    : "bg-zinc-900 text-white"
                             }`}
                           >
                             {index + 1}
@@ -966,7 +971,7 @@ const EnhancedTeamDashboard = () => {
                             <p className="text-white text-sm font-medium">
                               {member.name}
                             </p>
-                            <p className="text-charcoal-lighter text-xs">
+                            <p className="text-zinc-400 text-xs">
                               {member.stats.innovationPoints} points
                             </p>
                           </div>
@@ -985,8 +990,8 @@ const EnhancedTeamDashboard = () => {
                   <CardTitle>Code Quality Trends</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
-                    <p className="text-charcoal-lighter">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                    <p className="text-zinc-400">
                       Interactive quality trend chart would go here
                     </p>
                   </div>
@@ -998,8 +1003,8 @@ const EnhancedTeamDashboard = () => {
                   <CardTitle>Team Velocity</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
-                    <p className="text-charcoal-lighter">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                    <p className="text-zinc-400">
                       Velocity and productivity metrics chart
                     </p>
                   </div>

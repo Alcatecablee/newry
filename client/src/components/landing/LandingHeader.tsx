@@ -13,7 +13,7 @@ export function LandingHeader() {
           draggable={false}
           loading="eager"
         />
-        <span className="font-bold text-white text-2xl tracking-tight bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent select-none">
+        <span className="font-bold text-white text-2xl tracking-tight bg-zinc-900">
           NeuroLint
         </span>
       </a>
@@ -49,7 +49,7 @@ export function LandingHeader() {
         className="ml-2"
         tabIndex={-1}
       >
-        <Button className="bg-gradient-to-r from-blue-700 to-purple-500 text-white px-4 py-2 rounded-lg text-base shadow-md active:scale-95 touch-manipulation">
+        <Button className="bg-zinc-900">
           Get Involved
         </Button>
       </a>

@@ -3,10 +3,10 @@ import { Terminal, Code, Zap, GitBranch, CheckCircle2 } from 'lucide-react';
 
 export function CLISection() {
   return (
-    <section id="cli" className="relative z-10 py-20 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm">
+    <section id="cli" className="relative z-10 py-20 bg-black backdrop-blur-sm">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-zinc-900">
             Command Line Power
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">

@@ -242,7 +242,7 @@ const LiveCollaboration = () => {
   };
 
   return (
-    <div className="min-h-screen bg-charcoal-dark p-6">
+    <div className="min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
@@ -251,7 +251,7 @@ const LiveCollaboration = () => {
               <h1 className="text-2xl font-bold text-white">
                 Live Collaboration
               </h1>
-              <div className="flex items-center gap-2 text-charcoal-lighter">
+              <div className="flex items-center gap-2 text-zinc-400">
                 <GitBranch className="w-4 h-4" />
                 <span>{session.repository}</span>
                 <span>/</span>
@@ -283,7 +283,7 @@ const LiveCollaboration = () => {
                     </AvatarFallback>
                   </Avatar>
                   <div
-                    className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-charcoal-dark ${
+                    className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-zinc-800-dark ${
                       participant.isOnline ? "bg-green-400" : "bg-gray-400"
                     }`}
                   />
@@ -316,7 +316,7 @@ const LiveCollaboration = () => {
                           className="flex items-center gap-1 text-xs"
                         >
                           <div className="w-2 h-2 rounded-full bg-blue-400" />
-                          <span className="text-charcoal-lighter">
+                          <span className="text-zinc-400">
                             {participant.name} (line {participant.cursor?.line})
                           </span>
                         </div>
@@ -325,40 +325,40 @@ const LiveCollaboration = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="bg-charcoal-darker p-4 rounded-lg font-mono text-sm">
+                <div className="bg-blacker p-4 rounded-lg font-mono text-sm">
                   <div className="space-y-1">
                     {/* Simulated code lines */}
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">10</span>
+                      <span className="text-zinc-400 w-8">10</span>
                       <span className="text-white">
                         import React from 'react';
                       </span>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">11</span>
+                      <span className="text-zinc-400 w-8">11</span>
                       <span className="text-white">
                         import {UserCard} from './UserCard';
                       </span>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">12</span>
+                      <span className="text-zinc-400 w-8">12</span>
                       <span className="text-white"></span>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">13</span>
+                      <span className="text-zinc-400 w-8">13</span>
                       <span className="text-white">
                         export function UserProfile() {"{"}
                       </span>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">14</span>
+                      <span className="text-zinc-400 w-8">14</span>
                       <span className="text-white">
                         {" "}
                         const users = getUsers();
                       </span>
                     </div>
                     <div className="flex bg-red-900/30 border-l-4 border-red-400">
-                      <span className="text-charcoal-light w-8">15</span>
+                      <span className="text-zinc-400 w-8">15</span>
                       <span className="text-white">
                         {" "}
                         const title = &quot;User Profile&quot;;
@@ -368,19 +368,19 @@ const LiveCollaboration = () => {
                       </Badge>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">16</span>
+                      <span className="text-zinc-400 w-8">16</span>
                       <span className="text-white"></span>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">17</span>
+                      <span className="text-zinc-400 w-8">17</span>
                       <span className="text-white"> return (</span>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">18</span>
+                      <span className="text-zinc-400 w-8">18</span>
                       <span className="text-white"> &lt;div&gt;</span>
                     </div>
                     <div className="flex bg-green-900/30 border-l-4 border-green-400">
-                      <span className="text-charcoal-light w-8">28</span>
+                      <span className="text-zinc-400 w-8">28</span>
                       <span className="text-white">
                         {" "}
                         {`{users.map(user => <UserCard key={user.id} user={user} />)}`}
@@ -390,7 +390,7 @@ const LiveCollaboration = () => {
                       </Badge>
                     </div>
                     <div className="flex bg-yellow-900/30 border-l-4 border-yellow-400">
-                      <span className="text-charcoal-light w-8">42</span>
+                      <span className="text-zinc-400 w-8">42</span>
                       <span className="text-white">
                         {" "}
                         const theme = localStorage.getItem("theme");
@@ -417,14 +417,14 @@ const LiveCollaboration = () => {
                       className={`p-4 rounded-lg border cursor-pointer transition-colors ${
                         selectedFix === fix.id
                           ? "border-blue-400 bg-blue-900/20"
-                          : "border-charcoal-light bg-charcoal-light hover:bg-charcoal"
+                          : "border-zinc-800 bg-zinc-900 hover:bg-zinc-900"
                       }`}
                       onClick={() => setSelectedFix(fix.id)}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <Badge className="bg-charcoal text-white">
+                            <Badge className="bg-zinc-900 text-white">
                               Layer {fix.layer}
                             </Badge>
                             <span className="text-white font-medium">
@@ -434,12 +434,12 @@ const LiveCollaboration = () => {
                               {fix.status}
                             </Badge>
                           </div>
-                          <p className="text-charcoal-lighter text-sm mb-3">
+                          <p className="text-zinc-400 text-sm mb-3">
                             {fix.description}
                           </p>
 
                           {/* Code diff */}
-                          <div className="bg-charcoal-darker rounded p-3 font-mono text-xs">
+                          <div className="bg-blacker rounded p-3 font-mono text-xs">
                             <div className="text-red-300 mb-1">
                               - {fix.codeChange.before}
                             </div>
@@ -461,7 +461,7 @@ const LiveCollaboration = () => {
                                 {getVoteCount(fix, "reject")}
                               </span>
                             </div>
-                            <span className="text-charcoal-light text-xs">
+                            <span className="text-zinc-400 text-xs">
                               Line {fix.codeChange.lineStart}
                             </span>
                           </div>
@@ -527,17 +527,17 @@ const LiveCollaboration = () => {
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-charcoal-lighter">Started</span>
+                    <span className="text-zinc-400">Started</span>
                     <span className="text-white">25 min ago</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-charcoal-lighter">Participants</span>
+                    <span className="text-zinc-400">Participants</span>
                     <span className="text-white">
                       {session.participants.length}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-charcoal-lighter">
+                    <span className="text-zinc-400">
                       Fixes Suggested
                     </span>
                     <span className="text-white">
@@ -545,7 +545,7 @@ const LiveCollaboration = () => {
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-charcoal-lighter">Approved</span>
+                    <span className="text-zinc-400">Approved</span>
                     <span className="text-green-400">
                       {
                         session.suggestedFixes.filter(
@@ -583,15 +583,15 @@ const LiveCollaboration = () => {
                           <span className="text-white text-sm font-medium">
                             {comment.userName}
                           </span>
-                          <span className="text-charcoal-light text-xs">
+                          <span className="text-zinc-400 text-xs">
                             {new Date(comment.timestamp).toLocaleTimeString()}
                           </span>
                         </div>
-                        <p className="text-charcoal-lighter text-sm">
+                        <p className="text-zinc-400 text-sm">
                           {comment.content}
                         </p>
                         {comment.lineNumber && (
-                          <span className="text-charcoal-light text-xs">
+                          <span className="text-zinc-400 text-xs">
                             Line {comment.lineNumber}
                           </span>
                         )}
@@ -606,7 +606,7 @@ const LiveCollaboration = () => {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Add a comment..."
-                    className="flex-1 bg-charcoal border border-charcoal-light rounded px-3 py-2 text-white text-sm"
+                    className="flex-1 bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-white text-sm"
                     onKeyPress={(e) =>
                       e.key === "Enter" &&
                       handleAddComment(selectedFix || undefined)
@@ -652,7 +652,7 @@ const LiveCollaboration = () => {
                           </AvatarFallback>
                         </Avatar>
                         <div
-                          className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-charcoal-dark ${
+                          className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-zinc-800-dark ${
                             participant.isOnline
                               ? "bg-green-400"
                               : "bg-gray-400"
@@ -663,12 +663,12 @@ const LiveCollaboration = () => {
                         <p className="text-white text-sm font-medium">
                           {participant.name}
                         </p>
-                        <p className="text-charcoal-lighter text-xs">
+                        <p className="text-zinc-400 text-xs">
                           {participant.role}
                         </p>
                       </div>
                       {participant.cursor && (
-                        <Badge className="bg-charcoal text-charcoal-lighter text-xs">
+                        <Badge className="bg-zinc-900 text-zinc-400 text-xs">
                           Line {participant.cursor.line}
                         </Badge>
                       )}

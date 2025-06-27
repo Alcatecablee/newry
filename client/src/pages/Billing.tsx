@@ -34,7 +34,7 @@ const Billing = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#22242B] via-[#181921] to-[#16151a] flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <Card className="bg-black/50 border-gray-700 p-8">
           <CardContent className="text-center">
             <h2 className="text-2xl font-bold text-white mb-4">Please Sign In</h2>
@@ -46,7 +46,7 @@ const Billing = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#22242B] via-[#181921] to-[#16151a] p-4">
+    <div className="min-h-screen bg-black p-4">
       <div className="max-w-7xl mx-auto py-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-white mb-4">

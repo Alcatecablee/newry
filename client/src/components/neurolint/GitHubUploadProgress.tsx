@@ -13,7 +13,7 @@ interface GitHubUploadProgressProps {
 
 export function GitHubUploadProgress({ uploadStatus }: GitHubUploadProgressProps) {
   return (
-    <div className="mt-4 p-3 bg-charcoal/50 border border-charcoal-lighter rounded-lg">
+    <div className="mt-4 p-3 bg-zinc-900/50 border border-zinc-800er rounded-lg">
       <div className="flex items-center gap-2 text-sm text-white mb-2">
         <CheckCircle className="w-4 h-4" />
         Progress: {uploadStatus.processed}/{uploadStatus.total} files
