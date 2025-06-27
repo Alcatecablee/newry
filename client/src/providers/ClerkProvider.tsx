@@ -6,7 +6,6 @@ interface ClerkProviderProps {
 }
 
 export function ClerkProvider({ children }: ClerkProviderProps) {
-  // Hardcoded for immediate functionality - will fix env vars after
   const publishableKey =
     import.meta.env.VITE_CLERK_PUBLISHABLE_KEY ||
     "pk_test_Z3VpZGluZy1haXJlZGFsZS00My5jbGVyay5hY2NvdW50cy5kZXYk";
@@ -21,6 +20,10 @@ export function ClerkProvider({ children }: ClerkProviderProps) {
     return <>{children}</>;
   }
 
+  // Get current URL for redirects
+  const currentUrl =
+    typeof window !== "undefined" ? window.location.origin : "";
+
   return (
     <ClerkAuthProvider
       publishableKey={publishableKey}
@@ -30,10 +33,10 @@ export function ClerkProvider({ children }: ClerkProviderProps) {
           colorPrimary: "#7c3aed",
         },
       }}
-      signInFallbackRedirectUrl={window.location.origin + "/app"}
-      signUpFallbackRedirectUrl={window.location.origin + "/app"}
-      afterSignInUrl={window.location.origin + "/app"}
-      afterSignUpUrl={window.location.origin + "/app"}
+      signInFallbackRedirectUrl={currentUrl + "/app"}
+      signUpFallbackRedirectUrl={currentUrl + "/app"}
+      afterSignInUrl={currentUrl + "/app"}
+      afterSignUpUrl={currentUrl + "/app"}
     >
       {children}
     </ClerkAuthProvider>
