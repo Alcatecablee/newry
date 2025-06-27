@@ -15,45 +15,48 @@ export const SiteHeader = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header className="relative z-50 w-full border-b border-zinc-800 bg-black/80 backdrop-blur-lg">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 w-full border-b border-zinc-800/50 bg-black/95 backdrop-blur-xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             {!isAppPage && (
-              <Link to="/" className="flex items-center">
+              <Link to="/" className="flex items-center group">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
-                  alt="Logo"
-                  className="h-8 w-auto"
+                  alt="NeuroLint Logo"
+                  className="h-8 w-auto transition-transform duration-200 group-hover:scale-105"
                 />
               </Link>
             )}
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-1">
             <Link
               to="/app"
-              className="!text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
+              className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
             >
               App
             </Link>
             <span
-              className="!text-white !opacity-50 cursor-not-allowed font-medium"
+              className="px-4 py-2 text-sm font-medium text-zinc-500 cursor-not-allowed rounded-lg relative group"
               title="Coming Soon"
             >
               Teams
+              <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-zinc-700 text-zinc-300 rounded-full text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">
+                Soon
+              </span>
             </span>
             <Link
               to="/test"
-              className="!text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
+              className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
             >
               Test Suite
             </Link>
             {isAuthenticated && (
               <Link
                 to="/billing"
-                className="!text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
+                className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
               >
                 Billing
               </Link>
@@ -61,9 +64,9 @@ export const SiteHeader = () => {
           </nav>
 
           {/* Auth Section */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-3">
             {loading ? (
-              <div className="w-8 h-8 rounded-full bg-zinc-900 animate-pulse" />
+              <div className="w-8 h-8 rounded-full bg-zinc-800/50 animate-pulse" />
             ) : isAuthenticated ? (
               <UserButton />
             ) : (
@@ -77,12 +80,12 @@ export const SiteHeader = () => {
               variant="ghost"
               size="sm"
               onClick={toggleMenu}
-              className="text-white/90 hover:text-white hover:bg-white/10"
+              className="text-zinc-300 hover:text-white hover:bg-zinc-800/50 h-9 w-9 p-0"
             >
               {isMenuOpen ? (
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-5 w-5" />
               )}
             </Button>
           </div>
@@ -90,21 +93,21 @@ export const SiteHeader = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 border-t border-zinc-800 bg-zinc-900/90 backdrop-blur-lg">
+          <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-zinc-800/50">
+            <div className="px-4 py-3 space-y-2">
               <Link
                 to="/app"
-                className="block px-3 py-2 !text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
+                className="block px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 App
               </Link>
-              <div className="block px-3 py-2 !text-white !opacity-50 font-medium">
-                Teams
+              <div className="block px-3 py-2 text-sm font-medium text-zinc-500 rounded-lg">
+                Teams <span className="text-xs">(Coming Soon)</span>
               </div>
               <Link
                 to="/test"
-                className="block px-3 py-2 !text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
+                className="block px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Test Suite
@@ -112,7 +115,7 @@ export const SiteHeader = () => {
               {isAuthenticated && (
                 <Link
                   to="/billing"
-                  className="block px-3 py-2 !text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
+                  className="block px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Billing
@@ -120,7 +123,7 @@ export const SiteHeader = () => {
               )}
               <div className="px-3 py-2">
                 {loading ? (
-                  <div className="w-8 h-8 rounded-full bg-zinc-900 animate-pulse" />
+                  <div className="w-8 h-8 rounded-full bg-zinc-800/50 animate-pulse" />
                 ) : isAuthenticated ? (
                   <UserButton />
                 ) : (
