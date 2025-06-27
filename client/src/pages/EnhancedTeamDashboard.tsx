@@ -285,15 +285,15 @@ const EnhancedTeamDashboard = () => {
   const getInsightColor = (type: string) => {
     switch (type) {
       case "optimization":
-        return "border-charcoal-lighter bg-charcoal/50";
+        return "border-zinc-800er bg-charcoal/50";
       case "risk":
-        return "border-charcoal-lighter bg-charcoal/50";
+        return "border-zinc-800er bg-charcoal/50";
       case "opportunity":
-        return "border-charcoal-lighter bg-charcoal/50";
+        return "border-zinc-800er bg-charcoal/50";
       case "prediction":
-        return "border-charcoal-lighter bg-charcoal/50";
+        return "border-zinc-800er bg-charcoal/50";
       default:
-        return "border-charcoal-light bg-zinc-900";
+        return "border-zinc-800 bg-zinc-900";
     }
   };
 
@@ -307,7 +307,7 @@ const EnhancedTeamDashboard = () => {
               <h1 className="text-3xl font-bold text-white mb-2">
                 Team Command Center
               </h1>
-              <div className="flex items-center gap-4 text-charcoal-lighter">
+              <div className="flex items-center gap-4 text-zinc-400">
                 <div className="flex items-center gap-2">
                   <div
                     className={`w-2 h-2 rounded-full ${liveMode ? "bg-white animate-pulse" : "bg-gray-400"}`}
@@ -346,7 +346,7 @@ const EnhancedTeamDashboard = () => {
 
         {/* Enhanced Metrics with Gamification */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
-          <Card className="bg-charcoal border-charcoal-lighter">
+          <Card className="bg-charcoal border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -361,7 +361,7 @@ const EnhancedTeamDashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-charcoal border-charcoal-lighter">
+          <Card className="bg-charcoal border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -376,7 +376,7 @@ const EnhancedTeamDashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-charcoal border-charcoal-lighter">
+          <Card className="bg-charcoal border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -391,7 +391,7 @@ const EnhancedTeamDashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-charcoal border-charcoal-lighter">
+          <Card className="bg-charcoal border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -406,7 +406,7 @@ const EnhancedTeamDashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-charcoal border-charcoal-lighter">
+          <Card className="bg-charcoal border-zinc-800er">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -423,7 +423,7 @@ const EnhancedTeamDashboard = () => {
         </div>
 
         <Tabs defaultValue="live" className="space-y-6">
-          <TabsList className="bg-zinc-900 border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="live"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -510,7 +510,7 @@ const EnhancedTeamDashboard = () => {
                             ) : null;
                           })}
                         </div>
-                        <span className="text-charcoal-lighter text-xs">
+                        <span className="text-zinc-400 text-xs">
                           {session.startedAt}
                         </span>
                         <Button size="sm" variant="outline" className="ml-auto">
@@ -562,7 +562,7 @@ const EnhancedTeamDashboard = () => {
                               {member.skillLevel}
                             </Badge>
                           </div>
-                          <p className="text-charcoal-lighter text-sm">
+                          <p className="text-zinc-400 text-sm">
                             {member.currentActivity.status === "coding" &&
                               `Coding in ${member.currentActivity.currentFile}`}
                             {member.currentActivity.status === "reviewing" &&
@@ -618,7 +618,7 @@ const EnhancedTeamDashboard = () => {
                                 {insight.type}
                               </Badge>
                               <div className="flex items-center gap-1">
-                                <span className="text-xs text-charcoal-lighter">
+                                <span className="text-xs text-zinc-400">
                                   Confidence:
                                 </span>
                                 <span className="text-xs text-white">
@@ -642,7 +642,7 @@ const EnhancedTeamDashboard = () => {
                             <h3 className="text-white font-medium mb-2">
                               {insight.title}
                             </h3>
-                            <p className="text-charcoal-lighter text-sm mb-3">
+                            <p className="text-zinc-400 text-sm mb-3">
                               {insight.description}
                             </p>
 
@@ -727,7 +727,7 @@ const EnhancedTeamDashboard = () => {
                             <div className="text-2xl font-bold text-white">
                               {member.stats.codeQualityScore}
                             </div>
-                            <div className="text-xs text-charcoal-lighter">
+                            <div className="text-xs text-zinc-400">
                               Quality Score
                             </div>
                           </div>
@@ -736,7 +736,7 @@ const EnhancedTeamDashboard = () => {
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
                             <div className="flex items-center justify-between">
-                              <span className="text-charcoal-lighter">
+                              <span className="text-zinc-400">
                                 Fixes
                               </span>
                               <span className="text-white">
@@ -744,7 +744,7 @@ const EnhancedTeamDashboard = () => {
                               </span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-charcoal-lighter">
+                              <span className="text-zinc-400">
                                 Collaboration
                               </span>
                               <span className="text-white">
@@ -754,7 +754,7 @@ const EnhancedTeamDashboard = () => {
                           </div>
                           <div>
                             <div className="flex items-center justify-between">
-                              <span className="text-charcoal-lighter">
+                              <span className="text-zinc-400">
                                 Innovation
                               </span>
                               <span className="text-white">
@@ -762,7 +762,7 @@ const EnhancedTeamDashboard = () => {
                               </span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-charcoal-lighter">
+                              <span className="text-zinc-400">
                                 Mentoring
                               </span>
                               <span className="text-white">
@@ -777,7 +777,7 @@ const EnhancedTeamDashboard = () => {
                             {member.specialties.map((specialty) => (
                               <Badge
                                 key={specialty}
-                                className="bg-charcoal text-charcoal-lighter text-xs"
+                                className="bg-charcoal text-zinc-400 text-xs"
                               >
                                 {specialty}
                               </Badge>
@@ -897,7 +897,7 @@ const EnhancedTeamDashboard = () => {
                             <p className="text-white font-medium">
                               {achievement.name}
                             </p>
-                            <p className="text-charcoal-lighter text-xs">
+                            <p className="text-zinc-400 text-xs">
                               {achievement.description}
                             </p>
                           </div>
@@ -966,7 +966,7 @@ const EnhancedTeamDashboard = () => {
                             <p className="text-white text-sm font-medium">
                               {member.name}
                             </p>
-                            <p className="text-charcoal-lighter text-xs">
+                            <p className="text-zinc-400 text-xs">
                               {member.stats.innovationPoints} points
                             </p>
                           </div>
@@ -986,7 +986,7 @@ const EnhancedTeamDashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-charcoal-lighter">
+                    <p className="text-zinc-400">
                       Interactive quality trend chart would go here
                     </p>
                   </div>
@@ -999,7 +999,7 @@ const EnhancedTeamDashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-charcoal-lighter">
+                    <p className="text-zinc-400">
                       Velocity and productivity metrics chart
                     </p>
                   </div>

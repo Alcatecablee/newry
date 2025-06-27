@@ -50,7 +50,7 @@ export function TransformationInsights({
         {insights.map((result, idx) => (
           <div
             key={result.name}
-            className="rounded-lg bg-charcoal border border-charcoal-lighter px-4 py-3 shadow transition-all hover:shadow-md"
+            className="rounded-lg bg-charcoal border border-zinc-800er px-4 py-3 shadow transition-all hover:shadow-md"
           >
             <div className="flex items-center gap-2 mb-2">
               <Badge variant={result.success ? "default" : "destructive"}>
@@ -66,7 +66,7 @@ export function TransformationInsights({
               </span>
             </div>
 
-            <div className="text-xs text-charcoal-lighter mb-2">
+            <div className="text-xs text-zinc-400 mb-2">
               {result.description}
             </div>
 
@@ -97,7 +97,7 @@ export function TransformationInsights({
             </div>
 
             {result.improvements && result.improvements.length > 0 && (
-              <div className="mt-2 pt-2 border-t border-charcoal-lighter">
+              <div className="mt-2 pt-2 border-t border-zinc-800er">
                 <div className="text-xs text-green-400">
                   {result.improvements.slice(0, 2).map((improvement, i) => (
                     <div key={i} className="flex items-center gap-1">
@@ -106,7 +106,7 @@ export function TransformationInsights({
                     </div>
                   ))}
                   {result.improvements.length > 2 && (
-                    <div className="text-charcoal-lighter">
+                    <div className="text-zinc-400">
                       +{result.improvements.length - 2} more...
                     </div>
                   )}

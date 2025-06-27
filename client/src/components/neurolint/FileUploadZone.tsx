@@ -270,7 +270,7 @@ export function FileUploadZone({ onFile, processing }: FileUploadZoneProps) {
 
       {/* File Upload Zone */}
       <div
-        className={`border-2 border-dashed border-charcoal-lighter rounded-lg bg-charcoal/30 py-8 flex flex-col items-center justify-center text-center shadow hover:border-white/50 transition-all cursor-pointer ${
+        className={`border-2 border-dashed border-zinc-800er rounded-lg bg-charcoal/30 py-8 flex flex-col items-center justify-center text-center shadow hover:border-white/50 transition-all cursor-pointer ${
           processing ? "opacity-50 pointer-events-none animate-pulse" : ""
         }`}
         onClick={() => inputRef.current?.click()}
@@ -341,7 +341,7 @@ export function FileUploadZone({ onFile, processing }: FileUploadZoneProps) {
             onClick={() => inputRef.current?.click()}
             disabled={processing}
             variant="outline"
-            className="border-charcoal-lighter text-white hover:bg-white/10 hover:text-white"
+            className="border-zinc-800er text-white hover:bg-white/10 hover:text-white"
           >
             <Upload className="w-4 h-4 mr-2" />
             Select File
@@ -352,7 +352,7 @@ export function FileUploadZone({ onFile, processing }: FileUploadZoneProps) {
       {/* Divider */}
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t border-charcoal-lighter" />
+          <span className="w-full border-t border-zinc-800er" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
           <span className="bg-[#22242B] px-2 text-muted-foreground">Or</span>
@@ -374,7 +374,7 @@ export function FileUploadZone({ onFile, processing }: FileUploadZoneProps) {
           placeholder="Paste your React, TypeScript, or JavaScript code here..."
           value={pastedCode}
           onChange={(e) => setPastedCode(e.target.value)}
-          className="min-h-[120px] bg-charcoal/90 border-charcoal-lighter text-white placeholder:text-muted-foreground font-mono text-sm resize-none focus:border-white/50"
+          className="min-h-[120px] bg-charcoal/90 border-zinc-800er text-white placeholder:text-muted-foreground font-mono text-sm resize-none focus:border-white/50"
           disabled={processing}
           maxLength={1024 * 1024} // 1MB limit
         />

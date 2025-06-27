@@ -136,7 +136,7 @@ const AppPage = () => {
                     className={`group relative p-4 rounded-xl border transition-all duration-200 text-left ${
                       isEnabled
                         ? "bg-charcoal border-white/20 shadow-lg"
-                        : "bg-zinc-900 border-charcoal-lighter hover:border-white/30 hover:bg-zinc-900"
+                        : "bg-zinc-900 border-zinc-800er hover:border-white/30 hover:bg-zinc-900"
                     }`}
                   >
                     <div className="flex items-start justify-between mb-3">
@@ -192,17 +192,17 @@ const AppPage = () => {
               onValueChange={(value) => setMode(value as "single" | "repo")}
               className="w-full"
             >
-              <TabsList className="grid w-full grid-cols-2 bg-zinc-900 border border-charcoal-lighter p-1">
+              <TabsList className="grid w-full grid-cols-2 bg-zinc-900 border border-zinc-800er p-1">
                 <TabsTrigger
                   value="single"
-                  className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-charcoal-dark data-[state=inactive]:text-charcoal-lighter"
+                  className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-charcoal-dark data-[state=inactive]:text-zinc-400"
                 >
                   <FileCode className="w-4 h-4" />
                   Single File
                 </TabsTrigger>
                 <TabsTrigger
                   value="repo"
-                  className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-charcoal-dark data-[state=inactive]:text-charcoal-lighter"
+                  className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-charcoal-dark data-[state=inactive]:text-zinc-400"
                 >
                   <Github className="w-4 h-4" />
                   Repository
@@ -210,7 +210,7 @@ const AppPage = () => {
               </TabsList>
 
               <TabsContent value="single" className="mt-8 space-y-8">
-                <div className="bg-charcoal/30 border border-charcoal-lighter rounded-2xl p-6">
+                <div className="bg-charcoal/30 border border-zinc-800er rounded-2xl p-6">
                   <FileUploadZone
                     onFile={handleFileUpload}
                     processing={processing}
@@ -220,10 +220,10 @@ const AppPage = () => {
                 {processing && (
                   <div className="flex items-center justify-center gap-3 py-8">
                     <div className="relative">
-                      <div className="w-8 h-8 border-4 border-charcoal-lighter border-t-white rounded-full animate-spin"></div>
+                      <div className="w-8 h-8 border-4 border-zinc-800er border-t-white rounded-full animate-spin"></div>
                       <Sparkles className="absolute inset-0 w-4 h-4 m-auto text-white animate-pulse" />
                     </div>
-                    <span className="text-charcoal-lighter font-medium">
+                    <span className="text-zinc-400 font-medium">
                       Transforming with {enabledLayers.length} selected
                       layers...
                     </span>
@@ -232,10 +232,10 @@ const AppPage = () => {
 
                 {stats && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="bg-charcoal border border-charcoal-lighter rounded-xl p-4">
+                    <div className="bg-charcoal border border-zinc-800er rounded-xl p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <TrendingUp className="w-5 h-5 text-white" />
-                        <span className="text-charcoal-lighter font-medium">
+                        <span className="text-zinc-400 font-medium">
                           Changes
                         </span>
                       </div>
@@ -244,10 +244,10 @@ const AppPage = () => {
                       </div>
                     </div>
 
-                    <div className="bg-charcoal border border-charcoal-lighter rounded-xl p-4">
+                    <div className="bg-charcoal border border-zinc-800er rounded-xl p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Clock className="w-5 h-5 text-white" />
-                        <span className="text-charcoal-lighter font-medium">
+                        <span className="text-zinc-400 font-medium">
                           Processing Time
                         </span>
                       </div>
@@ -256,10 +256,10 @@ const AppPage = () => {
                       </div>
                     </div>
 
-                    <div className="bg-charcoal border border-charcoal-lighter rounded-xl p-4">
+                    <div className="bg-charcoal border border-zinc-800er rounded-xl p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Zap className="w-5 h-5 text-white" />
-                        <span className="text-charcoal-lighter font-medium">
+                        <span className="text-zinc-400 font-medium">
                           Success Rate
                         </span>
                       </div>
@@ -270,7 +270,7 @@ const AppPage = () => {
                   </div>
                 )}
 
-                <div className="bg-charcoal/30 border border-charcoal-lighter rounded-2xl overflow-hidden">
+                <div className="bg-charcoal/30 border border-zinc-800er rounded-2xl overflow-hidden">
                   <CodeDiffViewer
                     original={originalCode}
                     transformed={transformedCode}
@@ -279,19 +279,19 @@ const AppPage = () => {
                 </div>
 
                 {insights.length > 0 && (
-                  <div className="bg-charcoal/30 border border-charcoal-lighter rounded-2xl p-6">
+                  <div className="bg-charcoal/30 border border-zinc-800er rounded-2xl p-6">
                     <TransformationInsights insights={insights} />
                   </div>
                 )}
               </TabsContent>
 
               <TabsContent value="repo" className="mt-8 space-y-8">
-                <div className="bg-charcoal/30 border border-charcoal-lighter rounded-2xl p-6">
+                <div className="bg-charcoal/30 border border-zinc-800er rounded-2xl p-6">
                   <GitHubUpload onRepoUpload={handleRepoUpload} />
                 </div>
 
                 {repoFiles.length > 0 && (
-                  <div className="bg-charcoal/30 border border-charcoal-lighter rounded-2xl p-6">
+                  <div className="bg-charcoal/30 border border-zinc-800er rounded-2xl p-6">
                     <RepoProcessor
                       files={repoFiles}
                       enabledLayers={enabledLayers}

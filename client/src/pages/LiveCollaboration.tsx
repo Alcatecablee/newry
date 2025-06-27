@@ -251,7 +251,7 @@ const LiveCollaboration = () => {
               <h1 className="text-2xl font-bold text-white">
                 Live Collaboration
               </h1>
-              <div className="flex items-center gap-2 text-charcoal-lighter">
+              <div className="flex items-center gap-2 text-zinc-400">
                 <GitBranch className="w-4 h-4" />
                 <span>{session.repository}</span>
                 <span>/</span>
@@ -316,7 +316,7 @@ const LiveCollaboration = () => {
                           className="flex items-center gap-1 text-xs"
                         >
                           <div className="w-2 h-2 rounded-full bg-blue-400" />
-                          <span className="text-charcoal-lighter">
+                          <span className="text-zinc-400">
                             {participant.name} (line {participant.cursor?.line})
                           </span>
                         </div>
@@ -417,7 +417,7 @@ const LiveCollaboration = () => {
                       className={`p-4 rounded-lg border cursor-pointer transition-colors ${
                         selectedFix === fix.id
                           ? "border-blue-400 bg-blue-900/20"
-                          : "border-charcoal-light bg-zinc-900 hover:bg-zinc-900"
+                          : "border-zinc-800 bg-zinc-900 hover:bg-zinc-900"
                       }`}
                       onClick={() => setSelectedFix(fix.id)}
                     >
@@ -434,7 +434,7 @@ const LiveCollaboration = () => {
                               {fix.status}
                             </Badge>
                           </div>
-                          <p className="text-charcoal-lighter text-sm mb-3">
+                          <p className="text-zinc-400 text-sm mb-3">
                             {fix.description}
                           </p>
 
@@ -527,17 +527,17 @@ const LiveCollaboration = () => {
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-charcoal-lighter">Started</span>
+                    <span className="text-zinc-400">Started</span>
                     <span className="text-white">25 min ago</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-charcoal-lighter">Participants</span>
+                    <span className="text-zinc-400">Participants</span>
                     <span className="text-white">
                       {session.participants.length}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-charcoal-lighter">
+                    <span className="text-zinc-400">
                       Fixes Suggested
                     </span>
                     <span className="text-white">
@@ -545,7 +545,7 @@ const LiveCollaboration = () => {
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-charcoal-lighter">Approved</span>
+                    <span className="text-zinc-400">Approved</span>
                     <span className="text-green-400">
                       {
                         session.suggestedFixes.filter(
@@ -587,7 +587,7 @@ const LiveCollaboration = () => {
                             {new Date(comment.timestamp).toLocaleTimeString()}
                           </span>
                         </div>
-                        <p className="text-charcoal-lighter text-sm">
+                        <p className="text-zinc-400 text-sm">
                           {comment.content}
                         </p>
                         {comment.lineNumber && (
@@ -606,7 +606,7 @@ const LiveCollaboration = () => {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Add a comment..."
-                    className="flex-1 bg-charcoal border border-charcoal-light rounded px-3 py-2 text-white text-sm"
+                    className="flex-1 bg-charcoal border border-zinc-800 rounded px-3 py-2 text-white text-sm"
                     onKeyPress={(e) =>
                       e.key === "Enter" &&
                       handleAddComment(selectedFix || undefined)
@@ -663,12 +663,12 @@ const LiveCollaboration = () => {
                         <p className="text-white text-sm font-medium">
                           {participant.name}
                         </p>
-                        <p className="text-charcoal-lighter text-xs">
+                        <p className="text-zinc-400 text-xs">
                           {participant.role}
                         </p>
                       </div>
                       {participant.cursor && (
-                        <Badge className="bg-charcoal text-charcoal-lighter text-xs">
+                        <Badge className="bg-charcoal text-zinc-400 text-xs">
                           Line {participant.cursor.line}
                         </Badge>
                       )}

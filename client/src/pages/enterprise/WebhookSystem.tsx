@@ -379,7 +379,7 @@ const WebhookSystem = () => {
             <h1 className="text-3xl font-bold text-white mb-2">
               Enterprise Webhooks
             </h1>
-            <p className="text-charcoal-lighter">
+            <p className="text-zinc-400">
               Real-time integrations and event notifications
             </p>
           </div>
@@ -401,7 +401,7 @@ const WebhookSystem = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Active Webhooks
                   </p>
                   <p className="text-3xl font-bold text-white">
@@ -421,7 +421,7 @@ const WebhookSystem = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Total Deliveries
                   </p>
                   <p className="text-3xl font-bold text-white">2.8K</p>
@@ -436,7 +436,7 @@ const WebhookSystem = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">Success Rate</p>
+                  <p className="text-zinc-400 text-sm">Success Rate</p>
                   <p className="text-3xl font-bold text-green-400">96.8%</p>
                 </div>
                 <CheckCircle className="w-8 h-8 text-green-400" />
@@ -449,7 +449,7 @@ const WebhookSystem = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">Avg Response</p>
+                  <p className="text-zinc-400 text-sm">Avg Response</p>
                   <p className="text-3xl font-bold text-white">324ms</p>
                 </div>
                 <Clock className="w-8 h-8 text-blue-400" />
@@ -462,7 +462,7 @@ const WebhookSystem = () => {
         </div>
 
         <Tabs defaultValue="endpoints" className="space-y-6">
-          <TabsList className="bg-zinc-900 border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="endpoints"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -508,7 +508,7 @@ const WebhookSystem = () => {
                         className={`p-4 rounded-lg border cursor-pointer transition-colors ${
                           selectedEndpoint === endpoint.id
                             ? "border-blue-400 bg-blue-900/20"
-                            : "border-charcoal-light bg-zinc-900 hover:bg-zinc-900"
+                            : "border-zinc-800 bg-zinc-900 hover:bg-zinc-900"
                         }`}
                         onClick={() => setSelectedEndpoint(endpoint.id)}
                       >
@@ -517,7 +517,7 @@ const WebhookSystem = () => {
                             <p className="text-white font-medium">
                               {endpoint.name}
                             </p>
-                            <p className="text-charcoal-lighter text-sm truncate">
+                            <p className="text-zinc-400 text-sm truncate">
                               {endpoint.url}
                             </p>
                           </div>
@@ -527,7 +527,7 @@ const WebhookSystem = () => {
                         </div>
 
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-charcoal-lighter">
+                          <span className="text-zinc-400">
                             {endpoint.events.length} events
                           </span>
                           <span className="text-green-400">
@@ -539,13 +539,13 @@ const WebhookSystem = () => {
                           {endpoint.events.slice(0, 2).map((event) => (
                             <Badge
                               key={event}
-                              className="bg-charcoal text-charcoal-lighter text-xs"
+                              className="bg-charcoal text-zinc-400 text-xs"
                             >
                               {event}
                             </Badge>
                           ))}
                           {endpoint.events.length > 2 && (
-                            <Badge className="bg-charcoal text-charcoal-lighter text-xs">
+                            <Badge className="bg-charcoal text-zinc-400 text-xs">
                               +{endpoint.events.length - 2} more
                             </Badge>
                           )}
@@ -596,7 +596,7 @@ const WebhookSystem = () => {
                             <Input
                               id="name"
                               value={endpoint.name}
-                              className="bg-charcoal border-charcoal-light text-white"
+                              className="bg-charcoal border-zinc-800 text-white"
                             />
                           </div>
 
@@ -605,7 +605,7 @@ const WebhookSystem = () => {
                             <Input
                               id="url"
                               value={endpoint.url}
-                              className="bg-charcoal border-charcoal-light text-white"
+                              className="bg-charcoal border-zinc-800 text-white"
                             />
                           </div>
 
@@ -616,7 +616,7 @@ const WebhookSystem = () => {
                                 id="secret"
                                 value={endpoint.secret}
                                 type={showSecrets ? "text" : "password"}
-                                className="bg-charcoal border-charcoal-light text-white"
+                                className="bg-charcoal border-zinc-800 text-white"
                               />
                               <Button size="sm" variant="ghost">
                                 <Copy className="w-4 h-4" />
@@ -648,7 +648,7 @@ const WebhookSystem = () => {
                             </div>
                           </div>
 
-                          <div className="border-t border-charcoal-light pt-4">
+                          <div className="border-t border-zinc-800 pt-4">
                             <h4 className="text-white font-medium mb-3">
                               Retry Policy
                             </h4>
@@ -658,7 +658,7 @@ const WebhookSystem = () => {
                                 <Input
                                   value={endpoint.retryPolicy.maxRetries}
                                   type="number"
-                                  className="bg-charcoal border-charcoal-light text-white"
+                                  className="bg-charcoal border-zinc-800 text-white"
                                 />
                               </div>
                               <div>
@@ -666,13 +666,13 @@ const WebhookSystem = () => {
                                 <Input
                                   value={endpoint.retryPolicy.timeout}
                                   type="number"
-                                  className="bg-charcoal border-charcoal-light text-white"
+                                  className="bg-charcoal border-zinc-800 text-white"
                                 />
                               </div>
                             </div>
                           </div>
 
-                          <div className="border-t border-charcoal-light pt-4">
+                          <div className="border-t border-zinc-800 pt-4">
                             <h4 className="text-white font-medium mb-3">
                               Custom Headers
                             </h4>
@@ -686,12 +686,12 @@ const WebhookSystem = () => {
                                     <Input
                                       value={key}
                                       placeholder="Header name"
-                                      className="bg-charcoal border-charcoal-light text-white"
+                                      className="bg-charcoal border-zinc-800 text-white"
                                     />
                                     <Input
                                       value={value}
                                       placeholder="Header value"
-                                      className="bg-charcoal border-charcoal-light text-white"
+                                      className="bg-charcoal border-zinc-800 text-white"
                                     />
                                   </div>
                                 ),
@@ -723,7 +723,7 @@ const WebhookSystem = () => {
                   {recentEvents.map((event) => (
                     <div
                       key={event.id}
-                      className="p-4 bg-zinc-900 rounded-lg border border-charcoal-lighter"
+                      className="p-4 bg-zinc-900 rounded-lg border border-zinc-800er"
                     >
                       <div className="flex items-start justify-between mb-2">
                         <div>
@@ -748,7 +748,7 @@ const WebhookSystem = () => {
                           <p className="text-white font-medium mt-1">
                             {event.description}
                           </p>
-                          <p className="text-charcoal-lighter text-sm">
+                          <p className="text-zinc-400 text-sm">
                             {event.timestamp}
                           </p>
                         </div>
@@ -766,7 +766,7 @@ const WebhookSystem = () => {
                             </p>
                           )}
                           {event.responseTime && (
-                            <p className="text-charcoal-lighter text-xs">
+                            <p className="text-zinc-400 text-xs">
                               {event.responseTime}ms
                             </p>
                           )}
@@ -783,10 +783,10 @@ const WebhookSystem = () => {
                       )}
 
                       <details className="mt-2">
-                        <summary className="text-charcoal-lighter text-sm cursor-pointer">
+                        <summary className="text-zinc-400 text-sm cursor-pointer">
                           View Payload
                         </summary>
-                        <pre className="mt-2 p-2 bg-charcoal rounded text-xs text-charcoal-lighter overflow-auto">
+                        <pre className="mt-2 p-2 bg-charcoal rounded text-xs text-zinc-400 overflow-auto">
                           {JSON.stringify(event.payload, null, 2)}
                         </pre>
                       </details>
@@ -820,14 +820,14 @@ const WebhookSystem = () => {
                         <CardTitle className="text-lg">
                           {template.name}
                         </CardTitle>
-                        <Badge className="bg-charcoal text-charcoal-lighter text-xs capitalize">
+                        <Badge className="bg-charcoal text-zinc-400 text-xs capitalize">
                           {template.category}
                         </Badge>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-charcoal-lighter text-sm mb-4">
+                    <p className="text-zinc-400 text-sm mb-4">
                       {template.description}
                     </p>
                     <div className="space-y-2 mb-4">
@@ -838,7 +838,7 @@ const WebhookSystem = () => {
                         {template.events.map((event) => (
                           <Badge
                             key={event}
-                            className="bg-charcoal text-charcoal-lighter text-xs"
+                            className="bg-charcoal text-zinc-400 text-xs"
                           >
                             {event}
                           </Badge>
@@ -863,7 +863,7 @@ const WebhookSystem = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-charcoal-lighter">
+                    <p className="text-zinc-400">
                       Success rate chart would be here
                     </p>
                   </div>
@@ -876,7 +876,7 @@ const WebhookSystem = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-charcoal-lighter">
+                    <p className="text-zinc-400">
                       Event volume chart would be here
                     </p>
                   </div>
@@ -906,7 +906,7 @@ const WebhookSystem = () => {
                               }}
                             />
                           </div>
-                          <span className="text-charcoal-lighter text-xs">
+                          <span className="text-zinc-400 text-xs">
                             {Math.round(Math.random() * 500 + 200)}ms
                           </span>
                         </div>
@@ -940,7 +940,7 @@ const WebhookSystem = () => {
                           {error.error}
                         </span>
                         <div className="flex items-center gap-2">
-                          <span className="text-charcoal-lighter text-xs">
+                          <span className="text-zinc-400 text-xs">
                             {error.count}
                           </span>
                           <div className="w-16 bg-charcoal h-2 rounded-full">

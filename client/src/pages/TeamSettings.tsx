@@ -154,7 +154,7 @@ const TeamSettings = () => {
             <h1 className="text-3xl font-bold text-white mb-2">
               Team Settings
             </h1>
-            <p className="text-charcoal-lighter">
+            <p className="text-zinc-400">
               Manage your team's NeuroLint configuration and permissions
             </p>
           </div>
@@ -165,7 +165,7 @@ const TeamSettings = () => {
         </div>
 
         <Tabs defaultValue="general" className="space-y-6">
-          <TabsList className="bg-zinc-900 border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="general"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -215,7 +215,7 @@ const TeamSettings = () => {
                     id="teamName"
                     value={teamName}
                     onChange={(e) => setTeamName(e.target.value)}
-                    className="bg-charcoal border-charcoal-light text-white"
+                    className="bg-charcoal border-zinc-800 text-white"
                   />
                 </div>
 
@@ -233,7 +233,7 @@ const TeamSettings = () => {
                     <Label>Usage This Month</Label>
                     <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg mt-1">
                       <span className="text-white">72 / 100 fixes</span>
-                      <span className="text-charcoal-lighter">72%</span>
+                      <span className="text-zinc-400">72%</span>
                     </div>
                   </div>
                 </div>
@@ -270,7 +270,7 @@ const TeamSettings = () => {
                   {members.map((member, index) => (
                     <div
                       key={member.id}
-                      className={`flex items-center justify-between p-4 ${index !== members.length - 1 ? "border-b border-charcoal-light" : ""}`}
+                      className={`flex items-center justify-between p-4 ${index !== members.length - 1 ? "border-b border-zinc-800" : ""}`}
                     >
                       <div className="flex-1">
                         <div className="flex items-center gap-3">
@@ -284,7 +284,7 @@ const TeamSettings = () => {
                             <p className="text-white font-medium">
                               {member.name}
                             </p>
-                            <p className="text-charcoal-lighter text-sm">
+                            <p className="text-zinc-400 text-sm">
                               {member.email}
                             </p>
                           </div>
@@ -297,7 +297,7 @@ const TeamSettings = () => {
                         </Badge>
 
                         <div className="text-right">
-                          <p className="text-charcoal-lighter text-sm">
+                          <p className="text-zinc-400 text-sm">
                             Last active
                           </p>
                           <p className="text-white text-sm">
@@ -350,7 +350,7 @@ const TeamSettings = () => {
                             permissions.map((perm) => (
                               <Badge
                                 key={perm}
-                                className="bg-charcoal text-charcoal-lighter"
+                                className="bg-charcoal text-zinc-400"
                               >
                                 {perm.replace("-", " ")}
                               </Badge>
@@ -389,13 +389,13 @@ const TeamSettings = () => {
                             onCheckedChange={() => handleToggleRule(rule.id)}
                           />
                         </div>
-                        <p className="text-charcoal-lighter text-sm mt-1">
+                        <p className="text-zinc-400 text-sm mt-1">
                           {rule.description}
                         </p>
 
                         <div className="flex items-center gap-4 mt-3">
                           <div className="flex items-center gap-1">
-                            <span className="text-charcoal-lighter text-xs">
+                            <span className="text-zinc-400 text-xs">
                               Layers:
                             </span>
                             {rule.layers.map((layer) => (
@@ -408,7 +408,7 @@ const TeamSettings = () => {
                             ))}
                           </div>
                           <div className="flex items-center gap-1">
-                            <span className="text-charcoal-lighter text-xs">
+                            <span className="text-zinc-400 text-xs">
                               Files:
                             </span>
                             {rule.conditions.map((condition) => (
@@ -466,7 +466,7 @@ const TeamSettings = () => {
                         slackWebhook: e.target.value,
                       })
                     }
-                    className="bg-charcoal border-charcoal-light text-white"
+                    className="bg-charcoal border-zinc-800 text-white"
                     placeholder="https://hooks.slack.com/services/..."
                   />
                 </div>
@@ -484,7 +484,7 @@ const TeamSettings = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <Label>Email Alerts</Label>
-                    <p className="text-charcoal-lighter text-sm">
+                    <p className="text-zinc-400 text-sm">
                       Receive email notifications for important events
                     </p>
                   </div>
@@ -502,7 +502,7 @@ const TeamSettings = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <Label>Transformation Failures</Label>
-                    <p className="text-charcoal-lighter text-sm">
+                    <p className="text-zinc-400 text-sm">
                       Get notified when fixes fail
                     </p>
                   </div>
@@ -520,7 +520,7 @@ const TeamSettings = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <Label>Success Summary</Label>
-                    <p className="text-charcoal-lighter text-sm">
+                    <p className="text-zinc-400 text-sm">
                       Daily summary of successful fixes
                     </p>
                   </div>
@@ -538,7 +538,7 @@ const TeamSettings = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <Label>Weekly Reports</Label>
-                    <p className="text-charcoal-lighter text-sm">
+                    <p className="text-zinc-400 text-sm">
                       Weekly team performance reports
                     </p>
                   </div>
@@ -572,7 +572,7 @@ const TeamSettings = () => {
                       Enterprise Feature
                     </span>
                   </div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     SSO/SAML integration, audit logs, and VPC deployment are
                     available in our Enterprise tier.
                   </p>
@@ -593,7 +593,7 @@ const TeamSettings = () => {
 
                   <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
                     <span className="text-white">Session Timeout</span>
-                    <span className="text-charcoal-lighter">24 hours</span>
+                    <span className="text-zinc-400">24 hours</span>
                   </div>
 
                   <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">

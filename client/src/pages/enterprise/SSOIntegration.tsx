@@ -227,7 +227,7 @@ const SSOIntegration = () => {
                 <h1 className="text-3xl font-bold text-white">
                   Enterprise SSO & Security
                 </h1>
-                <p className="text-charcoal-lighter">
+                <p className="text-zinc-400">
                   Single Sign-On integration and compliance management
                 </p>
               </div>
@@ -255,7 +255,7 @@ const SSOIntegration = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Connected Users
                   </p>
                   <p className="text-3xl font-bold text-white">
@@ -272,7 +272,7 @@ const SSOIntegration = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Active Providers
                   </p>
                   <p className="text-3xl font-bold text-white">
@@ -289,7 +289,7 @@ const SSOIntegration = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Security Score
                   </p>
                   <p className="text-3xl font-bold text-green-400">96%</p>
@@ -304,7 +304,7 @@ const SSOIntegration = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">Last Audit</p>
+                  <p className="text-zinc-400 text-sm">Last Audit</p>
                   <p className="text-3xl font-bold text-white">15</p>
                 </div>
                 <Verified className="w-8 h-8 text-purple-400" />
@@ -315,7 +315,7 @@ const SSOIntegration = () => {
         </div>
 
         <Tabs defaultValue="providers" className="space-y-6">
-          <TabsList className="bg-zinc-900 border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="providers"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -367,7 +367,7 @@ const SSOIntegration = () => {
                         className={`p-4 rounded-lg border cursor-pointer transition-colors ${
                           selectedProvider === provider.id
                             ? "border-blue-400 bg-blue-900/20"
-                            : "border-charcoal-light bg-zinc-900 hover:bg-zinc-900"
+                            : "border-zinc-800 bg-zinc-900 hover:bg-zinc-900"
                         }`}
                         onClick={() => setSelectedProvider(provider.id)}
                       >
@@ -382,7 +382,7 @@ const SSOIntegration = () => {
                               <p className="text-white font-medium">
                                 {provider.name}
                               </p>
-                              <p className="text-charcoal-lighter text-xs uppercase">
+                              <p className="text-zinc-400 text-xs uppercase">
                                 {provider.type}
                               </p>
                             </div>
@@ -393,7 +393,7 @@ const SSOIntegration = () => {
                         </div>
 
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-charcoal-lighter">
+                          <span className="text-zinc-400">
                             {provider.userCount} users
                           </span>
                           <span className="text-charcoal-light">
@@ -457,7 +457,7 @@ const SSOIntegration = () => {
                                 <Input
                                   id="entityId"
                                   value={provider.configuration.entityId}
-                                  className="bg-charcoal border-charcoal-light text-white"
+                                  className="bg-charcoal border-zinc-800 text-white"
                                 />
                               </div>
                               <div>
@@ -465,7 +465,7 @@ const SSOIntegration = () => {
                                 <Input
                                   id="ssoUrl"
                                   value={provider.configuration.ssoUrl}
-                                  className="bg-charcoal border-charcoal-light text-white"
+                                  className="bg-charcoal border-zinc-800 text-white"
                                 />
                               </div>
                               <div>
@@ -480,7 +480,7 @@ const SSOIntegration = () => {
                                         .certificateFingerprint
                                     }
                                     type={showSecrets ? "text" : "password"}
-                                    className="bg-charcoal border-charcoal-light text-white"
+                                    className="bg-charcoal border-zinc-800 text-white"
                                   />
                                   <Button
                                     size="sm"
@@ -505,7 +505,7 @@ const SSOIntegration = () => {
                                 <Input
                                   id="clientId"
                                   value={provider.configuration.clientId}
-                                  className="bg-charcoal border-charcoal-light text-white"
+                                  className="bg-charcoal border-zinc-800 text-white"
                                 />
                               </div>
                               <div>
@@ -517,7 +517,7 @@ const SSOIntegration = () => {
                                     id="clientSecret"
                                     value={provider.configuration.clientSecret}
                                     type={showSecrets ? "text" : "password"}
-                                    className="bg-charcoal border-charcoal-light text-white"
+                                    className="bg-charcoal border-zinc-800 text-white"
                                   />
                                   <Button size="sm" variant="ghost">
                                     <Copy className="w-4 h-4" />
@@ -529,13 +529,13 @@ const SSOIntegration = () => {
                                 <Input
                                   id="issuer"
                                   value={provider.configuration.issuer}
-                                  className="bg-charcoal border-charcoal-light text-white"
+                                  className="bg-charcoal border-zinc-800 text-white"
                                 />
                               </div>
                             </>
                           )}
 
-                          <div className="border-t border-charcoal-light pt-4">
+                          <div className="border-t border-zinc-800 pt-4">
                             <h4 className="text-white font-medium mb-3">
                               Attribute Mappings
                             </h4>
@@ -550,7 +550,7 @@ const SSOIntegration = () => {
                                   <Input
                                     id={key}
                                     value={value}
-                                    className="bg-charcoal border-charcoal-light text-white"
+                                    className="bg-charcoal border-zinc-800 text-white"
                                   />
                                 </div>
                               ))}
@@ -579,7 +579,7 @@ const SSOIntegration = () => {
                     {complianceReports.map((report) => (
                       <div
                         key={report.id}
-                        className="p-4 bg-zinc-900 rounded-lg border border-charcoal-lighter"
+                        className="p-4 bg-zinc-900 rounded-lg border border-zinc-800er"
                       >
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
@@ -604,7 +604,7 @@ const SSOIntegration = () => {
                             {report.score}%
                           </div>
                         </div>
-                        <div className="text-sm text-charcoal-lighter">
+                        <div className="text-sm text-zinc-400">
                           <p>Last audit: {report.lastAudit}</p>
                           <p>Next audit: {report.nextAudit}</p>
                           <p>{report.findings.length} findings</p>
@@ -659,7 +659,7 @@ const SSOIntegration = () => {
                       >
                         <span className="text-white">{control.control}</span>
                         <div className="flex items-center gap-2">
-                          <span className="text-charcoal-lighter text-sm">
+                          <span className="text-zinc-400 text-sm">
                             {control.coverage}%
                           </span>
                           <CheckCircle className="w-4 h-4 text-green-400" />
@@ -729,7 +729,7 @@ const SSOIntegration = () => {
                       <div className="flex items-center gap-4">
                         <span className="text-charcoal-light">{log.time}</span>
                         <span className="text-white">{log.event}</span>
-                        <span className="text-charcoal-lighter">
+                        <span className="text-zinc-400">
                           {log.user}
                         </span>
                       </div>
@@ -790,7 +790,7 @@ const SSOIntegration = () => {
                       >
                         <div>
                           <p className="text-white font-medium">{rule.rule}</p>
-                          <p className="text-charcoal-lighter text-sm">
+                          <p className="text-zinc-400 text-sm">
                             {rule.condition}
                           </p>
                         </div>
@@ -839,7 +839,7 @@ const SSOIntegration = () => {
                       >
                         <div>
                           <p className="text-white">{activity.action}</p>
-                          <p className="text-charcoal-lighter">
+                          <p className="text-zinc-400">
                             {activity.user}
                           </p>
                         </div>

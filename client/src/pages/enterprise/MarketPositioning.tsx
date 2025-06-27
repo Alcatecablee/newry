@@ -548,7 +548,7 @@ const MarketPositioning = () => {
                 <h1 className="text-3xl font-bold text-white">
                   Market Positioning & GTM
                 </h1>
-                <p className="text-charcoal-lighter">
+                <p className="text-zinc-400">
                   Strategic market analysis and go-to-market execution
                 </p>
               </div>
@@ -576,7 +576,7 @@ const MarketPositioning = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Total Market Size
                   </p>
                   <p className="text-3xl font-bold text-white">$19.3B</p>
@@ -591,7 +591,7 @@ const MarketPositioning = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Addressable Market
                   </p>
                   <p className="text-3xl font-bold text-green-400">$16.1B</p>
@@ -606,7 +606,7 @@ const MarketPositioning = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Market Position
                   </p>
                   <p className="text-3xl font-bold text-purple-400">#2</p>
@@ -621,7 +621,7 @@ const MarketPositioning = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Competition Score
                   </p>
                   <p className="text-3xl font-bold text-yellow-400">8.7</p>
@@ -636,7 +636,7 @@ const MarketPositioning = () => {
         </div>
 
         <Tabs defaultValue="segments" className="space-y-6">
-          <TabsList className="bg-zinc-900 border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="segments"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -700,13 +700,13 @@ const MarketPositioning = () => {
                     <div className="space-y-4">
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <p className="text-charcoal-lighter text-sm">
+                          <p className="text-zinc-400 text-sm">
                             Market Size
                           </p>
                           <p className="text-white font-bold">{segment.size}</p>
                         </div>
                         <div>
-                          <p className="text-charcoal-lighter text-sm">
+                          <p className="text-zinc-400 text-sm">
                             Growth Rate
                           </p>
                           <p className="text-green-400 font-bold">
@@ -716,7 +716,7 @@ const MarketPositioning = () => {
                       </div>
 
                       <div>
-                        <p className="text-charcoal-lighter text-sm mb-2">
+                        <p className="text-zinc-400 text-sm mb-2">
                           Top Pain Points:
                         </p>
                         <div className="space-y-1">
@@ -729,7 +729,7 @@ const MarketPositioning = () => {
                       </div>
 
                       <div>
-                        <p className="text-charcoal-lighter text-sm mb-1">
+                        <p className="text-zinc-400 text-sm mb-1">
                           Targetable Market
                         </p>
                         <div className="w-full bg-charcoal h-2 rounded-full">
@@ -744,14 +744,14 @@ const MarketPositioning = () => {
                       </div>
 
                       <div>
-                        <p className="text-charcoal-lighter text-sm">
+                        <p className="text-zinc-400 text-sm">
                           Key Competitors:
                         </p>
                         <div className="flex flex-wrap gap-1 mt-1">
                           {segment.competition.map((comp) => (
                             <Badge
                               key={comp.name}
-                              className="bg-charcoal text-charcoal-lighter text-xs"
+                              className="bg-charcoal text-zinc-400 text-xs"
                             >
                               {comp.name}
                             </Badge>
@@ -776,7 +776,7 @@ const MarketPositioning = () => {
                         <CardTitle className="text-lg">
                           {persona.name}
                         </CardTitle>
-                        <p className="text-charcoal-lighter text-sm">
+                        <p className="text-zinc-400 text-sm">
                           {persona.title}
                         </p>
                         <Badge
@@ -796,7 +796,7 @@ const MarketPositioning = () => {
                   <CardContent>
                     <div className="space-y-4">
                       <div>
-                        <p className="text-charcoal-lighter text-sm">
+                        <p className="text-zinc-400 text-sm">
                           Company Size:
                         </p>
                         <p className="text-white text-sm">
@@ -805,7 +805,7 @@ const MarketPositioning = () => {
                       </div>
 
                       <div>
-                        <p className="text-charcoal-lighter text-sm mb-2">
+                        <p className="text-zinc-400 text-sm mb-2">
                           Key Pain Points:
                         </p>
                         <div className="space-y-1">
@@ -818,7 +818,7 @@ const MarketPositioning = () => {
                       </div>
 
                       <div>
-                        <p className="text-charcoal-lighter text-sm mb-2">
+                        <p className="text-zinc-400 text-sm mb-2">
                           Motivations:
                         </p>
                         <div className="space-y-1">
@@ -831,14 +831,14 @@ const MarketPositioning = () => {
                       </div>
 
                       <div>
-                        <p className="text-charcoal-lighter text-sm mb-2">
+                        <p className="text-zinc-400 text-sm mb-2">
                           Decision Factors:
                         </p>
                         <div className="flex flex-wrap gap-1">
                           {persona.decision_factors.map((factor) => (
                             <Badge
                               key={factor}
-                              className="bg-charcoal text-charcoal-lighter text-xs"
+                              className="bg-charcoal text-zinc-400 text-xs"
                             >
                               {factor}
                             </Badge>
@@ -847,7 +847,7 @@ const MarketPositioning = () => {
                       </div>
 
                       <div>
-                        <p className="text-charcoal-lighter text-sm mb-2">
+                        <p className="text-zinc-400 text-sm mb-2">
                           Preferred Channels:
                         </p>
                         <div className="flex flex-wrap gap-1">
@@ -892,7 +892,7 @@ const MarketPositioning = () => {
                           </Badge>
                         </div>
 
-                        <p className="text-charcoal-lighter mb-4">
+                        <p className="text-zinc-400 mb-4">
                           {prop.description}
                         </p>
 
@@ -974,7 +974,7 @@ const MarketPositioning = () => {
                         <Badge className={getStatusColor(strategy.status)}>
                           {strategy.status}
                         </Badge>
-                        <Badge className="bg-charcoal text-charcoal-lighter">
+                        <Badge className="bg-charcoal text-zinc-400">
                           {strategy.timeline}
                         </Badge>
                       </div>
@@ -991,7 +991,7 @@ const MarketPositioning = () => {
                             {strategy.objectives.map((objective, idx) => (
                               <p
                                 key={idx}
-                                className="text-charcoal-lighter text-sm"
+                                className="text-zinc-400 text-sm"
                               >
                                 • {objective}
                               </p>
@@ -1019,7 +1019,7 @@ const MarketPositioning = () => {
                             <p className="text-white font-medium">
                               Key Metrics:
                             </p>
-                            <p className="text-charcoal-lighter text-sm">
+                            <p className="text-zinc-400 text-sm">
                               Budget: ${(strategy.budget / 1000000).toFixed(1)}M
                             </p>
                           </div>
@@ -1062,7 +1062,7 @@ const MarketPositioning = () => {
                         </div>
 
                         <div className="flex items-center justify-between">
-                          <p className="text-charcoal-lighter text-sm">
+                          <p className="text-zinc-400 text-sm">
                             Owner: {strategy.owner}
                           </p>
                           <Button size="sm" variant="outline">
@@ -1099,7 +1099,7 @@ const MarketPositioning = () => {
                             {competitor.name}
                           </span>
                           <div className="text-right">
-                            <div className="text-sm text-charcoal-lighter">
+                            <div className="text-sm text-zinc-400">
                               Market Share
                             </div>
                             <div className="text-white font-bold">
@@ -1132,7 +1132,7 @@ const MarketPositioning = () => {
                         </div>
 
                         <div className="mt-3 pt-3 border-t border-charcoal">
-                          <p className="text-charcoal-lighter text-xs">
+                          <p className="text-zinc-400 text-xs">
                             Pricing:{" "}
                             <span className="text-white">
                               {competitor.pricing}

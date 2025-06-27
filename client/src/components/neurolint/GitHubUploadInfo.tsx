@@ -3,7 +3,7 @@ import { AlertCircle } from "lucide-react";
 
 export function GitHubUploadInfo() {
   return (
-    <div className="flex items-start gap-2 p-3 bg-charcoal/50 border border-charcoal-lighter rounded-lg">
+    <div className="flex items-start gap-2 p-3 bg-charcoal/50 border border-zinc-800er rounded-lg">
       <AlertCircle className="w-4 h-4 text-white mt-0.5 flex-shrink-0" />
       <div className="text-xs text-gray-300">
         <div className="font-medium mb-1">Requirements:</div>

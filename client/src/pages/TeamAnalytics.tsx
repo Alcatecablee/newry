@@ -263,7 +263,7 @@ const TeamAnalytics = () => {
       case "recommendation":
         return "border-purple-400 bg-purple-900/20";
       default:
-        return "border-charcoal-light bg-zinc-900";
+        return "border-zinc-800 bg-zinc-900";
     }
   };
 
@@ -283,7 +283,7 @@ const TeamAnalytics = () => {
             <h1 className="text-3xl font-bold text-white mb-2">
               Advanced Team Analytics
             </h1>
-            <p className="text-charcoal-lighter">
+            <p className="text-zinc-400">
               AI-powered insights and predictive analytics for your development
               team
             </p>
@@ -330,7 +330,7 @@ const TeamAnalytics = () => {
                   >
                     {teamHealthScore.overall}
                   </div>
-                  <div className="text-charcoal-lighter">Overall Health</div>
+                  <div className="text-zinc-400">Overall Health</div>
                   <Badge
                     className={`mt-2 ${
                       teamHealthScore.trend === "improving"
@@ -430,7 +430,7 @@ const TeamAnalytics = () => {
             <Card key={key}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-charcoal-lighter text-sm capitalize">
+                  <span className="text-zinc-400 text-sm capitalize">
                     {key.replace(/([A-Z])/g, " $1").trim()}
                   </span>
                   {getTrendIcon(metric.trend)}
@@ -455,7 +455,7 @@ const TeamAnalytics = () => {
         </div>
 
         <Tabs defaultValue="insights" className="space-y-6">
-          <TabsList className="bg-zinc-900 border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="insights"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -509,7 +509,7 @@ const TeamAnalytics = () => {
                                 {insight.type}
                               </Badge>
                               <div className="flex items-center gap-1">
-                                <span className="text-xs text-charcoal-lighter">
+                                <span className="text-xs text-zinc-400">
                                   Confidence:
                                 </span>
                                 <span className="text-xs text-white">
@@ -530,8 +530,8 @@ const TeamAnalytics = () => {
                                 {insight.impact} impact
                               </Badge>
                               <div className="flex items-center gap-1">
-                                <Clock className="w-3 h-3 text-charcoal-lighter" />
-                                <span className="text-xs text-charcoal-lighter">
+                                <Clock className="w-3 h-3 text-zinc-400" />
+                                <span className="text-xs text-zinc-400">
                                   {insight.timeframe}
                                 </span>
                               </div>
@@ -540,7 +540,7 @@ const TeamAnalytics = () => {
                             <h3 className="text-white font-semibold text-lg mb-2">
                               {insight.title}
                             </h3>
-                            <p className="text-charcoal-lighter mb-4">
+                            <p className="text-zinc-400 mb-4">
                               {insight.description}
                             </p>
 
@@ -551,7 +551,7 @@ const TeamAnalytics = () => {
                               {insight.metrics.map((metric) => (
                                 <Badge
                                   key={metric}
-                                  className="bg-charcoal text-charcoal-lighter text-xs"
+                                  className="bg-charcoal text-zinc-400 text-xs"
                                 >
                                   {metric}
                                 </Badge>
@@ -570,7 +570,7 @@ const TeamAnalytics = () => {
                                       (action, index) => (
                                         <p
                                           key={index}
-                                          className="text-charcoal-lighter text-sm"
+                                          className="text-zinc-400 text-sm"
                                         >
                                           • {action}
                                         </p>
@@ -610,7 +610,7 @@ const TeamAnalytics = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-charcoal-lighter">
+                    <p className="text-zinc-400">
                       Quality trend chart visualization
                     </p>
                   </div>
@@ -623,7 +623,7 @@ const TeamAnalytics = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-charcoal-lighter">
+                    <p className="text-zinc-400">
                       Velocity pattern analysis
                     </p>
                   </div>
@@ -636,7 +636,7 @@ const TeamAnalytics = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-charcoal-lighter">
+                    <p className="text-zinc-400">
                       Team collaboration network visualization
                     </p>
                   </div>
@@ -649,7 +649,7 @@ const TeamAnalytics = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-charcoal-lighter">
+                    <p className="text-zinc-400">
                       Innovation metrics and patterns
                     </p>
                   </div>
@@ -690,7 +690,7 @@ const TeamAnalytics = () => {
                             style={{ width: `${sprint.completion}%` }}
                           />
                         </div>
-                        <p className="text-charcoal-lighter text-xs mt-1">
+                        <p className="text-zinc-400 text-xs mt-1">
                           Velocity: {sprint.velocity} points
                         </p>
                       </div>
@@ -805,7 +805,7 @@ const TeamAnalytics = () => {
                           {key.replace(/([A-Z])/g, " $1").trim()}
                         </span>
                         <div className="flex items-center gap-3">
-                          <span className="text-charcoal-lighter text-sm">
+                          <span className="text-zinc-400 text-sm">
                             Current: {metric.current}%
                           </span>
                           <span className="text-purple-300 text-sm font-medium">
@@ -890,7 +890,7 @@ const TeamAnalytics = () => {
                             style={{ width: `${goal.probability}%` }}
                           />
                         </div>
-                        <p className="text-charcoal-lighter text-xs mt-1">
+                        <p className="text-zinc-400 text-xs mt-1">
                           Expected timeline: {goal.timeline}
                         </p>
                       </div>

@@ -412,7 +412,7 @@ const AdvancedAI = () => {
                 <h1 className="text-3xl font-bold text-white">
                   Advanced AI Platform
                 </h1>
-                <p className="text-charcoal-lighter">
+                <p className="text-zinc-400">
                   Next-generation AI-powered development assistance
                 </p>
               </div>
@@ -440,7 +440,7 @@ const AdvancedAI = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Active AI Models
                   </p>
                   <p className="text-3xl font-bold text-white">
@@ -459,7 +459,7 @@ const AdvancedAI = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">Avg Accuracy</p>
+                  <p className="text-zinc-400 text-sm">Avg Accuracy</p>
                   <p className="text-3xl font-bold text-green-400">91.2%</p>
                 </div>
                 <Target className="w-8 h-8 text-green-400" />
@@ -472,7 +472,7 @@ const AdvancedAI = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">
+                  <p className="text-zinc-400 text-sm">
                     Suggestions Made
                   </p>
                   <p className="text-3xl font-bold text-white">9.4K</p>
@@ -487,7 +487,7 @@ const AdvancedAI = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-charcoal-lighter text-sm">Success Rate</p>
+                  <p className="text-zinc-400 text-sm">Success Rate</p>
                   <p className="text-3xl font-bold text-purple-400">89.7%</p>
                 </div>
                 <Award className="w-8 h-8 text-purple-400" />
@@ -498,7 +498,7 @@ const AdvancedAI = () => {
         </div>
 
         <Tabs defaultValue="conversation" className="space-y-6">
-          <TabsList className="bg-zinc-900 border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="conversation"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -597,7 +597,7 @@ const AdvancedAI = () => {
                             </p>
                             {message.confidence && (
                               <div className="flex items-center gap-1 mt-2">
-                                <span className="text-xs text-charcoal-lighter">
+                                <span className="text-xs text-zinc-400">
                                   Confidence:
                                 </span>
                                 <span className="text-xs text-purple-300">
@@ -611,10 +611,10 @@ const AdvancedAI = () => {
                             message.codeBlocks.map((block, index) => (
                               <div
                                 key={index}
-                                className="mt-3 p-3 bg-zinc-950 rounded-lg border border-charcoal-light"
+                                className="mt-3 p-3 bg-zinc-950 rounded-lg border border-zinc-800"
                               >
                                 <div className="flex items-center justify-between mb-2">
-                                  <Badge className="bg-charcoal text-charcoal-lighter text-xs">
+                                  <Badge className="bg-charcoal text-zinc-400 text-xs">
                                     {block.language}
                                   </Badge>
                                   <Button size="sm" variant="ghost">
@@ -625,7 +625,7 @@ const AdvancedAI = () => {
                                   <code>{block.code}</code>
                                 </pre>
                                 {block.explanation && (
-                                  <p className="text-xs text-charcoal-lighter mt-2">
+                                  <p className="text-xs text-zinc-400 mt-2">
                                     {block.explanation}
                                   </p>
                                 )}
@@ -637,7 +637,7 @@ const AdvancedAI = () => {
                               {message.suggestions.map((suggestion) => (
                                 <div
                                   key={suggestion.id}
-                                  className="p-3 bg-zinc-900 rounded-lg border border-charcoal-lighter"
+                                  className="p-3 bg-zinc-900 rounded-lg border border-zinc-800er"
                                 >
                                   <div className="flex items-center justify-between mb-2">
                                     <div className="flex items-center gap-2">
@@ -656,14 +656,14 @@ const AdvancedAI = () => {
                                         {suggestion.impact} impact
                                       </Badge>
                                     </div>
-                                    <span className="text-xs text-charcoal-lighter">
+                                    <span className="text-xs text-zinc-400">
                                       {suggestion.confidence}%
                                     </span>
                                   </div>
                                   <p className="text-white text-sm font-medium mb-1">
                                     {suggestion.title}
                                   </p>
-                                  <p className="text-charcoal-lighter text-xs">
+                                  <p className="text-zinc-400 text-xs">
                                     {suggestion.description}
                                   </p>
                                   <div className="flex items-center gap-2 mt-2">
@@ -703,7 +703,7 @@ const AdvancedAI = () => {
                       value={currentMessage}
                       onChange={(e) => setCurrentMessage(e.target.value)}
                       placeholder="Ask the AI assistant anything about your code..."
-                      className="bg-charcoal border-charcoal-light text-white"
+                      className="bg-charcoal border-zinc-800 text-white"
                       onKeyPress={(e) =>
                         e.key === "Enter" && handleSendMessage()
                       }
@@ -731,7 +731,7 @@ const AdvancedAI = () => {
                         className={`p-3 rounded-lg border cursor-pointer transition-colors ${
                           selectedAssistant === assistant.id
                             ? "border-purple-400 bg-purple-900/20"
-                            : "border-charcoal-light bg-zinc-900 hover:bg-zinc-900"
+                            : "border-zinc-800 bg-zinc-900 hover:bg-zinc-900"
                         }`}
                         onClick={() => setSelectedAssistant(assistant.id)}
                       >
@@ -748,7 +748,7 @@ const AdvancedAI = () => {
                         </div>
                         <div className="space-y-1 text-xs">
                           <div className="flex justify-between">
-                            <span className="text-charcoal-lighter">
+                            <span className="text-zinc-400">
                               Confidence
                             </span>
                             <span className="text-white">
@@ -756,7 +756,7 @@ const AdvancedAI = () => {
                             </span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-charcoal-lighter">
+                            <span className="text-zinc-400">
                               Success Rate
                             </span>
                             <span className="text-white">
@@ -792,14 +792,14 @@ const AdvancedAI = () => {
                   <CardContent>
                     <div className="space-y-3">
                       <div>
-                        <p className="text-charcoal-lighter text-sm">
+                        <p className="text-zinc-400 text-sm">
                           Specialization:
                         </p>
                         <div className="flex flex-wrap gap-1 mt-1">
                           {assistant.specialization.map((spec) => (
                             <Badge
                               key={spec}
-                              className="bg-charcoal text-charcoal-lighter text-xs"
+                              className="bg-charcoal text-zinc-400 text-xs"
                             >
                               {spec}
                             </Badge>
@@ -809,7 +809,7 @@ const AdvancedAI = () => {
 
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span className="text-charcoal-lighter">
+                          <span className="text-zinc-400">
                             Confidence
                           </span>
                           <span className="text-white">
@@ -826,7 +826,7 @@ const AdvancedAI = () => {
 
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span className="text-charcoal-lighter">
+                          <span className="text-zinc-400">
                             Learning Progress
                           </span>
                           <span className="text-white">
@@ -842,13 +842,13 @@ const AdvancedAI = () => {
                       </div>
 
                       <div className="text-sm">
-                        <p className="text-charcoal-lighter">
+                        <p className="text-zinc-400">
                           Total Suggestions:{" "}
                           <span className="text-white">
                             {assistant.totalSuggestions}
                           </span>
                         </p>
-                        <p className="text-charcoal-lighter">
+                        <p className="text-zinc-400">
                           Success Rate:{" "}
                           <span className="text-white">
                             {assistant.successRate}%
@@ -883,17 +883,17 @@ const AdvancedAI = () => {
                           >
                             {capability.maturity}
                           </Badge>
-                          <Badge className="bg-charcoal text-charcoal-lighter capitalize">
+                          <Badge className="bg-charcoal text-zinc-400 capitalize">
                             {capability.category}
                           </Badge>
                         </div>
-                        <p className="text-charcoal-lighter mb-4">
+                        <p className="text-zinc-400 mb-4">
                           {capability.description}
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                           <div>
-                            <p className="text-charcoal-lighter text-sm">
+                            <p className="text-zinc-400 text-sm">
                               Usage
                             </p>
                             <div className="flex items-center gap-2">
@@ -909,7 +909,7 @@ const AdvancedAI = () => {
                             </div>
                           </div>
                           <div>
-                            <p className="text-charcoal-lighter text-sm">
+                            <p className="text-zinc-400 text-sm">
                               Accuracy
                             </p>
                             <div className="flex items-center gap-2">
@@ -937,7 +937,7 @@ const AdvancedAI = () => {
                         </div>
 
                         <div>
-                          <p className="text-charcoal-lighter text-sm mb-2">
+                          <p className="text-zinc-400 text-sm mb-2">
                             Features:
                           </p>
                           <div className="flex flex-wrap gap-1">
@@ -982,7 +982,7 @@ const AdvancedAI = () => {
                     <div className="space-y-4">
                       <div>
                         <div className="flex justify-between text-sm mb-1">
-                          <span className="text-charcoal-lighter">
+                          <span className="text-zinc-400">
                             Accuracy
                           </span>
                           <span className="text-white">{model.accuracy}%</span>
@@ -997,11 +997,11 @@ const AdvancedAI = () => {
 
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
-                          <span className="text-charcoal-lighter">Latency</span>
+                          <span className="text-zinc-400">Latency</span>
                           <div className="text-white">{model.latency}ms</div>
                         </div>
                         <div>
-                          <span className="text-charcoal-lighter">
+                          <span className="text-zinc-400">
                             Throughput
                           </span>
                           <div className="text-white">
@@ -1009,13 +1009,13 @@ const AdvancedAI = () => {
                           </div>
                         </div>
                         <div>
-                          <span className="text-charcoal-lighter">Memory</span>
+                          <span className="text-zinc-400">Memory</span>
                           <div className="text-white">
                             {model.memoryUsage}GB
                           </div>
                         </div>
                         <div>
-                          <span className="text-charcoal-lighter">
+                          <span className="text-zinc-400">
                             Training Data
                           </span>
                           <div className="text-white">{model.trainingData}</div>
@@ -1023,7 +1023,7 @@ const AdvancedAI = () => {
                       </div>
 
                       <div>
-                        <span className="text-charcoal-lighter text-sm">
+                        <span className="text-zinc-400 text-sm">
                           Last Updated:
                         </span>
                         <div className="text-white text-sm">
@@ -1127,7 +1127,7 @@ const AdvancedAI = () => {
                         <span className="text-white">Training Loss</span>
                         <span className="text-green-400">0.0234</span>
                       </div>
-                      <div className="text-xs text-charcoal-lighter">
+                      <div className="text-xs text-zinc-400">
                         Decreasing ↓
                       </div>
                     </div>
@@ -1137,7 +1137,7 @@ const AdvancedAI = () => {
                         <span className="text-white">Validation Accuracy</span>
                         <span className="text-blue-400">94.2%</span>
                       </div>
-                      <div className="text-xs text-charcoal-lighter">
+                      <div className="text-xs text-zinc-400">
                         Improving ↑
                       </div>
                     </div>
@@ -1147,7 +1147,7 @@ const AdvancedAI = () => {
                         <span className="text-white">Training Samples</span>
                         <span className="text-white">2.3M</span>
                       </div>
-                      <div className="text-xs text-charcoal-lighter">
+                      <div className="text-xs text-zinc-400">
                         Current batch
                       </div>
                     </div>
@@ -1157,7 +1157,7 @@ const AdvancedAI = () => {
                         <span className="text-white">ETA Completion</span>
                         <span className="text-yellow-400">2.5 hours</span>
                       </div>
-                      <div className="text-xs text-charcoal-lighter">
+                      <div className="text-xs text-zinc-400">
                         Estimated
                       </div>
                     </div>

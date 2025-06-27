@@ -13,7 +13,7 @@ export const SiteHeader = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header className="relative z-50 w-full border-b border-charcoal-light bg-black/80 backdrop-blur-lg">
+    <header className="relative z-50 w-full border-b border-zinc-800 bg-black/80 backdrop-blur-lg">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
@@ -84,7 +84,7 @@ export const SiteHeader = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 border-t border-charcoal-light bg-charcoal/90 backdrop-blur-lg">
+            <div className="px-2 pt-2 pb-3 space-y-1 border-t border-zinc-800 bg-charcoal/90 backdrop-blur-lg">
               <Link
                 to="/app"
                 className="block px-3 py-2 !text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
