@@ -23,6 +23,8 @@ import {
   Clock,
   TrendingUp,
   ArrowLeft,
+  Upload,
+  Code,
 } from "lucide-react";
 import { BetaBanner } from "@/components/BetaBanner";
 
@@ -39,7 +41,7 @@ const AppPage = () => {
   const [insights, setInsights] = useState<NeuroLintLayerResult[]>([]);
   const [processing, setProcessing] = useState(false);
   const [enabledLayers, setEnabledLayers] = useState<number[]>([1, 2, 3, 4]);
-  const [mode, setMode] = useState<"single" | "repo">("single");
+  const [mode, setMode] = useState<"drop" | "paste" | "github">("drop");
   const [repoFiles, setRepoFiles] = useState<RepoFile[]>([]);
 
   const handleFileUpload = async (code: string) => {
@@ -196,38 +198,79 @@ const AppPage = () => {
             </div>
           </div>
 
-          {/* Mode Selection */}
-          <div className="max-w-2xl mx-auto">
+          {/* Upload Method Selection */}
+          <div className="max-w-4xl mx-auto">
             <Tabs
               value={mode}
-              onValueChange={(value) => setMode(value as "single" | "repo")}
+              onValueChange={(value) =>
+                setMode(value as "drop" | "paste" | "github")
+              }
               className="w-full"
             >
-              <TabsList className="grid w-full grid-cols-2 bg-zinc-900 border border-zinc-800er p-1">
+              <TabsList className="grid w-full grid-cols-3 bg-[#1a1b21] border border-[#292939] p-1 rounded-xl">
                 <TabsTrigger
-                  value="single"
-                  className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-black data-[state=inactive]:text-zinc-400"
+                  value="drop"
+                  className="flex items-center gap-2 rounded-lg transition-all duration-200 data-[state=active]:bg-[#292939] data-[state=active]:text-white data-[state=active]:border-[#342d66] data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white data-[state=inactive]:hover:bg-[#232329] py-3"
                 >
-                  <FileCode className="w-4 h-4" />
-                  Single File
+                  <Upload className="w-4 h-4" />
+                  <span className="hidden sm:inline">Drop Files</span>
+                  <span className="sm:hidden">Drop</span>
                 </TabsTrigger>
                 <TabsTrigger
-                  value="repo"
-                  className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-black data-[state=inactive]:text-zinc-400"
+                  value="paste"
+                  className="flex items-center gap-2 rounded-lg transition-all duration-200 data-[state=active]:bg-[#292939] data-[state=active]:text-white data-[state=active]:border-[#342d66] data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white data-[state=inactive]:hover:bg-[#232329] py-3"
+                >
+                  <Code className="w-4 h-4" />
+                  <span className="hidden sm:inline">Paste Code</span>
+                  <span className="sm:hidden">Paste</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="github"
+                  className="flex items-center gap-2 rounded-lg transition-all duration-200 data-[state=active]:bg-[#292939] data-[state=active]:text-white data-[state=active]:border-[#342d66] data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white data-[state=inactive]:hover:bg-[#232329] py-3"
                 >
                   <Github className="w-4 h-4" />
-                  Repository
+                  <span className="hidden sm:inline">GitHub Repo</span>
+                  <span className="sm:hidden">GitHub</span>
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="single" className="mt-8 space-y-8">
-                <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
-                  <FileUploadZone
-                    onFile={handleFileUpload}
-                    processing={processing}
-                  />
-                </div>
+              {/* Tab Content */}
+              <div className="mt-8 space-y-8">
+                <TabsContent value="drop" className="space-y-8">
+                  <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
+                    <FileUploadZone
+                      onFile={handleFileUpload}
+                      processing={processing}
+                    />
+                  </div>
+                </TabsContent>
 
+                <TabsContent value="paste" className="space-y-8">
+                  <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
+                    <FileUploadZone
+                      onFile={handleFileUpload}
+                      processing={processing}
+                    />
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="github" className="space-y-8">
+                  <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
+                    <GitHubUpload onRepoUpload={handleRepoUpload} />
+                  </div>
+
+                  {repoFiles.length > 0 && (
+                    <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
+                      <RepoProcessor
+                        files={repoFiles}
+                        enabledLayers={enabledLayers}
+                        onProcessingComplete={handleRepoProcessingComplete}
+                      />
+                    </div>
+                  )}
+                </TabsContent>
+
+                {/* Processing Indicator */}
                 {processing && (
                   <div className="flex items-center justify-center gap-3 py-8">
                     <div className="relative">
@@ -241,6 +284,7 @@ const AppPage = () => {
                   </div>
                 )}
 
+                {/* Stats Cards */}
                 {stats && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="bg-zinc-900 border border-zinc-800er rounded-xl p-4">
@@ -281,6 +325,7 @@ const AppPage = () => {
                   </div>
                 )}
 
+                {/* Code Diff Viewer */}
                 <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl overflow-hidden">
                   <CodeDiffViewer
                     original={originalCode}
@@ -289,28 +334,13 @@ const AppPage = () => {
                   />
                 </div>
 
+                {/* Transformation Insights */}
                 {insights.length > 0 && (
                   <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
                     <TransformationInsights insights={insights} />
                   </div>
                 )}
-              </TabsContent>
-
-              <TabsContent value="repo" className="mt-8 space-y-8">
-                <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
-                  <GitHubUpload onRepoUpload={handleRepoUpload} />
-                </div>
-
-                {repoFiles.length > 0 && (
-                  <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
-                    <RepoProcessor
-                      files={repoFiles}
-                      enabledLayers={enabledLayers}
-                      onProcessingComplete={handleRepoProcessingComplete}
-                    />
-                  </div>
-                )}
-              </TabsContent>
+              </div>
             </Tabs>
           </div>
         </div>
