@@ -1,49 +1,83 @@
-import { ClerkProvider as ClerkAuthProvider } from "@clerk/clerk-react";
-import { ReactNode } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 
-interface ClerkProviderProps {
+interface User {
+  id: string;
+  email: string;
+  name: string;
+}
+
+interface AuthContextType {
+  user: User | null;
+  isAuthenticated: boolean;
+  loading: boolean;
+  signIn: (email: string, password: string) => Promise<boolean>;
+  signOut: () => void;
+}
+
+const AuthContext = createContext<AuthContextType | null>(null);
+
+interface AuthProviderProps {
   children: ReactNode;
 }
 
-export function ClerkProvider({ children }: ClerkProviderProps) {
-  const publishableKey =
-    import.meta.env.VITE_CLERK_PUBLISHABLE_KEY ||
-    "pk_test_Z3VpZGluZy1haXJlZGFsZS00My5jbGVyay5hY2NvdW50cy5kZXYk";
+export function ClerkProvider({ children }: AuthProviderProps) {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  console.log(
-    "🔐 ClerkProvider loading with key:",
-    publishableKey ? publishableKey.slice(0, 20) + "..." : "NONE",
-  );
-
-  // If no Clerk key is provided, render children without Clerk provider
-  if (!publishableKey) {
-    if (import.meta.env.DEV) {
-      console.info(
-        "💡 VITE_CLERK_PUBLISHABLE_KEY is not set. Authentication features are disabled. Add your Clerk key to .env to enable auth.",
-      );
+  useEffect(() => {
+    // Check if user is already signed in
+    const savedUser = localStorage.getItem("auth_user");
+    if (savedUser) {
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch (error) {
+        localStorage.removeItem("auth_user");
+      }
     }
-    return <>{children}</>;
+    setLoading(false);
+  }, []);
+
+  const signIn = async (email: string, password: string): Promise<boolean> => {
+    // Simple demo auth - accept any email/password combo
+    if (email && password) {
+      const newUser = {
+        id: Date.now().toString(),
+        email,
+        name: email.split("@")[0],
+      };
+      setUser(newUser);
+      localStorage.setItem("auth_user", JSON.stringify(newUser));
+      return true;
+    }
+    return false;
+  };
+
+  const signOut = () => {
+    setUser(null);
+    localStorage.removeItem("auth_user");
+  };
+
+  const value = {
+    user,
+    isAuthenticated: !!user,
+    loading,
+    signIn,
+    signOut,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
+
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
   }
-
-  // Get current URL for redirects
-  const currentUrl =
-    typeof window !== "undefined" ? window.location.origin : "";
-
-  return (
-    <ClerkAuthProvider
-      publishableKey={publishableKey}
-      appearance={{
-        baseTheme: undefined,
-        variables: {
-          colorPrimary: "#7c3aed",
-        },
-      }}
-      signInFallbackRedirectUrl={currentUrl + "/app"}
-      signUpFallbackRedirectUrl={currentUrl + "/app"}
-      afterSignInUrl={currentUrl + "/app"}
-      afterSignUpUrl={currentUrl + "/app"}
-    >
-      {children}
-    </ClerkAuthProvider>
-  );
+  return context;
 }

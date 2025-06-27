@@ -28,7 +28,6 @@ import {
   Code,
 } from "lucide-react";
 import { BetaBanner } from "@/components/BetaBanner";
-import { AuthTest } from "@/components/auth/AuthTest";
 
 interface RepoFile {
   path: string;
@@ -130,8 +129,6 @@ const AppPage = () => {
               Test Suite
             </Link>
           </div>
-
-          <AuthTest />
 
           {/* Intro Section */}
           <div className="text-center mb-16">
