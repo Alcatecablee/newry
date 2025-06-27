@@ -1,6 +1,6 @@
 export function SiteFooter() {
   return (
-    <footer className="w-full py-6 px-6 mt-auto bg-charcoal border-t border-charcoal-light flex flex-col sm:flex-row items-center justify-between text-sm text-charcoal-lighter">
+    <footer className="w-full py-6 px-6 mt-auto bg-black border-t border-charcoal-light flex flex-col sm:flex-row items-center justify-between text-sm text-charcoal-lighter">
       <div className="mb-2 sm:mb-0">
         &copy; {new Date().getFullYear()} NeuroLint. All rights reserved.
       </div>
