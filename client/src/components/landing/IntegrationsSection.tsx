@@ -1,80 +1,99 @@
-import React from 'react';
-import { GitBranch, Cpu, Database, Cloud, Workflow, Code2 } from 'lucide-react';
+import React from "react";
+import { GitBranch, Cpu, Database, Cloud, Workflow, Code2 } from "lucide-react";
 
 export function IntegrationsSection() {
   const integrations = [
     {
-      name: 'GitHub Actions',
+      name: "GitHub Actions",
       icon: GitBranch,
-      description: 'Automated code analysis in your CI/CD pipeline',
-      category: 'CI/CD',
-      color: 'from-gray-600 to-gray-800'
+      description: "Automated code analysis in your CI/CD pipeline",
+      category: "CI/CD",
+      color: "from-gray-600 to-gray-800",
     },
     {
-      name: 'Jenkins',
+      name: "Jenkins",
       icon: Cpu,
-      description: 'Enterprise-grade continuous integration',
-      category: 'CI/CD',
-      color: 'from-blue-600 to-blue-800'
+      description: "Enterprise-grade continuous integration",
+      category: "CI/CD",
+      color: "from-blue-600 to-blue-800",
     },
     {
-      name: 'GitLab CI',
+      name: "GitLab CI",
       icon: Database,
-      description: 'DevOps platform integration',
-      category: 'CI/CD',
-      color: 'from-orange-600 to-orange-800'
+      description: "DevOps platform integration",
+      category: "CI/CD",
+      color: "from-orange-600 to-orange-800",
     },
     {
-      name: 'Azure DevOps',
+      name: "Azure DevOps",
       icon: Cloud,
-      description: 'Microsoft cloud development tools',
-      category: 'Cloud',
-      color: 'from-blue-500 to-blue-700'
+      description: "Microsoft cloud development tools",
+      category: "Cloud",
+      color: "from-blue-500 to-blue-700",
     },
     {
-      name: 'CircleCI',
+      name: "CircleCI",
       icon: Workflow,
-      description: 'Continuous integration and delivery',
-      category: 'CI/CD',
-      color: 'from-green-600 to-green-800'
+      description: "Continuous integration and delivery",
+      category: "CI/CD",
+      color: "from-green-600 to-green-800",
     },
     {
-      name: 'Bitbucket',
+      name: "Bitbucket",
       icon: Code2,
-      description: 'Atlassian development platform',
-      category: 'Version Control',
-      color: 'from-indigo-600 to-indigo-800'
-    }
+      description: "Atlassian development platform",
+      category: "Version Control",
+      color: "from-indigo-600 to-indigo-800",
+    },
   ];
 
   const workflows = [
     {
-      title: 'Pull Request Analysis',
-      description: 'Automatically analyze code changes in pull requests',
-      steps: ['Code pushed', 'NeuroLint analysis', 'Report generated', 'Review comments']
+      title: "Pull Request Analysis",
+      description: "Automatically analyze code changes in pull requests",
+      steps: [
+        "Code pushed",
+        "NeuroLint analysis",
+        "Report generated",
+        "Review comments",
+      ],
     },
     {
-      title: 'Pre-commit Hooks',
-      description: 'Validate code quality before committing changes',
-      steps: ['Developer commits', 'Pre-commit hook', 'NeuroLint check', 'Commit allowed/blocked']
+      title: "Pre-commit Hooks",
+      description: "Validate code quality before committing changes",
+      steps: [
+        "Developer commits",
+        "Pre-commit hook",
+        "NeuroLint check",
+        "Commit allowed/blocked",
+      ],
     },
     {
-      title: 'Deployment Pipeline',
-      description: 'Ensure code quality in production deployments',
-      steps: ['Build triggered', 'Quality gate', 'NeuroLint validation', 'Deploy to production']
-    }
+      title: "Deployment Pipeline",
+      description: "Ensure code quality in production deployments",
+      steps: [
+        "Build triggered",
+        "Quality gate",
+        "NeuroLint validation",
+        "Deploy to production",
+      ],
+    },
   ];
 
   return (
-    <section id="integrations" className="relative z-10 py-20 bg-black backdrop-blur-sm">
+    <section
+      id="integrations"
+      className="relative z-10 py-20 bg-black backdrop-blur-sm"
+    >
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-zinc-900">
             Seamless Integrations
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Connect NeuroLint with your existing development tools and workflows. 
-            From CI/CD pipelines to version control systems, we've got you covered.
+            Connect NeuroLint with your existing development tools and
+            workflows. From CI/CD pipelines to version control systems, we've
+            got you covered.
           </p>
         </div>
 
@@ -87,16 +106,20 @@ export function IntegrationsSection() {
                 key={index}
                 className="group bg-gray-800/50 border border-gray-700 rounded-xl p-6 hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105"
               >
-                <div className={`w-12 h-12 bg-gradient-to-r ${integration.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                <div className="w-12 h-12 bg-zinc-700 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <IconComponent className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-lg font-semibold text-white">{integration.name}</h3>
+                  <h3 className="text-lg font-semibold text-white">
+                    {integration.name}
+                  </h3>
                   <span className="text-xs bg-blue-600/20 text-blue-400 px-2 py-1 rounded-full">
                     {integration.category}
                   </span>
                 </div>
-                <p className="text-gray-400 text-sm">{integration.description}</p>
+                <p className="text-gray-400 text-sm">
+                  {integration.description}
+                </p>
               </div>
             );
           })}
@@ -104,12 +127,21 @@ export function IntegrationsSection() {
 
         {/* Workflow Examples */}
         <div className="mb-16">
-          <h3 className="text-3xl font-bold text-center mb-12 text-white">Popular Workflows</h3>
+          <h3 className="text-3xl font-bold text-center mb-12 text-white">
+            Popular Workflows
+          </h3>
           <div className="grid lg:grid-cols-3 gap-8">
             {workflows.map((workflow, index) => (
-              <div key={index} className="bg-gray-800/30 border border-gray-700 rounded-xl p-6">
-                <h4 className="text-xl font-semibold mb-3 text-white">{workflow.title}</h4>
-                <p className="text-gray-400 mb-6 text-sm">{workflow.description}</p>
+              <div
+                key={index}
+                className="bg-gray-800/30 border border-gray-700 rounded-xl p-6"
+              >
+                <h4 className="text-xl font-semibold mb-3 text-white">
+                  {workflow.title}
+                </h4>
+                <p className="text-gray-400 mb-6 text-sm">
+                  {workflow.description}
+                </p>
                 <div className="space-y-3">
                   {workflow.steps.map((step, stepIndex) => (
                     <div key={stepIndex} className="flex items-center gap-3">
@@ -128,7 +160,9 @@ export function IntegrationsSection() {
         {/* Configuration Example */}
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <div>
-            <h3 className="text-2xl font-semibold mb-6 text-white">GitHub Actions Example</h3>
+            <h3 className="text-2xl font-semibold mb-6 text-white">
+              GitHub Actions Example
+            </h3>
             <div className="bg-gray-900/90 border border-gray-700 rounded-xl p-6">
               <pre className="font-mono text-sm text-gray-300 overflow-x-auto">
                 <code>{`name: NeuroLint Analysis
@@ -142,20 +176,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
-        
+
     - name: Install NeuroLint
       run: npm install -g @neurolint/cli
-      
+
     - name: Run Analysis
       run: neurolint analyze src/ --output=json
       env:
         NEUROLINT_API_KEY: \${{ secrets.NEUROLINT_API_KEY }}
-        
+
     - name: Upload Results
       uses: actions/upload-artifact@v3
       with:
@@ -167,43 +201,68 @@ jobs:
 
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-semibold mb-6 text-white">Why Integrate NeuroLint?</h3>
+              <h3 className="text-2xl font-semibold mb-6 text-white">
+                Why Integrate NeuroLint?
+              </h3>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-blue-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-medium text-white mb-1">Shift Left Testing</h4>
-                    <p className="text-gray-400 text-sm">Catch issues early in the development cycle before they reach production.</p>
+                    <h4 className="font-medium text-white mb-1">
+                      Shift Left Testing
+                    </h4>
+                    <p className="text-gray-400 text-sm">
+                      Catch issues early in the development cycle before they
+                      reach production.
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-green-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-medium text-white mb-1">Automated Quality Gates</h4>
-                    <p className="text-gray-400 text-sm">Enforce code quality standards automatically in your CI/CD pipeline.</p>
+                    <h4 className="font-medium text-white mb-1">
+                      Automated Quality Gates
+                    </h4>
+                    <p className="text-gray-400 text-sm">
+                      Enforce code quality standards automatically in your CI/CD
+                      pipeline.
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-purple-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-medium text-white mb-1">Team Consistency</h4>
-                    <p className="text-gray-400 text-sm">Ensure all team members follow the same coding standards and best practices.</p>
+                    <h4 className="font-medium text-white mb-1">
+                      Team Consistency
+                    </h4>
+                    <p className="text-gray-400 text-sm">
+                      Ensure all team members follow the same coding standards
+                      and best practices.
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-medium text-white mb-1">Reduced Technical Debt</h4>
-                    <p className="text-gray-400 text-sm">Continuously improve code quality and reduce maintenance overhead.</p>
+                    <h4 className="font-medium text-white mb-1">
+                      Reduced Technical Debt
+                    </h4>
+                    <p className="text-gray-400 text-sm">
+                      Continuously improve code quality and reduce maintenance
+                      overhead.
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="bg-zinc-900">
-              <h4 className="font-semibold mb-3 text-white">Need Custom Integration?</h4>
+              <h4 className="font-semibold mb-3 text-white">
+                Need Custom Integration?
+              </h4>
               <p className="text-gray-300 text-sm mb-4">
-                Our team can help you integrate NeuroLint with your specific tools and workflows.
+                Our team can help you integrate NeuroLint with your specific
+                tools and workflows.
               </p>
               <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                 Contact Sales
