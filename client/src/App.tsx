@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import AppPage from "./pages/AppPage";
 import TestSuite from "./pages/TestSuite";
 import Docs from "./pages/Docs";
+import Features from "./pages/Features";
 import Pricing from "./pages/Pricing";
 import Billing from "./pages/Billing";
 
@@ -46,6 +47,7 @@ const App = () => (
               <Route path="/app" element={<AppPage />} />
               <Route path="/test" element={<TestSuite />} />
               <Route path="/docs" element={<Docs />} />
+              <Route path="/features" element={<Features />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/billing" element={<Billing />} />
 
