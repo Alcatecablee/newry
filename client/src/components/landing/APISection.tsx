@@ -53,7 +53,7 @@ export function APISection() {
   };
 
   return (
-    <section id="api" className="relative z-10 py-20 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm">
+    <section id="api" className="relative z-10 py-20 bg-black backdrop-blur-sm">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">

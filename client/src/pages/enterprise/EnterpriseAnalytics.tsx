@@ -443,7 +443,7 @@ const EnterpriseAnalytics = () => {
                   vs target: {metric.target}
                   {metric.unit}
                 </div>
-                <div className="text-xs text-charcoal-light">
+                <div className="text-xs text-zinc-400">
                   {metric.current > metric.previous ? "+" : ""}
                   {(
                     ((metric.current - metric.previous) / metric.previous) *
@@ -460,35 +460,35 @@ const EnterpriseAnalytics = () => {
           <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="executive"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Crown className="w-4 h-4 mr-2" />
               Executive Overview
             </TabsTrigger>
             <TabsTrigger
               value="compliance"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Shield className="w-4 h-4 mr-2" />
               Compliance
             </TabsTrigger>
             <TabsTrigger
               value="risk"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <AlertTriangle className="w-4 h-4 mr-2" />
               Risk Management
             </TabsTrigger>
             <TabsTrigger
               value="performance"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <BarChart3 className="w-4 h-4 mr-2" />
               Performance
             </TabsTrigger>
             <TabsTrigger
               value="roi"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <DollarSign className="w-4 h-4 mr-2" />
               ROI Analysis
@@ -763,7 +763,7 @@ const EnterpriseAnalytics = () => {
                           >
                             {framework.riskLevel} risk
                           </Badge>
-                          <span className="text-charcoal-light text-sm">
+                          <span className="text-zinc-400 text-sm">
                             {framework.requirements.length} requirements
                           </span>
                         </div>

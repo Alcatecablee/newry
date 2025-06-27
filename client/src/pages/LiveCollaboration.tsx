@@ -329,36 +329,36 @@ const LiveCollaboration = () => {
                   <div className="space-y-1">
                     {/* Simulated code lines */}
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">10</span>
+                      <span className="text-zinc-400 w-8">10</span>
                       <span className="text-white">
                         import React from 'react';
                       </span>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">11</span>
+                      <span className="text-zinc-400 w-8">11</span>
                       <span className="text-white">
                         import {UserCard} from './UserCard';
                       </span>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">12</span>
+                      <span className="text-zinc-400 w-8">12</span>
                       <span className="text-white"></span>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">13</span>
+                      <span className="text-zinc-400 w-8">13</span>
                       <span className="text-white">
                         export function UserProfile() {"{"}
                       </span>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">14</span>
+                      <span className="text-zinc-400 w-8">14</span>
                       <span className="text-white">
                         {" "}
                         const users = getUsers();
                       </span>
                     </div>
                     <div className="flex bg-red-900/30 border-l-4 border-red-400">
-                      <span className="text-charcoal-light w-8">15</span>
+                      <span className="text-zinc-400 w-8">15</span>
                       <span className="text-white">
                         {" "}
                         const title = &quot;User Profile&quot;;
@@ -368,19 +368,19 @@ const LiveCollaboration = () => {
                       </Badge>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">16</span>
+                      <span className="text-zinc-400 w-8">16</span>
                       <span className="text-white"></span>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">17</span>
+                      <span className="text-zinc-400 w-8">17</span>
                       <span className="text-white"> return (</span>
                     </div>
                     <div className="flex">
-                      <span className="text-charcoal-light w-8">18</span>
+                      <span className="text-zinc-400 w-8">18</span>
                       <span className="text-white"> &lt;div&gt;</span>
                     </div>
                     <div className="flex bg-green-900/30 border-l-4 border-green-400">
-                      <span className="text-charcoal-light w-8">28</span>
+                      <span className="text-zinc-400 w-8">28</span>
                       <span className="text-white">
                         {" "}
                         {`{users.map(user => <UserCard key={user.id} user={user} />)}`}
@@ -390,7 +390,7 @@ const LiveCollaboration = () => {
                       </Badge>
                     </div>
                     <div className="flex bg-yellow-900/30 border-l-4 border-yellow-400">
-                      <span className="text-charcoal-light w-8">42</span>
+                      <span className="text-zinc-400 w-8">42</span>
                       <span className="text-white">
                         {" "}
                         const theme = localStorage.getItem("theme");
@@ -461,7 +461,7 @@ const LiveCollaboration = () => {
                                 {getVoteCount(fix, "reject")}
                               </span>
                             </div>
-                            <span className="text-charcoal-light text-xs">
+                            <span className="text-zinc-400 text-xs">
                               Line {fix.codeChange.lineStart}
                             </span>
                           </div>
@@ -583,7 +583,7 @@ const LiveCollaboration = () => {
                           <span className="text-white text-sm font-medium">
                             {comment.userName}
                           </span>
-                          <span className="text-charcoal-light text-xs">
+                          <span className="text-zinc-400 text-xs">
                             {new Date(comment.timestamp).toLocaleTimeString()}
                           </span>
                         </div>
@@ -591,7 +591,7 @@ const LiveCollaboration = () => {
                           {comment.content}
                         </p>
                         {comment.lineNumber && (
-                          <span className="text-charcoal-light text-xs">
+                          <span className="text-zinc-400 text-xs">
                             Line {comment.lineNumber}
                           </span>
                         )}

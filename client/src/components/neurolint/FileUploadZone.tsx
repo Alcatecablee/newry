@@ -390,7 +390,7 @@ export function FileUploadZone({ onFile, processing }: FileUploadZoneProps) {
         <Button
           onClick={handlePastedCodeSubmit}
           disabled={!pastedCode.trim() || processing}
-          className="w-full bg-white text-charcoal-dark hover:bg-white/90"
+          className="w-full bg-white text-black hover:bg-white/90"
         >
           <Zap className="w-4 h-4 mr-2" />
           Transform Code

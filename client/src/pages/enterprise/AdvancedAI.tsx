@@ -501,35 +501,35 @@ const AdvancedAI = () => {
           <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="conversation"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <MessageSquare className="w-4 h-4 mr-2" />
               AI Conversation
             </TabsTrigger>
             <TabsTrigger
               value="assistants"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Bot className="w-4 h-4 mr-2" />
               AI Assistants
             </TabsTrigger>
             <TabsTrigger
               value="capabilities"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Wand2 className="w-4 h-4 mr-2" />
               Capabilities
             </TabsTrigger>
             <TabsTrigger
               value="models"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Brain className="w-4 h-4 mr-2" />
               Model Performance
             </TabsTrigger>
             <TabsTrigger
               value="training"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Zap className="w-4 h-4 mr-2" />
               Training Center
@@ -689,7 +689,7 @@ const AdvancedAI = () => {
                             </div>
                           )}
 
-                          <p className="text-xs text-charcoal-light mt-2">
+                          <p className="text-xs text-zinc-400 mt-2">
                             {new Date(message.timestamp).toLocaleTimeString()}
                           </p>
                         </div>

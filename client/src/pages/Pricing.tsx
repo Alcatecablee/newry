@@ -7,7 +7,7 @@ import { Check } from "lucide-react";
 
 const Pricing = () => {
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-start px-4 py-8 bg-gradient-to-br from-[#22242B] via-[#181921] to-[#16151a] dark">
+    <div className="min-h-screen w-full flex flex-col items-center justify-start px-4 py-8 bg-black dark">
       <div className="w-full max-w-6xl text-center mb-8">
         <h1 className="text-4xl font-bold text-white mb-4">
           Simple, Transparent Pricing

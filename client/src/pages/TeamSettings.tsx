@@ -168,35 +168,35 @@ const TeamSettings = () => {
           <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="general"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Settings className="w-4 h-4 mr-2" />
               General
             </TabsTrigger>
             <TabsTrigger
               value="members"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Users className="w-4 h-4 mr-2" />
               Members & Roles
             </TabsTrigger>
             <TabsTrigger
               value="rules"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Code className="w-4 h-4 mr-2" />
               Custom Rules
             </TabsTrigger>
             <TabsTrigger
               value="notifications"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Bell className="w-4 h-4 mr-2" />
               Notifications
             </TabsTrigger>
             <TabsTrigger
               value="security"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Shield className="w-4 h-4 mr-2" />
               Security
@@ -422,7 +422,7 @@ const TeamSettings = () => {
                           </div>
                         </div>
 
-                        <p className="text-charcoal-light text-xs mt-2">
+                        <p className="text-zinc-400 text-xs mt-2">
                           Created by {rule.createdBy} on {rule.createdAt}
                         </p>
                       </div>

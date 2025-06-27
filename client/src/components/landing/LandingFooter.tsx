@@ -94,7 +94,7 @@ export function LandingFooter() {
         </div>
 
         <div className="border-t border-zinc-800 mt-8 pt-6 text-center">
-          <p className="text-charcoal-light text-sm">
+          <p className="text-zinc-400 text-sm">
             &copy; {new Date().getFullYear()} NeuroLint. All rights reserved.
           </p>
         </div>

@@ -465,28 +465,28 @@ const WebhookSystem = () => {
           <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="endpoints"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Webhook className="w-4 h-4 mr-2" />
               Endpoints
             </TabsTrigger>
             <TabsTrigger
               value="events"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Activity className="w-4 h-4 mr-2" />
               Event Log
             </TabsTrigger>
             <TabsTrigger
               value="templates"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Zap className="w-4 h-4 mr-2" />
               Templates
             </TabsTrigger>
             <TabsTrigger
               value="analytics"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <BarChart3 className="w-4 h-4 mr-2" />
               Analytics
@@ -770,7 +770,7 @@ const WebhookSystem = () => {
                               {event.responseTime}ms
                             </p>
                           )}
-                          <p className="text-charcoal-light text-xs">
+                          <p className="text-zinc-400 text-xs">
                             Attempt {event.attempts}
                           </p>
                         </div>
@@ -812,7 +812,7 @@ const WebhookSystem = () => {
                   <CardHeader>
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-white rounded flex items-center justify-center">
-                        <span className="text-charcoal-dark font-bold">
+                        <span className="text-black font-bold">
                           {template.name[0]}
                         </span>
                       </div>

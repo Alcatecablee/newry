@@ -458,28 +458,28 @@ const TeamAnalytics = () => {
           <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="insights"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Brain className="w-4 h-4 mr-2" />
               AI Insights
             </TabsTrigger>
             <TabsTrigger
               value="trends"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <TrendingUp className="w-4 h-4 mr-2" />
               Trends
             </TabsTrigger>
             <TabsTrigger
               value="performance"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Target className="w-4 h-4 mr-2" />
               Performance
             </TabsTrigger>
             <TabsTrigger
               value="predictions"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Eye className="w-4 h-4 mr-2" />
               Predictions
@@ -545,7 +545,7 @@ const TeamAnalytics = () => {
                             </p>
 
                             <div className="flex items-center gap-2 mb-3">
-                              <span className="text-xs text-charcoal-light">
+                              <span className="text-xs text-zinc-400">
                                 Affected metrics:
                               </span>
                               {insight.metrics.map((metric) => (

@@ -412,7 +412,7 @@ const LiveCodeSessions = () => {
                           : ""
                     }`}
                   >
-                    <span className="text-charcoal-light w-12 select-none text-right pr-4">
+                    <span className="text-zinc-400 w-12 select-none text-right pr-4">
                       {line.line}
                     </span>
                     <span className="text-white flex-1">{line.content}</span>
@@ -649,7 +649,7 @@ const LiveCodeSessions = () => {
                       <span className="font-medium">Sarah:</span> What do you
                       think about the AI suggestion for memoization?
                     </p>
-                    <p className="text-charcoal-light text-xs">2 min ago</p>
+                    <p className="text-zinc-400 text-xs">2 min ago</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2">
@@ -661,7 +661,7 @@ const LiveCodeSessions = () => {
                       <span className="font-medium">Alex:</span> Looks good! The
                       props are stable here.
                     </p>
-                    <p className="text-charcoal-light text-xs">1 min ago</p>
+                    <p className="text-zinc-400 text-xs">1 min ago</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2">
@@ -674,7 +674,7 @@ const LiveCodeSessions = () => {
                       analyzed the render frequency - this optimization could
                       save 23% render time.
                     </p>
-                    <p className="text-charcoal-light text-xs">30 sec ago</p>
+                    <p className="text-zinc-400 text-xs">30 sec ago</p>
                   </div>
                 </div>
               </div>

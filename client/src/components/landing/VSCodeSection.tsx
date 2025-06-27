@@ -3,7 +3,7 @@ import { Code2, Lightbulb, Eye, Settings, Download, Star } from 'lucide-react';
 
 export function VSCodeSection() {
   return (
-    <section id="vscode" className="relative z-10 py-20 bg-gradient-to-br from-black/80 to-gray-900/80 backdrop-blur-sm">
+    <section id="vscode" className="relative z-10 py-20 bg-black backdrop-blur-sm">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">

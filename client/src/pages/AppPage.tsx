@@ -144,7 +144,7 @@ const AppPage = () => {
                         className={`flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold ${
                           isEnabled
                             ? "bg-green-500 text-white"
-                            : "bg-zinc-900er text-charcoal-light group-hover:bg-white/20 group-hover:text-white"
+                            : "bg-zinc-900er text-zinc-400 group-hover:bg-white/20 group-hover:text-white"
                         }`}
                       >
                         {layer.id}
@@ -195,14 +195,14 @@ const AppPage = () => {
               <TabsList className="grid w-full grid-cols-2 bg-zinc-900 border border-zinc-800er p-1">
                 <TabsTrigger
                   value="single"
-                  className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-charcoal-dark data-[state=inactive]:text-zinc-400"
+                  className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-black data-[state=inactive]:text-zinc-400"
                 >
                   <FileCode className="w-4 h-4" />
                   Single File
                 </TabsTrigger>
                 <TabsTrigger
                   value="repo"
-                  className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-charcoal-dark data-[state=inactive]:text-zinc-400"
+                  className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-black data-[state=inactive]:text-zinc-400"
                 >
                   <Github className="w-4 h-4" />
                   Repository

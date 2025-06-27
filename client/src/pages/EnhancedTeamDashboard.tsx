@@ -426,35 +426,35 @@ const EnhancedTeamDashboard = () => {
           <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="live"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Activity className="w-4 h-4 mr-2" />
               Live Activity
             </TabsTrigger>
             <TabsTrigger
               value="ai-insights"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Brain className="w-4 h-4 mr-2" />
               AI Insights
             </TabsTrigger>
             <TabsTrigger
               value="team"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Users className="w-4 h-4 mr-2" />
               Team Performance
             </TabsTrigger>
             <TabsTrigger
               value="achievements"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Award className="w-4 h-4 mr-2" />
               Achievements
             </TabsTrigger>
             <TabsTrigger
               value="analytics"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <BarChart3 className="w-4 h-4 mr-2" />
               Deep Analytics
@@ -580,7 +580,7 @@ const EnhancedTeamDashboard = () => {
                               {member.stats.streak}
                             </span>
                           </div>
-                          <p className="text-charcoal-light text-xs">
+                          <p className="text-zinc-400 text-xs">
                             {member.currentActivity.lastSeen}
                           </p>
                         </div>
@@ -646,7 +646,7 @@ const EnhancedTeamDashboard = () => {
                               {insight.description}
                             </p>
 
-                            <div className="flex items-center gap-4 text-xs text-charcoal-light">
+                            <div className="flex items-center gap-4 text-xs text-zinc-400">
                               <span>
                                 Time to fix: {insight.estimatedTimeToFix}
                               </span>
@@ -912,7 +912,7 @@ const EnhancedTeamDashboard = () => {
                             style={{ width: `${achievement.progress}%` }}
                           />
                         </div>
-                        <p className="text-xs text-charcoal-light mt-1">
+                        <p className="text-xs text-zinc-400 mt-1">
                           {achievement.progress}% complete
                         </p>
                       </div>
@@ -944,9 +944,9 @@ const EnhancedTeamDashboard = () => {
                           <div
                             className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                               index === 0
-                                ? "bg-yellow-400 text-charcoal-dark"
+                                ? "bg-yellow-400 text-black"
                                 : index === 1
-                                  ? "bg-gray-400 text-charcoal-dark"
+                                  ? "bg-gray-400 text-black"
                                   : index === 2
                                     ? "bg-orange-600 text-white"
                                     : "bg-charcoal text-white"

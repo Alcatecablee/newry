@@ -639,35 +639,35 @@ const MarketPositioning = () => {
           <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="segments"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Users className="w-4 h-4 mr-2" />
               Market Segments
             </TabsTrigger>
             <TabsTrigger
               value="personas"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Eye className="w-4 h-4 mr-2" />
               Customer Personas
             </TabsTrigger>
             <TabsTrigger
               value="value-props"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Star className="w-4 h-4 mr-2" />
               Value Propositions
             </TabsTrigger>
             <TabsTrigger
               value="gtm-strategy"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Rocket className="w-4 h-4 mr-2" />
               GTM Strategy
             </TabsTrigger>
             <TabsTrigger
               value="competitive"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Shield className="w-4 h-4 mr-2" />
               Competitive Analysis

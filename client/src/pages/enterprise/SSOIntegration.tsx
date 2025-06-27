@@ -281,7 +281,7 @@ const SSOIntegration = () => {
                 </div>
                 <Globe className="w-8 h-8 text-green-400" />
               </div>
-              <p className="text-xs text-charcoal-light mt-2">2 SAML, 1 OIDC</p>
+              <p className="text-xs text-zinc-400 mt-2">2 SAML, 1 OIDC</p>
             </CardContent>
           </Card>
 
@@ -309,7 +309,7 @@ const SSOIntegration = () => {
                 </div>
                 <Verified className="w-8 h-8 text-purple-400" />
               </div>
-              <p className="text-xs text-charcoal-light mt-2">days ago</p>
+              <p className="text-xs text-zinc-400 mt-2">days ago</p>
             </CardContent>
           </Card>
         </div>
@@ -318,28 +318,28 @@ const SSOIntegration = () => {
           <TabsList className="bg-zinc-900 border-zinc-800er">
             <TabsTrigger
               value="providers"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Key className="w-4 h-4 mr-2" />
               SSO Providers
             </TabsTrigger>
             <TabsTrigger
               value="compliance"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Shield className="w-4 h-4 mr-2" />
               Compliance
             </TabsTrigger>
             <TabsTrigger
               value="audit-logs"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Database className="w-4 h-4 mr-2" />
               Audit Logs
             </TabsTrigger>
             <TabsTrigger
               value="provisioning"
-              className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
+              className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
               <Users className="w-4 h-4 mr-2" />
               User Provisioning
@@ -374,7 +374,7 @@ const SSOIntegration = () => {
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-3">
                             <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
-                              <span className="text-charcoal-dark font-bold text-xs">
+                              <span className="text-black font-bold text-xs">
                                 {provider.name[0]}
                               </span>
                             </div>
@@ -396,7 +396,7 @@ const SSOIntegration = () => {
                           <span className="text-zinc-400">
                             {provider.userCount} users
                           </span>
-                          <span className="text-charcoal-light">
+                          <span className="text-zinc-400">
                             Last sync: {provider.lastSync}
                           </span>
                         </div>
@@ -727,14 +727,14 @@ const SSOIntegration = () => {
                       className="flex items-center justify-between p-3 bg-zinc-900 rounded text-sm"
                     >
                       <div className="flex items-center gap-4">
-                        <span className="text-charcoal-light">{log.time}</span>
+                        <span className="text-zinc-400">{log.time}</span>
                         <span className="text-white">{log.event}</span>
                         <span className="text-zinc-400">
                           {log.user}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-charcoal-light">{log.ip}</span>
+                        <span className="text-zinc-400">{log.ip}</span>
                         <Badge
                           className={
                             log.result === "Success"
@@ -845,7 +845,7 @@ const SSOIntegration = () => {
                         </div>
                         <div className="text-right">
                           <p className="text-white">{activity.role}</p>
-                          <p className="text-charcoal-light">{activity.time}</p>
+                          <p className="text-zinc-400">{activity.time}</p>
                         </div>
                       </div>
                     ))}

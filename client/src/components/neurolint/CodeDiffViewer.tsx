@@ -147,7 +147,7 @@ export function CodeDiffViewer({
         {/* Transformation Arrow */}
         <div className="flex justify-center py-2 bg-zinc-900 flex-shrink-0">
           <div className="bg-white rounded-full p-2 shadow-lg backdrop-blur">
-            <ArrowDown className="w-4 h-4 text-charcoal-dark" />
+            <ArrowDown className="w-4 h-4 text-black" />
           </div>
         </div>
 

@@ -66,7 +66,7 @@ export function IntegrationsSection() {
   ];
 
   return (
-    <section id="integrations" className="relative z-10 py-20 bg-gradient-to-br from-black/80 to-gray-900/80 backdrop-blur-sm">
+    <section id="integrations" className="relative z-10 py-20 bg-black backdrop-blur-sm">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
