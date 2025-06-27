@@ -13,17 +13,36 @@ export function useAuth() {
   const auth = useLocalAuth();
 
   const canUseTransformation = () => {
-    // For demo purposes, always allow transformations
-    return true;
+    if (!auth.user) return true; // Allow guest usage
+    return auth.user.monthlyTransformationsUsed < auth.user.monthlyLimit;
   };
 
   const incrementUsage = async () => {
-    // For demo purposes, always return success
-    return true;
+    if (!auth.user) return true; // Guest usage always allowed
+
+    try {
+      const token = localStorage.getItem("auth_token");
+      const response = await fetch("/api/auth/increment-usage", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        await auth.updateUser(); // Refresh user data
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error("Failed to increment usage:", error);
+      return false;
+    }
   };
 
   const syncUser = async () => {
-    // No-op for local auth
+    await auth.updateUser();
   };
 
   return {
@@ -33,9 +52,9 @@ export function useAuth() {
           id: auth.user.id,
           email: auth.user.email,
           full_name: auth.user.name,
-          plan_type: "free" as const,
-          monthly_transformations_used: 0,
-          monthly_limit: 100,
+          plan_type: auth.user.planType as "free" | "pro" | "enterprise",
+          monthly_transformations_used: auth.user.monthlyTransformationsUsed,
+          monthly_limit: auth.user.monthlyLimit,
         }
       : null,
     clerkUser: auth.user,
