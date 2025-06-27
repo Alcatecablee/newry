@@ -465,13 +465,23 @@ const AdminDashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <Alert className="bg-yellow-900/20 border-yellow-900/50">
-                  <AlertTriangle className="h-4 w-4" />
-                  <AlertDescription className="text-yellow-200">
-                    Currently using in-memory storage. Add a DATABASE_URL to
-                    enable persistent data storage.
-                  </AlertDescription>
-                </Alert>
+                {systemStatus.database === "connected" ? (
+                  <Alert className="bg-green-900/20 border-green-900/50">
+                    <CheckCircle className="h-4 w-4" />
+                    <AlertDescription className="text-green-200">
+                      Local SQLite database is connected and working. Your data
+                      is being persisted locally.
+                    </AlertDescription>
+                  </Alert>
+                ) : (
+                  <Alert className="bg-yellow-900/20 border-yellow-900/50">
+                    <AlertTriangle className="h-4 w-4" />
+                    <AlertDescription className="text-yellow-200">
+                      Database connection failed. Check your configuration or
+                      contact support.
+                    </AlertDescription>
+                  </Alert>
+                )}
 
                 <div>
                   <Label htmlFor="databaseUrl" className="text-zinc-300">
