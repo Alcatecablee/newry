@@ -34,6 +34,8 @@ export default defineConfig({
       clientPort: process.env.REPL_ID ? 443 : 5000,
       host: process.env.REPL_ID ? "0.0.0.0" : "localhost",
       protocol: process.env.REPL_ID ? "wss" : "ws",
+      overlay: false,
     },
+    cors: true,
   },
 });

@@ -27,8 +27,10 @@ export async function setupVite(app: Express, server: Server) {
       port: 5000,
       clientPort: process.env.REPL_ID ? 443 : 5000,
       protocol: process.env.REPL_ID ? "wss" : "ws",
+      overlay: false,
     },
     allowedHosts: true,
+    cors: true,
   };
 
   const vite = await createViteServer({
