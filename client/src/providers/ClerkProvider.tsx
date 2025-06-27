@@ -10,6 +10,11 @@ export function ClerkProvider({ children }: ClerkProviderProps) {
     import.meta.env.VITE_CLERK_PUBLISHABLE_KEY ||
     "pk_test_Z3VpZGluZy1haXJlZGFsZS00My5jbGVyay5hY2NvdW50cy5kZXYk";
 
+  console.log(
+    "🔐 ClerkProvider loading with key:",
+    publishableKey ? publishableKey.slice(0, 20) + "..." : "NONE",
+  );
+
   // If no Clerk key is provided, render children without Clerk provider
   if (!publishableKey) {
     if (import.meta.env.DEV) {
