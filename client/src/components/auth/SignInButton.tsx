@@ -24,7 +24,7 @@ export function SignInButton() {
   }
 
   return (
-    <ClerkSignInButton>
+    <ClerkSignInButton mode="redirect">
       <Button variant="default" className="font-semibold">
         <LogIn className="w-4 h-4 mr-2" />
         Sign In
