@@ -623,9 +623,7 @@ const TeamAnalytics = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-zinc-400">
-                      Velocity pattern analysis
-                    </p>
+                    <p className="text-zinc-400">Velocity pattern analysis</p>
                   </div>
                 </CardContent>
               </Card>
@@ -684,9 +682,9 @@ const TeamAnalytics = () => {
                             {sprint.completion}% complete
                           </Badge>
                         </div>
-                        <div className="w-full bg-charcoal h-2 rounded-full">
+                        <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
-                            className=""bg-zinc-900""
+                            className="bg-zinc-600 h-2 rounded-full"
                             style={{ width: `${sprint.completion}%` }}
                           />
                         </div>

@@ -105,7 +105,8 @@ const EnhancedTeamDashboard = () => {
   // Fetch teams data
   const { data: teams, isLoading: teamsLoading } = useTeams();
   const { data: teamData, isLoading: teamLoading } = useTeam(selectedTeamId);
-  const { data: analytics, isLoading: analyticsLoading } = useTeamAnalytics(selectedTeamId);
+  const { data: analytics, isLoading: analyticsLoading } =
+    useTeamAnalytics(selectedTeamId);
   const createTeam = useCreateTeam();
   const createProject = useCreateProject();
 
@@ -114,7 +115,7 @@ const EnhancedTeamDashboard = () => {
     if (!teamsLoading && (!teams || teams.length === 0)) {
       createTeam.mutate({
         name: "Development Team",
-        description: "Main development team working on NeuroLint platform"
+        description: "Main development team working on NeuroLint platform",
       });
     }
   }, [teams, teamsLoading, createTeam]);
@@ -126,8 +127,8 @@ const EnhancedTeamDashboard = () => {
         teamId: selectedTeamId,
         project: {
           name: "NeuroLint Platform",
-          repository: "company/neurolint-platform"
-        }
+          repository: "company/neurolint-platform",
+        },
       });
     }
   }, [teamData, selectedTeamId, createProject]);
@@ -316,9 +317,7 @@ const EnhancedTeamDashboard = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="w-4 h-4" />
-                  <span>
-                    {teamData?.members.length || 0} team members
-                  </span>
+                  <span>{teamData?.members.length || 0} team members</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Activity className="w-4 h-4" />
@@ -351,12 +350,15 @@ const EnhancedTeamDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-300 text-sm">Code Quality</p>
-                  <p className="text-3xl font-bold text-white">{analytics?.codeQuality.current || 0}%</p>
+                  <p className="text-3xl font-bold text-white">
+                    {analytics?.codeQuality.current || 0}%
+                  </p>
                 </div>
                 <Trophy className="w-8 h-8 text-white" />
               </div>
               <p className="text-xs text-gray-400 mt-2">
-                {analytics?.codeQuality.change > 0 ? '+' : ''}{analytics?.codeQuality.change || 0}% from last period
+                {analytics?.codeQuality.change > 0 ? "+" : ""}
+                {analytics?.codeQuality.change || 0}% from last period
               </p>
             </CardContent>
           </Card>
@@ -366,12 +368,15 @@ const EnhancedTeamDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-300 text-sm">Team Velocity</p>
-                  <p className="text-3xl font-bold text-white">{analytics?.velocity.current || 0}%</p>
+                  <p className="text-3xl font-bold text-white">
+                    {analytics?.velocity.current || 0}%
+                  </p>
                 </div>
                 <Bot className="w-8 h-8 text-white" />
               </div>
               <p className="text-xs text-gray-400 mt-2">
-                {analytics?.velocity.change > 0 ? '+' : ''}{analytics?.velocity.change || 0}% this period
+                {analytics?.velocity.change > 0 ? "+" : ""}
+                {analytics?.velocity.change || 0}% this period
               </p>
             </CardContent>
           </Card>
@@ -381,12 +386,15 @@ const EnhancedTeamDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-300 text-sm">Innovation Score</p>
-                  <p className="text-3xl font-bold text-white">{analytics?.innovation.current || 0}%</p>
+                  <p className="text-3xl font-bold text-white">
+                    {analytics?.innovation.current || 0}%
+                  </p>
                 </div>
                 <Lightbulb className="w-8 h-8 text-white" />
               </div>
               <p className="text-xs text-gray-400 mt-2">
-                {analytics?.innovation.change > 0 ? '+' : ''}{analytics?.innovation.change || 0}% change
+                {analytics?.innovation.change > 0 ? "+" : ""}
+                {analytics?.innovation.change || 0}% change
               </p>
             </CardContent>
           </Card>
@@ -396,12 +404,15 @@ const EnhancedTeamDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-300 text-sm">Collaboration</p>
-                  <p className="text-3xl font-bold text-white">{analytics?.collaboration.current || 0}%</p>
+                  <p className="text-3xl font-bold text-white">
+                    {analytics?.collaboration.current || 0}%
+                  </p>
                 </div>
                 <Heart className="w-8 h-8 text-white" />
               </div>
               <p className="text-xs text-gray-400 mt-2">
-                {analytics?.collaboration.change > 0 ? '+' : ''}{analytics?.collaboration.change || 0}% change
+                {analytics?.collaboration.change > 0 ? "+" : ""}
+                {analytics?.collaboration.change || 0}% change
               </p>
             </CardContent>
           </Card>
@@ -411,12 +422,15 @@ const EnhancedTeamDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-gray-300 text-sm">Bug Rate</p>
-                  <p className="text-3xl font-bold text-white">{analytics?.bugRate.current || 0}%</p>
+                  <p className="text-3xl font-bold text-white">
+                    {analytics?.bugRate.current || 0}%
+                  </p>
                 </div>
                 <AlertTriangle className="w-8 h-8 text-white" />
               </div>
               <p className="text-xs text-gray-400 mt-2">
-                {analytics?.bugRate.change > 0 ? '+' : ''}{analytics?.bugRate.change || 0}% change
+                {analytics?.bugRate.change > 0 ? "+" : ""}
+                {analytics?.bugRate.change || 0}% change
               </p>
             </CardContent>
           </Card>
@@ -736,9 +750,7 @@ const EnhancedTeamDashboard = () => {
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
                             <div className="flex items-center justify-between">
-                              <span className="text-zinc-400">
-                                Fixes
-                              </span>
+                              <span className="text-zinc-400">Fixes</span>
                               <span className="text-white">
                                 {member.stats.fixesThisWeek}
                               </span>
@@ -754,17 +766,13 @@ const EnhancedTeamDashboard = () => {
                           </div>
                           <div>
                             <div className="flex items-center justify-between">
-                              <span className="text-zinc-400">
-                                Innovation
-                              </span>
+                              <span className="text-zinc-400">Innovation</span>
                               <span className="text-white">
                                 {member.stats.innovationPoints}
                               </span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-zinc-400">
-                                Mentoring
-                              </span>
+                              <span className="text-zinc-400">Mentoring</span>
                               <span className="text-white">
                                 {member.stats.mentorshipHours}h
                               </span>
@@ -805,10 +813,7 @@ const EnhancedTeamDashboard = () => {
                       "APIs",
                       "Performance",
                     ].map((skill) => (
-                      <div
-                        key={skill}
-                        className="p-3 bg-zinc-900 rounded-lg"
-                      >
+                      <div key={skill} className="p-3 bg-zinc-900 rounded-lg">
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-white font-medium">
                             {skill}
@@ -831,9 +836,9 @@ const EnhancedTeamDashboard = () => {
                               ))}
                           </div>
                         </div>
-                        <div className="w-full bg-charcoal h-2 rounded-full">
+                        <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
-                            className=""bg-zinc-900""
+                            className="bg-zinc-600 h-2 rounded-full"
                             style={{ width: `${Math.random() * 50 + 50}%` }}
                           />
                         </div>
@@ -906,8 +911,8 @@ const EnhancedTeamDashboard = () => {
                           <div
                             className={`h-2 rounded-full ${
                               achievement.progress === 100
-                                ? ""bg-zinc-900""
-                                : ""bg-zinc-900""
+                                ? '"bg-zinc-900"'
+                                : '"bg-zinc-900"'
                             }`}
                             style={{ width: `${achievement.progress}%` }}
                           />
