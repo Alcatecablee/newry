@@ -23,6 +23,7 @@ import WebhookSystem from "./pages/enterprise/WebhookSystem";
 import EnterpriseAnalytics from "./pages/enterprise/EnterpriseAnalytics";
 import AdvancedAI from "./pages/enterprise/AdvancedAI";
 import MarketPositioning from "./pages/enterprise/MarketPositioning";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 import { SiteHeader } from "./components/SiteHeader";
 import { SiteFooter } from "./components/SiteFooter";
@@ -50,6 +51,7 @@ const App = () => (
               <Route path="/features" element={<Features />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/billing" element={<Billing />} />
+              <Route path="/admin" element={<AdminDashboard />} />
 
               <Route path="/team" element={<EnhancedTeamDashboard />} />
               <Route path="/team/basic" element={<TeamDashboard />} />
