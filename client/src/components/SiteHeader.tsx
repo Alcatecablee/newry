@@ -27,26 +27,26 @@ export const SiteHeader = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/app"
-              className="text-white/90 hover:text-white transition-colors font-medium"
+              className="!text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
             >
               App
             </Link>
             <span
-              className="text-white/50 cursor-not-allowed font-medium"
+              className="!text-white !opacity-50 cursor-not-allowed font-medium"
               title="Coming Soon"
             >
               Teams
             </span>
             <Link
               to="/test"
-              className="text-white/90 hover:text-white transition-colors font-medium"
+              className="!text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
             >
               Test Suite
             </Link>
             {isAuthenticated && (
               <Link
                 to="/billing"
-                className="text-white/90 hover:text-white transition-colors font-medium"
+                className="!text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
               >
                 Billing
               </Link>
@@ -87,17 +87,17 @@ export const SiteHeader = () => {
             <div className="px-2 pt-2 pb-3 space-y-1 border-t border-charcoal-light bg-charcoal/90 backdrop-blur-lg">
               <Link
                 to="/app"
-                className="block px-3 py-2 text-white/90 hover:text-white transition-colors font-medium"
+                className="block px-3 py-2 !text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 App
               </Link>
-              <div className="block px-3 py-2 text-white/50 font-medium">
+              <div className="block px-3 py-2 !text-white !opacity-50 font-medium">
                 Teams
               </div>
               <Link
                 to="/test"
-                className="block px-3 py-2 text-white/90 hover:text-white transition-colors font-medium"
+                className="block px-3 py-2 !text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Test Suite
@@ -105,7 +105,7 @@ export const SiteHeader = () => {
               {isAuthenticated && (
                 <Link
                   to="/billing"
-                  className="block px-3 py-2 text-white/90 hover:text-white transition-colors font-medium"
+                  className="block px-3 py-2 !text-white !opacity-90 hover:!text-white hover:!opacity-100 transition-all duration-200 font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Billing
