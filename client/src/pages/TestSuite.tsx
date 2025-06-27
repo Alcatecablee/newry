@@ -1,11 +1,10 @@
-
 import { TestRunner } from "@/components/neurolint/TestRunner";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Brain, TestTube } from "lucide-react";
 
 const TestSuite = () => {
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-start px-4 py-8 bg-gradient-to-br from-[#22242B] via-[#181921] to-[#16151a] dark">
+    <div className="min-h-screen w-full flex flex-col items-center justify-start px-4 py-8 bg-black dark">
       <div className="w-full max-w-6xl flex flex-col sm:flex-row gap-2 justify-between items-center mb-5">
         <div className="font-extrabold text-2xl sm:text-3xl text-white bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-tight">
           <span>🧪 NeuroLint Quality Assurance</span>
@@ -25,8 +24,11 @@ const TestSuite = () => {
       </div>
       <div className="mb-6 w-full max-w-2xl">
         <div className="bg-black/80 border border-[#292939] rounded-xl px-5 py-4 text-base text-gray-200 font-sans shadow">
-          <b>Quality Testing Suite:</b> Automated validation of NeuroLint's 6-layer transformation pipeline.
-          <span className="block sm:inline text-blue-400 mt-1">Ensuring reliable code modernization for production use.</span>
+          <b>Quality Testing Suite:</b> Automated validation of NeuroLint's
+          6-layer transformation pipeline.
+          <span className="block sm:inline text-blue-400 mt-1">
+            Ensuring reliable code modernization for production use.
+          </span>
         </div>
       </div>
       <Card className="w-full max-w-6xl bg-black/80 border border-[#292939] rounded-xl shadow-cursor-glass transition-all backdrop-blur-lg font-sans">
@@ -42,16 +44,17 @@ const TestSuite = () => {
             </span>
           </CardTitle>
         </CardHeader>
-        
+
         <CardContent>
           <TestRunner />
         </CardContent>
       </Card>
-      
+
       <div className="mt-8 text-center text-muted-foreground text-sm font-sans max-w-2xl">
         <p>
-          Comprehensive testing suite validating NeuroLint's transformation accuracy across 
-          configuration updates, HTML entity fixes, component improvements, hydration issues, and more.
+          Comprehensive testing suite validating NeuroLint's transformation
+          accuracy across configuration updates, HTML entity fixes, component
+          improvements, hydration issues, and more.
         </p>
       </div>
     </div>
