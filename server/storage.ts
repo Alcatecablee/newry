@@ -1,62 +1,33 @@
 import { db, isPostgres } from "./db";
 import { eq, desc, and } from "drizzle-orm";
 
-// Import types and schemas based on database type
-let users: any,
-  transformations: any,
-  payments: any,
-  teams: any,
-  teamMembers: any,
-  teamProjects: any,
-  teamActivities: any;
-let User: any,
-  InsertUser: any,
-  Transformation: any,
-  Team: any,
-  TeamMember: any,
-  TeamProject: any,
-  TeamActivity: any;
-let InsertTeam: any, InsertTeamMember: any, InsertTeamProject: any;
+// Import schemas - use SQLite by default since that's our local setup
+import * as pgSchema from "../shared/schema.js";
+import * as sqliteSchema from "../shared/schema-sqlite.js";
 
-if (isPostgres) {
-  const schema = require("@shared/schema");
-  users = schema.users;
-  transformations = schema.transformations;
-  payments = schema.payments;
-  teams = schema.teams;
-  teamMembers = schema.teamMembers;
-  teamProjects = schema.teamProjects;
-  teamActivities = schema.teamActivities;
-  User = schema.User;
-  InsertUser = schema.InsertUser;
-  Transformation = schema.Transformation;
-  Team = schema.Team;
-  TeamMember = schema.TeamMember;
-  TeamProject = schema.TeamProject;
-  TeamActivity = schema.TeamActivity;
-  InsertTeam = schema.InsertTeam;
-  InsertTeamMember = schema.InsertTeamMember;
-  InsertTeamProject = schema.InsertTeamProject;
-} else {
-  const schema = require("@shared/schema-sqlite");
-  users = schema.users;
-  transformations = schema.transformations;
-  payments = schema.payments;
-  teams = schema.teams;
-  teamMembers = schema.teamMembers;
-  teamProjects = schema.teamProjects;
-  teamActivities = schema.teamActivities;
-  User = schema.User;
-  InsertUser = schema.InsertUser;
-  Transformation = schema.Transformation;
-  Team = schema.Team;
-  TeamMember = schema.TeamMember;
-  TeamProject = schema.TeamProject;
-  TeamActivity = schema.TeamActivity;
-  InsertTeam = schema.InsertTeam;
-  InsertTeamMember = schema.InsertTeamMember;
-  InsertTeamProject = schema.InsertTeamProject;
-}
+// Use appropriate schema based on database type
+const schema = isPostgres ? pgSchema : sqliteSchema;
+const {
+  users,
+  transformations,
+  payments,
+  teams,
+  teamMembers,
+  teamProjects,
+  teamActivities,
+} = schema;
+
+// Export types from the appropriate schema
+export type User = typeof schema.User;
+export type InsertUser = typeof schema.InsertUser;
+export type Transformation = typeof schema.Transformation;
+export type Team = typeof schema.Team;
+export type TeamMember = typeof schema.TeamMember;
+export type TeamProject = typeof schema.TeamProject;
+export type TeamActivity = typeof schema.TeamActivity;
+export type InsertTeam = typeof schema.InsertTeam;
+export type InsertTeamMember = typeof schema.InsertTeamMember;
+export type InsertTeamProject = typeof schema.InsertTeamProject;
 
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;

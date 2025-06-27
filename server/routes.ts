@@ -32,7 +32,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         testResult = await db.execute("SELECT 1");
       } else {
         // For SQLite, test by counting users table
-        const schema = require("../shared/schema-sqlite");
+        const schema = await import("../shared/schema-sqlite.js");
         testResult = await db.select().from(schema.users).limit(1);
       }
 
@@ -74,7 +74,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           stats = { message: "PostgreSQL connected" };
         } else {
           // SQLite stats
-          const schema = require("../shared/schema-sqlite");
+          const schema = await import("../shared/schema-sqlite.js");
           const userCount = await db.select().from(schema.users).all();
           const transformationCount = await db
             .select()
