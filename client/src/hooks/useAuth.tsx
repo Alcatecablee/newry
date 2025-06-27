@@ -17,6 +17,11 @@ export function useAuth() {
     import.meta.env.VITE_CLERK_PUBLISHABLE_KEY ||
     "pk_test_Z3VpZGluZy1haXJlZGFsZS00My5jbGVyay5hY2NvdW50cy5kZXYk";
 
+  console.log(
+    "🔐 useAuth loading, publishableKey:",
+    publishableKey ? publishableKey.slice(0, 20) + "..." : "NONE",
+  );
+
   // Only use Clerk hooks if the key is available
   const clerkUser = publishableKey
     ? useUser()
@@ -27,6 +32,12 @@ export function useAuth() {
 
   const { isSignedIn, user } = clerkUser;
   const { signOut } = clerkAuth;
+
+  console.log("🔐 useAuth state:", {
+    isSignedIn,
+    hasUser: !!user,
+    publishableKeyExists: !!publishableKey,
+  });
 
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
