@@ -13,7 +13,7 @@ export default function Docs() {
           <Button variant="outline" onClick={() => navigate(-1)} className="px-3 py-2 rounded-lg">
             ← Back
           </Button>
-          <span className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+          <span className="text-2xl font-extrabold tracking-tight "bg-zinc-900"">
             NeuroLint Docs & Guide
           </span>
         </div>

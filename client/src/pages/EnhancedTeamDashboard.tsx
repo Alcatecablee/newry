@@ -833,7 +833,7 @@ const EnhancedTeamDashboard = () => {
                         </div>
                         <div className="w-full bg-charcoal h-2 rounded-full">
                           <div
-                            className="bg-gradient-to-r from-blue-400 to-purple-400 h-2 rounded-full"
+                            className=""bg-zinc-900""
                             style={{ width: `${Math.random() * 50 + 50}%` }}
                           />
                         </div>
@@ -906,8 +906,8 @@ const EnhancedTeamDashboard = () => {
                           <div
                             className={`h-2 rounded-full ${
                               achievement.progress === 100
-                                ? "bg-gradient-to-r from-yellow-400 to-orange-400"
-                                : "bg-gradient-to-r from-blue-400 to-purple-400"
+                                ? ""bg-zinc-900""
+                                : ""bg-zinc-900""
                             }`}
                             style={{ width: `${achievement.progress}%` }}
                           />

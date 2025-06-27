@@ -6,7 +6,7 @@ const TestSuite = () => {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-start px-4 py-8 bg-black dark">
       <div className="w-full max-w-6xl flex flex-col sm:flex-row gap-2 justify-between items-center mb-5">
-        <div className="font-extrabold text-2xl sm:text-3xl text-white bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent tracking-tight">
+        <div className="font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
           <span>🧪 NeuroLint Quality Assurance</span>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -16,7 +16,7 @@ const TestSuite = () => {
             </button>
           </a>
           <a href="/">
-            <button className="bg-gradient-to-r from-purple-600 to-purple-800 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-purple-900 transition-colors active:scale-95 touch-manipulation">
+            <button className="bg-purple-600 text-white font-semibold px-4 py-2 rounded-lg shadow hover:bg-purple-700 transition-colors active:scale-95 touch-manipulation">
               Back to Home
             </button>
           </a>
@@ -35,7 +35,7 @@ const TestSuite = () => {
         <CardHeader>
           <CardTitle className="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
             <Brain className="w-8 h-8 text-purple-400" />
-            <span className="tracking-tighter font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="tracking-tighter font-bold text-purple-400">
               NeuroLint
             </span>
             <TestTube className="w-6 h-6 text-blue-400" />
