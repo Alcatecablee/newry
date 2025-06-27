@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FileUploadZone } from "@/components/neurolint/FileUploadZone";
+import { DropFileZone } from "@/components/neurolint/DropFileZone";
+import { PasteCodeZone } from "@/components/neurolint/PasteCodeZone";
 import { GitHubUpload } from "@/components/neurolint/GitHubUpload";
 import { RepoProcessor } from "@/components/neurolint/RepoProcessor";
 import { CodeDiffViewer } from "@/components/neurolint/CodeDiffViewer";
@@ -238,7 +239,7 @@ const AppPage = () => {
               <div className="mt-8 space-y-8">
                 <TabsContent value="drop" className="space-y-8">
                   <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
-                    <FileUploadZone
+                    <DropFileZone
                       onFile={handleFileUpload}
                       processing={processing}
                     />
@@ -247,7 +248,7 @@ const AppPage = () => {
 
                 <TabsContent value="paste" className="space-y-8">
                   <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
-                    <FileUploadZone
+                    <PasteCodeZone
                       onFile={handleFileUpload}
                       processing={processing}
                     />
