@@ -7,6 +7,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
+  // Add CSP headers to allow Clerk iframe embedding
+  res.setHeader(
+    "Content-Security-Policy",
+    "frame-ancestors 'self' *.clerk.accounts.dev *.clerk.dev; frame-src 'self' *.clerk.accounts.dev *.clerk.dev",
+  );
+
   const start = Date.now();
   const path = req.path;
   let capturedJsonResponse: Record<string, any> | undefined = undefined;

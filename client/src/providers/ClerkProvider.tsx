@@ -30,6 +30,10 @@ export function ClerkProvider({ children }: ClerkProviderProps) {
           colorPrimary: "#7c3aed",
         },
       }}
+      signInFallbackRedirectUrl="/"
+      signUpFallbackRedirectUrl="/"
+      afterSignInUrl="/"
+      afterSignUpUrl="/"
     >
       {children}
     </ClerkAuthProvider>
