@@ -208,30 +208,27 @@ const AppPage = () => {
               }
               className="w-full"
             >
-              <TabsList className="grid w-full grid-cols-3 bg-[#1a1b21] border border-[#292939] p-1 rounded-xl">
+              <TabsList className="inline-flex h-12 items-center justify-center rounded-xl bg-black border border-zinc-800/50 p-1 mx-auto">
                 <TabsTrigger
                   value="drop"
-                  className="flex items-center gap-2 rounded-lg transition-all duration-200 data-[state=active]:bg-[#292939] data-[state=active]:text-white data-[state=active]:border-[#342d66] data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white data-[state=inactive]:hover:bg-[#232329] py-3"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white min-w-[120px] gap-2"
                 >
                   <Upload className="w-4 h-4" />
-                  <span className="hidden sm:inline">Drop Files</span>
-                  <span className="sm:hidden">Drop</span>
+                  <span>Drop Files</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="paste"
-                  className="flex items-center gap-2 rounded-lg transition-all duration-200 data-[state=active]:bg-[#292939] data-[state=active]:text-white data-[state=active]:border-[#342d66] data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white data-[state=inactive]:hover:bg-[#232329] py-3"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white min-w-[120px] gap-2"
                 >
                   <Code className="w-4 h-4" />
-                  <span className="hidden sm:inline">Paste Code</span>
-                  <span className="sm:hidden">Paste</span>
+                  <span>Paste Code</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="github"
-                  className="flex items-center gap-2 rounded-lg transition-all duration-200 data-[state=active]:bg-[#292939] data-[state=active]:text-white data-[state=active]:border-[#342d66] data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white data-[state=inactive]:hover:bg-[#232329] py-3"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white min-w-[120px] gap-2"
                 >
                   <Github className="w-4 h-4" />
-                  <span className="hidden sm:inline">GitHub Repo</span>
-                  <span className="sm:hidden">GitHub</span>
+                  <span>GitHub Repo</span>
                 </TabsTrigger>
               </TabsList>
 
