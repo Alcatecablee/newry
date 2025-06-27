@@ -242,7 +242,7 @@ const LiveCollaboration = () => {
   };
 
   return (
-    <div className="min-h-screen bg-charcoal-dark p-6">
+    <div className="min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
@@ -325,7 +325,7 @@ const LiveCollaboration = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="bg-charcoal-darker p-4 rounded-lg font-mono text-sm">
+                <div className="bg-blacker p-4 rounded-lg font-mono text-sm">
                   <div className="space-y-1">
                     {/* Simulated code lines */}
                     <div className="flex">
@@ -439,7 +439,7 @@ const LiveCollaboration = () => {
                           </p>
 
                           {/* Code diff */}
-                          <div className="bg-charcoal-darker rounded p-3 font-mono text-xs">
+                          <div className="bg-blacker rounded p-3 font-mono text-xs">
                             <div className="text-red-300 mb-1">
                               - {fix.codeChange.before}
                             </div>

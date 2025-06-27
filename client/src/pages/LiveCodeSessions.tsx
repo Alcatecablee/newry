@@ -215,7 +215,7 @@ const LiveCodeSessions = () => {
   });
 
   return (
-    <div className="min-h-screen bg-charcoal-dark">
+    <div className="min-h-screen bg-black">
       <div className="flex h-screen">
         {/* Main Code Editor Area */}
         <div className="flex-1 flex flex-col">
@@ -293,7 +293,7 @@ const LiveCodeSessions = () => {
           </div>
 
           {/* Code Editor with Real-time Cursors */}
-          <div className="flex-1 bg-charcoal-darker relative">
+          <div className="flex-1 bg-blacker relative">
             <div className="absolute top-4 right-4 z-10">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-purple-400" />

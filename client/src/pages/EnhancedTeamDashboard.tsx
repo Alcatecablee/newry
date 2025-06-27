@@ -134,7 +134,7 @@ const EnhancedTeamDashboard = () => {
 
   if (teamsLoading || teamLoading || analyticsLoading) {
     return (
-      <div className="min-h-screen bg-charcoal-dark p-6 flex items-center justify-center">
+      <div className="min-h-screen bg-black p-6 flex items-center justify-center">
         <div className="text-white text-lg">Loading team data...</div>
       </div>
     );
@@ -278,7 +278,7 @@ const EnhancedTeamDashboard = () => {
       case "Mid":
         return "bg-charcoal text-gray-300";
       default:
-        return "bg-charcoal-dark text-gray-400";
+        return "bg-black text-gray-400";
     }
   };
 
@@ -298,7 +298,7 @@ const EnhancedTeamDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-charcoal-dark p-6">
+    <div className="min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
         {/* Enhanced Header with Live Status */}
         <div className="flex items-center justify-between mb-8">
