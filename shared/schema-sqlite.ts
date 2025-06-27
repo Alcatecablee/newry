@@ -7,6 +7,7 @@ export const users = sqliteTable("users", {
   clerkId: text("clerk_id").unique().notNull(),
   email: text("email").unique().notNull(),
   fullName: text("full_name"),
+  passwordHash: text("password_hash").notNull(),
   planType: text("plan_type").default("free"),
   monthlyTransformationsUsed: integer("monthly_transformations_used").default(
     0,

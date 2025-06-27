@@ -38,10 +38,10 @@ router.post("/register", async (req, res) => {
       clerkId: userId, // Using same ID for clerk_id since we're not using Clerk
       email,
       fullName: fullName || email.split("@")[0],
+      passwordHash: hashedPassword,
       planType: "free",
       monthlyTransformationsUsed: 0,
       monthlyLimit: 25,
-      passwordHash: hashedPassword, // We'll need to add this to schema
     };
 
     await db.insert(schema.users).values(newUser);
@@ -84,14 +84,16 @@ router.post("/login", async (req, res) => {
 
     const user = users[0];
 
-    // For now, accept any password since we don't have password hashing in place yet
-    // In production, you'd verify: await bcrypt.compare(password, user.passwordHash)
+    // Verify password
+    const isValidPassword = await bcrypt.compare(password, user.passwordHash);
+    if (!isValidPassword) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
 
     // Generate JWT token
     const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, {
       expiresIn: "30d",
     });
-
     res.json({
       user: {
         id: user.id,

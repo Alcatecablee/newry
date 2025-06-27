@@ -43,13 +43,15 @@ if (DATABASE_URL) {
 
 function initializeTables(sqlite: Database.Database) {
   try {
-    // Create users table
+    // Drop and recreate users table with password field
+    sqlite.exec(`DROP TABLE IF EXISTS users;`);
     sqlite.exec(`
-      CREATE TABLE IF NOT EXISTS users (
+      CREATE TABLE users (
         id TEXT PRIMARY KEY,
         clerk_id TEXT UNIQUE NOT NULL,
         email TEXT UNIQUE NOT NULL,
         full_name TEXT,
+        password_hash TEXT NOT NULL,
         plan_type TEXT DEFAULT 'free',
         monthly_transformations_used INTEGER DEFAULT 0,
         monthly_limit INTEGER DEFAULT 25,
