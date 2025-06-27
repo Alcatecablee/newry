@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Brain, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { SignInButton } from "@/components/auth/SignInButton";
@@ -17,9 +17,12 @@ export const SiteHeader = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
-              <Brain className="h-8 w-8 text-white" />
-              <span className="text-xl font-bold text-white">NeuroLint</span>
+            <Link to="/" className="flex items-center">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2Fe9d55c0111a24a3cb62ca69c490bd870?format=webp&width=800"
+                alt="Logo"
+                className="h-8 w-auto"
+              />
             </Link>
           </div>
 
