@@ -54,12 +54,12 @@ export default function Dashboard() {
 
   const getPlanColor = (planType: string) => {
     switch (planType) {
-      case 'pro': return 'bg-yellow-600';
-      case 'enterprise': return 'bg-purple-600';
-      default: return 'bg-zinc-700';
-    }
-  };
-        return "from-gray-500 to-gray-600";
+      case "pro":
+        return "bg-yellow-600";
+      case "enterprise":
+        return "bg-purple-600";
+      default:
+        return "bg-zinc-700";
     }
   };
 
@@ -121,9 +121,7 @@ export default function Dashboard() {
         </div>
 
         {/* Plan Status Card */}
-        <div
-          className={`${getPlanColor(user.planType)} p-6 rounded-xl mb-8`}
-        >
+        <div className={`${getPlanColor(user.planType)} p-6 rounded-xl mb-8`}>
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2 mb-2">
