@@ -82,12 +82,26 @@ const AdminDashboard = () => {
     // Check server status
     try {
       const response = await fetch("/api/health");
+      if (response.ok) {
+        const data = await response.json();
+        setSystemStatus((prev) => ({
+          ...prev,
+          server: "running",
+          database: data.database === "none" ? "disconnected" : "connected",
+        }));
+      } else {
+        setSystemStatus((prev) => ({
+          ...prev,
+          server: "error",
+          database: "error",
+        }));
+      }
+    } catch {
       setSystemStatus((prev) => ({
         ...prev,
-        server: response.ok ? "running" : "error",
+        server: "error",
+        database: "error",
       }));
-    } catch {
-      setSystemStatus((prev) => ({ ...prev, server: "error" }));
     }
   };
 
