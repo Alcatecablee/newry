@@ -80,7 +80,7 @@ function UserProfile({ userId }: { userId: string }) {
     <section id="demo" className="relative z-10 py-20 bg-black backdrop-blur-sm">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-zinc-900">
             See NeuroLint in Action
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -158,7 +158,7 @@ function UserProfile({ userId }: { userId: string }) {
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-blue-600/20 to-green-600/20 border border-blue-500/30 rounded-xl p-6">
+            <div className="bg-zinc-900">
               <div className="flex items-center gap-2 mb-3">
                 <Play className="w-5 h-5 text-blue-400" />
                 <h4 className="font-semibold text-white">Layer Analysis Results</h4>
@@ -184,7 +184,7 @@ function UserProfile({ userId }: { userId: string }) {
             </div>
 
             <div className="text-center">
-              <button className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2 mx-auto">
+              <button className="bg-zinc-900">
                 <Play className="w-5 h-5" />
                 Try Your Own Code
               </button>

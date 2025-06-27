@@ -69,7 +69,7 @@ export function IntegrationsSection() {
     <section id="integrations" className="relative z-10 py-20 bg-black backdrop-blur-sm">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-zinc-900">
             Seamless Integrations
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -200,7 +200,7 @@ jobs:
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-xl p-6">
+            <div className="bg-zinc-900">
               <h4 className="font-semibold mb-3 text-white">Need Custom Integration?</h4>
               <p className="text-gray-300 text-sm mb-4">
                 Our team can help you integrate NeuroLint with your specific tools and workflows.

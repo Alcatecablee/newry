@@ -20,7 +20,7 @@ export function PricingCard({ plan, currentPlan, onSubscribe, loading }: Pricing
   return (
     <Card className={`relative ${planData.popular ? 'border-purple-500 border-2' : 'border-gray-700'} bg-black/50 backdrop-blur-sm`}>
       {planData.popular && (
-        <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-zinc-900">
           Most Popular
         </Badge>
       )}
@@ -48,7 +48,7 @@ export function PricingCard({ plan, currentPlan, onSubscribe, loading }: Pricing
           disabled={loading || isCurrentPlan}
           className={`w-full font-semibold ${
             planData.popular
-              ? 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700'
+              ? 'bg-zinc-900
               : 'bg-gray-700 hover:bg-gray-600'
           } ${isCurrentPlan ? 'opacity-50 cursor-not-allowed' : ''}`}
         >

@@ -6,7 +6,7 @@ export function VSCodeSection() {
     <section id="vscode" className="relative z-10 py-20 bg-black backdrop-blur-sm">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-zinc-900">
             Code in Your Editor
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -127,7 +127,7 @@ export function VSCodeSection() {
 
         {/* Installation Stats */}
         <div className="mt-16">
-          <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 border border-gray-700 rounded-2xl p-8 text-center">
+          <div className="bg-zinc-900">
             <h3 className="text-2xl font-semibold mb-6 text-white">Join Thousands of Developers</h3>
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               <div>
