@@ -27,29 +27,26 @@ export const SiteHeader = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/app"
-              className="text-charcoal-lighter hover:text-white transition-colors"
+              className="text-white/90 hover:text-white transition-colors font-medium"
             >
               App
             </Link>
             <span
-              className="text-charcoal-lighter/50 cursor-not-allowed"
+              className="text-white/50 cursor-not-allowed font-medium"
               title="Coming Soon"
             >
               Teams
-              <span className="ml-2 text-xs bg-charcoal-lighter/20 px-2 py-1 rounded">
-                Soon
-              </span>
             </span>
             <Link
               to="/test"
-              className="text-charcoal-lighter hover:text-white transition-colors"
+              className="text-white/90 hover:text-white transition-colors font-medium"
             >
               Test Suite
             </Link>
             {isAuthenticated && (
               <Link
                 to="/billing"
-                className="text-charcoal-lighter hover:text-white transition-colors"
+                className="text-white/90 hover:text-white transition-colors font-medium"
               >
                 Billing
               </Link>
@@ -73,7 +70,7 @@ export const SiteHeader = () => {
               variant="ghost"
               size="sm"
               onClick={toggleMenu}
-              className="text-charcoal-lighter hover:text-white"
+              className="text-white/90 hover:text-white hover:bg-white/10"
             >
               {isMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -90,20 +87,17 @@ export const SiteHeader = () => {
             <div className="px-2 pt-2 pb-3 space-y-1 border-t border-charcoal-light bg-charcoal/90 backdrop-blur-lg">
               <Link
                 to="/app"
-                className="block px-3 py-2 text-charcoal-lighter hover:text-white transition-colors"
+                className="block px-3 py-2 text-white/90 hover:text-white transition-colors font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 App
               </Link>
-              <div className="block px-3 py-2 text-charcoal-lighter/50">
+              <div className="block px-3 py-2 text-white/50 font-medium">
                 Teams
-                <span className="ml-2 text-xs bg-charcoal-lighter/20 px-2 py-1 rounded">
-                  Soon
-                </span>
               </div>
               <Link
                 to="/test"
-                className="block px-3 py-2 text-charcoal-lighter hover:text-white transition-colors"
+                className="block px-3 py-2 text-white/90 hover:text-white transition-colors font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Test Suite
@@ -111,7 +105,7 @@ export const SiteHeader = () => {
               {isAuthenticated && (
                 <Link
                   to="/billing"
-                  className="block px-3 py-2 text-charcoal-lighter hover:text-white transition-colors"
+                  className="block px-3 py-2 text-white/90 hover:text-white transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Billing
