@@ -19,7 +19,6 @@ import {
   Target,
   Zap,
   Award,
-  Brain,
   Eye,
   Download,
   Calendar,
@@ -511,9 +510,7 @@ const EnterpriseAnalytics = () => {
                       <div className="text-6xl font-bold text-green-400">
                         {organizationHealth.overall}
                       </div>
-                      <div className="text-zinc-400">
-                        Overall Health
-                      </div>
+                      <div className="text-zinc-400">Overall Health</div>
                     </div>
 
                     <div className="flex-1 space-y-4">
@@ -593,7 +590,11 @@ const EnterpriseAnalytics = () => {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Brain className="w-5 h-5 text-purple-400" />
+                    <img
+                      src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+                      alt="Logo"
+                      className="w-5 h-5"
+                    />
                     AI-Generated Insights
                   </CardTitle>
                 </CardHeader>
@@ -738,17 +739,13 @@ const EnterpriseAnalytics = () => {
 
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
-                            <span className="text-zinc-400">
-                              Last Audit:
-                            </span>
+                            <span className="text-zinc-400">Last Audit:</span>
                             <div className="text-white">
                               {framework.lastAudit}
                             </div>
                           </div>
                           <div>
-                            <span className="text-zinc-400">
-                              Next Audit:
-                            </span>
+                            <span className="text-zinc-400">Next Audit:</span>
                             <div className="text-white">
                               {framework.nextAudit}
                             </div>
@@ -823,9 +820,7 @@ const EnterpriseAnalytics = () => {
                           <p className="text-white font-medium">
                             {item.activity}
                           </p>
-                          <p className="text-zinc-400 text-sm">
-                            {item.date}
-                          </p>
+                          <p className="text-zinc-400 text-sm">{item.date}</p>
                         </div>
                         <Badge className="bg-zinc-900 text-zinc-400 capitalize">
                           {item.type}
@@ -1026,9 +1021,7 @@ const EnterpriseAnalytics = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-zinc-400">
-                      Security metrics dashboard
-                    </p>
+                    <p className="text-zinc-400">Security metrics dashboard</p>
                   </div>
                 </CardContent>
               </Card>
@@ -1039,9 +1032,7 @@ const EnterpriseAnalytics = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-zinc-400">
-                      Compliance trend analysis
-                    </p>
+                    <p className="text-zinc-400">Compliance trend analysis</p>
                   </div>
                 </CardContent>
               </Card>
@@ -1059,27 +1050,19 @@ const EnterpriseAnalytics = () => {
                     <div className="text-4xl font-bold text-green-400 mb-2">
                       $4.2M
                     </div>
-                    <div className="text-zinc-400 text-sm">
-                      Annual Savings
-                    </div>
+                    <div className="text-zinc-400 text-sm">Annual Savings</div>
                   </div>
                   <div className="mt-4 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-zinc-400">
-                        Bug Fix Reduction
-                      </span>
+                      <span className="text-zinc-400">Bug Fix Reduction</span>
                       <span className="text-white">$2.1M</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-zinc-400">
-                        Security Incidents
-                      </span>
+                      <span className="text-zinc-400">Security Incidents</span>
                       <span className="text-white">$1.5M</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-zinc-400">
-                        Compliance Fines
-                      </span>
+                      <span className="text-zinc-400">Compliance Fines</span>
                       <span className="text-white">$0.6M</span>
                     </div>
                   </div>
@@ -1101,21 +1084,15 @@ const EnterpriseAnalytics = () => {
                   </div>
                   <div className="mt-4 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-zinc-400">
-                        Code Review Time
-                      </span>
+                      <span className="text-zinc-400">Code Review Time</span>
                       <span className="text-white">-45%</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-zinc-400">
-                        Issue Resolution
-                      </span>
+                      <span className="text-zinc-400">Issue Resolution</span>
                       <span className="text-white">-58%</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-zinc-400">
-                        Deploy Frequency
-                      </span>
+                      <span className="text-zinc-400">Deploy Frequency</span>
                       <span className="text-white">+67%</span>
                     </div>
                   </div>
@@ -1141,15 +1118,11 @@ const EnterpriseAnalytics = () => {
                       <span className="text-white">$1.2M</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-zinc-400">
-                        Annual Return
-                      </span>
+                      <span className="text-zinc-400">Annual Return</span>
                       <span className="text-white">$4.2M</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-zinc-400">
-                        Payback Period
-                      </span>
+                      <span className="text-zinc-400">Payback Period</span>
                       <span className="text-white">3.4 months</span>
                     </div>
                   </div>

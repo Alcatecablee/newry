@@ -16,7 +16,6 @@ import {
   Building,
   Zap,
   Shield,
-  Brain,
   Heart,
   Eye,
   MessageSquare,
@@ -576,9 +575,7 @@ const MarketPositioning = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Total Market Size
-                  </p>
+                  <p className="text-zinc-400 text-sm">Total Market Size</p>
                   <p className="text-3xl font-bold text-white">$19.3B</p>
                 </div>
                 <Globe className="w-8 h-8 text-blue-400" />
@@ -591,9 +588,7 @@ const MarketPositioning = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Addressable Market
-                  </p>
+                  <p className="text-zinc-400 text-sm">Addressable Market</p>
                   <p className="text-3xl font-bold text-green-400">$16.1B</p>
                 </div>
                 <Target className="w-8 h-8 text-green-400" />
@@ -606,9 +601,7 @@ const MarketPositioning = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Market Position
-                  </p>
+                  <p className="text-zinc-400 text-sm">Market Position</p>
                   <p className="text-3xl font-bold text-purple-400">#2</p>
                 </div>
                 <Trophy className="w-8 h-8 text-purple-400" />
@@ -621,9 +614,7 @@ const MarketPositioning = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Competition Score
-                  </p>
+                  <p className="text-zinc-400 text-sm">Competition Score</p>
                   <p className="text-3xl font-bold text-yellow-400">8.7</p>
                 </div>
                 <Award className="w-8 h-8 text-yellow-400" />
@@ -700,15 +691,11 @@ const MarketPositioning = () => {
                     <div className="space-y-4">
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <p className="text-zinc-400 text-sm">
-                            Market Size
-                          </p>
+                          <p className="text-zinc-400 text-sm">Market Size</p>
                           <p className="text-white font-bold">{segment.size}</p>
                         </div>
                         <div>
-                          <p className="text-zinc-400 text-sm">
-                            Growth Rate
-                          </p>
+                          <p className="text-zinc-400 text-sm">Growth Rate</p>
                           <p className="text-green-400 font-bold">
                             +{segment.growth}%
                           </p>
@@ -776,9 +763,7 @@ const MarketPositioning = () => {
                         <CardTitle className="text-lg">
                           {persona.name}
                         </CardTitle>
-                        <p className="text-zinc-400 text-sm">
-                          {persona.title}
-                        </p>
+                        <p className="text-zinc-400 text-sm">{persona.title}</p>
                         <Badge
                           className={`text-xs ${
                             persona.urgency === "high"
@@ -796,9 +781,7 @@ const MarketPositioning = () => {
                   <CardContent>
                     <div className="space-y-4">
                       <div>
-                        <p className="text-zinc-400 text-sm">
-                          Company Size:
-                        </p>
+                        <p className="text-zinc-400 text-sm">Company Size:</p>
                         <p className="text-white text-sm">
                           {persona.company_size}
                         </p>
@@ -892,9 +875,7 @@ const MarketPositioning = () => {
                           </Badge>
                         </div>
 
-                        <p className="text-zinc-400 mb-4">
-                          {prop.description}
-                        </p>
+                        <p className="text-zinc-400 mb-4">{prop.description}</p>
 
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                           <div>
@@ -989,10 +970,7 @@ const MarketPositioning = () => {
                           </p>
                           <div className="space-y-1">
                             {strategy.objectives.map((objective, idx) => (
-                              <p
-                                key={idx}
-                                className="text-zinc-400 text-sm"
-                              >
+                              <p key={idx} className="text-zinc-400 text-sm">
                                 • {objective}
                               </p>
                             ))}
