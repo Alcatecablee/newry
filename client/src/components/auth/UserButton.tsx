@@ -89,7 +89,7 @@ export function UserButton() {
       {showMenu && (
         <div className="absolute right-0 top-10 bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl w-80 z-50 overflow-hidden">
           {/* User Info Header */}
-          <div className="p-4 bg-gradient-to-r from-violet-900/20 to-purple-900/20 border-b border-zinc-800">
+          <div className="p-4 bg-zinc-800/50 border-b border-zinc-800">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-violet-600 flex items-center justify-center text-lg font-bold text-white">
                 {user.name.charAt(0).toUpperCase()}
