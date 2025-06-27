@@ -1,0 +1,220 @@
+{
+  "name": "neurolint-vscode",
+  "displayName": "NeuroLint",
+  "description": "AI-powered code analysis and transformation for VS Code",
+  "version": "1.0.0",
+  "publisher": "neurolint",
+  "icon": "media/icon.png",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Linters",
+    "Formatters",
+    "Programming Languages",
+    "Machine Learning"
+  ],
+  "keywords": [
+    "typescript",
+    "javascript",
+    "react",
+    "nextjs",
+    "linting",
+    "ai",
+    "code analysis",
+    "transformation"
+  ],
+  "activationEvents": [
+    "onLanguage:typescript",
+    "onLanguage:javascript",
+    "onLanguage:typescriptreact",
+    "onLanguage:javascriptreact"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "typescript",
+        "extensions": [".ts", ".tsx"]
+      },
+      {
+        "id": "javascript", 
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "commands": [
+      {
+        "command": "neurolint.analyzeFile",
+        "title": "Analyze Current File",
+        "category": "NeuroLint",
+        "icon": "$(search)"
+      },
+      {
+        "command": "neurolint.analyzeWorkspace",
+        "title": "Analyze Entire Workspace",
+        "category": "NeuroLint",
+        "icon": "$(folder)"
+      },
+      {
+        "command": "neurolint.fixFile",
+        "title": "Fix Current File",
+        "category": "NeuroLint",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "neurolint.fixWorkspace",
+        "title": "Fix Entire Workspace",
+        "category": "NeuroLint",
+        "icon": "$(wrench)"
+      },
+      {
+        "command": "neurolint.showOutput",
+        "title": "Show Output Panel",
+        "category": "NeuroLint"
+      },
+      {
+        "command": "neurolint.configure",
+        "title": "Configure NeuroLint",
+        "category": "NeuroLint",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "neurolint.login",
+        "title": "Login to NeuroLint",
+        "category": "NeuroLint"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorLangId =~ /^(typescript|javascript|typescriptreact|javascriptreact)$/",
+          "command": "neurolint.analyzeFile",
+          "group": "1_modification@1"
+        },
+        {
+          "when": "editorLangId =~ /^(typescript|javascript|typescriptreact|javascriptreact)$/",
+          "command": "neurolint.fixFile",
+          "group": "1_modification@2"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "resourceExtname =~ /^\\.(ts|tsx|js|jsx)$/",
+          "command": "neurolint.analyzeFile",
+          "group": "7_modification@1"
+        },
+        {
+          "when": "resourceExtname =~ /^\\.(ts|tsx|js|jsx)$/",
+          "command": "neurolint.fixFile",
+          "group": "7_modification@2"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "neurolint.analyzeFile",
+          "when": "editorLangId =~ /^(typescript|javascript|typescriptreact|javascriptreact)$/"
+        },
+        {
+          "command": "neurolint.fixFile",
+          "when": "editorLangId =~ /^(typescript|javascript|typescriptreact|javascriptreact)$/"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "NeuroLint",
+      "properties": {
+        "neurolint.apiUrl": {
+          "type": "string",
+          "default": "http://localhost:5000",
+          "description": "NeuroLint API server URL"
+        },
+        "neurolint.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "NeuroLint API key for authentication"
+        },
+        "neurolint.enabledLayers": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 6
+          },
+          "default": [1, 2, 3, 4],
+          "description": "Which NeuroLint layers to enable (1-6)"
+        },
+        "neurolint.autoFix": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically fix issues on save"
+        },
+        "neurolint.showInlineHints": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show inline code hints and suggestions"
+        },
+        "neurolint.diagnosticsLevel": {
+          "type": "string",
+          "enum": ["error", "warning", "info"],
+          "default": "warning",
+          "description": "Diagnostic severity level"
+        },
+        "neurolint.timeout": {
+          "type": "number",
+          "default": 30000,
+          "description": "Request timeout in milliseconds"
+        }
+      }
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "neurolintExplorer",
+          "name": "NeuroLint",
+          "when": "neurolint.enabled"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "neurolint",
+          "title": "NeuroLint",
+          "icon": "$(search)"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./dist/test/runTest.js",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4",
+    "@vscode/test-electron": "^2.2.0",
+    "vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "ws": "^8.14.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neurolint/neurolint-vscode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/neurolint/neurolint-vscode/issues"
+  },
+  "homepage": "https://github.com/neurolint/neurolint-vscode#readme"
+}

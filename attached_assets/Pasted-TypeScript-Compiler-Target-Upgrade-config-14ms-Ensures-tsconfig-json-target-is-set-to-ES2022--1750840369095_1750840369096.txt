@@ -1,0 +1,705 @@
+TypeScript Compiler Target Upgrade
+config
+14ms
+Ensures tsconfig.json target is set to ES2022.
+
+Original
+{
+  "compilerOptions": {
+    "target": "es5",
+    "strict": true
+  }
+}
+After L1
+Configuration Validation
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "strict": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ES2022"
+    ],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "~/*": [
+        "./public/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+After L2
+Pattern & Entity Fixes
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "strict": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ES2022"
+    ],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "~/*": [
+        "./public/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+After L3
+Component Best Practices
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "strict": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ES2022"
+    ],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "~/*": [
+        "./public/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+After L4
+Hydration & SSR Guard
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "strict": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ES2022"
+    ],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "~/*": [
+        "./public/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+After L5
+Next.js Optimization
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "strict": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ES2022"
+    ],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "~/*": [
+        "./public/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+After L6
+Quality & Performance
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "strict": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ES2022"
+    ],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "~/*": [
+        "./public/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+Results
+Code Diff
+Detected Fixes (1)
+Upgraded TypeScript target to ES2022
+Modern Next.js Config Export
+config
+36ms
+Ensures next.config.js uses modern module.exports pattern.
+
+Original
+module.exports = {
+  reactStrictMode: false,
+  experimental: {}
+};
+After L1
+Configuration Validation
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  swcMinify: true,
+  reactStrictMode: true,
+  poweredByHeader: false,
+  compress: true,
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60,
+  },
+}
+
+module.exports = nextConfig
+After L2
+Pattern & Entity Fixes
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  swcMinify: true,
+  reactStrictMode: true,
+  poweredByHeader: false,
+  compress: true,
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60,
+  },
+}
+
+module.exports = nextConfig
+After L3
+Component Best Practices
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  swcMinify: true,
+  reactStrictMode: true,
+  poweredByHeader: false,
+  compress: true,
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60,
+  },
+}
+
+module.exports = nextConfig
+After L4
+Hydration & SSR Guard
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  swcMinify: true,
+  reactStrictMode: true,
+  poweredByHeader: false,
+  compress: true,
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60,
+  },
+}
+
+module.exports = nextConfig
+After L5
+Next.js Optimization
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  swcMinify: true,
+  reactStrictMode: true,
+  poweredByHeader: false,
+  compress: true,
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60,
+  },
+}
+
+module.exports = nextConfig
+After L6
+Quality & Performance
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  swcMinify: true,
+  reactStrictMode: true,
+  poweredByHeader: false,
+  compress: true,
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60,
+  },
+}
+
+module.exports = nextConfig
+Results
+Code Diff
+Detected Fixes (2)
+Enabled reactStrictMode
+Optimized next.config.js
+Package Scripts Upgrade
+config
+38ms
+Ensures package.json scripts include 'lint:fix' and 'type-check'.
+
+Original
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build"
+  }
+}
+After L1
+Configuration Validation
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+After L2
+Pattern & Entity Fixes
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+After L3
+Component Best Practices
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+After L4
+Hydration & SSR Guard
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+After L5
+Next.js Optimization
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+After L6
+Quality & Performance
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+Results
+Code Diff
+Detected Fixes (1)
+Added type-check script
+Missing Fixes (1)
+Added lint:fix script
+HTML Entity Correction
+pattern
+43ms
+Replaces corrupted entities such as &quot; and &amp; in code.
+
+Original
+
+const title = &quot;Welcome &amp; Enjoy!&quot;;
+// Hello &gt; Goodbye
+After L1
+Configuration Validation
+
+const title = &quot;Welcome &amp; Enjoy!&quot;;
+// Hello &gt; Goodbye
+After L2
+Pattern & Entity Fixes
+
+const title = "Welcome & Enjoy!";
+// Hello > Goodbye
+After L3
+Component Best Practices
+
+const title = "Welcome & Enjoy!";
+// Hello > Goodbye
+After L4
+Hydration & SSR Guard
+
+const title = "Welcome & Enjoy!";
+// Hello > Goodbye
+After L5
+Next.js Optimization
+
+const title = "Welcome & Enjoy!";
+// Hello > Goodbye
+After L6
+Quality & Performance
+
+const title = "Welcome & Enjoy!";
+// Hello > Goodbye
+Results
+Code Diff
+Detected Fixes (1)
+Fixed HTML entities in source
+Missing Key Prop Correction
+component
+48ms
+Adds missing key prop to mapped elements in React components.
+
+Original
+
+function List({ items }) {
+  return <ul>{items.map(item => <li>{item.name}</li>)}</ul>;
+}
+After L1
+Configuration Validation
+
+function List({ items }) {
+  return <ul>{items.map(item => <li>{item.name}</li>)}</ul>;
+}
+After L2
+Pattern & Entity Fixes
+
+function List({ items }) {
+  return <ul>{items.map(item => <li>{item.name}</li>)}</ul>;
+}
+After L3
+Component Best Practices
+
+function List({ items }) {
+  return <ul>{items.map(item => <li>{item.name}</li>)}</ul>;
+}
+After L4
+Hydration & SSR Guard
+
+function List({ items }) {
+  return <ul>{items.map(item => <li>{item.name}</li>)}</ul>;
+}
+After L5
+Next.js Optimization
+
+function List({ items }) {
+  return <ul>{items.map(item => <li>{item.name}</li>)}</ul>;
+}
+After L6
+Quality & Performance
+
+function List({ items }) {
+  return <ul>{items.map(item => <li>{item.name}</li>)}</ul>;
+}
+
+
+export default List;
+Results
+Code Diff
+Missing Fixes (1)
+Added missing key prop in mapped elements
+Add SSR Guard for LocalStorage Use
+hydration
+60ms
+Protects localStorage access with SSR guard (typeof window check).
+
+Original
+
+const value = localStorage.getItem("something");
+After L1
+Configuration Validation
+
+const value = localStorage.getItem("something");
+After L2
+Pattern & Entity Fixes
+
+const value = localStorage.getItem("something");
+After L3
+Component Best Practices
+
+const value = localStorage.getItem("something");
+After L4
+Hydration & SSR Guard
+'use client';
+
+
+const value = typeof window !== "undefined" && localStorage.getItem("something");
+After L5
+Next.js Optimization
+
+
+'use client';
+
+const value = typeof window !== "undefined" && localStorage.getItem("something");
+After L6
+Quality & Performance
+
+
+'use client';
+
+const value = typeof window !== "undefined" && localStorage.getItem("something");
+Results
+Code Diff
+Detected Fixes (1)
+Added SSR guard for localStorage
