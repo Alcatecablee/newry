@@ -52,6 +52,64 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Save environment variables endpoint
+  app.post("/api/admin/save-env", async (req, res) => {
+    try {
+      const { envVars } = req.body;
+      const fs = await import("fs");
+      const path = await import("path");
+
+      // Read current .env file
+      const envPath = path.join(process.cwd(), ".env");
+      let envContent = "";
+
+      try {
+        envContent = fs.readFileSync(envPath, "utf8");
+      } catch (error) {
+        // .env file doesn't exist, create new content
+        envContent = "";
+      }
+
+      // Update or add environment variables
+      const envLines = envContent.split("\n");
+      const updatedVars = { ...envVars };
+
+      // Update existing variables
+      for (let i = 0; i < envLines.length; i++) {
+        const line = envLines[i].trim();
+        if (line && !line.startsWith("#")) {
+          const [key] = line.split("=");
+          if (key && updatedVars[key] !== undefined) {
+            envLines[i] = `${key}=${updatedVars[key]}`;
+            delete updatedVars[key];
+          }
+        }
+      }
+
+      // Add new variables
+      Object.entries(updatedVars).forEach(([key, value]) => {
+        if (value) {
+          envLines.push(`${key}=${value}`);
+        }
+      });
+
+      // Write back to .env file
+      fs.writeFileSync(envPath, envLines.join("\n"));
+
+      res.json({
+        success: true,
+        message: "Environment variables saved successfully",
+        restart_required: true,
+      });
+    } catch (error: any) {
+      console.error("Failed to save env vars:", error);
+      res.status(500).json({
+        error: "Failed to save environment variables",
+        message: error.message,
+      });
+    }
+  });
+
   // Database info endpoint
   app.get("/api/db/info", async (req, res) => {
     try {

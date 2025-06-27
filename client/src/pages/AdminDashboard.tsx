@@ -202,22 +202,47 @@ const AdminDashboard = () => {
   const saveConfiguration = async () => {
     setSaving(true);
     try {
-      // In a real implementation, this would save to a backend config service
-      // For now, we'll just simulate saving and show instructions
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      toast({
-        title: "Configuration saved",
-        description:
-          "Environment variables have been updated. Restart required for some changes to take effect.",
+      // Save environment variables to backend
+      const response = await fetch("/api/admin/save-env", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          envVars: {
+            VITE_CLERK_PUBLISHABLE_KEY: envConfig.VITE_CLERK_PUBLISHABLE_KEY,
+            CLERK_SECRET_KEY: envConfig.CLERK_SECRET_KEY,
+            DATABASE_URL: envConfig.DATABASE_URL,
+            PAYPAL_CLIENT_ID: envConfig.PAYPAL_CLIENT_ID,
+            PAYPAL_CLIENT_SECRET: envConfig.PAYPAL_CLIENT_SECRET,
+            PAYPAL_ENVIRONMENT: envConfig.PAYPAL_ENVIRONMENT,
+            API_URL: envConfig.API_URL,
+          },
+        }),
       });
 
+      const result = await response.json();
+
+      if (response.ok) {
+        toast({
+          title: "✅ Configuration saved successfully!",
+          description:
+            "Environment variables written to .env file. Refreshing page to apply changes...",
+        });
+
+        // Refresh the page to reload with new env vars
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      } else {
+        throw new Error(result.message || "Save failed");
+      }
+
       checkSystemStatus();
-    } catch (error) {
+    } catch (error: any) {
       toast({
-        title: "Save failed",
-        description: "Could not save configuration",
+        title: "❌ Save failed",
+        description: error.message || "Could not save configuration",
         variant: "destructive",
       });
     } finally {
