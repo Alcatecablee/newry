@@ -1,31 +1,51 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { PlayCircle, CheckCircle, XCircle, Clock, Code, Zap, Settings } from 'lucide-react';
-import { NeuroLintOrchestrator, LAYER_LIST } from '@/lib/neurolint/orchestrator';
-import { TEST_CASES, validateTestResult, TestResult } from '@/lib/neurolint/testSuite';
-import { LayerSelector } from './LayerSelector';
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  PlayCircle,
+  CheckCircle,
+  XCircle,
+  Clock,
+  Code,
+  Zap,
+  Settings,
+} from "lucide-react";
+import {
+  NeuroLintOrchestrator,
+  LAYER_LIST,
+} from "@/lib/neurolint/orchestrator";
+import {
+  TEST_CASES,
+  validateTestResult,
+  TestResult,
+} from "@/lib/neurolint/testSuite";
+import { LayerSelector } from "./LayerSelector";
 
 export function TestRunner() {
   const [isRunning, setIsRunning] = useState(false);
   const [results, setResults] = useState<TestResultWithLayers[]>([]);
-  const [currentTest, setCurrentTest] = useState<string>('');
+  const [currentTest, setCurrentTest] = useState<string>("");
   const [progress, setProgress] = useState(0);
   const [useAST, setUseAST] = useState(true);
   // Track enabled layers
-  const [enabledLayers, setEnabledLayers] = useState(LAYER_LIST.map(l => l.id));
+  const [enabledLayers, setEnabledLayers] = useState(
+    LAYER_LIST.map((l) => l.id),
+  );
 
   // Store per-layer pipeline output for each test
   const [pipelineStates, setPipelineStates] = useState<string[][]>([]);
 
   // We need to store the enabledLayers used for each test run, so we update TestResult type below
-  type TestResultWithLayers = TestResult & { pipeline: string[]; testEnabledLayers: number[] };
+  type TestResultWithLayers = TestResult & {
+    pipeline: string[];
+    testEnabledLayers: number[];
+  };
 
   const runAllTests = async () => {
     setIsRunning(true);
@@ -47,12 +67,13 @@ export function TestRunner() {
       const startTime = Date.now();
       try {
         // Pass enabledLayers to orchestrator
-        const { transformed, layers, layerOutputs } = await NeuroLintOrchestrator(
-          testCase.input,
-          undefined,
-          useAST,
-          testEnabledLayers
-        );
+        const { transformed, layers, layerOutputs } =
+          await NeuroLintOrchestrator(
+            testCase.input,
+            undefined,
+            useAST,
+            testEnabledLayers,
+          );
         const validation = validateTestResult(testCase, transformed);
         const executionTime = Date.now() - startTime;
 
@@ -87,11 +108,11 @@ export function TestRunner() {
     }
 
     setProgress(100);
-    setCurrentTest('');
+    setCurrentTest("");
     setIsRunning(false);
   };
 
-  const passedTests = results.filter(r => r.passed).length;
+  const passedTests = results.filter((r) => r.passed).length;
   const totalTests = results.length;
   const passRate = totalTests > 0 ? (passedTests / totalTests) * 100 : 0;
 
@@ -101,19 +122,21 @@ export function TestRunner() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Zap className="w-5 h-5 text-purple-500" />
-            NeuroLint Test Suite
             <Badge variant="outline" className="ml-auto">
-              {useAST ? 'AST-based' : 'Regex-based'}
+              {useAST ? "AST-based" : "Regex-based"}
             </Badge>
           </CardTitle>
         </CardHeader>
         <CardContent>
           {/* Layer selector UI */}
           <div className="my-3 flex flex-col sm:flex-row gap-3 items-center">
-            <LayerSelector enabledLayers={enabledLayers} setEnabledLayers={setEnabledLayers} />
+            <LayerSelector
+              enabledLayers={enabledLayers}
+              setEnabledLayers={setEnabledLayers}
+            />
             <Button
               variant="outline"
-              onClick={() => setEnabledLayers(LAYER_LIST.map(l => l.id))}
+              onClick={() => setEnabledLayers(LAYER_LIST.map((l) => l.id))}
               disabled={enabledLayers.length === LAYER_LIST.length}
               className="ml-auto"
             >
@@ -121,27 +144,37 @@ export function TestRunner() {
             </Button>
           </div>
           <div className="flex items-center gap-4 mb-4">
-            <Button 
-              onClick={runAllTests} 
+            <Button
+              onClick={runAllTests}
               disabled={isRunning || enabledLayers.length === 0}
               className="flex items-center gap-2"
             >
               <PlayCircle className="w-4 h-4" />
-              {isRunning ? 'Running Tests...' : `Run ${enabledLayers.length === LAYER_LIST.length ? "All" : "Selected"} Layer${enabledLayers.length !== 1 ? "s" : ""} Tests`}
+              {isRunning
+                ? "Running Tests..."
+                : `Run ${enabledLayers.length === LAYER_LIST.length ? "All" : "Selected"} Layer${enabledLayers.length !== 1 ? "s" : ""} Tests`}
             </Button>
-            
+
             <Button
               variant="outline"
               onClick={() => setUseAST(!useAST)}
               className="flex items-center gap-2"
             >
               <Settings className="w-4 h-4" />
-              {useAST ? 'Switch to Regex' : 'Switch to AST'}
+              {useAST ? "Switch to Regex" : "Switch to AST"}
             </Button>
-            
+
             {results.length > 0 && (
               <div className="flex items-center gap-4">
-                <Badge variant={passRate === 100 ? "default" : passRate > 50 ? "secondary" : "destructive"}>
+                <Badge
+                  variant={
+                    passRate === 100
+                      ? "default"
+                      : passRate > 50
+                        ? "secondary"
+                        : "destructive"
+                  }
+                >
                   {passedTests}/{totalTests} Passed ({passRate.toFixed(1)}%)
                 </Badge>
               </div>
@@ -163,7 +196,10 @@ export function TestRunner() {
       {results.length > 0 && (
         <div className="grid gap-4">
           {results.map((result, index) => (
-            <Card key={index} className={`${result.passed ? 'border-green-200' : 'border-red-200'}`}>
+            <Card
+              key={index}
+              className={`${result.passed ? "border-green-200" : "border-red-200"}`}
+            >
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -201,7 +237,12 @@ export function TestRunner() {
                             </Badge>
                             {i > 0 && (
                               <span className="text-xs text-muted-foreground">
-                                {LAYER_LIST.find(l => l.id === result.testEnabledLayers[i - 1])?.name}
+                                {
+                                  LAYER_LIST.find(
+                                    (l) =>
+                                      l.id === result.testEnabledLayers[i - 1],
+                                  )?.name
+                                }
                               </span>
                             )}
                           </div>
@@ -221,7 +262,7 @@ export function TestRunner() {
                     <TabsTrigger value="results">Results</TabsTrigger>
                     <TabsTrigger value="code">Code Diff</TabsTrigger>
                   </TabsList>
-                  
+
                   <TabsContent value="results" className="space-y-3">
                     {result.detectedFixes.length > 0 && (
                       <div>
@@ -231,7 +272,10 @@ export function TestRunner() {
                         </h4>
                         <div className="grid gap-1">
                           {result.detectedFixes.map((fix, i) => (
-                            <div key={i} className="flex items-center gap-2 text-sm text-green-600">
+                            <div
+                              key={i}
+                              className="flex items-center gap-2 text-sm text-green-600"
+                            >
                               <CheckCircle className="w-3 h-3" />
                               {fix}
                             </div>
@@ -248,7 +292,10 @@ export function TestRunner() {
                         </h4>
                         <div className="grid gap-1">
                           {result.missingFixes.map((fix, i) => (
-                            <div key={i} className="flex items-center gap-2 text-sm text-red-600">
+                            <div
+                              key={i}
+                              className="flex items-center gap-2 text-sm text-red-600"
+                            >
                               <XCircle className="w-3 h-3" />
                               {fix}
                             </div>
@@ -257,7 +304,7 @@ export function TestRunner() {
                       </div>
                     )}
                   </TabsContent>
-                  
+
                   <TabsContent value="code">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
