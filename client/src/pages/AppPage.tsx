@@ -12,7 +12,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import {
-  Brain,
   FileCode,
   Github,
   Zap,
@@ -105,7 +104,11 @@ const AppPage = () => {
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-6">
               <div className="relative">
-                <Brain className="w-12 h-12 text-white" />
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+                  alt="Logo"
+                  className="w-12 h-12"
+                />
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full animate-pulse"></div>
               </div>
               <h1 className="text-4xl font-bold text-white">NeuroLint</h1>

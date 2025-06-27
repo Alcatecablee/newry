@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  Brain,
   Sparkles,
   Bot,
   Wand2,
@@ -407,7 +406,11 @@ const AdvancedAI = () => {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
-              <Brain className="w-8 h-8 text-purple-400" />
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+                alt="Logo"
+                className="w-8 h-8"
+              />
               <div>
                 <h1 className="text-3xl font-bold text-white">
                   Advanced AI Platform
@@ -440,9 +443,7 @@ const AdvancedAI = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Active AI Models
-                  </p>
+                  <p className="text-zinc-400 text-sm">Active AI Models</p>
                   <p className="text-3xl font-bold text-white">
                     {modelMetrics.length}
                   </p>
@@ -472,9 +473,7 @@ const AdvancedAI = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Suggestions Made
-                  </p>
+                  <p className="text-zinc-400 text-sm">Suggestions Made</p>
                   <p className="text-3xl font-bold text-white">9.4K</p>
                 </div>
                 <Lightbulb className="w-8 h-8 text-yellow-400" />
@@ -524,7 +523,11 @@ const AdvancedAI = () => {
               value="models"
               className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
-              <Brain className="w-4 h-4 mr-2" />
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+                alt="Logo"
+                className="w-4 h-4 mr-2"
+              />
               Model Performance
             </TabsTrigger>
             <TabsTrigger
@@ -748,17 +751,13 @@ const AdvancedAI = () => {
                         </div>
                         <div className="space-y-1 text-xs">
                           <div className="flex justify-between">
-                            <span className="text-zinc-400">
-                              Confidence
-                            </span>
+                            <span className="text-zinc-400">Confidence</span>
                             <span className="text-white">
                               {assistant.confidence}%
                             </span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-zinc-400">
-                              Success Rate
-                            </span>
+                            <span className="text-zinc-400">Success Rate</span>
                             <span className="text-white">
                               {assistant.successRate}%
                             </span>
@@ -792,9 +791,7 @@ const AdvancedAI = () => {
                   <CardContent>
                     <div className="space-y-3">
                       <div>
-                        <p className="text-zinc-400 text-sm">
-                          Specialization:
-                        </p>
+                        <p className="text-zinc-400 text-sm">Specialization:</p>
                         <div className="flex flex-wrap gap-1 mt-1">
                           {assistant.specialization.map((spec) => (
                             <Badge
@@ -809,9 +806,7 @@ const AdvancedAI = () => {
 
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span className="text-zinc-400">
-                            Confidence
-                          </span>
+                          <span className="text-zinc-400">Confidence</span>
                           <span className="text-white">
                             {assistant.confidence}%
                           </span>
@@ -893,9 +888,7 @@ const AdvancedAI = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                           <div>
-                            <p className="text-zinc-400 text-sm">
-                              Usage
-                            </p>
+                            <p className="text-zinc-400 text-sm">Usage</p>
                             <div className="flex items-center gap-2">
                               <div className="w-16 bg-zinc-900 h-2 rounded-full">
                                 <div
@@ -909,9 +902,7 @@ const AdvancedAI = () => {
                             </div>
                           </div>
                           <div>
-                            <p className="text-zinc-400 text-sm">
-                              Accuracy
-                            </p>
+                            <p className="text-zinc-400 text-sm">Accuracy</p>
                             <div className="flex items-center gap-2">
                               <div className="w-16 bg-zinc-900 h-2 rounded-full">
                                 <div
@@ -982,9 +973,7 @@ const AdvancedAI = () => {
                     <div className="space-y-4">
                       <div>
                         <div className="flex justify-between text-sm mb-1">
-                          <span className="text-zinc-400">
-                            Accuracy
-                          </span>
+                          <span className="text-zinc-400">Accuracy</span>
                           <span className="text-white">{model.accuracy}%</span>
                         </div>
                         <div className="w-full bg-zinc-900 h-2 rounded-full">
@@ -1001,9 +990,7 @@ const AdvancedAI = () => {
                           <div className="text-white">{model.latency}ms</div>
                         </div>
                         <div>
-                          <span className="text-zinc-400">
-                            Throughput
-                          </span>
+                          <span className="text-zinc-400">Throughput</span>
                           <div className="text-white">
                             {model.throughput}/min
                           </div>
@@ -1015,9 +1002,7 @@ const AdvancedAI = () => {
                           </div>
                         </div>
                         <div>
-                          <span className="text-zinc-400">
-                            Training Data
-                          </span>
+                          <span className="text-zinc-400">Training Data</span>
                           <div className="text-white">{model.trainingData}</div>
                         </div>
                       </div>
@@ -1127,9 +1112,7 @@ const AdvancedAI = () => {
                         <span className="text-white">Training Loss</span>
                         <span className="text-green-400">0.0234</span>
                       </div>
-                      <div className="text-xs text-zinc-400">
-                        Decreasing ↓
-                      </div>
+                      <div className="text-xs text-zinc-400">Decreasing ↓</div>
                     </div>
 
                     <div className="p-3 bg-zinc-900 rounded">
@@ -1137,9 +1120,7 @@ const AdvancedAI = () => {
                         <span className="text-white">Validation Accuracy</span>
                         <span className="text-blue-400">94.2%</span>
                       </div>
-                      <div className="text-xs text-zinc-400">
-                        Improving ↑
-                      </div>
+                      <div className="text-xs text-zinc-400">Improving ↑</div>
                     </div>
 
                     <div className="p-3 bg-zinc-900 rounded">
@@ -1147,9 +1128,7 @@ const AdvancedAI = () => {
                         <span className="text-white">Training Samples</span>
                         <span className="text-white">2.3M</span>
                       </div>
-                      <div className="text-xs text-zinc-400">
-                        Current batch
-                      </div>
+                      <div className="text-xs text-zinc-400">Current batch</div>
                     </div>
 
                     <div className="p-3 bg-zinc-900 rounded">
@@ -1157,9 +1136,7 @@ const AdvancedAI = () => {
                         <span className="text-white">ETA Completion</span>
                         <span className="text-yellow-400">2.5 hours</span>
                       </div>
-                      <div className="text-xs text-zinc-400">
-                        Estimated
-                      </div>
+                      <div className="text-xs text-zinc-400">Estimated</div>
                     </div>
                   </div>
                 </CardContent>

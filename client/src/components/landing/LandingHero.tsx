@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +9,8 @@ export function LandingHero() {
     <section className="w-full flex flex-col items-center justify-center py-10 xs:py-12 px-3 sm:py-20 bg-[#191a1f]">
       {/* Main logo */}
       <img
-        src="/lovable-uploads/9491cce3-b317-4586-bcb1-fc0df07a440d.png"
-        alt="NeuroLint logo"
+        src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+        alt="Logo"
         className="w-32 h-auto mb-4 sm:w-40 select-none pointer-events-none"
         draggable={false}
         loading="eager"
@@ -21,7 +20,10 @@ export function LandingHero() {
         <span className="text-purple-300">Code & Config Fixer</span>
       </h1>
       <div className="text-base sm:text-xl text-gray-300 font-medium mb-8 max-w-md text-center px-2">
-        Revolutionary AI-powered code analysis platform with CLI, VS Code extension, and REST API.<br />Transform your development workflow with intelligent automation.
+        Revolutionary AI-powered code analysis platform with CLI, VS Code
+        extension, and REST API.
+        <br />
+        Transform your development workflow with intelligent automation.
       </div>
       <Button
         className="w-full max-w-xs py-4 text-lg rounded-xl bg-[#292939] hover:bg-[#434455] mb-8 shadow-cursor-glass active:scale-98 transition-all touch-manipulation text-white border border-[#342d66]"

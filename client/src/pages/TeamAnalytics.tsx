@@ -9,7 +9,6 @@ import {
   BarChart3,
   PieChart,
   Activity,
-  Brain,
   Target,
   Zap,
   AlertTriangle,
@@ -307,7 +306,11 @@ const TeamAnalytics = () => {
               variant={predictiveMode ? "primary" : "ghost"}
               onClick={() => setPredictiveMode(!predictiveMode)}
             >
-              <Brain className="w-3 h-3 mr-1" />
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+                alt="Logo"
+                className="w-3 h-3 mr-1"
+              />
               AI Predictions
             </Button>
           </div>
@@ -460,7 +463,11 @@ const TeamAnalytics = () => {
               value="insights"
               className="data-[state=active]:bg-white data-[state=active]:text-black"
             >
-              <Brain className="w-4 h-4 mr-2" />
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+                alt="Logo"
+                className="w-4 h-4 mr-2"
+              />
               AI Insights
             </TabsTrigger>
             <TabsTrigger
@@ -491,7 +498,11 @@ const TeamAnalytics = () => {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Brain className="w-5 h-5 text-blue-400" />
+                    <img
+                      src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+                      alt="Logo"
+                      className="w-5 h-5"
+                    />
                     Predictive Analytics & Recommendations
                   </CardTitle>
                 </CardHeader>

@@ -25,7 +25,6 @@ import {
   Sparkles,
   Zap,
   Target,
-  Brain,
   Wand2,
   MousePointer,
   Cursor,
