@@ -6,11 +6,11 @@
   * {
     @apply border-border;
   }
-  
+
   body {
     @apply bg-background text-foreground;
   }
-  
+
   :root {
     --background: 0 0% 8%;
     --foreground: 0 0% 98%;
@@ -181,74 +181,38 @@ html {
 
 /* Syntax Analysis Card */
 .syntax-card::before {
-  background: radial-gradient(
-    500px circle at var(--mouse-x) var(--mouse-y),
-    var(--glow-syntax),
-    transparent 40%
-  );
+  background: transparent;
   opacity: 0;
-  animation: cardGlow 4s infinite;
-  animation-delay: 5s;
 }
 
 /* Pattern Detection Card */
 .pattern-card::before {
-  background: radial-gradient(
-    500px circle at var(--mouse-x) var(--mouse-y),
-    var(--glow-pattern),
-    transparent 40%
-  );
+  background: transparent;
   opacity: 0;
-  animation: cardGlow 5s infinite;
-  animation-delay: 8s;
 }
 
 /* Component Analysis Card */
 .component-card::before {
-  background: radial-gradient(
-    500px circle at var(--mouse-x) var(--mouse-y),
-    var(--glow-component),
-    transparent 40%
-  );
+  background: transparent;
   opacity: 0;
-  animation: cardGlow 6s infinite;
-  animation-delay: 10s;
 }
 
 /* Data Flow Card */
 .data-card::before {
-  background: radial-gradient(
-    500px circle at var(--mouse-x) var(--mouse-y),
-    var(--glow-data),
-    transparent 40%
-  );
+  background: transparent;
   opacity: 0;
-  animation: cardGlow 4s infinite;
-  animation-delay: 12s;
 }
 
 /* Framework Card */
 .framework-card::before {
-  background: radial-gradient(
-    500px circle at var(--mouse-x) var(--mouse-y),
-    var(--glow-framework),
-    transparent 40%
-  );
+  background: transparent;
   opacity: 0;
-  animation: cardGlow 5s infinite;
-  animation-delay: 15s;
 }
 
 /* Testing Card */
 .testing-card::before {
-  background: radial-gradient(
-    500px circle at var(--mouse-x) var(--mouse-y),
-    var(--glow-testing),
-    transparent 40%
-  );
+  background: transparent;
   opacity: 0;
-  animation: cardGlow 6s infinite;
-  animation-delay: 18s;
 }
 
 @keyframes cardGlow {
