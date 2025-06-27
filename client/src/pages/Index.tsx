@@ -538,101 +538,8 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="py-24 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
-              Simple Pricing
-            </h2>
-            <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto font-medium">
-              Choose the plan that best fits your needs
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Starter",
-                price: "Free",
-                features: [
-                  "Up to 5 files per analysis",
-                  "Basic code suggestions",
-                  "Community support",
-                  "24-hour history",
-                ],
-              },
-              {
-                name: "Pro",
-                price: "$49/mo",
-                features: [
-                  "Unlimited files",
-                  "Advanced AI suggestions",
-                  "Priority support",
-                  "30-day history",
-                  "Team collaboration",
-                ],
-                popular: true,
-              },
-              {
-                name: "Enterprise",
-                price: "Custom",
-                features: [
-                  "Custom integration",
-                  "Dedicated support",
-                  "SLA guarantee",
-                  "Unlimited history",
-                  "Custom features",
-                ],
-              },
-            ].map((plan, index) => (
-              <div key={index} className="group relative">
-                <div className="relative p-10 bg-[#111111] border-2 border-zinc-800 rounded-3xl hover:border-zinc-600 transition-all duration-300 hover:bg-zinc-900/50 h-[480px] flex flex-col">
-                  {plan.popular && (
-                    <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-                      <span className="px-6 py-3 bg-white text-black rounded-2xl text-sm font-black shadow-lg">
-                        Most Popular
-                      </span>
-                    </div>
-                  )}
-
-                  <h3 className="text-2xl font-black mb-4 text-white">
-                    {plan.name}
-                  </h3>
-                  <div className="text-4xl font-black mb-8 text-white">
-                    {plan.price}
-                  </div>
-
-                  <ul className="space-y-4 mb-10 flex-grow">
-                    {plan.features.map((feature, i) => (
-                      <li
-                        key={i}
-                        className="flex items-center gap-3 text-zinc-300 font-medium"
-                      >
-                        <CheckCircle className="w-6 h-6 text-white flex-shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    to="/pricing"
-                    className="block w-full py-4 bg-white text-black font-black rounded-2xl hover:bg-gray-100 transition-all duration-300 text-center text-lg mt-auto"
-                  >
-                    Get Started
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CLI Tool Section */}
-      <section
-        id="cli"
-        className="py-20 bg-black border-t border-zinc-800"
-      >
+      <section id="cli" className="py-20 bg-black border-t border-zinc-800">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
@@ -653,9 +560,7 @@ export default function Index() {
                 </h3>
                 <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-zinc-400">
-                      Terminal
-                    </span>
+                    <span className="text-sm text-zinc-400">Terminal</span>
                     <button className="text-zinc-400 hover:text-white transition-colors">
                       <Copy className="w-4 h-4" />
                     </button>
@@ -711,15 +616,11 @@ export default function Index() {
                   <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                   <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                 </div>
-                <span className="text-sm text-zinc-400 ml-4">
-                  Terminal
-                </span>
+                <span className="text-sm text-zinc-400 ml-4">Terminal</span>
               </div>
               <div className="p-6 font-mono text-sm space-y-2">
                 <div className="text-white">$ neurolint analyze src/</div>
-                <div className="text-zinc-400">
-                  🔍 Analyzing 24 files...
-                </div>
+                <div className="text-zinc-400">🔍 Analyzing 24 files...</div>
                 <div className="text-white">
                   ✓ Layer 1: Configuration (0.2s)
                 </div>
@@ -746,10 +647,7 @@ export default function Index() {
       </section>
 
       {/* VS Code Extension Section */}
-      <section
-        id="vscode"
-        className="py-20 bg-black border-t border-zinc-800"
-      >
+      <section id="vscode" className="py-20 bg-black border-t border-zinc-800">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
@@ -874,10 +772,7 @@ export default function Index() {
       </section>
 
       {/* REST API Section */}
-      <section
-        id="api"
-        className="py-20 bg-black border-t border-zinc-800"
-      >
+      <section id="api" className="py-20 bg-black border-t border-zinc-800">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
@@ -901,9 +796,7 @@ export default function Index() {
                       POST
                     </span>
                     <code className="text-white">/api/analyze</code>
-                    <span className="text-zinc-400 text-sm">
-                      Analyze code
-                    </span>
+                    <span className="text-zinc-400 text-sm">Analyze code</span>
                   </div>
                   <div className="flex items-center gap-3 p-3 bg-zinc-900/50 border border-zinc-800 rounded-lg">
                     <span className="bg-white text-black px-2 py-1 rounded text-xs font-mono">
@@ -970,9 +863,7 @@ export default function Index() {
                   <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                   <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                 </div>
-                <span className="text-sm text-zinc-400 ml-4">
-                  API Example
-                </span>
+                <span className="text-sm text-zinc-400 ml-4">API Example</span>
               </div>
               <div className="p-6 font-mono text-sm space-y-4">
                 <div>
@@ -990,9 +881,7 @@ export default function Index() {
                   <div className="text-zinc-400 ml-8">
                     "code": "function test() &#123; ... &#125;",
                   </div>
-                  <div className="text-zinc-400 ml-8">
-                    "layers": [1, 2, 3]
-                  </div>
+                  <div className="text-zinc-400 ml-8">"layers": [1, 2, 3]</div>
                   <div className="text-zinc-400 ml-4">&#125;'</div>
                 </div>
 
@@ -1098,10 +987,10 @@ export default function Index() {
                 Start Free Trial
               </Link>
               <Link
-                to="/test"
+                to="/pricing"
                 className="px-10 py-5 bg-black/50 text-white font-black rounded-2xl border-2 border-zinc-800 hover:bg-black hover:border-zinc-600 transition-all duration-300 text-lg backdrop-blur-xl hover:scale-105"
               >
-                Watch Demo
+                View Pricing
               </Link>
             </div>
           </div>
