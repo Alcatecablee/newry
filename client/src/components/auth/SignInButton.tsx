@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
 
 export function SignInButton() {
-  // Hardcoded for immediate functionality - will fix env vars after
   const publishableKey =
     import.meta.env.VITE_CLERK_PUBLISHABLE_KEY ||
     "pk_test_Z3VpZGluZy1haXJlZGFsZS00My5jbGVyay5hY2NvdW50cy5kZXYk";
