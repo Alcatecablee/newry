@@ -1,51 +1,58 @@
-
 export const PRICING_PLANS = {
   free: {
     name: "Free",
     price: 0,
-    monthlyTransformations: 10,
-    layers: [1, 2, 3], // Config, Entities, Components only
+    monthlyTransformations: 25,
+    layers: [1, 2], // Config & Pattern/Entity fixes only
     features: [
-      "10 transformations/month",
-      "Basic layers (Config, Entities, Components)",
-      "Public code processing",
-      "Community support"
+      "25 transformations/month",
+      "Configuration validation",
+      "Pattern & entity fixes",
+      "Basic code improvements",
+      "Community support",
+      "Public GitHub repos only",
     ],
     cta: "Get Started Free",
-    popular: false
+    popular: false,
   },
   pro: {
     name: "Pro",
-    price: 19,
+    price: 29,
     monthlyTransformations: -1, // Unlimited
-    layers: [1, 2, 3, 4, 5, 6], // All layers
+    layers: [1, 2, 3, 4, 5, 6], // All 6 layers
     features: [
       "Unlimited transformations",
-      "All 6 transformation layers",
-      "Private code processing",
+      "All 6 AI transformation layers",
+      "Component best practices",
+      "Hydration & SSR fixes",
+      "Next.js optimizations",
+      "Quality & performance boosts",
+      "Private repository support",
       "Priority support",
-      "Batch processing",
-      "API access"
+      "CLI & API access",
     ],
     cta: "Start Pro Trial",
-    popular: true
+    popular: true,
   },
   enterprise: {
     name: "Enterprise",
-    price: 99,
+    price: 199,
     monthlyTransformations: -1, // Unlimited
     layers: [1, 2, 3, 4, 5, 6], // All layers
     features: [
       "Everything in Pro",
-      "Team collaboration",
-      "Custom rules & layers",
-      "On-premise deployment",
-      "Dedicated support",
-      "SLA guarantee"
+      "Team collaboration & management",
+      "Custom transformation rules",
+      "On-premise deployment options",
+      "Advanced security & compliance",
+      "Dedicated account manager",
+      "Custom integrations",
+      "SLA guarantee (99.9% uptime)",
+      "White-label options",
     ],
     cta: "Contact Sales",
-    popular: false
-  }
+    popular: false,
+  },
 } as const;
 
 export type PlanType = keyof typeof PRICING_PLANS;
@@ -53,12 +60,12 @@ export type PlanType = keyof typeof PRICING_PLANS;
 export const PAYPAL_CONFIG = {
   sandbox: {
     clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID_SANDBOX || "",
-    environment: "sandbox" as const
+    environment: "sandbox" as const,
   },
   production: {
     clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID_PRODUCTION || "",
-    environment: "live" as const
-  }
+    environment: "live" as const,
+  },
 };
 
 export const CLERK_CONFIG = {
@@ -66,5 +73,5 @@ export const CLERK_CONFIG = {
   signInUrl: "/sign-in",
   signUpUrl: "/sign-up",
   afterSignInUrl: "/app",
-  afterSignUpUrl: "/app"
+  afterSignUpUrl: "/app",
 };
