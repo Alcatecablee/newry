@@ -28,6 +28,7 @@ import {
   Code,
 } from "lucide-react";
 import { BetaBanner } from "@/components/BetaBanner";
+import { AuthTest } from "@/components/auth/AuthTest";
 
 interface RepoFile {
   path: string;
