@@ -10,14 +10,26 @@ interface User {
   id: string;
   email: string;
   name: string;
+  planType: string;
+  monthlyTransformationsUsed: number;
+  monthlyLimit: number;
 }
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   loading: boolean;
-  signIn: (email: string, password: string) => Promise<boolean>;
+  signIn: (
+    email: string,
+    password: string,
+  ) => Promise<{ success: boolean; error?: string }>;
+  signUp: (
+    email: string,
+    password: string,
+    fullName: string,
+  ) => Promise<{ success: boolean; error?: string }>;
   signOut: () => void;
+  updateUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -31,36 +43,111 @@ export function ClerkProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is already signed in
-    const savedUser = localStorage.getItem("auth_user");
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch (error) {
-        localStorage.removeItem("auth_user");
+    const initAuth = async () => {
+      const token = localStorage.getItem("auth_token");
+      if (token) {
+        try {
+          const response = await fetch("/api/auth/profile", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.ok) {
+            const userData = await response.json();
+            setUser(userData);
+          } else {
+            localStorage.removeItem("auth_token");
+          }
+        } catch (error) {
+          console.error("Auth check failed:", error);
+          localStorage.removeItem("auth_token");
+        }
       }
-    }
-    setLoading(false);
+      setLoading(false);
+    };
+
+    initAuth();
   }, []);
 
-  const signIn = async (email: string, password: string): Promise<boolean> => {
-    // Simple demo auth - accept any email/password combo
-    if (email && password) {
-      const newUser = {
-        id: Date.now().toString(),
-        email,
-        name: email.split("@")[0],
-      };
-      setUser(newUser);
-      localStorage.setItem("auth_user", JSON.stringify(newUser));
-      return true;
+  const signIn = async (
+    email: string,
+    password: string,
+  ): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setUser(data.user);
+        localStorage.setItem("auth_token", data.token);
+        return { success: true };
+      } else {
+        return { success: false, error: data.error || "Login failed" };
+      }
+    } catch (error) {
+      return { success: false, error: "Network error" };
     }
-    return false;
+  };
+
+  const signUp = async (
+    email: string,
+    password: string,
+    fullName: string,
+  ): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password, fullName }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setUser(data.user);
+        localStorage.setItem("auth_token", data.token);
+        return { success: true };
+      } else {
+        return { success: false, error: data.error || "Registration failed" };
+      }
+    } catch (error) {
+      return { success: false, error: "Network error" };
+    }
+  };
+
+  const updateUser = async () => {
+    const token = localStorage.getItem("auth_token");
+    if (!token) return;
+
+    try {
+      const response = await fetch("/api/auth/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData);
+      }
+    } catch (error) {
+      console.error("Failed to update user data:", error);
+    }
   };
 
   const signOut = () => {
     setUser(null);
-    localStorage.removeItem("auth_user");
+    localStorage.removeItem("auth_token");
   };
 
   const value = {
@@ -68,7 +155,9 @@ export function ClerkProvider({ children }: AuthProviderProps) {
     isAuthenticated: !!user,
     loading,
     signIn,
+    signUp,
     signOut,
+    updateUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
