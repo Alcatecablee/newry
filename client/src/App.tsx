@@ -38,7 +38,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <div className="min-h-screen bg-charcoal-dark text-white">
+          <div className="min-h-screen bg-black text-white">
             <BetaBanner />
             <SiteHeader />
             <Routes>
