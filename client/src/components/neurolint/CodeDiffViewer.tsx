@@ -96,7 +96,7 @@ export function CodeDiffViewer({
   return (
     <div className="h-[85vh] bg-charcoal border border-charcoal-light rounded-lg overflow-hidden transition-all font-mono backdrop-blur-xl flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-charcoal-light bg-charcoal-light rounded-t-lg backdrop-blur font-sans flex-shrink-0">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-charcoal-light bg-zinc-900 rounded-t-lg backdrop-blur font-sans flex-shrink-0">
         <div className="flex gap-2 items-center">
           <FileText className="w-4 h-4 text-white" />
           <span className="text-sm font-semibold text-white">
@@ -109,7 +109,7 @@ export function CodeDiffViewer({
       <div className="flex-1 flex flex-col min-h-0">
         {/* Transformed Code Panel (Top Half) */}
         <div className="flex-1 border-b border-charcoal-light flex flex-col min-h-0">
-          <div className="flex items-center justify-between px-4 py-2 bg-charcoal-light border-b border-charcoal-lighter flex-shrink-0">
+          <div className="flex items-center justify-between px-4 py-2 bg-zinc-900 border-b border-charcoal-lighter flex-shrink-0">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-white rounded-full"></div>
               <span className="text-sm font-medium text-white">
@@ -137,7 +137,7 @@ export function CodeDiffViewer({
               </Button>
             </div>
           </div>
-          <div className="flex-1 p-4 overflow-auto bg-charcoal-darker min-h-0">
+          <div className="flex-1 p-4 overflow-auto bg-zinc-950 min-h-0">
             <pre className="text-sm text-white whitespace-pre-wrap">
               <code>{highlighted(transformed)}</code>
             </pre>
@@ -145,7 +145,7 @@ export function CodeDiffViewer({
         </div>
 
         {/* Transformation Arrow */}
-        <div className="flex justify-center py-2 bg-charcoal-light flex-shrink-0">
+        <div className="flex justify-center py-2 bg-zinc-900 flex-shrink-0">
           <div className="bg-white rounded-full p-2 shadow-lg backdrop-blur">
             <ArrowDown className="w-4 h-4 text-charcoal-dark" />
           </div>
@@ -153,9 +153,9 @@ export function CodeDiffViewer({
 
         {/* Original Code Panel (Bottom Half) */}
         <div className="flex-1 flex flex-col min-h-0">
-          <div className="flex items-center justify-between px-4 py-2 bg-charcoal-light border-b border-charcoal-lighter flex-shrink-0">
+          <div className="flex items-center justify-between px-4 py-2 bg-zinc-900 border-b border-charcoal-lighter flex-shrink-0">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-charcoal-lighter rounded-full"></div>
+              <div className="w-2 h-2 bg-zinc-900er rounded-full"></div>
               <span className="text-sm font-medium text-charcoal-lighter">
                 Original
               </span>
@@ -181,7 +181,7 @@ export function CodeDiffViewer({
               </Button>
             </div>
           </div>
-          <div className="flex-1 p-4 overflow-auto bg-charcoal-darker min-h-0">
+          <div className="flex-1 p-4 overflow-auto bg-zinc-950 min-h-0">
             <pre className="text-sm text-charcoal-lighter whitespace-pre-wrap">
               <code>{highlighted(original)}</code>
             </pre>

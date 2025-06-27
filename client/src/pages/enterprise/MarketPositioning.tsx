@@ -636,7 +636,7 @@ const MarketPositioning = () => {
         </div>
 
         <Tabs defaultValue="segments" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-charcoal-lighter">
             <TabsTrigger
               value="segments"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -1027,7 +1027,7 @@ const MarketPositioning = () => {
                             {strategy.metrics.map((metric, idx) => (
                               <div
                                 key={idx}
-                                className="p-3 bg-charcoal-light rounded"
+                                className="p-3 bg-zinc-900 rounded"
                               >
                                 <div className="flex items-center justify-between mb-1">
                                   <span className="text-white text-sm">
@@ -1092,7 +1092,7 @@ const MarketPositioning = () => {
                     {marketSegments[0].competition.map((competitor) => (
                       <div
                         key={competitor.name}
-                        className="p-4 bg-charcoal-light rounded-lg"
+                        className="p-4 bg-zinc-900 rounded-lg"
                       >
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-white font-medium">

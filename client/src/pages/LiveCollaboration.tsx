@@ -417,7 +417,7 @@ const LiveCollaboration = () => {
                       className={`p-4 rounded-lg border cursor-pointer transition-colors ${
                         selectedFix === fix.id
                           ? "border-blue-400 bg-blue-900/20"
-                          : "border-charcoal-light bg-charcoal-light hover:bg-charcoal"
+                          : "border-charcoal-light bg-zinc-900 hover:bg-zinc-900"
                       }`}
                       onClick={() => setSelectedFix(fix.id)}
                     >

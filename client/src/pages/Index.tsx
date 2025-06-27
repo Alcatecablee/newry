@@ -705,7 +705,7 @@ export default function Index() {
             </div>
 
             <div className="bg-charcoal border border-charcoal-light rounded-2xl overflow-hidden">
-              <div className="bg-charcoal-light px-4 py-3 flex items-center gap-2 border-b border-charcoal-light">
+              <div className="bg-zinc-900 px-4 py-3 flex items-center gap-2 border-b border-charcoal-light">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                   <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
@@ -763,7 +763,7 @@ export default function Index() {
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="bg-charcoal border border-charcoal-light rounded-2xl overflow-hidden shadow-2xl">
-              <div className="bg-charcoal-light px-4 py-3 flex items-center gap-2 border-b border-charcoal-light">
+              <div className="bg-zinc-900 px-4 py-3 flex items-center gap-2 border-b border-charcoal-light">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                   <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
@@ -789,7 +789,7 @@ export default function Index() {
                   <div className="flex items-center gap-2">
                     <span className="text-charcoal-lighter">6</span>
                     <span className="text-white"> return (</span>
-                    <div className="bg-charcoal-light border border-charcoal-lighter rounded px-2 py-1 text-xs text-white ml-4">
+                    <div className="bg-zinc-900 border border-charcoal-lighter rounded px-2 py-1 text-xs text-white ml-4">
                       Missing key prop
                     </div>
                   </div>
@@ -799,7 +799,7 @@ export default function Index() {
                     <span className="text-white ml-4">
                       &#123;items.map(item =&gt;
                     </span>
-                    <span className="bg-charcoal-light border-l-2 border-white pl-2 text-white">
+                    <span className="bg-zinc-900 border-l-2 border-white pl-2 text-white">
                       &lt;li&gt;&#123;item&#125;&lt;/li&gt;
                     </span>
                   </div>
@@ -809,7 +809,7 @@ export default function Index() {
                   <div className="text-charcoal-lighter">12 &#125;</div>
                 </div>
 
-                <div className="mt-4 p-3 bg-charcoal-light border border-charcoal-lighter rounded-lg">
+                <div className="mt-4 p-3 bg-zinc-900 border border-charcoal-lighter rounded-lg">
                   <div className="flex items-center gap-2 text-white text-sm">
                     <Code className="w-4 h-4" />
                     <span>NeuroLint suggests: Add key prop to list items</span>
@@ -964,7 +964,7 @@ export default function Index() {
             </div>
 
             <div className="bg-charcoal border border-charcoal-light rounded-2xl overflow-hidden">
-              <div className="bg-charcoal-light px-4 py-3 flex items-center gap-2 border-b border-charcoal-light">
+              <div className="bg-zinc-900 px-4 py-3 flex items-center gap-2 border-b border-charcoal-light">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                   <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
@@ -1033,7 +1033,7 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="p-6 bg-charcoal/50 border border-charcoal-light rounded-xl hover:border-white transition-colors">
-              <div className="w-12 h-12 bg-charcoal-light rounded-lg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center mb-4">
                 <GitBranch className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">
@@ -1045,7 +1045,7 @@ export default function Index() {
             </div>
 
             <div className="p-6 bg-charcoal/50 border border-charcoal-light rounded-xl hover:border-white transition-colors">
-              <div className="w-12 h-12 bg-charcoal-light rounded-lg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center mb-4">
                 <Settings className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Jenkins</h3>
@@ -1055,7 +1055,7 @@ export default function Index() {
             </div>
 
             <div className="p-6 bg-charcoal/50 border border-charcoal-light rounded-xl hover:border-white transition-colors">
-              <div className="w-12 h-12 bg-charcoal-light rounded-lg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center mb-4">
                 <Users className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Slack</h3>
@@ -1065,7 +1065,7 @@ export default function Index() {
             </div>
 
             <div className="p-6 bg-charcoal/50 border border-charcoal-light rounded-xl hover:border-white transition-colors">
-              <div className="w-12 h-12 bg-charcoal-light rounded-lg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center mb-4">
                 <Code className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">

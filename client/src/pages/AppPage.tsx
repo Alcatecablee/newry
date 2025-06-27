@@ -136,7 +136,7 @@ const AppPage = () => {
                     className={`group relative p-4 rounded-xl border transition-all duration-200 text-left ${
                       isEnabled
                         ? "bg-charcoal border-white/20 shadow-lg"
-                        : "bg-charcoal-light border-charcoal-lighter hover:border-white/30 hover:bg-charcoal"
+                        : "bg-zinc-900 border-charcoal-lighter hover:border-white/30 hover:bg-zinc-900"
                     }`}
                   >
                     <div className="flex items-start justify-between mb-3">
@@ -144,7 +144,7 @@ const AppPage = () => {
                         className={`flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold ${
                           isEnabled
                             ? "bg-green-500 text-white"
-                            : "bg-charcoal-lighter text-charcoal-light group-hover:bg-white/20 group-hover:text-white"
+                            : "bg-zinc-900er text-charcoal-light group-hover:bg-white/20 group-hover:text-white"
                         }`}
                       >
                         {layer.id}
@@ -192,7 +192,7 @@ const AppPage = () => {
               onValueChange={(value) => setMode(value as "single" | "repo")}
               className="w-full"
             >
-              <TabsList className="grid w-full grid-cols-2 bg-charcoal-light border border-charcoal-lighter p-1">
+              <TabsList className="grid w-full grid-cols-2 bg-zinc-900 border border-charcoal-lighter p-1">
                 <TabsTrigger
                   value="single"
                   className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-charcoal-dark data-[state=inactive]:text-charcoal-lighter"

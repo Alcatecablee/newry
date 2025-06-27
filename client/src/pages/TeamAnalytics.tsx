@@ -263,7 +263,7 @@ const TeamAnalytics = () => {
       case "recommendation":
         return "border-purple-400 bg-purple-900/20";
       default:
-        return "border-charcoal-light bg-charcoal-light";
+        return "border-charcoal-light bg-zinc-900";
     }
   };
 
@@ -455,7 +455,7 @@ const TeamAnalytics = () => {
         </div>
 
         <Tabs defaultValue="insights" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-charcoal-lighter">
             <TabsTrigger
               value="insights"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -609,7 +609,7 @@ const TeamAnalytics = () => {
                   <CardTitle>Quality Trends</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Quality trend chart visualization
                     </p>
@@ -622,7 +622,7 @@ const TeamAnalytics = () => {
                   <CardTitle>Velocity Patterns</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Velocity pattern analysis
                     </p>
@@ -635,7 +635,7 @@ const TeamAnalytics = () => {
                   <CardTitle>Collaboration Network</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Team collaboration network visualization
                     </p>
@@ -648,7 +648,7 @@ const TeamAnalytics = () => {
                   <CardTitle>Innovation Index</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Innovation metrics and patterns
                     </p>
@@ -674,7 +674,7 @@ const TeamAnalytics = () => {
                     ].map((sprint) => (
                       <div
                         key={sprint.sprint}
-                        className="p-3 bg-charcoal-light rounded-lg"
+                        className="p-3 bg-zinc-900 rounded-lg"
                       >
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-white font-medium">
@@ -766,7 +766,7 @@ const TeamAnalytics = () => {
                     ].map((member) => (
                       <div
                         key={member.name}
-                        className="flex items-center justify-between p-2 bg-charcoal-light rounded"
+                        className="flex items-center justify-between p-2 bg-zinc-900 rounded"
                       >
                         <span className="text-white text-sm">
                           {member.name}
@@ -799,7 +799,7 @@ const TeamAnalytics = () => {
                     {Object.entries(teamMetrics).map(([key, metric]) => (
                       <div
                         key={key}
-                        className="flex items-center justify-between p-3 bg-charcoal-light rounded-lg"
+                        className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
                       >
                         <span className="text-white capitalize">
                           {key.replace(/([A-Z])/g, " $1").trim()}
@@ -860,7 +860,7 @@ const TeamAnalytics = () => {
                     ].map((goal) => (
                       <div
                         key={goal.goal}
-                        className="p-3 bg-charcoal-light rounded-lg"
+                        className="p-3 bg-zinc-900 rounded-lg"
                       >
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-white font-medium">

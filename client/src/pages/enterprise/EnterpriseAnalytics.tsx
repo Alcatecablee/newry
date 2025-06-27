@@ -457,7 +457,7 @@ const EnterpriseAnalytics = () => {
         </div>
 
         <Tabs defaultValue="executive" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-charcoal-lighter">
             <TabsTrigger
               value="executive"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -652,7 +652,7 @@ const EnterpriseAnalytics = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="p-4 bg-charcoal-light rounded-lg">
+                    <div className="p-4 bg-zinc-900 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-white font-medium">
                           Cost Savings
@@ -665,7 +665,7 @@ const EnterpriseAnalytics = () => {
                       </p>
                     </div>
 
-                    <div className="p-4 bg-charcoal-light rounded-lg">
+                    <div className="p-4 bg-zinc-900 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-white font-medium">
                           Risk Reduction
@@ -678,7 +678,7 @@ const EnterpriseAnalytics = () => {
                       </p>
                     </div>
 
-                    <div className="p-4 bg-charcoal-light rounded-lg">
+                    <div className="p-4 bg-zinc-900 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-white font-medium">
                           Developer Efficiency
@@ -708,7 +708,7 @@ const EnterpriseAnalytics = () => {
                     {complianceFrameworks.map((framework) => (
                       <div
                         key={framework.id}
-                        className="p-4 bg-charcoal-light rounded-lg border border-charcoal-lighter"
+                        className="p-4 bg-zinc-900 rounded-lg border border-charcoal-lighter"
                       >
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
@@ -808,7 +808,7 @@ const EnterpriseAnalytics = () => {
                     ].map((item, index) => (
                       <div
                         key={index}
-                        className="flex items-center gap-3 p-3 bg-charcoal-light rounded"
+                        className="flex items-center gap-3 p-3 bg-zinc-900 rounded"
                       >
                         <div
                           className={`w-3 h-3 rounded-full ${
@@ -853,7 +853,7 @@ const EnterpriseAnalytics = () => {
                     {organizationHealth.riskFactors.map((risk) => (
                       <div
                         key={risk.id}
-                        className="p-4 bg-charcoal-light rounded-lg border border-charcoal-lighter"
+                        className="p-4 bg-zinc-900 rounded-lg border border-charcoal-lighter"
                       >
                         <div className="flex items-start justify-between mb-2">
                           <div>
@@ -928,7 +928,7 @@ const EnterpriseAnalytics = () => {
                     {organizationHealth.opportunities.map((opportunity) => (
                       <div
                         key={opportunity.id}
-                        className="p-4 bg-charcoal-light rounded-lg border border-charcoal-lighter"
+                        className="p-4 bg-zinc-900 rounded-lg border border-charcoal-lighter"
                       >
                         <div className="flex items-start justify-between mb-2">
                           <div>
@@ -999,7 +999,7 @@ const EnterpriseAnalytics = () => {
                   <CardTitle>Team Performance Trends</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Performance trend charts would be here
                     </p>
@@ -1012,7 +1012,7 @@ const EnterpriseAnalytics = () => {
                   <CardTitle>Quality Metrics</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Quality metrics visualization
                     </p>
@@ -1025,7 +1025,7 @@ const EnterpriseAnalytics = () => {
                   <CardTitle>Security Posture</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Security metrics dashboard
                     </p>
@@ -1038,7 +1038,7 @@ const EnterpriseAnalytics = () => {
                   <CardTitle>Compliance Trends</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Compliance trend analysis
                     </p>

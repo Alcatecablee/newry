@@ -315,7 +315,7 @@ const SSOIntegration = () => {
         </div>
 
         <Tabs defaultValue="providers" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-charcoal-lighter">
             <TabsTrigger
               value="providers"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -367,7 +367,7 @@ const SSOIntegration = () => {
                         className={`p-4 rounded-lg border cursor-pointer transition-colors ${
                           selectedProvider === provider.id
                             ? "border-blue-400 bg-blue-900/20"
-                            : "border-charcoal-light bg-charcoal-light hover:bg-charcoal"
+                            : "border-charcoal-light bg-zinc-900 hover:bg-zinc-900"
                         }`}
                         onClick={() => setSelectedProvider(provider.id)}
                       >
@@ -579,7 +579,7 @@ const SSOIntegration = () => {
                     {complianceReports.map((report) => (
                       <div
                         key={report.id}
-                        className="p-4 bg-charcoal-light rounded-lg border border-charcoal-lighter"
+                        className="p-4 bg-zinc-900 rounded-lg border border-charcoal-lighter"
                       >
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
@@ -655,7 +655,7 @@ const SSOIntegration = () => {
                     ].map((control) => (
                       <div
                         key={control.control}
-                        className="flex items-center justify-between p-3 bg-charcoal-light rounded"
+                        className="flex items-center justify-between p-3 bg-zinc-900 rounded"
                       >
                         <span className="text-white">{control.control}</span>
                         <div className="flex items-center gap-2">
@@ -724,7 +724,7 @@ const SSOIntegration = () => {
                   ].map((log, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-3 bg-charcoal-light rounded text-sm"
+                      className="flex items-center justify-between p-3 bg-zinc-900 rounded text-sm"
                     >
                       <div className="flex items-center gap-4">
                         <span className="text-charcoal-light">{log.time}</span>
@@ -786,7 +786,7 @@ const SSOIntegration = () => {
                     ].map((rule, index) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-3 bg-charcoal-light rounded"
+                        className="flex items-center justify-between p-3 bg-zinc-900 rounded"
                       >
                         <div>
                           <p className="text-white font-medium">{rule.rule}</p>

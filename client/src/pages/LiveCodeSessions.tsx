@@ -448,7 +448,7 @@ const LiveCodeSessions = () => {
               {participants.map((participant) => (
                 <div
                   key={participant.id}
-                  className="flex items-center gap-3 p-2 bg-charcoal-light rounded-lg"
+                  className="flex items-center gap-3 p-2 bg-zinc-900 rounded-lg"
                 >
                   <div className="relative">
                     <Avatar className="w-8 h-8">
@@ -533,7 +533,7 @@ const LiveCodeSessions = () => {
                       {ai.suggestions.map((suggestion) => (
                         <div
                           key={suggestion.id}
-                          className="p-2 bg-charcoal-light rounded border border-blue-400/20"
+                          className="p-2 bg-zinc-900 rounded border border-blue-400/20"
                         >
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-white text-xs font-medium">

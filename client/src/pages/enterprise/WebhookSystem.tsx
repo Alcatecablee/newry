@@ -462,7 +462,7 @@ const WebhookSystem = () => {
         </div>
 
         <Tabs defaultValue="endpoints" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-charcoal-lighter">
             <TabsTrigger
               value="endpoints"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -508,7 +508,7 @@ const WebhookSystem = () => {
                         className={`p-4 rounded-lg border cursor-pointer transition-colors ${
                           selectedEndpoint === endpoint.id
                             ? "border-blue-400 bg-blue-900/20"
-                            : "border-charcoal-light bg-charcoal-light hover:bg-charcoal"
+                            : "border-charcoal-light bg-zinc-900 hover:bg-zinc-900"
                         }`}
                         onClick={() => setSelectedEndpoint(endpoint.id)}
                       >
@@ -723,7 +723,7 @@ const WebhookSystem = () => {
                   {recentEvents.map((event) => (
                     <div
                       key={event.id}
-                      className="p-4 bg-charcoal-light rounded-lg border border-charcoal-lighter"
+                      className="p-4 bg-zinc-900 rounded-lg border border-charcoal-lighter"
                     >
                       <div className="flex items-start justify-between mb-2">
                         <div>
@@ -862,7 +862,7 @@ const WebhookSystem = () => {
                   <CardTitle>Delivery Success Rate</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Success rate chart would be here
                     </p>
@@ -875,7 +875,7 @@ const WebhookSystem = () => {
                   <CardTitle>Event Volume</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Event volume chart would be here
                     </p>
@@ -892,7 +892,7 @@ const WebhookSystem = () => {
                     {webhookEndpoints.map((endpoint) => (
                       <div
                         key={endpoint.id}
-                        className="flex items-center justify-between p-2 bg-charcoal-light rounded"
+                        className="flex items-center justify-between p-2 bg-zinc-900 rounded"
                       >
                         <span className="text-white text-sm">
                           {endpoint.name}
@@ -934,7 +934,7 @@ const WebhookSystem = () => {
                     ].map((error) => (
                       <div
                         key={error.error}
-                        className="flex items-center justify-between p-2 bg-charcoal-light rounded"
+                        className="flex items-center justify-between p-2 bg-zinc-900 rounded"
                       >
                         <span className="text-white text-sm">
                           {error.error}

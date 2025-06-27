@@ -119,7 +119,7 @@ const TeamSettings = () => {
       case "Auditor":
         return "bg-gray-700 text-gray-200";
       default:
-        return "bg-charcoal-light text-white";
+        return "bg-zinc-900 text-white";
     }
   };
 
@@ -165,7 +165,7 @@ const TeamSettings = () => {
         </div>
 
         <Tabs defaultValue="general" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-charcoal-lighter">
             <TabsTrigger
               value="general"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -222,7 +222,7 @@ const TeamSettings = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label>Plan</Label>
-                    <div className="flex items-center justify-between p-3 bg-charcoal-light rounded-lg mt-1">
+                    <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg mt-1">
                       <span className="text-white">Pro Team</span>
                       <Badge className="bg-green-900 text-green-200">
                         Active
@@ -231,7 +231,7 @@ const TeamSettings = () => {
                   </div>
                   <div>
                     <Label>Usage This Month</Label>
-                    <div className="flex items-center justify-between p-3 bg-charcoal-light rounded-lg mt-1">
+                    <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg mt-1">
                       <span className="text-white">72 / 100 fixes</span>
                       <span className="text-charcoal-lighter">72%</span>
                     </div>
@@ -244,7 +244,7 @@ const TeamSettings = () => {
                     {[1, 2, 3, 4].map((layer) => (
                       <Badge
                         key={layer}
-                        className="bg-charcoal-light text-white"
+                        className="bg-zinc-900 text-white"
                       >
                         Layer {layer}
                       </Badge>
@@ -274,7 +274,7 @@ const TeamSettings = () => {
                     >
                       <div className="flex-1">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-charcoal-light flex items-center justify-center text-white font-medium">
+                          <div className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center text-white font-medium">
                             {member.name
                               .split(" ")
                               .map((n) => n[0])
@@ -338,7 +338,7 @@ const TeamSettings = () => {
                     ([role, permissions]) => (
                       <div
                         key={role}
-                        className="flex items-center justify-between p-3 bg-charcoal-light rounded-lg"
+                        className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
                       >
                         <Badge className={getRoleColor(role)}>{role}</Badge>
                         <div className="flex items-center gap-2">
@@ -582,7 +582,7 @@ const TeamSettings = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-charcoal-light rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
                     <span className="text-white">
                       Two-Factor Authentication
                     </span>
@@ -591,12 +591,12 @@ const TeamSettings = () => {
                     </Badge>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 bg-charcoal-light rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
                     <span className="text-white">Session Timeout</span>
                     <span className="text-charcoal-lighter">24 hours</span>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 bg-charcoal-light rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
                     <span className="text-white">IP Allowlist</span>
                     <Badge className="bg-gray-700 text-gray-200">
                       Not Configured

@@ -165,7 +165,7 @@ const TeamDashboard = () => {
       case "Auditor":
         return "bg-gray-700 text-gray-200";
       default:
-        return "bg-charcoal-light text-white";
+        return "bg-zinc-900 text-white";
     }
   };
 
@@ -270,7 +270,7 @@ const TeamDashboard = () => {
         </div>
 
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-charcoal-lighter">
             <TabsTrigger
               value="overview"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -318,7 +318,7 @@ const TeamDashboard = () => {
                     {recentActivity.map((activity) => (
                       <div
                         key={activity.id}
-                        className="flex items-start gap-3 p-3 bg-charcoal-light rounded-lg"
+                        className="flex items-start gap-3 p-3 bg-zinc-900 rounded-lg"
                       >
                         <div
                           className={`w-2 h-2 rounded-full mt-2 ${
@@ -364,7 +364,7 @@ const TeamDashboard = () => {
                       teamData?.projects.map((project) => (
                         <div
                           key={project.id}
-                          className="flex items-center justify-between p-3 bg-charcoal-light rounded-lg"
+                          className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
                         >
                           <div className="flex-1">
                             <div className="flex items-center gap-2">
@@ -409,11 +409,11 @@ const TeamDashboard = () => {
                     teamData?.members.map((member) => (
                     <div
                       key={member.id}
-                      className="flex items-center justify-between p-4 bg-charcoal-light rounded-lg"
+                      className="flex items-center justify-between p-4 bg-zinc-900 rounded-lg"
                     >
                       <div className="flex items-center gap-3">
                         <Avatar>
-                          <AvatarFallback className="bg-charcoal-lighter text-white">
+                          <AvatarFallback className="bg-zinc-900er text-white">
                             {member.userId.substring(0, 2).toUpperCase()}
                           </AvatarFallback>
                         </Avatar>
@@ -470,7 +470,7 @@ const TeamDashboard = () => {
                     (activity, index) => (
                       <div
                         key={`${activity.id}-${index}`}
-                        className="flex items-start gap-3 p-3 hover:bg-charcoal-light rounded-lg transition-colors"
+                        className="flex items-start gap-3 p-3 hover:bg-zinc-900 rounded-lg transition-colors"
                       >
                         <div
                           className={`w-3 h-3 rounded-full mt-1.5 ${
@@ -508,7 +508,7 @@ const TeamDashboard = () => {
                   <CardTitle>Fix Success Rate</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Chart showing success rates over time
                     </p>
@@ -530,7 +530,7 @@ const TeamDashboard = () => {
                     ].map((item, index) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-3 bg-charcoal-light rounded-lg"
+                        className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
                       >
                         <span className="text-white">{item.issue}</span>
                         <div className="flex items-center gap-2">

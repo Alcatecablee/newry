@@ -272,9 +272,9 @@ const EnhancedTeamDashboard = () => {
   const getSkillLevelColor = (level: string) => {
     switch (level) {
       case "Lead":
-        return "bg-charcoal-lighter text-white";
+        return "bg-zinc-900er text-white";
       case "Senior":
-        return "bg-charcoal-light text-white";
+        return "bg-zinc-900 text-white";
       case "Mid":
         return "bg-charcoal text-gray-300";
       default:
@@ -293,7 +293,7 @@ const EnhancedTeamDashboard = () => {
       case "prediction":
         return "border-charcoal-lighter bg-charcoal/50";
       default:
-        return "border-charcoal-light bg-charcoal-light";
+        return "border-charcoal-light bg-zinc-900";
     }
   };
 
@@ -423,7 +423,7 @@ const EnhancedTeamDashboard = () => {
         </div>
 
         <Tabs defaultValue="live" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-charcoal-lighter">
             <TabsTrigger
               value="live"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -475,7 +475,7 @@ const EnhancedTeamDashboard = () => {
                   {liveSessions.map((session) => (
                     <div
                       key={session.id}
-                      className="p-4 bg-charcoal-light rounded-lg border border-yellow-400/30"
+                      className="p-4 bg-zinc-900 rounded-lg border border-yellow-400/30"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <Badge className="bg-yellow-900 text-yellow-200">
@@ -536,7 +536,7 @@ const EnhancedTeamDashboard = () => {
                     {teamMembers.map((member) => (
                       <div
                         key={member.id}
-                        className="flex items-center gap-3 p-3 bg-charcoal-light rounded-lg"
+                        className="flex items-center gap-3 p-3 bg-zinc-900 rounded-lg"
                       >
                         <div className="relative">
                           <Avatar className="w-8 h-8">
@@ -690,7 +690,7 @@ const EnhancedTeamDashboard = () => {
                     {teamMembers.map((member) => (
                       <div
                         key={member.id}
-                        className="p-4 bg-charcoal-light rounded-lg"
+                        className="p-4 bg-zinc-900 rounded-lg"
                       >
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-3">
@@ -807,7 +807,7 @@ const EnhancedTeamDashboard = () => {
                     ].map((skill) => (
                       <div
                         key={skill}
-                        className="p-3 bg-charcoal-light rounded-lg"
+                        className="p-3 bg-zinc-900 rounded-lg"
                       >
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-white font-medium">
@@ -889,7 +889,7 @@ const EnhancedTeamDashboard = () => {
                     ].map((achievement) => (
                       <div
                         key={achievement.name}
-                        className="p-4 bg-charcoal-light rounded-lg border border-yellow-400/30"
+                        className="p-4 bg-zinc-900 rounded-lg border border-yellow-400/30"
                       >
                         <div className="flex items-center gap-3 mb-2">
                           <span className="text-2xl">{achievement.icon}</span>
@@ -939,7 +939,7 @@ const EnhancedTeamDashboard = () => {
                       .map((member, index) => (
                         <div
                           key={member.id}
-                          className="flex items-center gap-3 p-2 bg-charcoal-light rounded-lg"
+                          className="flex items-center gap-3 p-2 bg-zinc-900 rounded-lg"
                         >
                           <div
                             className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
@@ -985,7 +985,7 @@ const EnhancedTeamDashboard = () => {
                   <CardTitle>Code Quality Trends</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Interactive quality trend chart would go here
                     </p>
@@ -998,7 +998,7 @@ const EnhancedTeamDashboard = () => {
                   <CardTitle>Team Velocity</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-charcoal-light rounded-lg">
+                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
                     <p className="text-charcoal-lighter">
                       Velocity and productivity metrics chart
                     </p>

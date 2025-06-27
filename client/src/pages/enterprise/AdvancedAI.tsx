@@ -498,7 +498,7 @@ const AdvancedAI = () => {
         </div>
 
         <Tabs defaultValue="conversation" className="space-y-6">
-          <TabsList className="bg-charcoal-light border-charcoal-lighter">
+          <TabsList className="bg-zinc-900 border-charcoal-lighter">
             <TabsTrigger
               value="conversation"
               className="data-[state=active]:bg-white data-[state=active]:text-charcoal-dark"
@@ -611,7 +611,7 @@ const AdvancedAI = () => {
                             message.codeBlocks.map((block, index) => (
                               <div
                                 key={index}
-                                className="mt-3 p-3 bg-charcoal-darker rounded-lg border border-charcoal-light"
+                                className="mt-3 p-3 bg-zinc-950 rounded-lg border border-charcoal-light"
                               >
                                 <div className="flex items-center justify-between mb-2">
                                   <Badge className="bg-charcoal text-charcoal-lighter text-xs">
@@ -637,7 +637,7 @@ const AdvancedAI = () => {
                               {message.suggestions.map((suggestion) => (
                                 <div
                                   key={suggestion.id}
-                                  className="p-3 bg-charcoal-light rounded-lg border border-charcoal-lighter"
+                                  className="p-3 bg-zinc-900 rounded-lg border border-charcoal-lighter"
                                 >
                                   <div className="flex items-center justify-between mb-2">
                                     <div className="flex items-center gap-2">
@@ -731,7 +731,7 @@ const AdvancedAI = () => {
                         className={`p-3 rounded-lg border cursor-pointer transition-colors ${
                           selectedAssistant === assistant.id
                             ? "border-purple-400 bg-purple-900/20"
-                            : "border-charcoal-light bg-charcoal-light hover:bg-charcoal"
+                            : "border-charcoal-light bg-zinc-900 hover:bg-zinc-900"
                         }`}
                         onClick={() => setSelectedAssistant(assistant.id)}
                       >
@@ -944,7 +944,7 @@ const AdvancedAI = () => {
                             {capability.features.map((feature) => (
                               <Badge
                                 key={feature}
-                                className="bg-charcoal-light text-white text-xs"
+                                className="bg-zinc-900 text-white text-xs"
                               >
                                 {feature}
                               </Badge>
@@ -1079,7 +1079,7 @@ const AdvancedAI = () => {
                     ].map((stage, index) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-3 bg-charcoal-light rounded"
+                        className="flex items-center justify-between p-3 bg-zinc-900 rounded"
                       >
                         <span className="text-white">{stage.stage}</span>
                         <div className="flex items-center gap-2">
@@ -1122,7 +1122,7 @@ const AdvancedAI = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="p-3 bg-charcoal-light rounded">
+                    <div className="p-3 bg-zinc-900 rounded">
                       <div className="flex justify-between items-center">
                         <span className="text-white">Training Loss</span>
                         <span className="text-green-400">0.0234</span>
@@ -1132,7 +1132,7 @@ const AdvancedAI = () => {
                       </div>
                     </div>
 
-                    <div className="p-3 bg-charcoal-light rounded">
+                    <div className="p-3 bg-zinc-900 rounded">
                       <div className="flex justify-between items-center">
                         <span className="text-white">Validation Accuracy</span>
                         <span className="text-blue-400">94.2%</span>
@@ -1142,7 +1142,7 @@ const AdvancedAI = () => {
                       </div>
                     </div>
 
-                    <div className="p-3 bg-charcoal-light rounded">
+                    <div className="p-3 bg-zinc-900 rounded">
                       <div className="flex justify-between items-center">
                         <span className="text-white">Training Samples</span>
                         <span className="text-white">2.3M</span>
@@ -1152,7 +1152,7 @@ const AdvancedAI = () => {
                       </div>
                     </div>
 
-                    <div className="p-3 bg-charcoal-light rounded">
+                    <div className="p-3 bg-zinc-900 rounded">
                       <div className="flex justify-between items-center">
                         <span className="text-white">ETA Completion</span>
                         <span className="text-yellow-400">2.5 hours</span>
