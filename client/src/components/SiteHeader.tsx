@@ -76,7 +76,7 @@ export const SiteHeader = () => {
           </nav>
 
           {/* Auth Section */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="flex items-center space-x-3">
             {loading ? (
               <div className="w-8 h-8 rounded-full bg-zinc-800/50 animate-pulse" />
             ) : isAuthenticated ? (
@@ -147,7 +147,7 @@ export const SiteHeader = () => {
                   Billing
                 </Link>
               )}
-              <div className="px-3 py-2">
+              <div className="px-3 py-2 border-t border-zinc-800/50 mt-2 pt-4">
                 {loading ? (
                   <div className="w-8 h-8 rounded-full bg-zinc-800/50 animate-pulse" />
                 ) : isAuthenticated ? (
