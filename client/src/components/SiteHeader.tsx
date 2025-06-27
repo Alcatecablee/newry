@@ -13,7 +13,7 @@ export const SiteHeader = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header className="relative z-50 w-full border-b border-charcoal-light bg-charcoal/80 backdrop-blur-lg">
+    <header className="relative z-50 w-full border-b border-charcoal-light bg-black/80 backdrop-blur-lg">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
