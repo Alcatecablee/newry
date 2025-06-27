@@ -5,6 +5,7 @@ import { db, isPostgres } from "./db";
 
 import { cliRoutes } from "./routes/cli";
 import { apiDocsRoutes } from "./routes/api-docs";
+import authRoutes from "./routes/auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
@@ -163,6 +164,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
+  // Register authentication routes
+  app.use("/api/auth", authRoutes);
 
   // Register CLI routes
   app.use(cliRoutes);
