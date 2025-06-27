@@ -7,10 +7,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
-  // Add CSP headers to allow Clerk iframe embedding
+  // Add CSP headers to allow Clerk iframe embedding and preserve existing allowed domains
   res.setHeader(
     "Content-Security-Policy",
-    "frame-ancestors 'self' *.clerk.accounts.dev *.clerk.dev; frame-src 'self' *.clerk.accounts.dev *.clerk.dev",
+    "frame-ancestors 'self' *.clerk.accounts.dev *.clerk.dev *.accounts.dev v0.dev vusercontent.net *.vusercontent.net *.vercel.sh lovable.dev lovable.app lovableproject.com webcontainer-api.io; frame-src 'self' *.clerk.accounts.dev *.clerk.dev *.accounts.dev",
   );
 
   const start = Date.now();
