@@ -174,7 +174,7 @@ export function SignInButton() {
   return (
     <Button
       variant="default"
-      className="font-semibold bg-violet-600 hover:bg-violet-700"
+      className="font-semibold"
       onClick={() => setShowModal(true)}
     >
       <LogIn className="w-4 h-4 mr-2" />
