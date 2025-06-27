@@ -5,6 +5,10 @@ import { LogIn } from "lucide-react";
 export function SignInButton() {
   const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
+  // Debug logging
+  console.log("🔑 VITE_CLERK_PUBLISHABLE_KEY:", publishableKey);
+  console.log("🔑 All env vars:", import.meta.env);
+
   // If no Clerk key is available, render a disabled button
   if (!publishableKey) {
     return (
