@@ -268,10 +268,10 @@ const AdvancedAI = () => {
         {
           language: "typescript",
           code: `const OptimizedComponent = React.memo(({ data, onUpdate }) => {
-  const memoizedData = useMemo(() => 
+  const memoizedData = useMemo(() =>
     data.filter(item => item.active), [data]
   );
-  
+
   const handleUpdate = useCallback((id, newValue) => {
     onUpdate(id, newValue);
   }, [onUpdate]);
@@ -279,9 +279,9 @@ const AdvancedAI = () => {
   return (
     <div>
       {memoizedData.map(item => (
-        <Item 
-          key={item.id} 
-          data={item} 
+        <Item
+          key={item.id}
+          data={item}
           onUpdate={handleUpdate}
         />
       ))}
@@ -401,7 +401,7 @@ const AdvancedAI = () => {
   };
 
   return (
-    <div className="min-h-screen bg-charcoal-dark p-6">
+    <div className="min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
