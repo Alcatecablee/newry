@@ -1,32 +1,72 @@
-import { db } from "./db";
-import { 
-  users, 
-  transformations, 
-  payments, 
-  teams, 
-  teamMembers, 
-  teamProjects, 
-  teamActivities,
-  type User, 
-  type InsertUser, 
-  type Transformation,
-  type Team,
-  type TeamMember,
-  type TeamProject,
-  type TeamActivity,
-  type InsertTeam,
-  type InsertTeamMember,
-  type InsertTeamProject
-} from "@shared/schema";
+import { db, isPostgres } from "./db";
 import { eq, desc, and } from "drizzle-orm";
+
+// Import types and schemas based on database type
+let users: any,
+  transformations: any,
+  payments: any,
+  teams: any,
+  teamMembers: any,
+  teamProjects: any,
+  teamActivities: any;
+let User: any,
+  InsertUser: any,
+  Transformation: any,
+  Team: any,
+  TeamMember: any,
+  TeamProject: any,
+  TeamActivity: any;
+let InsertTeam: any, InsertTeamMember: any, InsertTeamProject: any;
+
+if (isPostgres) {
+  const schema = require("@shared/schema");
+  users = schema.users;
+  transformations = schema.transformations;
+  payments = schema.payments;
+  teams = schema.teams;
+  teamMembers = schema.teamMembers;
+  teamProjects = schema.teamProjects;
+  teamActivities = schema.teamActivities;
+  User = schema.User;
+  InsertUser = schema.InsertUser;
+  Transformation = schema.Transformation;
+  Team = schema.Team;
+  TeamMember = schema.TeamMember;
+  TeamProject = schema.TeamProject;
+  TeamActivity = schema.TeamActivity;
+  InsertTeam = schema.InsertTeam;
+  InsertTeamMember = schema.InsertTeamMember;
+  InsertTeamProject = schema.InsertTeamProject;
+} else {
+  const schema = require("@shared/schema-sqlite");
+  users = schema.users;
+  transformations = schema.transformations;
+  payments = schema.payments;
+  teams = schema.teams;
+  teamMembers = schema.teamMembers;
+  teamProjects = schema.teamProjects;
+  teamActivities = schema.teamActivities;
+  User = schema.User;
+  InsertUser = schema.InsertUser;
+  Transformation = schema.Transformation;
+  Team = schema.Team;
+  TeamMember = schema.TeamMember;
+  TeamProject = schema.TeamProject;
+  TeamActivity = schema.TeamActivity;
+  InsertTeam = schema.InsertTeam;
+  InsertTeamMember = schema.InsertTeamMember;
+  InsertTeamProject = schema.InsertTeamProject;
+}
 
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByClerkId(clerkId: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   incrementUsage(clerkId: string): Promise<boolean>;
-  createTransformation(transformation: Omit<Transformation, "id" | "createdAt">): Promise<Transformation>;
-  
+  createTransformation(
+    transformation: Omit<Transformation, "id" | "createdAt">,
+  ): Promise<Transformation>;
+
   // Team methods
   createTeam(team: InsertTeam): Promise<Team>;
   getTeam(id: string): Promise<Team | undefined>;
@@ -36,7 +76,9 @@ export interface IStorage {
   createTeamProject(project: InsertTeamProject): Promise<TeamProject>;
   getTeamProjects(teamId: string): Promise<TeamProject[]>;
   getTeamActivities(teamId: string, limit?: number): Promise<TeamActivity[]>;
-  logTeamActivity(activity: Omit<TeamActivity, "id" | "createdAt">): Promise<TeamActivity>;
+  logTeamActivity(
+    activity: Omit<TeamActivity, "id" | "createdAt">,
+  ): Promise<TeamActivity>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -46,51 +88,109 @@ export class DatabaseStorage implements IStorage {
   private inMemoryActivities: TeamActivity[] = [];
 
   private generateId(): string {
-    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    return (
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15)
+    );
   }
   async getUser(id: string): Promise<User | undefined> {
-    const result = await db.select().from(users).where(eq(users.id, id)).limit(1);
+    const result = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, id))
+      .limit(1);
     return result[0];
   }
 
   async getUserByClerkId(clerkId: string): Promise<User | undefined> {
-    const result = await db.select().from(users).where(eq(users.clerkId, clerkId)).limit(1);
+    const result = await db
+      .select()
+      .from(users)
+      .where(eq(users.clerkId, clerkId))
+      .limit(1);
     return result[0];
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const result = await db.insert(users).values(insertUser).returning();
-    return result[0];
+    const userWithId = {
+      ...insertUser,
+      id: this.generateId(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    if (isPostgres) {
+      const result = await db.insert(users).values(userWithId).returning();
+      return result[0];
+    } else {
+      // For SQLite, we need to insert and then select
+      await db.insert(users).values({
+        ...userWithId,
+        createdAt: Math.floor(userWithId.createdAt.getTime() / 1000),
+        updatedAt: Math.floor(userWithId.updatedAt.getTime() / 1000),
+      });
+      const result = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, userWithId.id))
+        .limit(1);
+      return result[0];
+    }
   }
 
   async incrementUsage(clerkId: string): Promise<boolean> {
     try {
       const user = await this.getUserByClerkId(clerkId);
       if (!user) return false;
-      
+
       const currentUsage = user.monthlyTransformationsUsed || 0;
       const limit = user.monthlyLimit || 10;
-      
+
       if (currentUsage >= limit) {
         return false;
       }
 
-      await db.update(users)
-        .set({ 
+      await db
+        .update(users)
+        .set({
           monthlyTransformationsUsed: currentUsage + 1,
-          updatedAt: new Date()
+          updatedAt: isPostgres ? new Date() : Math.floor(Date.now() / 1000),
         })
         .where(eq(users.clerkId, clerkId));
-      
+
       return true;
     } catch (error) {
       return false;
     }
   }
 
-  async createTransformation(transformation: Omit<Transformation, "id" | "createdAt">): Promise<Transformation> {
-    const result = await db.insert(transformations).values(transformation).returning();
-    return result[0];
+  async createTransformation(
+    transformation: Omit<Transformation, "id" | "createdAt">,
+  ): Promise<Transformation> {
+    const transformationWithId = {
+      ...transformation,
+      id: this.generateId(),
+      createdAt: isPostgres ? new Date() : Math.floor(Date.now() / 1000),
+      layersUsed: isPostgres
+        ? transformation.layersUsed
+        : JSON.stringify(transformation.layersUsed),
+    };
+
+    if (isPostgres) {
+      const result = await db
+        .insert(transformations)
+        .values(transformationWithId)
+        .returning();
+      return result[0];
+    } else {
+      await db.insert(transformations).values(transformationWithId);
+      const result = await db
+        .select()
+        .from(transformations)
+        .where(eq(transformations.id, transformationWithId.id))
+        .limit(1);
+      return result[0];
+    }
   }
 
   // Team methods implementation
@@ -117,28 +217,36 @@ export class DatabaseStorage implements IStorage {
 
   async getTeam(id: string): Promise<Team | undefined> {
     if (db) {
-      const result = await db.select().from(teams).where(eq(teams.id, id)).limit(1);
+      const result = await db
+        .select()
+        .from(teams)
+        .where(eq(teams.id, id))
+        .limit(1);
       return result[0];
     } else {
-      return this.inMemoryTeams.find(t => t.id === id);
+      return this.inMemoryTeams.find((t) => t.id === id);
     }
   }
 
   async getUserTeams(userId: string): Promise<Team[]> {
     if (db) {
       const result = await db
-        .select({ 
-          team: teams 
+        .select({
+          team: teams,
         })
         .from(teams)
         .leftJoin(teamMembers, eq(teams.id, teamMembers.teamId))
         .where(eq(teamMembers.userId, userId));
-      
+
       return result.map((r: any) => r.team);
     } else {
-      const userMemberships = this.inMemoryMembers.filter(m => m.userId === userId);
-      return this.inMemoryTeams.filter(t => 
-        userMemberships.some(m => m.teamId === t.id) || t.ownerId === userId
+      const userMemberships = this.inMemoryMembers.filter(
+        (m) => m.userId === userId,
+      );
+      return this.inMemoryTeams.filter(
+        (t) =>
+          userMemberships.some((m) => m.teamId === t.id) ||
+          t.ownerId === userId,
       );
     }
   }
@@ -162,10 +270,13 @@ export class DatabaseStorage implements IStorage {
 
   async getTeamMembers(teamId: string): Promise<TeamMember[]> {
     if (db) {
-      const result = await db.select().from(teamMembers).where(eq(teamMembers.teamId, teamId));
+      const result = await db
+        .select()
+        .from(teamMembers)
+        .where(eq(teamMembers.teamId, teamId));
       return result;
     } else {
-      return this.inMemoryMembers.filter(m => m.teamId === teamId);
+      return this.inMemoryMembers.filter((m) => m.teamId === teamId);
     }
   }
 
@@ -193,14 +304,20 @@ export class DatabaseStorage implements IStorage {
 
   async getTeamProjects(teamId: string): Promise<TeamProject[]> {
     if (db) {
-      const result = await db.select().from(teamProjects).where(eq(teamProjects.teamId, teamId));
+      const result = await db
+        .select()
+        .from(teamProjects)
+        .where(eq(teamProjects.teamId, teamId));
       return result;
     } else {
-      return this.inMemoryProjects.filter(p => p.teamId === teamId);
+      return this.inMemoryProjects.filter((p) => p.teamId === teamId);
     }
   }
 
-  async getTeamActivities(teamId: string, limit: number = 50): Promise<TeamActivity[]> {
+  async getTeamActivities(
+    teamId: string,
+    limit: number = 50,
+  ): Promise<TeamActivity[]> {
     if (db) {
       const result = await db
         .select()
@@ -211,15 +328,20 @@ export class DatabaseStorage implements IStorage {
       return result;
     } else {
       return this.inMemoryActivities
-        .filter(a => a.teamId === teamId)
+        .filter((a) => a.teamId === teamId)
         .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
         .slice(0, limit);
     }
   }
 
-  async logTeamActivity(activity: Omit<TeamActivity, "id" | "createdAt">): Promise<TeamActivity> {
+  async logTeamActivity(
+    activity: Omit<TeamActivity, "id" | "createdAt">,
+  ): Promise<TeamActivity> {
     if (db) {
-      const result = await db.insert(teamActivities).values(activity).returning();
+      const result = await db
+        .insert(teamActivities)
+        .values(activity)
+        .returning();
       return result[0];
     } else {
       const newActivity: TeamActivity = {
