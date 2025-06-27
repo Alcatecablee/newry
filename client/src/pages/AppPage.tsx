@@ -98,7 +98,7 @@ const AppPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-charcoal-dark">
+    <div className="min-h-screen bg-black">
       {/* Hero Section */}
       <div className="relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
