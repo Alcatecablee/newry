@@ -1,6 +1,6 @@
 import { TestRunner } from "@/components/neurolint/TestRunner";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Brain, TestTube, ArrowLeft } from "lucide-react";
+import { TestTube, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const TestSuite = () => {
@@ -55,7 +55,11 @@ const TestSuite = () => {
           <Card className="w-full bg-zinc-900/80 border-2 border-zinc-700 rounded-3xl backdrop-blur-xl shadow-2xl">
             <CardHeader>
               <CardTitle className="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
-                <Brain className="w-8 h-8 text-white" />
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+                  alt="Logo"
+                  className="w-8 h-8"
+                />
                 <span>NeuroLint</span>
                 <TestTube className="w-6 h-6 text-white" />
                 <span className="font-normal text-xl text-gray-400">
