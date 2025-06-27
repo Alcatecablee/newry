@@ -11,6 +11,7 @@ import {
 } from "@/lib/neurolint/orchestrator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import {
   FileCode,
   Github,
@@ -21,6 +22,7 @@ import {
   Check,
   Clock,
   TrendingUp,
+  ArrowLeft,
 } from "lucide-react";
 import { BetaBanner } from "@/components/BetaBanner";
 
@@ -101,6 +103,23 @@ const AppPage = () => {
       {/* Hero Section */}
       <div className="relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
+          {/* Navigation - small modern buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 justify-between items-center mb-12">
+            <Link
+              to="/"
+              className="px-4 py-2 bg-zinc-900/70 rounded-lg text-sm font-medium backdrop-blur-xl border border-zinc-800 hover:border-zinc-700 transition-all duration-300 flex items-center gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Home
+            </Link>
+
+            <Link
+              to="/test"
+              className="px-4 py-2 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm"
+            >
+              Test Suite
+            </Link>
+          </div>
           <div className="text-center mb-12">
             <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
               Transform your React & TypeScript code with AI-powered precision.
