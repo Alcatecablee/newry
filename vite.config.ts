@@ -30,7 +30,8 @@ export default defineConfig({
   },
   server: {
     hmr: {
-      port: 5000,
+      clientPort: process.env.REPL_ID ? 443 : 5000,
+      host: process.env.REPL_ID ? true : "localhost",
     },
   },
 });

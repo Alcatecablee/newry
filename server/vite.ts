@@ -24,7 +24,7 @@ export async function setupVite(app: Express, server: Server) {
     middlewareMode: true,
     hmr: {
       server,
-      port: 5000,
+      clientPort: process.env.REPL_ID ? 443 : 5000,
     },
     allowedHosts: true,
   };
