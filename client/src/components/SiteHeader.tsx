@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
@@ -9,6 +9,8 @@ import { UserButton } from "@/components/auth/UserButton";
 export const SiteHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated, loading } = useAuth();
+  const location = useLocation();
+  const isAppPage = location.pathname === "/app";
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -17,13 +19,15 @@ export const SiteHeader = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center">
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
-                alt="Logo"
-                className="h-8 w-auto"
-              />
-            </Link>
+            {!isAppPage && (
+              <Link to="/" className="flex items-center">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+                  alt="Logo"
+                  className="h-8 w-auto"
+                />
+              </Link>
+            )}
           </div>
 
           {/* Desktop Navigation */}

@@ -102,17 +102,6 @@ const AppPage = () => {
       <div className="relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
           <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="relative">
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
-                  alt="Logo"
-                  className="w-12 h-12"
-                />
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full animate-pulse"></div>
-              </div>
-              <h1 className="text-4xl font-bold text-white">NeuroLint</h1>
-            </div>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
               Transform your React & TypeScript code with AI-powered precision.
               Six intelligent layers of optimization, from configuration to
@@ -136,24 +125,24 @@ const AppPage = () => {
                   <button
                     key={layer.id}
                     onClick={() => toggleLayer(layer.id)}
-                    className={`group relative p-4 rounded-xl border transition-all duration-200 text-left ${
+                    className={`group relative p-4 rounded-xl border transition-all duration-200 text-left transform active:scale-[0.98] ${
                       isEnabled
-                        ? "bg-zinc-900 border-white/20 shadow-lg"
-                        : "bg-zinc-900 border-zinc-800er hover:border-white/30 hover:bg-zinc-900"
+                        ? "bg-[#292939] border-[#342d66] shadow-lg shadow-purple-900/20"
+                        : "bg-[#1a1b21] border-[#292939] hover:border-[#3a3a45] hover:bg-[#232329]"
                     }`}
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div
-                        className={`flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold ${
+                        className={`flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold transition-all duration-200 ${
                           isEnabled
-                            ? "bg-green-500 text-white"
-                            : "bg-zinc-900er text-zinc-400 group-hover:bg-white/20 group-hover:text-white"
+                            ? "bg-purple-600 text-white border border-purple-500"
+                            : "bg-[#292939] text-gray-400 border border-[#3a3a45] group-hover:bg-[#343445] group-hover:text-gray-300"
                         }`}
                       >
                         {layer.id}
                       </div>
                       <div
-                        className={`transition-opacity ${isEnabled ? "opacity-100" : "opacity-0 group-hover:opacity-50"}`}
+                        className={`transition-all duration-200 ${isEnabled ? "opacity-100" : "opacity-0 group-hover:opacity-50"}`}
                       >
                         <Check className="w-5 h-5 text-white" />
                       </div>
@@ -180,7 +169,7 @@ const AppPage = () => {
                     </p>
 
                     {isEnabled && (
-                      <div className="absolute inset-0 rounded-xl bg-white/5 pointer-events-none"></div>
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-500 rounded-full border-2 border-black" />
                     )}
                   </button>
                 );
