@@ -103,14 +103,20 @@ const AppPage = () => {
 
   return (
     <div className="min-h-screen bg-black">
-      {/* Hero Section */}
-      <div className="relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
-          {/* Navigation - small modern buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-between items-center mb-12">
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-zinc-900/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-zinc-800/20 rounded-full blur-3xl"></div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12">
+          {/* Navigation */}
+          <div className="flex flex-col sm:flex-row gap-3 justify-between items-center mb-8">
             <Link
               to="/"
-              className="px-4 py-2 bg-zinc-900/70 rounded-lg text-sm font-medium backdrop-blur-xl border border-zinc-800 hover:border-zinc-700 transition-all duration-300 flex items-center gap-2"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900/80 rounded-xl text-sm font-medium backdrop-blur-xl border border-zinc-800/50 hover:border-zinc-700 hover:bg-zinc-900 transition-all duration-200"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Home
@@ -118,26 +124,38 @@ const AppPage = () => {
 
             <Link
               to="/test"
-              className="px-4 py-2 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-all duration-300 text-sm"
+              className="inline-flex items-center px-4 py-2 bg-white text-black font-medium rounded-xl hover:bg-gray-100 transition-all duration-200 text-sm shadow-lg"
             >
               Test Suite
             </Link>
           </div>
-          <div className="text-center mb-12">
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-              Transform your React & TypeScript code with AI-powered precision.
-              Six intelligent layers of optimization, from configuration to
-              performance.
-            </p>
+          {/* Intro Section */}
+          <div className="text-center mb-16">
+            <div className="mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+                AI-Powered Code Analysis
+              </h1>
+              <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+                Transform your React & TypeScript code with precision AI
+                analysis. Six intelligent layers of optimization and error
+                detection.
+              </p>
+            </div>
           </div>
 
           {/* Layer Selection */}
-          <div className="mb-12">
-            <div className="flex items-center gap-2 mb-6 justify-center">
-              <Settings className="w-5 h-5 text-gray-400" />
-              <h2 className="text-lg font-semibold text-white">
-                Select Transformation Layers
-              </h2>
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-3 px-4 py-2 bg-zinc-900/50 border border-zinc-800/50 rounded-xl backdrop-blur-sm mb-4">
+                <Settings className="w-5 h-5 text-zinc-400" />
+                <h2 className="text-lg font-semibold text-white">
+                  Select Analysis Layers
+                </h2>
+              </div>
+              <p className="text-sm text-zinc-500 max-w-md mx-auto">
+                Choose which AI layers to run on your code. Each layer targets
+                specific improvements.
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
@@ -200,7 +218,17 @@ const AppPage = () => {
           </div>
 
           {/* Upload Method Selection */}
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-white mb-3">
+                Choose Your Input Method
+              </h3>
+              <p className="text-zinc-400">
+                Upload files, paste code directly, or connect a GitHub
+                repository
+              </p>
+            </div>
+
             <Tabs
               value={mode}
               onValueChange={(value) =>
@@ -208,24 +236,24 @@ const AppPage = () => {
               }
               className="w-full"
             >
-              <TabsList className="inline-flex h-12 items-center justify-center rounded-xl bg-black border border-zinc-800/50 p-1 mx-auto">
+              <TabsList className="inline-flex h-14 items-center justify-center rounded-2xl bg-zinc-900/50 border border-zinc-800/50 p-1.5 mx-auto backdrop-blur-sm">
                 <TabsTrigger
                   value="drop"
-                  className="inline-flex items-center justify-center whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white min-w-[120px] gap-2"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-lg data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white data-[state=inactive]:hover:bg-zinc-800/50 min-w-[140px] gap-2"
                 >
                   <Upload className="w-4 h-4" />
                   <span>Drop Files</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="paste"
-                  className="inline-flex items-center justify-center whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white min-w-[120px] gap-2"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-lg data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white data-[state=inactive]:hover:bg-zinc-800/50 min-w-[140px] gap-2"
                 >
                   <Code className="w-4 h-4" />
                   <span>Paste Code</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="github"
-                  className="inline-flex items-center justify-center whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-sm data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white min-w-[120px] gap-2"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-black data-[state=active]:shadow-lg data-[state=inactive]:text-zinc-400 data-[state=inactive]:hover:text-white data-[state=inactive]:hover:bg-zinc-800/50 min-w-[140px] gap-2"
                 >
                   <Github className="w-4 h-4" />
                   <span>GitHub Repo</span>
@@ -233,9 +261,9 @@ const AppPage = () => {
               </TabsList>
 
               {/* Tab Content */}
-              <div className="mt-8 space-y-8">
+              <div className="mt-12 space-y-12">
                 <TabsContent value="drop" className="space-y-8">
-                  <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
+                  <div className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
                     <DropFileZone
                       onFile={handleFileUpload}
                       processing={processing}
@@ -244,7 +272,7 @@ const AppPage = () => {
                 </TabsContent>
 
                 <TabsContent value="paste" className="space-y-8">
-                  <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
+                  <div className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
                     <PasteCodeZone
                       onFile={handleFileUpload}
                       processing={processing}
@@ -253,12 +281,12 @@ const AppPage = () => {
                 </TabsContent>
 
                 <TabsContent value="github" className="space-y-8">
-                  <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
+                  <div className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
                     <GitHubUpload onRepoUpload={handleRepoUpload} />
                   </div>
 
                   {repoFiles.length > 0 && (
-                    <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
+                    <div className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
                       <RepoProcessor
                         files={repoFiles}
                         enabledLayers={enabledLayers}
@@ -270,61 +298,81 @@ const AppPage = () => {
 
                 {/* Processing Indicator */}
                 {processing && (
-                  <div className="flex items-center justify-center gap-3 py-8">
+                  <div className="flex flex-col items-center justify-center gap-4 py-12 px-6 bg-zinc-900/40 border border-zinc-800/50 rounded-3xl backdrop-blur-sm">
                     <div className="relative">
-                      <div className="w-8 h-8 border-4 border-zinc-800er border-t-white rounded-full animate-spin"></div>
-                      <Sparkles className="absolute inset-0 w-4 h-4 m-auto text-white animate-pulse" />
+                      <div className="w-12 h-12 border-4 border-zinc-700 border-t-white rounded-full animate-spin"></div>
+                      <Sparkles className="absolute inset-0 w-6 h-6 m-auto text-white animate-pulse" />
                     </div>
-                    <span className="text-zinc-400 font-medium">
-                      Transforming with {enabledLayers.length} selected
-                      layers...
-                    </span>
+                    <div className="text-center">
+                      <div className="text-white font-semibold text-lg mb-1">
+                        AI Analysis in Progress
+                      </div>
+                      <span className="text-zinc-400 font-medium">
+                        Running {enabledLayers.length} intelligent layer
+                        {enabledLayers.length !== 1 ? "s" : ""}...
+                      </span>
+                    </div>
                   </div>
                 )}
 
                 {/* Stats Cards */}
                 {stats && (
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="bg-zinc-900 border border-zinc-800er rounded-xl p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <TrendingUp className="w-5 h-5 text-white" />
-                        <span className="text-zinc-400 font-medium">
-                          Changes
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div className="bg-zinc-900/50 border border-zinc-800/50 rounded-2xl p-6 backdrop-blur-sm">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="p-2 bg-green-500/20 rounded-xl">
+                          <TrendingUp className="w-5 h-5 text-green-400" />
+                        </div>
+                        <span className="text-zinc-300 font-semibold">
+                          Changes Applied
                         </span>
                       </div>
-                      <div className="text-2xl font-bold text-white">
+                      <div className="text-3xl font-bold text-white mb-1">
                         {stats.totalChanges}
+                      </div>
+                      <div className="text-sm text-zinc-500">
+                        improvements made
                       </div>
                     </div>
 
-                    <div className="bg-zinc-900 border border-zinc-800er rounded-xl p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Clock className="w-5 h-5 text-white" />
-                        <span className="text-zinc-400 font-medium">
+                    <div className="bg-zinc-900/50 border border-zinc-800/50 rounded-2xl p-6 backdrop-blur-sm">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="p-2 bg-blue-500/20 rounded-xl">
+                          <Clock className="w-5 h-5 text-blue-400" />
+                        </div>
+                        <span className="text-zinc-300 font-semibold">
                           Processing Time
                         </span>
                       </div>
-                      <div className="text-2xl font-bold text-white">
+                      <div className="text-3xl font-bold text-white mb-1">
                         {stats.totalTime}ms
+                      </div>
+                      <div className="text-sm text-zinc-500">
+                        analysis duration
                       </div>
                     </div>
 
-                    <div className="bg-zinc-900 border border-zinc-800er rounded-xl p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Zap className="w-5 h-5 text-white" />
-                        <span className="text-zinc-400 font-medium">
+                    <div className="bg-zinc-900/50 border border-zinc-800/50 rounded-2xl p-6 backdrop-blur-sm">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="p-2 bg-purple-500/20 rounded-xl">
+                          <Zap className="w-5 h-5 text-purple-400" />
+                        </div>
+                        <span className="text-zinc-300 font-semibold">
                           Success Rate
                         </span>
                       </div>
-                      <div className="text-2xl font-bold text-white">
+                      <div className="text-3xl font-bold text-white mb-1">
                         {stats.successfulLayers}/{enabledLayers.length}
+                      </div>
+                      <div className="text-sm text-zinc-500">
+                        layers completed
                       </div>
                     </div>
                   </div>
                 )}
 
                 {/* Code Diff Viewer */}
-                <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl overflow-hidden">
+                <div className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl overflow-hidden backdrop-blur-sm shadow-2xl">
                   <CodeDiffViewer
                     original={originalCode}
                     transformed={transformedCode}
@@ -334,7 +382,7 @@ const AppPage = () => {
 
                 {/* Transformation Insights */}
                 {insights.length > 0 && (
-                  <div className="bg-zinc-900/30 border border-zinc-800er rounded-2xl p-6">
+                  <div className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
                     <TransformationInsights insights={insights} />
                   </div>
                 )}
