@@ -7,7 +7,7 @@ export function BetaBanner() {
   if (!isVisible) return null;
 
   return (
-    <div className="w-full bg-gradient-to-r from-zinc-900 to-black border-b border-zinc-700/50 px-4 py-3 relative backdrop-blur-sm">
+    <div className="w-full bg-zinc-900 border-b border-zinc-700/50 px-4 py-3 relative backdrop-blur-sm">
       <div className="max-w-7xl mx-auto flex items-center justify-center">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-3 py-1 bg-zinc-800/80 rounded-full">
