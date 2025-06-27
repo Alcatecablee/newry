@@ -130,6 +130,9 @@ const AppPage = () => {
               Test Suite
             </Link>
           </div>
+
+          <AuthTest />
+
           {/* Intro Section */}
           <div className="text-center mb-16">
             <div className="mb-6">
