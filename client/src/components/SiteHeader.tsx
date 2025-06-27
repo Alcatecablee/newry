@@ -31,24 +31,15 @@ export const SiteHeader = () => {
             >
               App
             </Link>
-            <Link
-              to="/team"
-              className="text-charcoal-lighter hover:text-white transition-colors"
+            <span
+              className="text-charcoal-lighter/50 cursor-not-allowed"
+              title="Coming Soon"
             >
-              Team
-            </Link>
-            <Link
-              to="/docs"
-              className="text-charcoal-lighter hover:text-white transition-colors"
-            >
-              Docs
-            </Link>
-            <Link
-              to="/pricing"
-              className="text-charcoal-lighter hover:text-white transition-colors"
-            >
-              Pricing
-            </Link>
+              Teams
+              <span className="ml-2 text-xs bg-charcoal-lighter/20 px-2 py-1 rounded">
+                Soon
+              </span>
+            </span>
             <Link
               to="/test"
               className="text-charcoal-lighter hover:text-white transition-colors"
@@ -104,20 +95,12 @@ export const SiteHeader = () => {
               >
                 App
               </Link>
-              <Link
-                to="/docs"
-                className="block px-3 py-2 text-charcoal-lighter hover:text-white transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Docs
-              </Link>
-              <Link
-                to="/pricing"
-                className="block px-3 py-2 text-charcoal-lighter hover:text-white transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Pricing
-              </Link>
+              <div className="block px-3 py-2 text-charcoal-lighter/50">
+                Teams
+                <span className="ml-2 text-xs bg-charcoal-lighter/20 px-2 py-1 rounded">
+                  Soon
+                </span>
+              </div>
               <Link
                 to="/test"
                 className="block px-3 py-2 text-charcoal-lighter hover:text-white transition-colors"
