@@ -202,6 +202,44 @@ router.get("/usage", authenticateToken, async (req, res) => {
   }
 });
 
+// Increment user usage
+router.post("/increment-usage", authenticateToken, async (req, res) => {
+  try {
+    const userId = (req as any).user.userId;
+
+    // Get current user
+    const users = await db
+      .select()
+      .from(schema.users)
+      .where(eq(schema.users.id, userId))
+      .limit(1);
+
+    if (users.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const user = users[0];
+
+    // Check if user has reached limit
+    if (user.monthlyTransformationsUsed >= user.monthlyLimit) {
+      return res.status(403).json({ error: "Monthly limit reached" });
+    }
+
+    // Increment usage
+    await db
+      .update(schema.users)
+      .set({
+        monthlyTransformationsUsed: user.monthlyTransformationsUsed + 1,
+      })
+      .where(eq(schema.users.id, userId));
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Increment usage error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // Middleware to authenticate JWT token
 function authenticateToken(req: any, res: any, next: any) {
   const authHeader = req.headers["authorization"];
