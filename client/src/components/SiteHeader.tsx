@@ -19,7 +19,7 @@ export const SiteHeader = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2Fe9d55c0111a24a3cb62ca69c490bd870?format=webp&width=800"
+                src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
                 alt="Logo"
                 className="h-8 w-auto"
               />

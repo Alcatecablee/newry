@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 
 export function LandingHeader() {
@@ -7,8 +6,8 @@ export function LandingHeader() {
       {/* Brand with uploaded logo */}
       <a href="/" className="flex items-center gap-2">
         <img
-          src="/lovable-uploads/e4414bf6-9b0f-4b32-812b-7ae83d8c6a85.png"
-          alt="NeuroLint logo"
+          src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+          alt="Logo"
           className="w-9 h-9 sm:w-10 sm:h-10"
           draggable={false}
           loading="eager"
@@ -49,9 +48,7 @@ export function LandingHeader() {
         className="ml-2"
         tabIndex={-1}
       >
-        <Button className="bg-zinc-900">
-          Get Involved
-        </Button>
+        <Button className="bg-zinc-900">Get Involved</Button>
       </a>
     </header>
   );
