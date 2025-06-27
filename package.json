@@ -12,6 +12,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
+    "db:sqlite:generate": "drizzle-kit generate --config=drizzle.config.sqlite.ts",
+    "db:sqlite:studio": "drizzle-kit studio --config=drizzle.config.sqlite.ts",
+    "db:init": "mkdir -p data && touch data/neurolint.db",
     "setup": "npm install && echo 'Setup complete! Copy .env.example to .env and configure your environment variables.'"
   },
   "dependencies": {
@@ -49,9 +52,7 @@
     "@radix-ui/react-tooltip": "^1.2.0",
     "@supabase/supabase-js": "^2.50.1",
     "@tanstack/react-query": "^5.60.5",
-    "@types/better-sqlite3": "^7.6.13",
     "@types/pg": "^8.15.4",
-    "better-sqlite3": "^12.1.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

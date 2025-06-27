@@ -27,17 +27,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Test database connection with a simple query
+      let testResult;
       if (isPostgres) {
-        await db.execute("SELECT 1");
+        testResult = await db.execute("SELECT 1");
       } else {
         // For SQLite, test by counting users table
-        await db.select().from(db.users).limit(1);
+        const schema = require("../shared/schema-sqlite");
+        testResult = await db.select().from(schema.users).limit(1);
       }
 
       res.json({
         status: "connected",
         type: isPostgres ? "postgresql" : "sqlite",
         timestamp: new Date().toISOString(),
+        test_successful: true,
       });
     } catch (error: any) {
       console.error("Database test failed:", error);
@@ -45,6 +48,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
         error: "Database connection failed",
         message: error.message,
         status: "error",
+      });
+    }
+  });
+
+  // Database info endpoint
+  app.get("/api/db/info", async (req, res) => {
+    try {
+      if (!db) {
+        return res.json({
+          status: "disconnected",
+          type: "none",
+          location: "in-memory",
+        });
+      }
+
+      const dbType = isPostgres ? "postgresql" : "sqlite";
+      const location = isPostgres ? "remote" : "./data/neurolint.db";
+
+      // Get table counts
+      let stats = {};
+      try {
+        if (isPostgres) {
+          // PostgreSQL stats would go here
+          stats = { message: "PostgreSQL connected" };
+        } else {
+          // SQLite stats
+          const schema = require("../shared/schema-sqlite");
+          const userCount = await db.select().from(schema.users).all();
+          const transformationCount = await db
+            .select()
+            .from(schema.transformations)
+            .all();
+
+          stats = {
+            users: userCount.length,
+            transformations: transformationCount.length,
+            tables_initialized: true,
+          };
+        }
+      } catch (statError) {
+        stats = { error: "Could not retrieve stats" };
+      }
+
+      res.json({
+        status: "connected",
+        type: dbType,
+        location,
+        stats,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        error: "Database info failed",
+        message: error.message,
       });
     }
   });
