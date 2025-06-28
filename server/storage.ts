@@ -83,23 +83,19 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const userWithId = {
-      ...insertUser,
-      id: this.generateId(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-
     if (isPostgres) {
-      const result = await db.insert(users).values(userWithId).returning();
+      // For Postgres, let the database generate the UUID and timestamps
+      const result = await db.insert(users).values(insertUser).returning();
       return result[0];
     } else {
-      // For SQLite, we need to insert and then select
-      await db.insert(users).values({
-        ...userWithId,
-        createdAt: Math.floor(userWithId.createdAt.getTime() / 1000),
-        updatedAt: Math.floor(userWithId.updatedAt.getTime() / 1000),
-      });
+      // For SQLite, we need to generate ID and handle timestamps
+      const userWithId = {
+        ...insertUser,
+        id: this.generateId(),
+        createdAt: Math.floor(Date.now() / 1000),
+        updatedAt: Math.floor(Date.now() / 1000),
+      };
+      await db.insert(users).values(userWithId);
       const result = await db
         .select()
         .from(users)
