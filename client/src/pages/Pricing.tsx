@@ -105,7 +105,7 @@ const Pricing = () => {
                       >
                         <PlanIcon
                           className={`w-8 h-8 ${
-                            plan.popular ? "text-purple-400" : "text-zinc-400"
+                            plan.popular ? "text-white" : "text-zinc-400"
                           }`}
                         />
                       </div>
