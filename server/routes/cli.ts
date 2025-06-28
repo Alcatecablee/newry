@@ -47,17 +47,18 @@ router.post("/api/transform", async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Code content is required" });
     }
 
-    // Temporary mock response until orchestrator is fixed for server-side
+    // TODO: Implement real code transformation using orchestrator
     const result = {
-      transformed: code, // Return original code for now
+      transformed: code, // Return original code until transformation is implemented
       layers: layers.map((layerId: number) => ({
         id: layerId,
         name: `Layer ${layerId}`,
-        status: "success",
+        status: "not_implemented",
         changes: 0,
+        error: "Transformation not yet implemented",
       })),
       performance: {
-        totalTime: 500,
+        totalTime: 0,
       },
     };
 
