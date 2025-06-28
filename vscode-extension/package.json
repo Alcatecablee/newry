@@ -21,7 +21,8 @@
     "linting",
     "rule-based",
     "code analysis",
-    "transformation"
+    "transformation",
+    "enterprise"
   ],
   "activationEvents": [
     "onLanguage:typescript",
@@ -87,6 +88,31 @@
         "command": "neurolint.login",
         "title": "Login to NeuroLint",
         "category": "NeuroLint"
+      },
+      {
+        "command": "neurolint.enterprise.dashboard",
+        "title": "Open Enterprise Dashboard",
+        "category": "NeuroLint Enterprise"
+      },
+      {
+        "command": "neurolint.enterprise.analytics",
+        "title": "View Analytics",
+        "category": "NeuroLint Enterprise"
+      },
+      {
+        "command": "neurolint.enterprise.team",
+        "title": "Manage Team",
+        "category": "NeuroLint Enterprise"
+      },
+      {
+        "command": "neurolint.enterprise.compliance",
+        "title": "Compliance Report",
+        "category": "NeuroLint Enterprise"
+      },
+      {
+        "command": "neurolint.enterprise.audit",
+        "title": "Audit Trail",
+        "category": "NeuroLint Enterprise"
       }
     ],
     "menus": {
@@ -122,6 +148,26 @@
         {
           "command": "neurolint.fixFile",
           "when": "editorLangId =~ /^(typescript|javascript|typescriptreact|javascriptreact)$/"
+        },
+        {
+          "command": "neurolint.enterprise.dashboard",
+          "when": "config.neurolint.enterpriseFeatures.enabled"
+        },
+        {
+          "command": "neurolint.enterprise.analytics",
+          "when": "config.neurolint.enterpriseFeatures.enabled"
+        },
+        {
+          "command": "neurolint.enterprise.team",
+          "when": "config.neurolint.enterpriseFeatures.enabled"
+        },
+        {
+          "command": "neurolint.enterprise.compliance",
+          "when": "config.neurolint.enterpriseFeatures.complianceMode"
+        },
+        {
+          "command": "neurolint.enterprise.audit",
+          "when": "config.neurolint.enterpriseFeatures.auditLogging"
         }
       ]
     },
@@ -177,6 +223,68 @@
           "type": "number",
           "default": 30000,
           "description": "Request timeout in milliseconds"
+        },
+        "neurolint.enterpriseFeatures.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable enterprise features"
+        },
+        "neurolint.enterpriseFeatures.teamId": {
+          "type": "string",
+          "default": "",
+          "description": "Enterprise team ID"
+        },
+        "neurolint.enterpriseFeatures.ssoEnabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable Single Sign-On"
+        },
+        "neurolint.enterpriseFeatures.auditLogging": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable audit logging for compliance"
+        },
+        "neurolint.enterpriseFeatures.complianceMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable compliance mode (SOC2, GDPR, ISO27001)"
+        },
+        "neurolint.workspace.excludePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "**/node_modules/**",
+            "**/dist/**",
+            "**/build/**",
+            "**/.next/**",
+            "**/coverage/**"
+          ],
+          "description": "File patterns to exclude from analysis"
+        },
+        "neurolint.workspace.includePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "**/*.ts",
+            "**/*.tsx",
+            "**/*.js",
+            "**/*.jsx"
+          ],
+          "description": "File patterns to include in analysis"
+        },
+        "neurolint.workspace.maxFileSize": {
+          "type": "number",
+          "default": 10485760,
+          "description": "Maximum file size to analyze (in bytes)"
+        },
+        "neurolint.workspace.maxFiles": {
+          "type": "number",
+          "default": 1000,
+          "description": "Maximum number of files to analyze in workspace"
         }
       }
     },
@@ -197,7 +305,26 @@
           "icon": "$(search)"
         }
       ]
-    }
+    },
+    "keybindings": [
+      {
+        "command": "neurolint.analyzeFile",
+        "key": "ctrl+shift+l",
+        "mac": "cmd+shift+l",
+        "when": "editorTextFocus && editorLangId =~ /^(typescript|javascript|typescriptreact|javascriptreact)$/"
+      },
+      {
+        "command": "neurolint.fixFile",
+        "key": "ctrl+shift+f",
+        "mac": "cmd+shift+f",
+        "when": "editorTextFocus && editorLangId =~ /^(typescript|javascript|typescriptreact|javascriptreact)$/"
+      },
+      {
+        "command": "neurolint.analyzeWorkspace",
+        "key": "ctrl+shift+w",
+        "mac": "cmd+shift+w"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
