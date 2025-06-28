@@ -143,7 +143,8 @@ export const TechnologySection: React.FC = () => {
             <p className="text-zinc-400 max-w-3xl mx-auto leading-relaxed">
               NeuroLint uses sophisticated rule-based transformations and AST
               parsing to deliver reliable code improvements. Currently in beta
-              with advanced architecture ready for future enhancements.
+              with AI-ready architecture. AI integration planned for future
+              releases.
             </p>
           </div>
         </div>
