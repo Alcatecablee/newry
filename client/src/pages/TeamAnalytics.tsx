@@ -90,23 +90,8 @@ const TeamAnalytics = () => {
     velocity: analyticsData.velocity,
     collaboration: analyticsData.collaboration,
     bugRate: analyticsData.bugRate,
-    },
-    techDebt: {
-      current: 23,
-      previous: 28,
-      change: -17.9,
-      trend: "up", // down is good for tech debt
-      target: 20,
-      projection: 19,
-    },
-    innovation: {
-      current: 78,
-      previous: 72,
-      change: 8.3,
-      trend: "up",
-      target: 80,
-      projection: 82,
-    },
+    techDebt: analyticsData.techDebt,
+    innovation: analyticsData.innovation,
   };
 
   const teamHealthScore: TeamHealthScore = {
