@@ -36,7 +36,7 @@ export const transformations = sqliteTable("transformations", {
 export const usageAnalytics = sqliteTable("usage_analytics", {
   id: text("id").primaryKey(),
   userId: text("user_id").references(() => users.id, { onDelete: "cascade" }),
-  date: integer("date", { mode: "timestamp" }),
+  date: integer("date"),
   transformationsCount: integer("transformations_count").default(0),
   totalExecutionTimeMs: integer("total_execution_time_ms").default(0),
 });
