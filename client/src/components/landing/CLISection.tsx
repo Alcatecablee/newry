@@ -33,9 +33,9 @@ export function CLISection() {
                 <Terminal className="w-4 h-4" />
                 <span>Terminal</span>
                 <div className="flex gap-1 ml-auto">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-zinc-600 rounded-full"></div>
+                  <div className="w-3 h-3 bg-zinc-600 rounded-full"></div>
+                  <div className="w-3 h-3 bg-zinc-600 rounded-full"></div>
                 </div>
               </div>
               <div className="font-mono text-sm space-y-2">
