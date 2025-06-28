@@ -246,32 +246,30 @@ export async function fixCommand(files: string[], options: FixOptions) {
     await progress.complete(true);
 
     // Display results
-    console.log(chalk.green("\n✅ Fix Operation Complete!\n"));
+    console.log(chalk.white("\nFix Operation Complete\n"));
 
     const successful = results.filter((r) => r.success);
     const failed = results.filter((r) => !r.success);
     const withChanges = results.filter((r) => r.hasChanges);
 
     if (options.dryRun) {
-      console.log(chalk.blue("📋 Dry Run Results:"));
+      console.log(chalk.white("Dry Run Results:"));
       withChanges.forEach((result) => {
-        console.log(`${chalk.yellow("~")} ${result.file} - Would be modified`);
+        console.log(`CHANGE ${result.file} - Would be modified`);
       });
     } else {
-      console.log(chalk.blue("📝 Fixed Files:"));
+      console.log(chalk.white("Fixed Files:"));
       fixedFiles.forEach((file) => {
-        console.log(`${chalk.green("✓")} ${file}`);
+        console.log(`PASS ${file}`);
       });
     }
 
     // Summary statistics
-    console.log(chalk.blue("\n📊 Summary:"));
-    console.log(
-      `${chalk.green("✓")} Successfully processed: ${successful.length}`,
-    );
-    console.log(`${chalk.blue("~")} Files with changes: ${withChanges.length}`);
+    console.log(chalk.white("\nSummary:"));
+    console.log(`Successfully processed: ${successful.length}`);
+    console.log(`Files with changes: ${withChanges.length}`);
     if (failed.length > 0) {
-      console.log(`${chalk.red("✗")} Failed: ${failed.length}`);
+      console.log(`Failed: ${failed.length}`);
     }
 
     // Show layer performance
@@ -291,10 +289,10 @@ export async function fixCommand(files: string[], options: FixOptions) {
         }
       });
 
-      console.log(chalk.blue("\n🎯 Layer Applications:"));
+      console.log(chalk.white("\nLayer Applications:"));
       Object.entries(layerStats).forEach(([layerId, stats]: [string, any]) => {
         console.log(
-          `Layer ${layerId}: ${chalk.green(`${stats.applied}/${stats.total}`)} files modified`,
+          `Layer ${layerId}: ${stats.applied}/${stats.total} files modified`,
         );
       });
     }
@@ -312,7 +310,7 @@ export async function fixCommand(files: string[], options: FixOptions) {
       ]);
 
       if (runAnalysis) {
-        console.log(chalk.blue("\n🔍 Running verification analysis...\n"));
+        console.log(chalk.white("\nRunning verification analysis...\n"));
         const { analyzeCommand } = await import("./analyze");
         await analyzeCommand(fixedFiles, {
           layers: options.layers,
