@@ -57,11 +57,11 @@ function formatSummary(results: any[]) {
   const successful = results.filter((r) => r.success);
   const failed = results.filter((r) => !r.success);
 
-  console.log(chalk.blue("\n📊 Analysis Summary\n"));
-  console.log(`${chalk.green("Files processed:")} ${results.length}`);
-  console.log(`${chalk.green("Successful:")} ${successful.length}`);
+  console.log(chalk.white("\nAnalysis Summary\n"));
+  console.log(chalk.white(`Files processed: ${results.length}`));
+  console.log(chalk.white(`Successful: ${successful.length}`));
   if (failed.length > 0) {
-    console.log(`${chalk.red("Failed:")} ${failed.length}`);
+    console.log(chalk.white(`Failed: ${failed.length}`));
   }
 
   if (successful.length > 0) {
