@@ -656,7 +656,9 @@ ${suggestions.join("\n")}`);
 
       if (error instanceof Error) {
         errorMessage = error.message;
-        isRateLimit = errorMessage.includes("rate limit");
+        isRateLimit =
+          errorMessage.includes("rate limit") ||
+          errorMessage.includes("Rate limit");
       } else if (typeof error === "object" && error !== null) {
         errorMessage =
           "Network error or repository access issue. Please check your connection and try again.";
