@@ -55,7 +55,6 @@ async function createSampleData(sqlite: Database.Database) {
 
       // Sample data creation skipped - all data will be created via Supabase authentication
       // Teams and transformations will be created when users sign up through Supabase
-        );
 
       console.log("✅ Sample data created successfully");
       console.log("   📧 Authentication: Sign up with Supabase");
