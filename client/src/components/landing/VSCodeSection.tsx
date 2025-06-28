@@ -167,7 +167,7 @@ export function VSCodeSection() {
                 <div className="text-gray-400">Active Installs</div>
               </div>
               <div>
-                <div className="flex items-center justify-center gap-2 text-3xl font-bold text-yellow-400 mb-2">
+                <div className="flex items-center justify-center gap-2 text-3xl font-bold text-zinc-400 mb-2">
                   4.9 <Star className="w-6 h-6 fill-current" />
                 </div>
                 <div className="text-gray-400">Marketplace Rating</div>
