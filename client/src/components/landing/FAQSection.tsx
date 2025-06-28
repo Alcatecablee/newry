@@ -222,8 +222,9 @@ export const FAQSection: React.FC = () => {
             </h2>
 
             <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
-              Get answers to common questions about NeuroLint's advanced code
+              Get answers to common questions about NeuroLint's rule-based code
               analysis, integrations, pricing, and enterprise features.
+              Currently in beta with AI integration planned for future releases.
             </p>
           </div>
 
