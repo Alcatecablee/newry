@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { useTeams, useTeam, useTeamAnalytics } from "@/hooks/useTeams";
 import { NeuroLintOrchestrator } from "@/lib/neurolint/orchestrator";
 import { NeuroLintLayerResult } from "@/lib/neurolint/types";
+import { PageHeader } from "@/components/PageHeader";
 import {
   TrendingUp,
   TrendingDown,
