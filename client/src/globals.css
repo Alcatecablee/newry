@@ -122,17 +122,58 @@ html {
   background: #444;
 }
 
+/* Enhanced focus indicators */
+*:focus-visible {
+  outline: 2px solid rgb(113 113 122);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .card {
+    border-width: 2px;
+  }
+
+  button:focus,
+  a:focus,
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: 3px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+/* Touch target sizing for mobile */
+@media (pointer: coarse) {
+  button,
+  .btn,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
 /* Global button styles */
 .btn {
-  @apply px-4 py-2 rounded-xl font-medium transition-all duration-300;
+  @apply px-4 py-2 rounded-xl font-medium transition-all duration-300 ease-out;
 }
 
 .btn-primary {
-  @apply bg-black text-white border border-zinc-800 hover:bg-white hover:text-black;
+  @apply bg-black text-white border border-zinc-800 hover:bg-white hover:text-black transform hover:scale-105 active:scale-95;
 }
 
 .btn-secondary {
-  @apply bg-zinc-900 text-white border border-zinc-800 hover:bg-white hover:text-black;
+  @apply bg-zinc-900 text-white border border-zinc-800 hover:bg-white hover:text-black transform hover:scale-105 active:scale-95;
 }
 
 /* Card styles */
