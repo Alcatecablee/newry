@@ -354,12 +354,12 @@ export default function Index() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
-              Command Line Interface
+              Enterprise CLI Tool
             </h2>
             <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
-              Integrate NeuroLint into your development workflow with our
-              powerful CLI tool. Perfect for CI/CD pipelines and automated code
-              quality checks.
+              Production-ready command line interface with robust error
+              handling, progress tracking, and enterprise-grade reliability.
+              Built for professional development workflows and CI/CD pipelines.
             </p>
           </div>
 
