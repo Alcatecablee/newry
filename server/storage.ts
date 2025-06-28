@@ -248,7 +248,6 @@ export class DatabaseStorage implements IStorage {
         ...member,
         id: this.generateId(),
         role: member.role || "developer",
-        joinedAt: isPostgres ? new Date() : Math.floor(Date.now() / 1000),
       };
 
       if (isPostgres) {
