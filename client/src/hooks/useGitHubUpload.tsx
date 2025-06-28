@@ -220,6 +220,9 @@ export function useGitHubUpload() {
     setUploadStatus({ total: 0, processed: 0, files: [] });
 
     try {
+      // First validate the repository exists and is accessible
+      await validateRepository(repoInfo.owner, repoInfo.repo);
+
       const initialContents = await fetchRepoContents(
         repoInfo.owner,
         repoInfo.repo,
