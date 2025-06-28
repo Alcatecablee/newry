@@ -135,7 +135,7 @@ npm run fix layer 3
 
           {/* Example Fixes */}
           <h3 className="font-semibold text-lg mt-6 mb-1">
-            🛠️ Example Fixes (See It Work!)
+            Example Fixes (See It Work!)
           </h3>
           <ul className="list-disc ml-5 text-sm mb-2">
             <li>
