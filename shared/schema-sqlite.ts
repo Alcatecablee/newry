@@ -30,7 +30,7 @@ export const transformations = sqliteTable("transformations", {
   errorMessage: text("error_message"),
   isGuest: integer("is_guest", { mode: "boolean" }).default(false),
   guestSessionId: text("guest_session_id"),
-  createdAt: integer("created_at", { mode: "timestamp" }),
+  createdAt: integer("created_at"),
 });
 
 export const usageAnalytics = sqliteTable("usage_analytics", {
