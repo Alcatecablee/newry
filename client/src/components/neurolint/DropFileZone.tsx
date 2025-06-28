@@ -256,7 +256,7 @@ export function DropFileZone({ onFile, processing }: DropFileZoneProps) {
               <div className="w-16 h-16 bg-[#292939] rounded-2xl flex items-center justify-center border border-[#342d66]">
                 <FileCode className="w-8 h-8 text-white" />
               </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-purple-500 rounded-full border-2 border-black" />
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-zinc-500 rounded-full border-2 border-black" />
             </div>
           )}
 
