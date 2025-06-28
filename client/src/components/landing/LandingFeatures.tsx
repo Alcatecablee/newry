@@ -172,10 +172,10 @@ export function LandingFeatures() {
         </div>
 
         {/* Differentiators */}
-        <h3 className="text-xl font-semibold text-purple-200 mb-2 mt-4 flex items-center gap-2">
+        <h3 className="text-xl font-semibold text-zinc-200 mb-2 mt-4 flex items-center gap-2">
           <Zap className="w-5 h-5" /> What makes NeuroLint different?
         </h3>
-        <ul className="ml-5 list-disc space-y-1 text-sm text-purple-100">
+        <ul className="ml-5 list-disc space-y-1 text-sm text-zinc-100">
           <li>
             <b>
               All 6 code-fixing layers are production-ready and powerful
