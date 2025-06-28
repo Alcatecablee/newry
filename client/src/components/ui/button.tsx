@@ -41,17 +41,58 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  loading?: boolean;
+  loadingText?: string;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      size,
+      asChild = false,
+      loading = false,
+      loadingText,
+      children,
+      disabled,
+      ...props
+    },
+    ref,
+  ) => {
     const Comp = asChild ? Slot : "button";
+
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          buttonVariants({ variant, size }),
+          loading && "cursor-wait",
+          className,
+        )}
         ref={ref}
+        disabled={disabled || loading}
+        aria-disabled={disabled || loading}
         {...props}
-      />
+      >
+        {loading ? (
+          <>
+            <div
+              className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"
+              aria-hidden="true"
+            />
+            <span>{loadingText || "Loading..."}</span>
+            <span className="sr-only">Please wait</span>
+          </>
+        ) : (
+          children
+        )}
+
+        {/* Subtle shine effect on hover */}
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out pointer-events-none"
+          aria-hidden="true"
+        />
+      </Comp>
     );
   },
 );
