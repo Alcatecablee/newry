@@ -319,6 +319,89 @@ const LiveCodeSessions = () => {
             </Card>
           </div>
 
+          {/* NeuroLint Layers Panel */}
+          <div className="lg:col-span-1">
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <Layers className="w-5 h-5 text-blue-400" />
+                  NeuroLint Layers
+                  {isAnalyzing && (
+                    <Badge className="bg-blue-900 text-blue-200 animate-pulse">
+                      Analyzing
+                    </Badge>
+                  )}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {layerAnalysis.map((layer) => (
+                    <div
+                      key={layer.layerId}
+                      className="p-3 bg-zinc-800 rounded-lg border-l-4 border-l-zinc-600"
+                      style={{
+                        borderLeftColor:
+                          layer.status === "success"
+                            ? "#10b981"
+                            : layer.status === "error"
+                              ? "#ef4444"
+                              : layer.status === "running"
+                                ? "#3b82f6"
+                                : "#6b7280",
+                      }}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-white font-medium text-sm">
+                          Layer {layer.layerId}: {layer.name}
+                        </span>
+                        <div className="flex items-center gap-1">
+                          {layer.status === "success" && (
+                            <CheckCircle className="w-4 h-4 text-green-400" />
+                          )}
+                          {layer.status === "error" && (
+                            <AlertCircle className="w-4 h-4 text-red-400" />
+                          )}
+                          {layer.status === "running" && (
+                            <div className="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" />
+                          )}
+                        </div>
+                      </div>
+                      {layer.result && (
+                        <div className="space-y-1">
+                          <p className="text-zinc-400 text-xs">
+                            {layer.result.description || layer.result.message}
+                          </p>
+                          {layer.result.changeCount &&
+                            layer.result.changeCount > 0 && (
+                              <Badge className="text-xs bg-green-900 text-green-200">
+                                {layer.result.changeCount} improvements
+                              </Badge>
+                            )}
+                          {layer.result.executionTime && (
+                            <span className="text-zinc-500 text-xs">
+                              {layer.result.executionTime}ms
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 pt-3 border-t border-zinc-700">
+                  <Button
+                    size="sm"
+                    onClick={() => runLayerAnalysis(currentCode)}
+                    disabled={isAnalyzing || !currentCode.trim()}
+                    className="w-full bg-blue-600 hover:bg-blue-700"
+                  >
+                    <Zap className="w-4 h-4 mr-2" />
+                    {isAnalyzing ? "Analyzing..." : "Run Analysis"}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           {/* Main Session Area */}
           <div className="lg:col-span-2">
             {selectedSession ? (
