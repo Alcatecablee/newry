@@ -11,6 +11,11 @@ import {
   Shield,
   Clock,
   RefreshCw,
+  Users,
+  BarChart3,
+  Webhook,
+  Key,
+  FileText,
 } from "lucide-react";
 
 export function CLISection() {
@@ -46,51 +51,40 @@ export function CLISection() {
                   $ npm install -g @neurolint/cli
                 </div>
                 <div className="text-gray-400">Installing NeuroLint CLI...</div>
-                <div className="text-white">$ neurolint login</div>
-                <div className="text-white">NeuroLint Authentication</div>
-                <div className="text-gray-300">Authentication successful</div>
-                <div className="text-white">$ neurolint init</div>
+                <div className="text-white">$ neurolint login --enterprise</div>
                 <div className="text-white">NeuroLint CLI</div>
                 <div className="text-gray-300">
-                  Configuration created successfully
+                  Enterprise authentication required.
                 </div>
-                <div className="text-white">$ neurolint analyze src/</div>
+                <div className="text-gray-300">Authentication successful</div>
+                <div className="text-white">$ neurolint enterprise</div>
+                <div className="text-white">NeuroLint Enterprise Features</div>
                 <div className="text-gray-300">
-                  Discovering and validating files...
-                </div>
-                <div className="text-gray-300">
-                  Found 47 valid files to analyze
-                </div>
-                <div className="text-gray-300">
-                  Analysis (35/47) 74.5% - ETA: 12s
+                  neurolint team - Team management
                 </div>
                 <div className="text-gray-300">
-                  PASS Layer 1: Configuration Validation
+                  neurolint analytics - Analytics and reporting
                 </div>
                 <div className="text-gray-300">
-                  PASS Layer 2: Pattern & Entity Fixes
+                  neurolint webhook - Webhook management
                 </div>
                 <div className="text-gray-300">
-                  PASS Layer 3: Component Best Practices
+                  neurolint sso - Single Sign-On
                 </div>
                 <div className="text-gray-300">
-                  PASS Layer 4: Hydration & SSR Guard
+                  neurolint audit - Audit trail and compliance
                 </div>
-                <div className="text-white">Analysis Complete</div>
-                <div className="text-white">Successfully analyzed: 45</div>
-                <div className="text-white">Failed: 2</div>
-                <div className="text-white">
-                  $ neurolint fix --backup --dry-run
-                </div>
+                <div className="text-white">$ neurolint team --list</div>
+                <div className="text-white">Teams:</div>
+                <div className="text-gray-300">Development Team (team-123)</div>
+                <div className="text-gray-300"> Members: 12</div>
+                <div className="text-gray-300"> SSO: Enabled</div>
+                <div className="text-white">$ neurolint analytics --export</div>
+                <div className="text-gray-300">Fetching analytics data...</div>
                 <div className="text-gray-300">
-                  DRY RUN MODE - Preview changes:
+                  Analytics exported to: analytics-2024-01-15.json
                 </div>
-                <div className="text-gray-300">
-                  src/components/Header.tsx - Would be modified
-                </div>
-                <div className="text-gray-300">
-                  src/utils/helpers.ts - Would be modified
-                </div>
+                <div className="text-gray-300">Format: JSON</div>
                 <div className="text-white animate-pulse">█</div>
               </div>
             </div>
@@ -100,61 +94,62 @@ export function CLISection() {
           <div className="order-1 lg:order-2 space-y-8">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 bg-zinc-800 border border-zinc-700 rounded-lg flex items-center justify-center">
-                <Zap className="w-6 h-6 text-white" />
+                <Users className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">
-                  Production-Ready Reliability
+                  Team Management
                 </h3>
                 <p className="text-gray-400">
-                  Robust error handling, automatic retry logic, and progress
-                  tracking with resumption capabilities for interrupted
-                  operations.
+                  Complete team collaboration with member management, role-based
+                  access control, and invitation workflows for enterprise teams.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 bg-zinc-800 border border-zinc-700 rounded-lg flex items-center justify-center">
-                <GitBranch className="w-6 h-6 text-white" />
+                <BarChart3 className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">
-                  Enterprise Authentication
+                  Analytics & Reporting
                 </h3>
                 <p className="text-gray-400">
-                  Secure API key management with built-in authentication
-                  validation and session management for team environments.
+                  Executive dashboards, compliance reports, and data export in
+                  multiple formats with real-time metrics and business insights.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 bg-zinc-800 border border-zinc-700 rounded-lg flex items-center justify-center">
-                <Code className="w-6 h-6 text-white" />
+                <Key className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">
-                  Advanced Input Validation
+                  SSO Integration
                 </h3>
                 <p className="text-gray-400">
-                  Comprehensive file validation, size limits, and pattern
-                  matching with detailed error reporting for safer operations.
+                  Enterprise SSO with SAML, OIDC, and OAuth2 support for
+                  seamless authentication integration with your existing
+                  identity systems.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 bg-zinc-800 border border-zinc-700 rounded-lg flex items-center justify-center">
-                <CheckCircle2 className="w-6 h-6 text-white" />
+                <FileText className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">
-                  Data Protection
+                  Audit & Compliance
                 </h3>
                 <p className="text-gray-400">
-                  Automatic backup creation, atomic file operations, and
-                  rollback capabilities ensure your code is never at risk.
+                  Complete audit trails, SOC2/GDPR/ISO27001 compliance
+                  reporting, and security monitoring for enterprise governance
+                  requirements.
                 </p>
               </div>
             </div>
@@ -180,27 +175,27 @@ export function CLISection() {
               <div className="w-8 h-8 bg-zinc-800 border border-zinc-700 rounded flex items-center justify-center mb-3">
                 <Shield className="w-4 h-4 text-white" />
               </div>
-              <h4 className="font-semibold mb-2 text-white">Authenticate</h4>
+              <h4 className="font-semibold mb-2 text-white">Enterprise Auth</h4>
               <code className="text-sm text-white bg-gray-900/50 px-3 py-1 rounded">
-                neurolint login
+                neurolint login --enterprise
               </code>
             </div>
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
               <div className="w-8 h-8 bg-zinc-800 border border-zinc-700 rounded flex items-center justify-center mb-3">
-                <Settings className="w-4 h-4 text-white" />
+                <Users className="w-4 h-4 text-white" />
               </div>
-              <h4 className="font-semibold mb-2 text-white">Configure</h4>
+              <h4 className="font-semibold mb-2 text-white">Team Setup</h4>
               <code className="text-sm text-white bg-gray-900/50 px-3 py-1 rounded">
-                neurolint init
+                neurolint team --create
               </code>
             </div>
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
               <div className="w-8 h-8 bg-zinc-800 border border-zinc-700 rounded flex items-center justify-center mb-3">
-                <Play className="w-4 h-4 text-white" />
+                <BarChart3 className="w-4 h-4 text-white" />
               </div>
-              <h4 className="font-semibold mb-2 text-white">Analyze</h4>
+              <h4 className="font-semibold mb-2 text-white">Analytics</h4>
               <code className="text-sm text-white bg-gray-900/50 px-3 py-1 rounded">
-                neurolint analyze src/
+                neurolint analytics --export
               </code>
             </div>
           </div>
@@ -208,36 +203,61 @@ export function CLISection() {
           {/* Advanced Commands */}
           <div className="mt-12">
             <h4 className="text-lg font-semibold mb-6 text-white">
-              Advanced Operations
+              Enterprise Operations
             </h4>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
               <div className="bg-gray-800/30 border border-gray-700 rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <CheckCircle2 className="w-4 h-4 text-white" />
-                  <span className="text-white font-medium">Safe Fixes</span>
+                  <Webhook className="w-4 h-4 text-white" />
+                  <span className="text-white font-medium">Webhook Setup</span>
                 </div>
                 <code className="text-xs text-gray-300 bg-gray-900/50 px-2 py-1 rounded">
-                  neurolint fix --backup --dry-run
+                  neurolint webhook --create --url api.com
                 </code>
               </div>
               <div className="bg-gray-800/30 border border-gray-700 rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <Clock className="w-4 h-4 text-white" />
-                  <span className="text-white font-medium">Status Check</span>
+                  <Key className="w-4 h-4 text-white" />
+                  <span className="text-white font-medium">SSO Config</span>
                 </div>
                 <code className="text-xs text-gray-300 bg-gray-900/50 px-2 py-1 rounded">
-                  neurolint status --detailed
+                  neurolint sso --setup saml --domain org.com
                 </code>
               </div>
               <div className="bg-gray-800/30 border border-gray-700 rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <RefreshCw className="w-4 h-4 text-white" />
-                  <span className="text-white font-medium">
-                    Resume Operations
-                  </span>
+                  <FileText className="w-4 h-4 text-white" />
+                  <span className="text-white font-medium">Audit Reports</span>
                 </div>
                 <code className="text-xs text-gray-300 bg-gray-900/50 px-2 py-1 rounded">
-                  neurolint fix src/ # Auto-resumes
+                  neurolint audit --compliance soc2
+                </code>
+              </div>
+              <div className="bg-gray-800/30 border border-gray-700 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Users className="w-4 h-4 text-white" />
+                  <span className="text-white font-medium">Team Invite</span>
+                </div>
+                <code className="text-xs text-gray-300 bg-gray-900/50 px-2 py-1 rounded">
+                  neurolint team --invite user@org.com
+                </code>
+              </div>
+              <div className="bg-gray-800/30 border border-gray-700 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <BarChart3 className="w-4 h-4 text-white" />
+                  <span className="text-white font-medium">Dashboard</span>
+                </div>
+                <code className="text-xs text-gray-300 bg-gray-900/50 px-2 py-1 rounded">
+                  neurolint analytics --dashboard
+                </code>
+              </div>
+              <div className="bg-gray-800/30 border border-gray-700 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Shield className="w-4 h-4 text-white" />
+                  <span className="text-white font-medium">Security Audit</span>
+                </div>
+                <code className="text-xs text-gray-300 bg-gray-900/50 px-2 py-1 rounded">
+                  neurolint audit --trail --days 30
                 </code>
               </div>
             </div>
