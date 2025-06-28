@@ -142,23 +142,29 @@ export function CLISection() {
           </h3>
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
-              <div className="text-3xl mb-3">📦</div>
+              <div className="w-8 h-8 bg-zinc-800 border border-zinc-700 rounded flex items-center justify-center mb-3">
+                <Download className="w-4 h-4 text-white" />
+              </div>
               <h4 className="font-semibold mb-2 text-white">Install</h4>
-              <code className="text-sm text-green-400 bg-gray-900/50 px-3 py-1 rounded">
+              <code className="text-sm text-white bg-gray-900/50 px-3 py-1 rounded">
                 npm install -g @neurolint/cli
               </code>
             </div>
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
-              <div className="text-3xl mb-3">⚙️</div>
+              <div className="w-8 h-8 bg-zinc-800 border border-zinc-700 rounded flex items-center justify-center mb-3">
+                <Settings className="w-4 h-4 text-white" />
+              </div>
               <h4 className="font-semibold mb-2 text-white">Configure</h4>
-              <code className="text-sm text-blue-400 bg-gray-900/50 px-3 py-1 rounded">
+              <code className="text-sm text-white bg-gray-900/50 px-3 py-1 rounded">
                 neurolint init
               </code>
             </div>
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
-              <div className="text-3xl mb-3">🚀</div>
+              <div className="w-8 h-8 bg-zinc-800 border border-zinc-700 rounded flex items-center justify-center mb-3">
+                <Play className="w-4 h-4 text-white" />
+              </div>
               <h4 className="font-semibold mb-2 text-white">Analyze</h4>
-              <code className="text-sm text-purple-400 bg-gray-900/50 px-3 py-1 rounded">
+              <code className="text-sm text-white bg-gray-900/50 px-3 py-1 rounded">
                 neurolint analyze src/
               </code>
             </div>
