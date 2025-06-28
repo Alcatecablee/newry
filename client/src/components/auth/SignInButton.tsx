@@ -19,6 +19,60 @@ export function SignInButton() {
   const firstInputRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
+  // Modal management with animations
+  const openModal = () => {
+    setShowModal(true);
+    setTimeout(() => setIsModalVisible(true), 10);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setTimeout(() => {
+      setShowModal(false);
+      document.body.style.overflow = "unset";
+      triggerRef.current?.focus();
+    }, 200);
+    resetForm();
+  };
+
+  // Focus management
+  useEffect(() => {
+    if (showModal && isModalVisible) {
+      firstInputRef.current?.focus();
+    }
+  }, [showModal, isModalVisible, mode]);
+
+  // Escape key handling
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && showModal) {
+        closeModal();
+      }
+    };
+
+    if (showModal) {
+      document.addEventListener("keydown", handleEscape);
+    }
+
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [showModal]);
+
+  // Click outside handling
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        closeModal();
+      }
+    };
+
+    if (showModal) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showModal]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -33,10 +87,7 @@ export function SignInButton() {
       }
 
       if (result.success) {
-        setShowModal(false);
-        setEmail("");
-        setPassword("");
-        setFullName("");
+        closeModal();
       } else {
         setError(result.error || "Authentication failed");
       }
@@ -53,6 +104,7 @@ export function SignInButton() {
     setFullName("");
     setError("");
     setLoading(false);
+    setShowPassword(false);
   };
 
   const switchMode = () => {
