@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
-  // Remove default CSP and X-Frame-Options headers that might block Clerk
+  // Remove default CSP and X-Frame-Options headers
   res.removeHeader("Content-Security-Policy");
   res.removeHeader("X-Frame-Options");
   res.setHeader("X-Frame-Options", "ALLOWALL");
