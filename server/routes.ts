@@ -7,6 +7,7 @@ import { cliRoutes } from "./routes/cli";
 import { apiDocsRoutes } from "./routes/api-docs";
 import teamRoutes from "./routes/teams";
 import supabaseTestRoutes from "./routes/supabase-test";
+import enterpriseRoutes from "./routes/enterprise";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
