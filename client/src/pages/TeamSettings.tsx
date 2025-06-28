@@ -248,7 +248,7 @@ const TeamSettings = () => {
         badge="Team Configuration"
         actionButton={{
           label: "Try NeuroLint",
-          href: "/app"
+          href: "/app",
         }}
       />
 
@@ -262,498 +262,513 @@ const TeamSettings = () => {
             </Button>
           </div>
 
-        <Tabs defaultValue="general" className="space-y-6">
-          <TabsList className="bg-zinc-900 border-zinc-800er">
-            <TabsTrigger
-              value="general"
-              className="data-[state=active]:bg-white data-[state=active]:text-black"
-            >
-              <Settings className="w-4 h-4 mr-2" />
-              General
-            </TabsTrigger>
-            <TabsTrigger
-              value="members"
-              className="data-[state=active]:bg-white data-[state=active]:text-black"
-            >
-              <Users className="w-4 h-4 mr-2" />
-              Members & Roles
-            </TabsTrigger>
-            <TabsTrigger
-              value="rules"
-              className="data-[state=active]:bg-white data-[state=active]:text-black"
-            >
-              <Code className="w-4 h-4 mr-2" />
-              Custom Rules
-            </TabsTrigger>
-            <TabsTrigger
-              value="notifications"
-              className="data-[state=active]:bg-white data-[state=active]:text-black"
-            >
-              <Bell className="w-4 h-4 mr-2" />
-              Notifications
-            </TabsTrigger>
-            <TabsTrigger
-              value="security"
-              className="data-[state=active]:bg-white data-[state=active]:text-black"
-            >
-              <Shield className="w-4 h-4 mr-2" />
-              Security
-            </TabsTrigger>
-          </TabsList>
+          <Tabs defaultValue="general" className="space-y-6">
+            <TabsList className="bg-zinc-900 border-zinc-800er">
+              <TabsTrigger
+                value="general"
+                className="data-[state=active]:bg-white data-[state=active]:text-black"
+              >
+                <Settings className="w-4 h-4 mr-2" />
+                General
+              </TabsTrigger>
+              <TabsTrigger
+                value="members"
+                className="data-[state=active]:bg-white data-[state=active]:text-black"
+              >
+                <Users className="w-4 h-4 mr-2" />
+                Members & Roles
+              </TabsTrigger>
+              <TabsTrigger
+                value="rules"
+                className="data-[state=active]:bg-white data-[state=active]:text-black"
+              >
+                <Code className="w-4 h-4 mr-2" />
+                Custom Rules
+              </TabsTrigger>
+              <TabsTrigger
+                value="notifications"
+                className="data-[state=active]:bg-white data-[state=active]:text-black"
+              >
+                <Bell className="w-4 h-4 mr-2" />
+                Notifications
+              </TabsTrigger>
+              <TabsTrigger
+                value="security"
+                className="data-[state=active]:bg-white data-[state=active]:text-black"
+              >
+                <Shield className="w-4 h-4 mr-2" />
+                Security
+              </TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="general" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Team Information</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Label htmlFor="teamName">Team Name</Label>
-                  <Input
-                    id="teamName"
-                    value={teamName}
-                    onChange={(e) => setTeamName(e.target.value)}
-                    className="bg-zinc-900 border-zinc-800 text-white"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <TabsContent value="general" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Team Information</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
                   <div>
-                    <Label>Plan</Label>
-                    <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg mt-1">
-                      <span className="text-white">
-                        {teamData?.plan || "Loading..."}
-                      </span>
-                      <Badge className="bg-zinc-800 text-white">Active</Badge>
+                    <Label htmlFor="teamName">Team Name</Label>
+                    <Input
+                      id="teamName"
+                      value={teamName}
+                      onChange={(e) => setTeamName(e.target.value)}
+                      className="bg-zinc-900 border-zinc-800 text-white"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label>Plan</Label>
+                      <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg mt-1">
+                        <span className="text-white">
+                          {teamData?.plan || "Loading..."}
+                        </span>
+                        <Badge className="bg-zinc-800 text-white">Active</Badge>
+                      </div>
+                    </div>
+                    <div>
+                      <Label>Usage This Month</Label>
+                      <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg mt-1">
+                        <span className="text-white">
+                          {teamData?.usage
+                            ? `${teamData.usage.current} / ${teamData.usage.limit} fixes`
+                            : "Loading..."}
+                        </span>
+                        <span className="text-zinc-400">
+                          {teamData?.usage
+                            ? `${Math.round((teamData.usage.current / teamData.usage.limit) * 100)}%`
+                            : ""}
+                        </span>
+                      </div>
                     </div>
                   </div>
+
                   <div>
-                    <Label>Usage This Month</Label>
-                    <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg mt-1">
-                      <span className="text-white">
-                        {teamData?.usage
-                          ? `${teamData.usage.current} / ${teamData.usage.limit} fixes`
-                          : "Loading..."}
-                      </span>
-                      <span className="text-zinc-400">
-                        {teamData?.usage
-                          ? `${Math.round((teamData.usage.current / teamData.usage.limit) * 100)}%`
-                          : ""}
-                      </span>
+                    <Label>Default Layers</Label>
+                    <div className="flex items-center gap-2 mt-2">
+                      {(teamData?.defaultLayers || []).map((layer) => (
+                        <Badge key={layer} className="bg-zinc-900 text-white">
+                          Layer {layer}
+                        </Badge>
+                      ))}
+                      {(!teamData?.defaultLayers ||
+                        teamData.defaultLayers.length === 0) && (
+                        <span className="text-zinc-400">
+                          No default layers configured
+                        </span>
+                      )}
                     </div>
                   </div>
-                </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
 
-                <div>
-                  <Label>Default Layers</Label>
-                  <div className="flex items-center gap-2 mt-2">
-                    {(teamData?.defaultLayers || []).map((layer) => (
-                      <Badge key={layer} className="bg-zinc-900 text-white">
-                        Layer {layer}
-                      </Badge>
-                    ))}
-                    {(!teamData?.defaultLayers ||
-                      teamData.defaultLayers.length === 0) && (
-                      <span className="text-zinc-400">
-                        No default layers configured
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+            <TabsContent value="members" className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-white">
+                  Team Members
+                </h2>
+                <Button onClick={handleInviteMember} variant="primary">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Invite Member
+                </Button>
+              </div>
 
-          <TabsContent value="members" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-white">Team Members</h2>
-              <Button onClick={handleInviteMember} variant="primary">
-                <Plus className="w-4 h-4 mr-2" />
-                Invite Member
-              </Button>
-            </div>
-
-            <Card>
-              <CardContent className="p-0">
-                {loading ? (
-                  <div className="p-4 text-zinc-400">Loading members...</div>
-                ) : members.length === 0 ? (
-                  <div className="p-4 text-zinc-400">No team members found</div>
-                ) : (
-                  <div className="space-y-0">
-                    {members.map((member, index) => (
-                      <div
-                        key={member.id}
-                        className={`flex items-center justify-between p-4 ${index !== members.length - 1 ? "border-b border-zinc-800" : ""}`}
-                      >
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center text-white font-medium">
-                              {member.name
-                                .split(" ")
-                                .map((n) => n[0])
-                                .join("")}
+              <Card>
+                <CardContent className="p-0">
+                  {loading ? (
+                    <div className="p-4 text-zinc-400">Loading members...</div>
+                  ) : members.length === 0 ? (
+                    <div className="p-4 text-zinc-400">
+                      No team members found
+                    </div>
+                  ) : (
+                    <div className="space-y-0">
+                      {members.map((member, index) => (
+                        <div
+                          key={member.id}
+                          className={`flex items-center justify-between p-4 ${index !== members.length - 1 ? "border-b border-zinc-800" : ""}`}
+                        >
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center text-white font-medium">
+                                {member.name
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
+                              </div>
+                              <div>
+                                <p className="text-white font-medium">
+                                  {member.name}
+                                </p>
+                                <p className="text-zinc-400 text-sm">
+                                  {member.email}
+                                </p>
+                              </div>
                             </div>
-                            <div>
-                              <p className="text-white font-medium">
-                                {member.name}
-                              </p>
+                          </div>
+
+                          <div className="flex items-center gap-4">
+                            <Badge className={getRoleColor(member.role)}>
+                              {member.role}
+                            </Badge>
+
+                            <div className="text-right">
                               <p className="text-zinc-400 text-sm">
-                                {member.email}
+                                Last active
                               </p>
+                              <p className="text-white text-sm">
+                                {member.lastActive}
+                              </p>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              <Button variant="ghost" size="sm">
+                                <Edit className="w-4 h-4" />
+                              </Button>
+                              {member.role !== "Owner" && (
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => handleRemoveMember(member.id)}
+                                  className="text-red-400 hover:text-red-300"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              )}
                             </div>
                           </div>
                         </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
 
-                        <div className="flex items-center gap-4">
-                          <Badge className={getRoleColor(member.role)}>
-                            {member.role}
-                          </Badge>
+              {/* Role Permissions Matrix */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Role Permissions</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {loading ? (
+                    <div className="text-zinc-400">Loading permissions...</div>
+                  ) : (
+                    <div className="space-y-4">
+                      {Object.entries(rolePermissions).length > 0 ? (
+                        Object.entries(rolePermissions).map(
+                          ([role, permissions]) => (
+                            <div
+                              key={role}
+                              className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
+                            >
+                              <Badge className={getRoleColor(role)}>
+                                {role}
+                              </Badge>
+                              <div className="flex items-center gap-2">
+                                {permissions.includes("all") ? (
+                                  <Badge className="bg-zinc-800 text-white">
+                                    All Permissions
+                                  </Badge>
+                                ) : (
+                                  permissions.map((perm) => (
+                                    <Badge
+                                      key={perm}
+                                      className="bg-zinc-900 text-zinc-400"
+                                    >
+                                      {perm.replace("-", " ")}
+                                    </Badge>
+                                  ))
+                                )}
+                              </div>
+                            </div>
+                          ),
+                        )
+                      ) : (
+                        <div className="text-zinc-400">
+                          No role permissions configured
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
 
-                          <div className="text-right">
-                            <p className="text-zinc-400 text-sm">Last active</p>
-                            <p className="text-white text-sm">
-                              {member.lastActive}
+            <TabsContent value="rules" className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-white">
+                  Custom Rules
+                </h2>
+                <Button variant="primary">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Create Rule
+                </Button>
+              </div>
+
+              <div className="space-y-4">
+                {loading ? (
+                  <div className="text-zinc-400">Loading custom rules...</div>
+                ) : customRules.length === 0 ? (
+                  <div className="text-zinc-400">
+                    No custom rules configured
+                  </div>
+                ) : (
+                  customRules.map((rule) => (
+                    <Card key={rule.id}>
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3">
+                              <h3 className="text-white font-medium">
+                                {rule.name}
+                              </h3>
+                              <Switch
+                                checked={rule.active}
+                                onCheckedChange={() =>
+                                  handleToggleRule(rule.id)
+                                }
+                              />
+                            </div>
+                            <p className="text-zinc-400 text-sm mt-1">
+                              {rule.description}
+                            </p>
+
+                            <div className="flex items-center gap-4 mt-3">
+                              <div className="flex items-center gap-1">
+                                <span className="text-zinc-400 text-xs">
+                                  Layers:
+                                </span>
+                                {rule.layers.map((layer) => (
+                                  <Badge
+                                    key={layer}
+                                    className="bg-zinc-900 text-white text-xs"
+                                  >
+                                    {layer}
+                                  </Badge>
+                                ))}
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <span className="text-zinc-400 text-xs">
+                                  Files:
+                                </span>
+                                {rule.conditions.map((condition) => (
+                                  <Badge
+                                    key={condition}
+                                    className="bg-zinc-900 text-white text-xs"
+                                  >
+                                    {condition}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+
+                            <p className="text-zinc-400 text-xs mt-2">
+                              Created by {rule.createdBy} on {rule.createdAt}
                             </p>
                           </div>
 
                           <div className="flex items-center gap-2">
                             <Button variant="ghost" size="sm">
+                              <Copy className="w-4 h-4" />
+                            </Button>
+                            <Button variant="ghost" size="sm">
                               <Edit className="w-4 h-4" />
                             </Button>
-                            {member.role !== "Owner" && (
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => handleRemoveMember(member.id)}
-                                className="text-red-400 hover:text-red-300"
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
-                            )}
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-red-400 hover:text-red-300"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
+                      </CardContent>
+                    </Card>
+                  ))
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </TabsContent>
 
-            {/* Role Permissions Matrix */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Role Permissions</CardTitle>
-              </CardHeader>
-              <CardContent>
-                {loading ? (
-                  <div className="text-zinc-400">Loading permissions...</div>
-                ) : (
-                  <div className="space-y-4">
-                    {Object.entries(rolePermissions).length > 0 ? (
-                      Object.entries(rolePermissions).map(
-                        ([role, permissions]) => (
-                          <div
-                            key={role}
-                            className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
-                          >
-                            <Badge className={getRoleColor(role)}>{role}</Badge>
-                            <div className="flex items-center gap-2">
-                              {permissions.includes("all") ? (
-                                <Badge className="bg-zinc-800 text-white">
-                                  All Permissions
-                                </Badge>
-                              ) : (
-                                permissions.map((perm) => (
-                                  <Badge
-                                    key={perm}
-                                    className="bg-zinc-900 text-zinc-400"
-                                  >
-                                    {perm.replace("-", " ")}
-                                  </Badge>
-                                ))
-                              )}
-                            </div>
-                          </div>
-                        ),
-                      )
-                    ) : (
+            <TabsContent value="notifications" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Slack Integration</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <Label htmlFor="slackWebhook">Webhook URL</Label>
+                    <Input
+                      id="slackWebhook"
+                      value={notifications.slackWebhook}
+                      onChange={(e) =>
+                        setNotifications({
+                          ...notifications,
+                          slackWebhook: e.target.value,
+                        })
+                      }
+                      className="bg-zinc-900 border-zinc-800 text-white"
+                      placeholder="https://hooks.slack.com/services/..."
+                    />
+                  </div>
+                  <Button variant="outline" size="sm">
+                    Test Connection
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Alert Preferences</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>Email Alerts</Label>
+                      <p className="text-zinc-400 text-sm">
+                        Receive email notifications for important events
+                      </p>
+                    </div>
+                    <Switch
+                      checked={notifications.emailAlerts}
+                      onCheckedChange={async (checked) => {
+                        const updated = {
+                          ...notifications,
+                          emailAlerts: checked,
+                        };
+                        setNotifications(updated);
+                        await updateNotificationSettings(updated);
+                      }}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>Transformation Failures</Label>
+                      <p className="text-zinc-400 text-sm">
+                        Get notified when fixes fail
+                      </p>
+                    </div>
+                    <Switch
+                      checked={notifications.failureAlerts}
+                      onCheckedChange={async (checked) => {
+                        const updated = {
+                          ...notifications,
+                          failureAlerts: checked,
+                        };
+                        setNotifications(updated);
+                        await updateNotificationSettings(updated);
+                      }}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>Success Summary</Label>
+                      <p className="text-zinc-400 text-sm">
+                        Daily summary of successful fixes
+                      </p>
+                    </div>
+                    <Switch
+                      checked={notifications.successSummary}
+                      onCheckedChange={async (checked) => {
+                        const updated = {
+                          ...notifications,
+                          successSummary: checked,
+                        };
+                        setNotifications(updated);
+                        await updateNotificationSettings(updated);
+                      }}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>Weekly Reports</Label>
+                      <p className="text-zinc-400 text-sm">
+                        Weekly team performance reports
+                      </p>
+                    </div>
+                    <Switch
+                      checked={notifications.weeklyReport}
+                      onCheckedChange={async (checked) => {
+                        const updated = {
+                          ...notifications,
+                          weeklyReport: checked,
+                        };
+                        setNotifications(updated);
+                        await updateNotificationSettings(updated);
+                      }}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="security" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Lock className="w-5 h-5" />
+                    Security Settings
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="p-4 bg-yellow-900/20 border border-yellow-800 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Zap className="w-5 h-5 text-yellow-400" />
+                      <span className="text-yellow-400 font-medium">
+                        Enterprise Feature
+                      </span>
+                    </div>
+                    <p className="text-zinc-400 text-sm">
+                      SSO/SAML integration, audit logs, and VPC deployment are
+                      available in our Enterprise tier.
+                    </p>
+                    <Button variant="outline" size="sm" className="mt-3">
+                      Upgrade to Enterprise
+                    </Button>
+                  </div>
+
+                  <div className="space-y-3">
+                    {loading ? (
                       <div className="text-zinc-400">
-                        No role permissions configured
+                        Loading security settings...
                       </div>
+                    ) : (
+                      <>
+                        <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
+                          <span className="text-white">
+                            Two-Factor Authentication
+                          </span>
+                          <Badge className="bg-zinc-800 text-white">
+                            Contact Support
+                          </Badge>
+                        </div>
+
+                        <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
+                          <span className="text-white">Session Timeout</span>
+                          <span className="text-zinc-400">
+                            Configure in Enterprise
+                          </span>
+                        </div>
+
+                        <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
+                          <span className="text-white">IP Allowlist</span>
+                          <Badge className="bg-zinc-800 text-white">
+                            Enterprise Feature
+                          </Badge>
+                        </div>
+                      </>
                     )}
                   </div>
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="rules" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-white">Custom Rules</h2>
-              <Button variant="primary">
-                <Plus className="w-4 h-4 mr-2" />
-                Create Rule
-              </Button>
-            </div>
-
-            <div className="space-y-4">
-              {loading ? (
-                <div className="text-zinc-400">Loading custom rules...</div>
-              ) : customRules.length === 0 ? (
-                <div className="text-zinc-400">No custom rules configured</div>
-              ) : (
-                customRules.map((rule) => (
-                  <Card key={rule.id}>
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3">
-                            <h3 className="text-white font-medium">
-                              {rule.name}
-                            </h3>
-                            <Switch
-                              checked={rule.active}
-                              onCheckedChange={() => handleToggleRule(rule.id)}
-                            />
-                          </div>
-                          <p className="text-zinc-400 text-sm mt-1">
-                            {rule.description}
-                          </p>
-
-                          <div className="flex items-center gap-4 mt-3">
-                            <div className="flex items-center gap-1">
-                              <span className="text-zinc-400 text-xs">
-                                Layers:
-                              </span>
-                              {rule.layers.map((layer) => (
-                                <Badge
-                                  key={layer}
-                                  className="bg-zinc-900 text-white text-xs"
-                                >
-                                  {layer}
-                                </Badge>
-                              ))}
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <span className="text-zinc-400 text-xs">
-                                Files:
-                              </span>
-                              {rule.conditions.map((condition) => (
-                                <Badge
-                                  key={condition}
-                                  className="bg-zinc-900 text-white text-xs"
-                                >
-                                  {condition}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-
-                          <p className="text-zinc-400 text-xs mt-2">
-                            Created by {rule.createdBy} on {rule.createdAt}
-                          </p>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                          <Button variant="ghost" size="sm">
-                            <Copy className="w-4 h-4" />
-                          </Button>
-                          <Button variant="ghost" size="sm">
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-red-400 hover:text-red-300"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
-              )}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="notifications" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Slack Integration</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Label htmlFor="slackWebhook">Webhook URL</Label>
-                  <Input
-                    id="slackWebhook"
-                    value={notifications.slackWebhook}
-                    onChange={(e) =>
-                      setNotifications({
-                        ...notifications,
-                        slackWebhook: e.target.value,
-                      })
-                    }
-                    className="bg-zinc-900 border-zinc-800 text-white"
-                    placeholder="https://hooks.slack.com/services/..."
-                  />
-                </div>
-                <Button variant="outline" size="sm">
-                  Test Connection
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Alert Preferences</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <Label>Email Alerts</Label>
-                    <p className="text-zinc-400 text-sm">
-                      Receive email notifications for important events
-                    </p>
-                  </div>
-                  <Switch
-                    checked={notifications.emailAlerts}
-                    onCheckedChange={async (checked) => {
-                      const updated = {
-                        ...notifications,
-                        emailAlerts: checked,
-                      };
-                      setNotifications(updated);
-                      await updateNotificationSettings(updated);
-                    }}
-                  />
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <Label>Transformation Failures</Label>
-                    <p className="text-zinc-400 text-sm">
-                      Get notified when fixes fail
-                    </p>
-                  </div>
-                  <Switch
-                    checked={notifications.failureAlerts}
-                    onCheckedChange={async (checked) => {
-                      const updated = {
-                        ...notifications,
-                        failureAlerts: checked,
-                      };
-                      setNotifications(updated);
-                      await updateNotificationSettings(updated);
-                    }}
-                  />
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <Label>Success Summary</Label>
-                    <p className="text-zinc-400 text-sm">
-                      Daily summary of successful fixes
-                    </p>
-                  </div>
-                  <Switch
-                    checked={notifications.successSummary}
-                    onCheckedChange={async (checked) => {
-                      const updated = {
-                        ...notifications,
-                        successSummary: checked,
-                      };
-                      setNotifications(updated);
-                      await updateNotificationSettings(updated);
-                    }}
-                  />
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <Label>Weekly Reports</Label>
-                    <p className="text-zinc-400 text-sm">
-                      Weekly team performance reports
-                    </p>
-                  </div>
-                  <Switch
-                    checked={notifications.weeklyReport}
-                    onCheckedChange={async (checked) => {
-                      const updated = {
-                        ...notifications,
-                        weeklyReport: checked,
-                      };
-                      setNotifications(updated);
-                      await updateNotificationSettings(updated);
-                    }}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="security" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Lock className="w-5 h-5" />
-                  Security Settings
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="p-4 bg-yellow-900/20 border border-yellow-800 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Zap className="w-5 h-5 text-yellow-400" />
-                    <span className="text-yellow-400 font-medium">
-                      Enterprise Feature
-                    </span>
-                  </div>
-                  <p className="text-zinc-400 text-sm">
-                    SSO/SAML integration, audit logs, and VPC deployment are
-                    available in our Enterprise tier.
-                  </p>
-                  <Button variant="outline" size="sm" className="mt-3">
-                    Upgrade to Enterprise
-                  </Button>
-                </div>
-
-                <div className="space-y-3">
-                  {loading ? (
-                    <div className="text-zinc-400">
-                      Loading security settings...
-                    </div>
-                  ) : (
-                    <>
-                      <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
-                        <span className="text-white">
-                          Two-Factor Authentication
-                        </span>
-                        <Badge className="bg-zinc-800 text-white">
-                          Contact Support
-                        </Badge>
-                      </div>
-
-                      <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
-                        <span className="text-white">Session Timeout</span>
-                        <span className="text-zinc-400">
-                          Configure in Enterprise
-                        </span>
-                      </div>
-
-                      <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
-                        <span className="text-white">IP Allowlist</span>
-                        <Badge className="bg-zinc-800 text-white">
-                          Enterprise Feature
-                        </Badge>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
     </div>
   );
