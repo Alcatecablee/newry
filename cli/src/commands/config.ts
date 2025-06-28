@@ -35,8 +35,8 @@ export async function configCommand(options: ConfigOptions) {
     }
 
     if (options.get) {
-      const value = (config as any)[options.get];
-      if (value) {
+      const value = getConfigValue(config, options.get);
+      if (value !== undefined) {
         console.log(chalk.white(value));
       } else {
         console.log(
@@ -64,17 +64,7 @@ export async function configCommand(options: ConfigOptions) {
 
       // Build nested configuration object if needed
       let newConfig = { ...config };
-      if (key.includes(".")) {
-        const keys = key.split(".");
-        let current = newConfig;
-        for (let i = 0; i < keys.length - 1; i++) {
-          if (!current[keys[i]]) current[keys[i]] = {};
-          current = current[keys[i]];
-        }
-        current[keys[keys.length - 1]] = value;
-      } else {
-        newConfig[key] = value;
-      }
+      setConfigValue(newConfig, key, value);
 
       // Validate the entire configuration
       const configValidation = await validateConfig(newConfig);
@@ -129,7 +119,10 @@ export async function configCommand(options: ConfigOptions) {
       chalk.gray("# Reset to defaults"),
     );
   } catch (error) {
-    console.error(chalk.white("Configuration error:"), error.message);
+    console.error(
+      chalk.white("Configuration error:"),
+      error instanceof Error ? error.message : String(error),
+    );
     process.exit(1);
   }
 }
