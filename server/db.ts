@@ -41,6 +41,104 @@ if (DATABASE_URL) {
   initializeTables(sqlite);
 }
 
+function createSampleData(sqlite: Database.Database) {
+  try {
+    // Check if sample data already exists
+    const existingUsers = sqlite
+      .prepare("SELECT COUNT(*) as count FROM users")
+      .get() as { count: number };
+
+    if (existingUsers.count === 0) {
+      console.log("🔧 Creating sample data...");
+
+      // Create sample user with password "password123"
+      const bcrypt = require("bcrypt");
+      const hashedPassword = bcrypt.hashSync("password123", 10);
+
+      const userId = "sample-user-123";
+      const now = Math.floor(Date.now() / 1000);
+
+      // Insert sample user
+      sqlite
+        .prepare(
+          `
+        INSERT INTO users (id, clerk_id, email, full_name, password_hash, plan_type, monthly_transformations_used, monthly_limit, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `,
+        )
+        .run(
+          userId,
+          userId,
+          "test@example.com",
+          "Test User",
+          hashedPassword,
+          "pro",
+          5,
+          500,
+          now,
+          now,
+        );
+
+      // Create sample team
+      const teamId = "sample-team-123";
+      sqlite
+        .prepare(
+          `
+        INSERT INTO teams (id, name, description, owner_id, plan_type, monthly_limit, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `,
+        )
+        .run(
+          teamId,
+          "Sample Team",
+          "A sample team for testing",
+          userId,
+          "team",
+          1000,
+          now,
+          now,
+        );
+
+      // Add user to team
+      const memberId = "sample-member-123";
+      sqlite
+        .prepare(
+          `
+        INSERT INTO team_members (id, team_id, user_id, role, joined_at)
+        VALUES (?, ?, ?, ?, ?)
+      `,
+        )
+        .run(memberId, teamId, userId, "owner", now);
+
+      // Create sample project
+      const projectId = "sample-project-123";
+      sqlite
+        .prepare(
+          `
+        INSERT INTO team_projects (id, team_id, name, repository, health_score, total_issues, fixed_issues, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `,
+        )
+        .run(
+          projectId,
+          teamId,
+          "Sample Project",
+          "https://github.com/example/repo",
+          85,
+          10,
+          8,
+          now,
+          now,
+        );
+
+      console.log("✅ Sample data created successfully");
+      console.log("   📧 Test credentials: test@example.com / password123");
+    }
+  } catch (error) {
+    console.error("❌ Error creating sample data:", error);
+  }
+}
+
 function initializeTables(sqlite: Database.Database) {
   try {
     // Drop and recreate users table with password field
