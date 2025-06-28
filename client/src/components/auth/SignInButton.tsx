@@ -115,7 +115,7 @@ export function SignInButton() {
   if (showModal) {
     return (
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-all duration-300 ease-out ${
+        className={`transition-all duration-300 ease-out ${
           isModalVisible ? "opacity-100" : "opacity-0"
         }`}
         role="dialog"
@@ -123,32 +123,32 @@ export function SignInButton() {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
         style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          backdropFilter: "blur(4px)",
+          zIndex: 50,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          minHeight: "100vh",
           padding: "20px",
-          boxSizing: "border-box",
         }}
       >
         <div
           ref={modalRef}
-          className={`bg-zinc-900 rounded-xl border border-zinc-800 shadow-2xl transform transition-all duration-300 ease-out ${
-            isModalVisible
-              ? "opacity-100 scale-100 translate-y-0"
-              : "opacity-0 scale-95 translate-y-4"
+          className={`bg-zinc-900 rounded-xl border border-zinc-800 shadow-2xl transition-all duration-300 ease-out ${
+            isModalVisible ? "opacity-100" : "opacity-0"
           }`}
           style={{
             width: "100%",
             maxWidth: "400px",
             maxHeight: "90vh",
             overflow: "auto",
-            position: "relative",
-            top: "50%",
-            left: "50%",
-            transform: isModalVisible
-              ? "translate(-50%, -50%) scale(1)"
-              : "translate(-50%, -50%) scale(0.95) translateY(16px)",
+            transform: isModalVisible ? "scale(1)" : "scale(0.95)",
+            transformOrigin: "center center",
           }}
         >
           {/* Header */}
