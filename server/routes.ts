@@ -392,21 +392,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
           .json({ error: "User ID and email are required" });
       }
 
-      // Check if user already exists in our database using clerkId field for Supabase ID
-      let user = await storage.getUserByClerkId(id);
+      // Check if user already exists in our database
+      let user = await storage.getUserBySupabaseId(id);
 
       if (!user) {
         try {
           // Create new user in our database
           user = await storage.createUser({
-            clerkId: id, // Using clerkId field for Supabase user ID for now
+            supabaseId: id,
             email,
             fullName: user_metadata?.full_name || email.split("@")[0],
           });
         } catch (createError) {
           console.error("Error creating user:", createError);
           // If user creation fails due to duplicate, try to get the existing user
-          user = await storage.getUserByClerkId(id);
+          user = await storage.getUserBySupabaseId(id);
           if (!user) {
             throw createError;
           }
