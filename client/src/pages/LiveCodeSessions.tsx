@@ -72,6 +72,9 @@ const LiveCodeSessions = () => {
     { layerId: 6, name: "Testing & Quality", status: "pending" },
   ]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [micEnabled, setMicEnabled] = useState(false);
+  const [videoEnabled, setVideoEnabled] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
 
   // Fetch teams data
   const { data: teams, isLoading: teamsLoading } = useTeams();
@@ -555,17 +558,44 @@ export default function Component() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <Button size="sm" variant="outline">
-                    <Mic className="w-4 h-4 mr-2" />
-                    Mic
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setMicEnabled(!micEnabled)}
+                    className={
+                      micEnabled ? "bg-green-900 border-green-700" : ""
+                    }
+                  >
+                    {micEnabled ? (
+                      <Mic className="w-4 h-4 mr-2" />
+                    ) : (
+                      <MicOff className="w-4 h-4 mr-2" />
+                    )}
+                    {micEnabled ? "Mic On" : "Mic Off"}
                   </Button>
-                  <Button size="sm" variant="outline">
-                    <Video className="w-4 h-4 mr-2" />
-                    Video
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setVideoEnabled(!videoEnabled)}
+                    className={
+                      videoEnabled ? "bg-green-900 border-green-700" : ""
+                    }
+                  >
+                    {videoEnabled ? (
+                      <Video className="w-4 h-4 mr-2" />
+                    ) : (
+                      <VideoOff className="w-4 h-4 mr-2" />
+                    )}
+                    {videoEnabled ? "Video On" : "Video Off"}
                   </Button>
-                  <Button size="sm" variant="outline">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setChatOpen(!chatOpen)}
+                    className={chatOpen ? "bg-blue-900 border-blue-700" : ""}
+                  >
                     <MessageCircle className="w-4 h-4 mr-2" />
-                    Chat
+                    {chatOpen ? "Hide Chat" : "Show Chat"}
                   </Button>
                 </div>
                 <div className="flex items-center gap-2">
