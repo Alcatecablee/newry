@@ -808,12 +808,12 @@ const EnhancedTeamDashboard = () => {
                             <div
                               className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                                 index === 0
-                                  ? "bg-yellow-400 text-black"
+                                  ? "bg-zinc-300 text-black"
                                   : index === 1
-                                    ? "bg-gray-400 text-black"
+                                    ? "bg-zinc-500 text-white"
                                     : index === 2
-                                      ? "bg-orange-600 text-white"
-                                      : "bg-zinc-900 text-white"
+                                      ? "bg-zinc-600 text-white"
+                                      : "bg-zinc-800 text-white"
                               }`}
                             >
                               {index + 1}
