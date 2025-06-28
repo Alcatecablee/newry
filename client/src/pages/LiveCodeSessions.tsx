@@ -425,14 +425,59 @@ const LiveCodeSessions = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="bg-zinc-950 rounded-lg p-4 min-h-[400px]">
-                    <div className="text-center py-20">
-                      <Code className="w-16 h-16 text-zinc-600 mx-auto mb-4" />
-                      <p className="text-zinc-400">
-                        Code editor would load here
-                      </p>
-                      <p className="text-zinc-500 text-sm mt-2">
-                        Real-time collaborative code editing with live cursors
-                      </p>
+                    <div className="flex items-center justify-between mb-4 p-2 bg-zinc-900 rounded">
+                      <div className="flex items-center gap-2">
+                        <Code className="w-4 h-4 text-blue-400" />
+                        <span className="text-white text-sm font-medium">
+                          Live Code Editor
+                        </span>
+                        <Badge className="bg-green-900 text-green-200 text-xs">
+                          NeuroLint Active
+                        </Badge>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleCodeChange(currentCode)}
+                        >
+                          <Target className="w-3 h-3 mr-1" />
+                          Analyze
+                        </Button>
+                      </div>
+                    </div>
+                    <textarea
+                      value={currentCode}
+                      onChange={(e) => handleCodeChange(e.target.value)}
+                      placeholder="// Start typing your code here...
+// NeuroLint will analyze in real-time with 6 layers:
+// 1. Configuration validation
+// 2. Entity cleanup
+// 3. Component structure
+// 4. Hydration patterns
+// 5. Next.js optimization
+// 6. Testing & quality
+
+export default function Component() {
+  return <div>Hello World</div>;
+}"
+                      className="w-full h-80 bg-zinc-950 text-white p-4 rounded border border-zinc-700 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <div className="mt-4 flex items-center justify-between text-xs text-zinc-500">
+                      <span>
+                        {currentCode.split("\n").length} lines •{" "}
+                        {currentCode.length} characters
+                      </span>
+                      <div className="flex items-center gap-4">
+                        <span className="flex items-center gap-1">
+                          <div className="w-2 h-2 bg-green-400 rounded-full" />
+                          Real-time analysis
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Users className="w-3 h-3" />
+                          {teamParticipants.length} collaborators
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
