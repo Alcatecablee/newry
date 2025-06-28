@@ -416,34 +416,44 @@ const TeamSettings = () => {
                 <CardTitle>Role Permissions</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {Object.entries(rolePermissions).map(
-                    ([role, permissions]) => (
-                      <div
-                        key={role}
-                        className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
-                      >
-                        <Badge className={getRoleColor(role)}>{role}</Badge>
-                        <div className="flex items-center gap-2">
-                          {permissions.includes("all") ? (
-                            <Badge className="bg-green-900 text-green-200">
-                              All Permissions
-                            </Badge>
-                          ) : (
-                            permissions.map((perm) => (
-                              <Badge
-                                key={perm}
-                                className="bg-zinc-900 text-zinc-400"
-                              >
-                                {perm.replace("-", " ")}
-                              </Badge>
-                            ))
-                          )}
-                        </div>
+                {loading ? (
+                  <div className="text-zinc-400">Loading permissions...</div>
+                ) : (
+                  <div className="space-y-4">
+                    {Object.entries(rolePermissions).length > 0 ? (
+                      Object.entries(rolePermissions).map(
+                        ([role, permissions]) => (
+                          <div
+                            key={role}
+                            className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
+                          >
+                            <Badge className={getRoleColor(role)}>{role}</Badge>
+                            <div className="flex items-center gap-2">
+                              {permissions.includes("all") ? (
+                                <Badge className="bg-zinc-800 text-white">
+                                  All Permissions
+                                </Badge>
+                              ) : (
+                                permissions.map((perm) => (
+                                  <Badge
+                                    key={perm}
+                                    className="bg-zinc-900 text-zinc-400"
+                                  >
+                                    {perm.replace("-", " ")}
+                                  </Badge>
+                                ))
+                              )}
+                            </div>
+                          </div>
+                        ),
+                      )
+                    ) : (
+                      <div className="text-zinc-400">
+                        No role permissions configured
                       </div>
-                    ),
-                  )}
-                </div>
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
