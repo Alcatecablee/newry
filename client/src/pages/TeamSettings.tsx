@@ -219,6 +219,18 @@ const TeamSettings = () => {
     }
   };
 
+  const updateNotificationSettings = async (settings: typeof notifications) => {
+    try {
+      await fetch("/api/teams/notifications", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(settings),
+      });
+    } catch (error) {
+      console.error("Failed to update notification settings:", error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black p-6">
       <div className="max-w-6xl mx-auto">
