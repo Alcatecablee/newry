@@ -29,13 +29,7 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    hmr: {
-      port: 5000,
-      clientPort: process.env.REPL_ID ? 443 : 5000,
-      host: process.env.REPL_ID ? "0.0.0.0" : "localhost",
-      protocol: process.env.REPL_ID ? "wss" : "ws",
-      overlay: false,
-    },
+    middlewareMode: true,
     cors: true,
   },
 });
