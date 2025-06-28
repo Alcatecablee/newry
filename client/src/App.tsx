@@ -41,7 +41,6 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <div className="min-h-screen bg-black text-white">
-            <BetaBanner />
             <SiteHeader />
             <Routes>
               <Route path="/" element={<Index />} />
