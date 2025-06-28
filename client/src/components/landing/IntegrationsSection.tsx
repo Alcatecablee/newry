@@ -29,7 +29,7 @@ export function IntegrationsSection() {
       icon: Cloud,
       description: "Microsoft cloud development tools",
       category: "Cloud",
-      color: "from-blue-500 to-blue-700",
+      color: "from-zinc-600 to-zinc-800",
     },
     {
       name: "CircleCI",
