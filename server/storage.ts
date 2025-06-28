@@ -94,18 +94,19 @@ export class DatabaseStorage implements IStorage {
       const result = await db.insert(users).values(userData).returning();
       return result[0];
     } else {
-      // For SQLite, we need to generate ID and handle timestamps
-      const userWithId = {
-        ...insertUser,
+      // For SQLite, we need to generate ID but let schema defaults handle timestamps
+      const userData = {
         id: this.generateId(),
-        createdAt: Math.floor(Date.now() / 1000),
-        updatedAt: Math.floor(Date.now() / 1000),
+        clerkId: insertUser.supabaseId || insertUser.clerkId,
+        email: insertUser.email,
+        fullName: insertUser.fullName,
+        passwordHash: insertUser.passwordHash || "temp_hash", // Required field
       };
-      await db.insert(users).values(userWithId);
+      await db.insert(users).values(userData);
       const result = await db
         .select()
         .from(users)
-        .where(eq(users.id, userWithId.id))
+        .where(eq(users.id, userData.id))
         .limit(1);
       return result[0];
     }
