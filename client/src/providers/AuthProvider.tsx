@@ -70,25 +70,60 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   const updateUserProfile = async (supabaseUser: SupabaseUser) => {
-    // Map Supabase user to our User type
-    const mappedUser: User = {
-      id: supabaseUser.id,
-      email: supabaseUser.email || "",
-      user_metadata: {
-        full_name:
-          supabaseUser.user_metadata?.full_name ||
-          supabaseUser.email?.split("@")[0],
-        avatar_url: supabaseUser.user_metadata?.avatar_url,
-      },
-      app_metadata: {
-        plan_type: supabaseUser.app_metadata?.plan_type || "free",
-        monthly_transformations_used:
-          supabaseUser.app_metadata?.monthly_transformations_used || 0,
-        monthly_limit: supabaseUser.app_metadata?.monthly_limit || 25,
-      },
-    };
+    try {
+      // Sync user with our database
+      await fetch("/api/auth/sync-user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: supabaseUser.id,
+          email: supabaseUser.email,
+          user_metadata: supabaseUser.user_metadata,
+        }),
+      });
 
-    setUser(mappedUser);
+      // Map Supabase user to our User type
+      const mappedUser: User = {
+        id: supabaseUser.id,
+        email: supabaseUser.email || "",
+        user_metadata: {
+          full_name:
+            supabaseUser.user_metadata?.full_name ||
+            supabaseUser.email?.split("@")[0],
+          avatar_url: supabaseUser.user_metadata?.avatar_url,
+        },
+        app_metadata: {
+          plan_type: supabaseUser.app_metadata?.plan_type || "free",
+          monthly_transformations_used:
+            supabaseUser.app_metadata?.monthly_transformations_used || 0,
+          monthly_limit: supabaseUser.app_metadata?.monthly_limit || 25,
+        },
+      };
+
+      setUser(mappedUser);
+    } catch (error) {
+      console.error("Failed to sync user with database:", error);
+      // Still set the user even if sync fails
+      const mappedUser: User = {
+        id: supabaseUser.id,
+        email: supabaseUser.email || "",
+        user_metadata: {
+          full_name:
+            supabaseUser.user_metadata?.full_name ||
+            supabaseUser.email?.split("@")[0],
+          avatar_url: supabaseUser.user_metadata?.avatar_url,
+        },
+        app_metadata: {
+          plan_type: supabaseUser.app_metadata?.plan_type || "free",
+          monthly_transformations_used:
+            supabaseUser.app_metadata?.monthly_transformations_used || 0,
+          monthly_limit: supabaseUser.app_metadata?.monthly_limit || 25,
+        },
+      };
+      setUser(mappedUser);
+    }
   };
 
   const signIn = async (
