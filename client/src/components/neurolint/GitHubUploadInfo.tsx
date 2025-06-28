@@ -1,4 +1,3 @@
-
 import { AlertCircle } from "lucide-react";
 
 export function GitHubUploadInfo() {
@@ -12,7 +11,6 @@ export function GitHubUploadInfo() {
           <li>• Only processes .js, .jsx, .ts, .tsx, and .json files</li>
           <li>• Excludes node_modules, dist, build, .git, .next directories</li>
           <li>• Large repositories may take longer to process</li>
-          <li>• <strong>Testing:</strong> Enter "test" or "mock" to load sample files</li>
         </ul>
       </div>
     </div>
