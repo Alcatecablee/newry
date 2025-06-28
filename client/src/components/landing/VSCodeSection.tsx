@@ -92,8 +92,8 @@ export function VSCodeSection() {
           {/* Features */}
           <div className="order-2 lg:order-2 space-y-8">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-blue-600/20 border border-blue-500/30 rounded-lg flex items-center justify-center">
-                <Eye className="w-6 h-6 text-blue-400" />
+              <div className="w-12 h-12 bg-zinc-600/20 border border-zinc-500/30 rounded-lg flex items-center justify-center">
+                <Eye className="w-6 h-6 text-zinc-400" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">
