@@ -112,7 +112,9 @@ const EnterpriseAnalytics = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<string>("all");
   const [executiveView, setExecutiveView] = useState(true);
 
-  const [executiveMetrics, setExecutiveMetrics] = useState<ExecutiveMetric[]>([]);
+  const [executiveMetrics, setExecutiveMetrics] = useState<ExecutiveMetric[]>(
+    [],
+  );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -121,78 +123,17 @@ const EnterpriseAnalytics = () => {
 
   const fetchExecutiveMetrics = async () => {
     try {
-      const response = await fetch('/api/enterprise/analytics/executive');
+      const response = await fetch("/api/enterprise/analytics/executive");
       if (response.ok) {
         const data = await response.json();
         setExecutiveMetrics(data);
       }
     } catch (error) {
-      console.error('Failed to fetch executive metrics:', error);
+      console.error("Failed to fetch executive metrics:", error);
     } finally {
       setLoading(false);
     }
   };
-    {
-      name: "Code Quality Score",
-      current: 94.2,
-      previous: 89.1,
-      target: 95.0,
-      unit: "%",
-      trend: "up",
-      status: "on-track",
-      impact: "quality",
-    },
-    {
-      name: "Security Vulnerabilities",
-      current: 3,
-      previous: 12,
-      target: 5,
-      unit: "critical",
-      trend: "up",
-      status: "exceeding",
-      impact: "risk",
-    },
-    {
-      name: "Developer Productivity",
-      current: 87.5,
-      previous: 83.2,
-      target: 85.0,
-      unit: "%",
-      trend: "up",
-      status: "exceeding",
-      impact: "efficiency",
-    },
-    {
-      name: "Time to Fix Issues",
-      current: 2.3,
-      previous: 4.1,
-      target: 3.0,
-      unit: "hours",
-      trend: "up",
-      status: "exceeding",
-      impact: "efficiency",
-    },
-    {
-      name: "Compliance Score",
-      current: 96.8,
-      previous: 94.2,
-      target: 95.0,
-      unit: "%",
-      trend: "up",
-      status: "exceeding",
-      impact: "risk",
-    },
-    {
-      name: "Cost per Fix",
-      current: 23.45,
-      previous: 31.2,
-      target: 25.0,
-      unit: "$",
-      trend: "up",
-      status: "on-track",
-      impact: "revenue",
-    },
-  ];
 
   const complianceFrameworks: ComplianceFramework[] = [
     {
