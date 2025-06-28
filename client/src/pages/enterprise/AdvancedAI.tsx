@@ -129,8 +129,26 @@ const AdvancedAI = () => {
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [currentMessage, setCurrentMessage] = useState("");
 
-  // Mock data - would come from AI service API
-  const aiAssistants: AIAssistant[] = [
+  const [aiAssistants, setAiAssistants] = useState<AIAssistant[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchAiAssistants();
+  }, []);
+
+  const fetchAiAssistants = async () => {
+    try {
+      const response = await fetch('/api/enterprise/ai-assistants');
+      if (response.ok) {
+        const data = await response.json();
+        setAiAssistants(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch AI assistants:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
     {
       id: "ai-expert",
       name: "CodeSage",
