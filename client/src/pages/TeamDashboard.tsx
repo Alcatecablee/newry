@@ -57,7 +57,8 @@ const TeamDashboard = () => {
   // Fetch real team data
   const { data: teams, isLoading: teamsLoading } = useTeams();
   const { data: teamData, isLoading: teamLoading } = useTeam(selectedTeamId);
-  const { data: analytics, isLoading: analyticsLoading } = useTeamAnalytics(selectedTeamId);
+  const { data: analytics, isLoading: analyticsLoading } =
+    useTeamAnalytics(selectedTeamId);
 
   if (teamsLoading || teamLoading || analyticsLoading) {
     return (
@@ -68,38 +69,42 @@ const TeamDashboard = () => {
   }
 
   // Get real team members from API
-  const teamMembers = teamData?.members?.map(member => ({
-    id: member.id,
-    name: member.userId, // Would need user lookup for real name
-    email: `${member.userId}@company.com`,
-    role: member.role,
-    avatar: "/avatars/default.jpg",
-    fixesThisWeek: Math.floor(Math.random() * 30), // Would come from real analytics
-    lastActive: "Recently",
-  })) || [];
+  const teamMembers =
+    teamData?.members?.map((member) => ({
+      id: member.id,
+      name: member.userId, // Would need user lookup for real name
+      email: `${member.userId}@company.com`,
+      role: member.role,
+      avatar: "/avatars/default.jpg",
+      fixesThisWeek: Math.floor(Math.random() * 30), // Would come from real analytics
+      lastActive: "Recently",
+    })) || [];
 
   // Get real projects from API
-  const teamProjects = teamData?.projects?.map(project => ({
-    id: project.id,
-    name: project.name,
-    repository: project.repository || "No repository",
-    healthScore: project.healthScore,
-    lastScan: project.lastScan ? new Date(project.lastScan).toLocaleString() : "Never",
-    totalIssues: project.totalIssues,
-    fixedIssues: project.fixedIssues,
-    contributors: ["1", "2"], // Would come from real project contributors
-  })) || [];
+  const teamProjects =
+    teamData?.projects?.map((project) => ({
+      id: project.id,
+      name: project.name,
+      repository: project.repository || "No repository",
+      healthScore: project.healthScore,
+      lastScan: project.lastScan
+        ? new Date(project.lastScan).toLocaleString()
+        : "Never",
+      totalIssues: project.totalIssues,
+      fixedIssues: project.fixedIssues,
+      contributors: ["1", "2"], // Would come from real project contributors
+    })) || [];
 
   // Get real activities from API
-  const recentActivity = teamData?.activities?.map(activity => ({
-    id: activity.id,
-    user: activity.userId,
-    action: activity.action,
-    project: activity.project || "Unknown",
-    timestamp: new Date(activity.createdAt).toLocaleString(),
-    type: activity.type,
-  })) || [];
-  ];
+  const recentActivity =
+    teamData?.activities?.map((activity) => ({
+      id: activity.id,
+      user: activity.userId,
+      action: activity.action,
+      project: activity.project || "Unknown",
+      timestamp: new Date(activity.createdAt).toLocaleString(),
+      type: activity.type,
+    })) || [];
 
   const getHealthScoreColor = (score: number) => {
     if (score >= 90) return "text-green-400";
@@ -157,15 +162,16 @@ const TeamDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Code Quality
+                  <p className="text-zinc-400 text-sm">Code Quality</p>
+                  <p className="text-3xl font-bold text-white">
+                    {analytics?.codeQuality.current || 0}%
                   </p>
-                  <p className="text-3xl font-bold text-white">{analytics?.codeQuality.current || 0}%</p>
                 </div>
                 <TrendingUp className="w-8 h-8 text-white" />
               </div>
               <p className="text-xs text-gray-400 mt-2">
-                {analytics?.codeQuality.change > 0 ? '↑' : '↓'} {Math.abs(analytics?.codeQuality.change || 0)}% from last period
+                {analytics?.codeQuality.change > 0 ? "↑" : "↓"}{" "}
+                {Math.abs(analytics?.codeQuality.change || 0)}% from last period
               </p>
             </CardContent>
           </Card>
@@ -174,11 +180,12 @@ const TeamDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Fixed Issues
-                  </p>
+                  <p className="text-zinc-400 text-sm">Fixed Issues</p>
                   <p className="text-3xl font-bold text-white">
-                    {teamData?.projects.reduce((sum, p) => sum + p.fixedIssues, 0) || 0}
+                    {teamData?.projects.reduce(
+                      (sum, p) => sum + p.fixedIssues,
+                      0,
+                    ) || 0}
                   </p>
                 </div>
                 <CheckCircle className="w-8 h-8 text-white" />
@@ -195,14 +202,15 @@ const TeamDashboard = () => {
                 <div>
                   <p className="text-zinc-400 text-sm">Open Issues</p>
                   <p className="text-3xl font-bold text-white">
-                    {teamData?.projects.reduce((sum, p) => sum + (p.totalIssues - p.fixedIssues), 0) || 0}
+                    {teamData?.projects.reduce(
+                      (sum, p) => sum + (p.totalIssues - p.fixedIssues),
+                      0,
+                    ) || 0}
                   </p>
                 </div>
                 <AlertTriangle className="w-8 h-8 text-white" />
               </div>
-              <p className="text-xs text-gray-400 mt-2">
-                Needs attention
-              </p>
+              <p className="text-xs text-gray-400 mt-2">Needs attention</p>
             </CardContent>
           </Card>
 
@@ -311,7 +319,9 @@ const TeamDashboard = () => {
                   <div className="space-y-4">
                     {teamData?.projects.length === 0 ? (
                       <div className="text-center p-8 text-gray-400">
-                        <p>No projects found. Create a project to get started.</p>
+                        <p>
+                          No projects found. Create a project to get started.
+                        </p>
                       </div>
                     ) : (
                       teamData?.projects.map((project) => (
@@ -327,7 +337,13 @@ const TeamDashboard = () => {
                               </span>
                             </div>
                             <p className="text-zinc-400 text-xs mt-1">
-                              {project.repository || 'No repository'} • Last scan {project.lastScan ? new Date(project.lastScan).toLocaleDateString() : 'Never'}
+                              {project.repository || "No repository"} • Last
+                              scan{" "}
+                              {project.lastScan
+                                ? new Date(
+                                    project.lastScan,
+                                  ).toLocaleDateString()
+                                : "Never"}
                             </p>
                           </div>
                           <div className="text-right">
@@ -335,7 +351,8 @@ const TeamDashboard = () => {
                               {project.healthScore}%
                             </div>
                             <p className="text-zinc-400 text-xs">
-                              {project.fixedIssues}/{project.totalIssues} issues fixed
+                              {project.fixedIssues}/{project.totalIssues} issues
+                              fixed
                             </p>
                           </div>
                         </div>
@@ -360,36 +377,37 @@ const TeamDashboard = () => {
                     </div>
                   ) : (
                     teamData?.members.map((member) => (
-                    <div
-                      key={member.id}
-                      className="flex items-center justify-between p-4 bg-zinc-900 rounded-lg"
-                    >
-                      <div className="flex items-center gap-3">
-                        <Avatar>
-                          <AvatarFallback className="bg-zinc-900er text-white">
-                            {member.userId.substring(0, 2).toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <p className="text-white font-medium">
-                            User {member.userId}
-                          </p>
-                          <p className="text-zinc-400 text-sm">
-                            Member ID: {member.id}
-                          </p>
+                      <div
+                        key={member.id}
+                        className="flex items-center justify-between p-4 bg-zinc-900 rounded-lg"
+                      >
+                        <div className="flex items-center gap-3">
+                          <Avatar>
+                            <AvatarFallback className="bg-zinc-900er text-white">
+                              {member.userId.substring(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="text-white font-medium">
+                              User {member.userId}
+                            </p>
+                            <p className="text-zinc-400 text-sm">
+                              Member ID: {member.id}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          <Badge className={getRoleBadgeStyle(member.role)}>
+                            {member.role}
+                          </Badge>
+                          <div className="text-right">
+                            <p className="text-zinc-400 text-xs">
+                              Joined{" "}
+                              {new Date(member.joinedAt).toLocaleDateString()}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-4">
-                        <Badge className={getRoleBadgeStyle(member.role)}>
-                          {member.role}
-                        </Badge>
-                        <div className="text-right">
-                          <p className="text-zinc-400 text-xs">
-                            Joined {new Date(member.joinedAt).toLocaleDateString()}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
                     ))
                   )}
                 </div>
@@ -487,9 +505,7 @@ const TeamDashboard = () => {
                       >
                         <span className="text-white">{item.issue}</span>
                         <div className="flex items-center gap-2">
-                          <span className="text-zinc-400">
-                            {item.count}
-                          </span>
+                          <span className="text-zinc-400">{item.count}</span>
                           <TrendingUp
                             className={`w-4 h-4 ${item.trend === "down" ? "text-white rotate-180" : "text-gray-400"}`}
                           />
