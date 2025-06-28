@@ -758,7 +758,7 @@ const EnhancedTeamDashboard = () => {
                         {teamMembers.map((member) => (
                           <div
                             key={member.id}
-                            className="p-4 bg-zinc-900 rounded-lg border border-blue-400/30"
+                            className="p-4 bg-zinc-900 rounded-lg border border-zinc-700"
                           >
                             <div className="flex items-center gap-3 mb-2">
                               <Avatar className="w-8 h-8">
