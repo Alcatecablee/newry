@@ -82,11 +82,11 @@ export function LayerSelector({
                   text-sm
                   ${
                     isOn
-                      ? "bg-gradient-to-br from-blue-600/20 to-purple-600/20 text-white border-blue-500/50 shadow-lg shadow-blue-900/20"
-                      : "bg-[#1a1b21] text-gray-300 border-[#292939] hover:bg-[#232329] hover:border-blue-400/30"
+                      ? "bg-[#292939] text-white border-zinc-600 shadow-lg shadow-zinc-900/20"
+                      : "bg-[#1a1b21] text-gray-300 border-[#292939] hover:bg-[#232329] hover:border-[#3a3a45]"
                   }
                   touch-manipulation select-none
-                  focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#191a1f]
+                  focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#191a1f]
                   active:scale-[0.98] transform
                   min-h-[80px]
                   `}
@@ -99,7 +99,7 @@ export function LayerSelector({
                       className={`inline-flex items-center justify-center w-8 h-8 text-sm font-bold rounded-lg border transition-all duration-200
                       ${
                         isOn
-                          ? "bg-blue-600 text-white border-blue-500"
+                          ? "bg-zinc-600 text-white border-zinc-500"
                           : "bg-[#292939] text-gray-400 border-[#3a3a45] group-hover:bg-[#343445] group-hover:text-gray-300"
                       }
                       `}
@@ -113,7 +113,7 @@ export function LayerSelector({
                       </div>
                     </div>
                     <Star
-                      className={`w-4 h-4 ${isOn ? "text-yellow-400" : "text-gray-500"}`}
+                      className={`w-4 h-4 ${isOn ? "text-zinc-400" : "text-gray-500"}`}
                     />
                   </div>
                   <p className="text-xs text-left opacity-75 leading-relaxed">
