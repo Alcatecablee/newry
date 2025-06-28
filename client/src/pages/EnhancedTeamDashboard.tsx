@@ -116,28 +116,8 @@ const EnhancedTeamDashboard = () => {
   const createTeam = useCreateTeam();
   const createProject = useCreateProject();
 
-  // Initialize demo team if none exist
-  useEffect(() => {
-    if (!teamsLoading && (!teams || teams.length === 0)) {
-      createTeam.mutate({
-        name: "Development Team",
-        description: "Main development team working on NeuroLint platform",
-      });
-    }
-  }, [teams, teamsLoading, createTeam]);
-
-  // Create demo project if team exists but no projects
-  useEffect(() => {
-    if (teamData && teamData.projects.length === 0) {
-      createProject.mutate({
-        teamId: selectedTeamId,
-        project: {
-          name: "NeuroLint Platform",
-          repository: "company/neurolint-platform",
-        },
-      });
-    }
-  }, [teamData, selectedTeamId, createProject]);
+  // Removed automatic team/project creation to prevent infinite loops
+  // Teams and projects should be created manually by users
 
   if (teamsLoading || teamLoading || analyticsLoading) {
     return (
