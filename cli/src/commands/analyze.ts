@@ -120,7 +120,7 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
     // Check for resumable operation
     const resumeState = await resumeOperation("analyze");
     let filesToProcess = uniqueFiles;
-    let results = [];
+    let results: any[] = [];
 
     if (resumeState) {
       console.log(
@@ -233,10 +233,10 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
 
     // Show layer-specific stats
     if (successful.length > 0) {
-      const layerStats = {};
-      successful.forEach((result) => {
+      const layerStats: Record<string, { passed: number; total: number }> = {};
+      successful.forEach((result: any) => {
         if (result.layers) {
-          result.layers.forEach((layer) => {
+          result.layers.forEach((layer: any) => {
             if (!layerStats[layer.id]) {
               layerStats[layer.id] = { passed: 0, total: 0 };
             }
