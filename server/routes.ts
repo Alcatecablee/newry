@@ -399,7 +399,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         try {
           // Create new user in our database
           user = await storage.createUser({
-            supabaseId: id,
+            supabaseId: id, // This will be mapped to clerkId in storage
             email,
             fullName: user_metadata?.full_name || email.split("@")[0],
           });
