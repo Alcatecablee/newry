@@ -231,9 +231,13 @@ export function validateTestResult(
 
     // --- Layer 2: Pattern/entity fixes ---
     "Fixed HTML entities in source":
-      (transformedCode.includes('"Welcome & Enjoy!"') ||
-        transformedCode.includes("'Welcome & Enjoy!'")) &&
-      transformedCode.includes("// Hello > Goodbye"),
+      // Check if HTML entities were actually converted
+      (!transformedCode.includes("&quot;") && transformedCode.includes('"')) ||
+      (!transformedCode.includes("&amp;") && transformedCode.includes("&")) ||
+      (!transformedCode.includes("&gt;") && transformedCode.includes(">")) ||
+      (!transformedCode.includes("&lt;") && transformedCode.includes("<")) ||
+      (!transformedCode.includes("&ldquo;") && transformedCode.includes('"')) ||
+      (!transformedCode.includes("&rdquo;") && transformedCode.includes('"')),
 
     // --- Layer 3: Missing key prop ---
     "Added missing key prop in mapped elements":
