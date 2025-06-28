@@ -107,8 +107,9 @@ function UserProfile({ userId }: { userId: string }) {
             See NeuroLint in Action
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Watch how our AI transforms problematic code into clean, efficient,
-            and type-safe solutions across all 6 analysis layers.
+            Watch how our advanced rule-based system transforms problematic code
+            into clean, efficient, and type-safe solutions across all 6 analysis
+            layers.
           </p>
         </div>
 
