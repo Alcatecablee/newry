@@ -18,7 +18,13 @@ interface GitHubUploadProps {
 
 export function GitHubUpload({ onRepoUpload, processing }: GitHubUploadProps) {
   const [repoUrl, setRepoUrl] = useState("");
-  const { uploading, uploadStatus, uploadRepository } = useGitHubUpload();
+  const {
+    uploading,
+    uploadStatus,
+    demoMode,
+    uploadRepository,
+    loadDemoRepository,
+  } = useGitHubUpload();
 
   const handleUpload = async () => {
     await uploadRepository(repoUrl, onRepoUpload);
@@ -71,23 +77,40 @@ export function GitHubUpload({ onRepoUpload, processing }: GitHubUploadProps) {
           <Github className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-zinc-500" />
         </div>
 
-        <Button
-          onClick={handleUpload}
-          disabled={!repoUrl.trim() || uploading || processing}
-          className="w-full h-14 bg-white text-black hover:bg-gray-100 font-semibold text-lg shadow-lg disabled:opacity-50"
-        >
-          {uploading ? (
-            <>
-              <Clock className="w-5 h-5 mr-3 animate-spin" />
-              Importing Repository...
-            </>
-          ) : (
-            <>
-              <Upload className="w-5 h-5 mr-3" />
-              Import Repository
-            </>
-          )}
-        </Button>
+        <div className="space-y-4">
+          <Button
+            onClick={handleUpload}
+            disabled={!repoUrl.trim() || uploading || processing}
+            className="w-full h-14 bg-white text-black hover:bg-gray-100 font-semibold text-lg shadow-lg disabled:opacity-50"
+          >
+            {uploading ? (
+              <>
+                <Clock className="w-5 h-5 mr-3 animate-spin" />
+                {demoMode ? "Loading Demo..." : "Importing Repository..."}
+              </>
+            ) : (
+              <>
+                <Upload className="w-5 h-5 mr-3" />
+                Import Repository
+              </>
+            )}
+          </Button>
+
+          <div className="text-center">
+            <div className="text-sm text-zinc-500 mb-3">
+              Hit the GitHub rate limit? Try our demo instead:
+            </div>
+            <Button
+              onClick={() => loadDemoRepository(onRepoUpload)}
+              disabled={uploading || processing}
+              variant="outline"
+              className="h-12 px-6 bg-zinc-900/50 border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white font-medium"
+            >
+              <Github className="w-4 h-4 mr-2" />
+              Load Demo Repository
+            </Button>
+          </div>
+        </div>
 
         {/* Info Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
@@ -110,7 +133,9 @@ export function GitHubUpload({ onRepoUpload, processing }: GitHubUploadProps) {
                 Rate Limits
               </span>
             </div>
-            <p className="text-xs text-zinc-500">Max 50 files per repository</p>
+            <p className="text-xs text-zinc-500">
+              60 requests/hour • Use demo if exceeded
+            </p>
           </div>
 
           <div className="p-4 bg-zinc-900/30 border border-zinc-800 rounded-xl">
