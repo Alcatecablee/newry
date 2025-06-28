@@ -78,12 +78,12 @@ export function LayerSelector({
                   key={layer.id}
                   pressed={isOn}
                   onPressedChange={() => onToggle(layer.id)}
-                  className={`group relative flex flex-col items-start w-full p-4 rounded-xl border-2 transition-all duration-200
+                  className={`group relative flex flex-col items-start w-full p-4 rounded-xl border transition-all duration-200
                   text-sm
                   ${
                     isOn
-                      ? "bg-zinc-900/40 text-white border-zinc-600 shadow-lg shadow-zinc-900/20"
-                      : "bg-zinc-900/20 text-gray-300 border-zinc-800/50 hover:bg-zinc-900/30 hover:border-zinc-700"
+                      ? "bg-zinc-900 text-white border-zinc-800 shadow-lg shadow-zinc-900/20"
+                      : "bg-zinc-900/40 text-gray-300 border-zinc-800/50 hover:bg-zinc-900/60 hover:border-zinc-700"
                   }
                   touch-manipulation select-none
                   focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900
@@ -151,8 +151,8 @@ export function LayerSelector({
                   text-sm font-semibold
                   ${
                     isOn
-                      ? "bg-zinc-900/40 text-white border-zinc-600 shadow-lg shadow-zinc-900/20"
-                      : "bg-zinc-900/20 text-gray-300 border-zinc-800/50 hover:bg-zinc-900/30 hover:border-zinc-700"
+                      ? "bg-zinc-900 text-white border-zinc-800 shadow-lg shadow-zinc-900/20"
+                      : "bg-zinc-900/40 text-gray-300 border-zinc-800/50 hover:bg-zinc-900/60 hover:border-zinc-700"
                   }
                   touch-manipulation select-none
                   focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900
