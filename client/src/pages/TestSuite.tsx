@@ -56,7 +56,7 @@ const TestSuite = () => {
           </div>
 
           {/* Test Runner Card */}
-          <Card className="w-full bg-zinc-900/40 border border-zinc-800/50 rounded-3xl backdrop-blur-sm shadow-2xl overflow-hidden">
+          <Card className="w-full border border-zinc-800/50 rounded-3xl backdrop-blur-sm shadow-2xl overflow-hidden">
             <CardContent className="p-0">
               <TestRunner />
             </CardContent>
