@@ -269,11 +269,71 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
       `Analysis failed: ${error instanceof Error ? error.message : "Unknown error"}`,
     );
 
-    if (error instanceof Error && error.message.includes("ECONNREFUSED")) {
-      console.log(
-        chalk.yellow("\n💡 Tip: Make sure the NeuroLint server is running:"),
-      );
-      console.log(chalk.gray("   npm run dev (in the main project directory)"));
+    if (error instanceof Error) {
+      if (error.message.includes("ECONNREFUSED")) {
+        console.log(
+          chalk.yellow("\n💡 Tip: Make sure the NeuroLint server is running:"),
+        );
+        console.log(
+          chalk.gray("   npm run dev (in the main project directory)"),
+        );
+      } else if (
+        error.message.includes("401") ||
+        error.message.includes("403")
+      ) {
+        console.log(
+          chalk.yellow(
+            '\n💡 Authentication failed. Run "neurolint login" to re-authenticate',
+          ),
+        );
+      } else if (error.message.includes("429")) {
+        console.log(
+          chalk.yellow(
+            "\n💡 Rate limit exceeded. Please wait before trying again",
+          ),
+        );
+      } else if (
+        error.message.includes("EMFILE") ||
+        error.message.includes("ENFILE")
+      ) {
+        console.log(
+          chalk.yellow(
+            "\n💡 Too many open files. Try reducing batch size or increasing system limits",
+          ),
+        );
+      }
+    }
+
+    process.exit(1);
+  }
+}
+
+// Semaphore for controlling concurrency
+class Semaphore {
+  private permits: number;
+  private waiting: (() => void)[] = [];
+
+  constructor(permits: number) {
+    this.permits = permits;
+  }
+
+  async acquire(): Promise<void> {
+    if (this.permits > 0) {
+      this.permits--;
+      return;
+    }
+
+    return new Promise((resolve) => {
+      this.waiting.push(resolve);
+    });
+  }
+
+  release(): void {
+    if (this.waiting.length > 0) {
+      const resolve = this.waiting.shift()!;
+      resolve();
+    } else {
+      this.permits++;
     }
   }
 }
