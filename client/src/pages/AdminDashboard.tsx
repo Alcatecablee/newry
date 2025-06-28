@@ -112,7 +112,7 @@ const AdminDashboard = () => {
       case "running":
         return <CheckCircle className="w-4 h-4 text-white" />;
       case "error":
-        return <XCircle className="w-4 h-4 text-red-500" />;
+        return <XCircle className="w-4 h-4 text-zinc-400" />;
       case "memory":
         return <Info className="w-4 h-4 text-yellow-500" />;
       default:
