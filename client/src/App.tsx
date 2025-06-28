@@ -29,6 +29,7 @@ import { SiteHeader } from "./components/SiteHeader";
 import { SiteFooter } from "./components/SiteFooter";
 import { BetaBanner } from "./components/BetaBanner";
 import ScrollToTop from "./components/ScrollToTop";
+import { InfoWidget } from "./components/InfoWidget";
 
 const queryClient = new QueryClient();
 
