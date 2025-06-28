@@ -707,26 +707,36 @@ const TeamSettings = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
-                    <span className="text-white">
-                      Two-Factor Authentication
-                    </span>
-                    <Badge className="bg-green-900 text-green-200">
-                      Enabled
-                    </Badge>
-                  </div>
+                  {loading ? (
+                    <div className="text-zinc-400">
+                      Loading security settings...
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
+                        <span className="text-white">
+                          Two-Factor Authentication
+                        </span>
+                        <Badge className="bg-zinc-800 text-white">
+                          Contact Support
+                        </Badge>
+                      </div>
 
-                  <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
-                    <span className="text-white">Session Timeout</span>
-                    <span className="text-zinc-400">24 hours</span>
-                  </div>
+                      <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
+                        <span className="text-white">Session Timeout</span>
+                        <span className="text-zinc-400">
+                          Configure in Enterprise
+                        </span>
+                      </div>
 
-                  <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
-                    <span className="text-white">IP Allowlist</span>
-                    <Badge className="bg-gray-700 text-gray-200">
-                      Not Configured
-                    </Badge>
-                  </div>
+                      <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg">
+                        <span className="text-white">IP Allowlist</span>
+                        <Badge className="bg-zinc-800 text-white">
+                          Enterprise Feature
+                        </Badge>
+                      </div>
+                    </>
+                  )}
                 </div>
               </CardContent>
             </Card>
