@@ -50,7 +50,10 @@ export const TechnologySection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-black border-t border-zinc-800">
+    <section
+      id="technology"
+      className="py-20 bg-black border-t border-zinc-800"
+    >
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
