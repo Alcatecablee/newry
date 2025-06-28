@@ -31,9 +31,9 @@ export type InsertTeamProject = typeof teamProjects.$inferInsert;
 
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
-  getUserByClerkId(clerkId: string): Promise<User | undefined>;
+  getUserBySupabaseId(supabaseId: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  incrementUsage(clerkId: string): Promise<boolean>;
+  incrementUsage(supabaseId: string): Promise<boolean>;
   createTransformation(
     transformation: Omit<Transformation, "id" | "createdAt">,
   ): Promise<Transformation>;
