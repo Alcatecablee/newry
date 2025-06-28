@@ -96,55 +96,7 @@ const AdminDashboard = () => {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [configImported, setConfigImported] = useState(false);
 
-  useEffect(() => {
-    if (!loading) {
-      loadEnvironmentVariables();
-      checkSystemStatus();
-      loadSystemStats();
-
-      // Auto-refresh every 30 seconds
-      const interval = setInterval(() => {
-        checkSystemStatus();
-        loadSystemStats();
-      }, 30000);
-
-      return () => clearInterval(interval);
-    }
-  }, [loading]);
-
-  // Authentication check
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white">Loading...</div>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <Card className="bg-zinc-900 border-zinc-800 p-8 max-w-md mx-auto">
-          <CardContent className="text-center">
-            <Lock className="w-12 h-12 text-zinc-400 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">
-              Authentication Required
-            </h2>
-            <p className="text-zinc-400 mb-4">
-              You must be signed in to access the admin dashboard.
-            </p>
-            <Button
-              onClick={() => (window.location.href = "/")}
-              className="bg-white text-black hover:bg-gray-100"
-            >
-              Go to Home
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
+  // Define all functions before useEffect to avoid hoisting issues
   const loadEnvironmentVariables = async () => {
     try {
       // Load from environment variables
