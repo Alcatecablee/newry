@@ -158,15 +158,11 @@ const TeamDashboard = () => {
   const getRoleColor = (role: string) => {
     switch (role) {
       case "Owner":
-        return "bg-purple-900 text-purple-200";
       case "Admin":
-        return "bg-blue-900 text-blue-200";
       case "Developer":
-        return "bg-green-900 text-green-200";
       case "Auditor":
-        return "bg-gray-700 text-gray-200";
       default:
-        return "bg-zinc-900 text-white";
+        return "bg-zinc-800 text-zinc-300";
     }
   };
 
