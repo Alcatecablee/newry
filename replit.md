@@ -1,9 +1,11 @@
-# NeuroLint - AI-Powered Code Analysis Platform
+# NeuroLint - Advanced Code Analysis Platform
 
 ## Overview
-NeuroLint is a comprehensive code analysis and transformation platform built with React, TypeScript, and Node.js. The application provides AI-powered code linting, transformation, and modernization capabilities with team collaboration features.
+
+NeuroLint is a comprehensive code analysis and transformation platform built with React, TypeScript, and Node.js. The application provides advanced code linting, transformation, and modernization capabilities with team collaboration features. Currently in beta with smart architecture ready for future AI integration.
 
 ## Project Architecture
+
 - **Frontend**: React 18 + TypeScript + Vite
 - **Backend**: Express.js + TypeScript
 - **Database**: PostgreSQL with Drizzle ORM
@@ -12,10 +14,11 @@ NeuroLint is a comprehensive code analysis and transformation platform built wit
 - **Deployment**: Replit environment
 
 ## Recent Changes
+
 - **2025-01-25**: Added real database schema and API routes for teams functionality
   - Created comprehensive team tables (teams, team_members, team_projects, team_activities)
   - Built complete storage layer with database and in-memory fallback
-  - Added REST API endpoints for team management (/api/teams/*)
+  - Added REST API endpoints for team management (/api/teams/\*)
   - Replaced mock data with real database operations
   - Teams can now be created, managed, and tracked with real data persistence
 
@@ -63,6 +66,7 @@ NeuroLint is a comprehensive code analysis and transformation platform built wit
   - Application fully operational with robust layer system
 
 ## Key Features
+
 - Multi-layer code analysis and transformation (6 layers total, all active and passing)
 - Layer-specific validation strategies (lenient for layers 3-4, strict for layers 5-6)
 - AST/regex fallback transformation strategy
@@ -75,11 +79,13 @@ NeuroLint is a comprehensive code analysis and transformation platform built wit
 - Responsive design with mobile support
 
 ## User Preferences
+
 - **Design Style**: Clean, professional monochrome design (black, white, gray only)
 - **No colorful elements**: Specifically requested removal of purple colors and any bright/colorful UI elements
 - **Interface Focus**: Prioritize functionality and readability over visual flair
 
 ## Technical Decisions
+
 - Used Drizzle ORM for type-safe database interactions
 - Implemented server-side API routes for security
 - Maintained client/server separation for scalability
