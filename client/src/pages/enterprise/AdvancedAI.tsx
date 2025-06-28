@@ -371,6 +371,22 @@ const AdvancedAI = () => {
   return (
     <div className="min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
+        {/* Prototype Disclaimer */}
+        <div className="mb-6 p-4 bg-yellow-900/20 border border-yellow-500/30 rounded-lg">
+          <div className="flex items-center gap-2 mb-2">
+            <AlertCircle className="w-5 h-5 text-yellow-400" />
+            <span className="font-semibold text-yellow-400">
+              Prototype Demo
+            </span>
+          </div>
+          <p className="text-zinc-300 text-sm">
+            This page shows a prototype of planned AI capabilities. NeuroLint is
+            currently in beta with AI-ready architecture. The features shown
+            here are not yet implemented - they represent our roadmap for future
+            AI integration.
+          </p>
+        </div>
+
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
@@ -382,16 +398,16 @@ const AdvancedAI = () => {
               />
               <div>
                 <h1 className="text-3xl font-bold text-white">
-                  Advanced AI Platform
+                  AI Platform Roadmap
                 </h1>
                 <p className="text-zinc-400">
-                  Next-generation development assistance platform
+                  Future AI capabilities prototype and planning
                 </p>
               </div>
             </div>
-            <Badge className="bg-zinc-900 text-zinc-200 flex items-center gap-1">
+            <Badge className="bg-yellow-900 text-yellow-200 flex items-center gap-1">
               <Sparkles className="w-3 h-3" />
-              Advanced
+              Prototype
             </Badge>
           </div>
           <div className="flex items-center gap-4">
