@@ -107,8 +107,26 @@ const MarketPositioning = () => {
   const [selectedSegment, setSelectedSegment] = useState<string>("enterprise");
   const [gtmPhase, setGTMPhase] = useState<string>("launch");
 
-  // Mock data - would come from market research and strategy APIs
-  const marketSegments: MarketSegment[] = [
+  const [marketSegments, setMarketSegments] = useState<MarketSegment[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchMarketSegments();
+  }, []);
+
+  const fetchMarketSegments = async () => {
+    try {
+      const response = await fetch('/api/enterprise/market-segments');
+      if (response.ok) {
+        const data = await response.json();
+        setMarketSegments(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch market segments:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
     {
       id: "enterprise",
       name: "Enterprise Development Teams",
