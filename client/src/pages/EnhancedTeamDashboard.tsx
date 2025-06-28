@@ -789,7 +789,7 @@ const EnhancedTeamDashboard = () => {
                         <div className="w-full bg-zinc-900 h-2 rounded-full">
                           <div
                             className="bg-zinc-600 h-2 rounded-full"
-                            style={{ width: `${Math.random() * 50 + 50}%` }}
+                            style={{ width: "0%" }}
                           />
                         </div>
                       </div>
