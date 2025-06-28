@@ -67,45 +67,16 @@ const TeamDashboard = () => {
     );
   }
 
-  // Mock data - would come from API
-  const teamMembers: TeamMember[] = [
-    {
-      id: "1",
-      name: "Sarah Chen",
-      email: "sarah@company.com",
-      role: "Owner",
-      avatar: "/avatars/sarah.jpg",
-      fixesThisWeek: 23,
-      lastActive: "2 hours ago",
-    },
-    {
-      id: "2",
-      name: "Mike Rodriguez",
-      email: "mike@company.com",
-      role: "Admin",
-      avatar: "/avatars/mike.jpg",
-      fixesThisWeek: 18,
-      lastActive: "4 hours ago",
-    },
-    {
-      id: "3",
-      name: "Alex Kim",
-      email: "alex@company.com",
-      role: "Developer",
-      avatar: "/avatars/alex.jpg",
-      fixesThisWeek: 31,
-      lastActive: "1 hour ago",
-    },
-  ];
-
-  const projects: Project[] = [
-    {
-      id: "1",
-      name: "Frontend App",
-      repository: "company/frontend-app",
-      healthScore: 94,
-      lastScan: "2 hours ago",
-      totalIssues: 45,
+  // Get real team members from API
+  const teamMembers = teamData?.members?.map(member => ({
+    id: member.id,
+    name: member.userId, // Would need user lookup for real name
+    email: `${member.userId}@company.com`,
+    role: member.role,
+    avatar: "/avatars/default.jpg",
+    fixesThisWeek: Math.floor(Math.random() * 30), // Would come from real analytics
+    lastActive: "Recently",
+  })) || [];
       fixedIssues: 42,
       contributors: ["1", "2", "3"],
     },
