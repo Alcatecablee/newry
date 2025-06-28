@@ -326,7 +326,7 @@ export function FileUploadZone({ onFile, processing }: FileUploadZoneProps) {
             </div>
           ) : (
             <>
-              Advanced AI analysis for{" "}
+              Advanced code analysis for{" "}
               <strong>React, Next.js, TypeScript</strong> files
               <br />
               <span className="text-xs">
