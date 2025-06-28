@@ -139,13 +139,7 @@ export function UserButton() {
                 </div>
                 <div className="w-full bg-zinc-800 rounded-full h-1.5">
                   <div
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      usagePercentage > 90
-                        ? "bg-red-500"
-                        : usagePercentage > 70
-                          ? "bg-yellow-500"
-                          : "bg-green-500"
-                    }`}
+                    className="h-1.5 rounded-full transition-all duration-300 bg-white"
                     style={{ width: `${Math.min(usagePercentage, 100)}%` }}
                   />
                 </div>
