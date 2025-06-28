@@ -404,17 +404,15 @@ const AdminDashboard = () => {
         toast({
           title: "✅ Configuration saved successfully!",
           description:
-            "Environment variables written to .env file. Refreshing page to apply changes...",
+            "Environment variables written to .env file successfully.",
         });
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
+        // Reload environment variables from server to reflect saved changes
+        await loadEnvironmentVariables();
+        checkSystemStatus();
       } else {
         throw new Error(result.message || "Save failed");
       }
-
-      checkSystemStatus();
     } catch (error: any) {
       console.error("Save error:", error);
       toast({
