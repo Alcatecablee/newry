@@ -61,9 +61,11 @@ export function LayerSelector({
               <span className="whitespace-nowrap truncate text-left flex-1">
                 {layer.name}
               </span>
-              {isOn && (
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-zinc-500 rounded-full border-2 border-[#191a1f]" />
-              )}
+              <div
+                className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-[#191a1f] ${
+                  isOn ? "bg-green-500" : "bg-red-500"
+                }`}
+              />
             </Toggle>
           );
         })}
