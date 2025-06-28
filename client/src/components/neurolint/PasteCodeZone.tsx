@@ -22,15 +22,13 @@ class FileSecurityValidator {
   private static readonly MAX_CONTENT_SIZE = 1024 * 1024; // 1MB after sanitization
 
   private static readonly DANGEROUS_PATTERNS = [
-    { pattern: /eval\s*\(/gi, description: "eval() function call" },
-    { pattern: /Function\s*\(/gi, description: "Function() constructor" },
     {
-      pattern: /setTimeout\s*\(\s*['"`][^'"`]*['"`]/gi,
-      description: "setTimeout with string",
+      pattern: /eval\s*\(\s*['"`]/gi,
+      description: "eval() with string literal",
     },
     {
-      pattern: /setInterval\s*\(\s*['"`][^'"`]*['"`]/gi,
-      description: "setInterval with string",
+      pattern: /Function\s*\(\s*['"`]/gi,
+      description: "Function() constructor with string",
     },
     {
       pattern: /<script[\s\S]*?>[\s\S]*?<\/script>/gi,
@@ -42,7 +40,6 @@ class FileSecurityValidator {
       description: "data:text/html protocol",
     },
     { pattern: /vbscript\s*:/gi, description: "vbscript: protocol" },
-    { pattern: /on\w+\s*=/gi, description: "event handler attributes" },
   ];
 
   private static readonly SUSPICIOUS_IMPORTS = [
