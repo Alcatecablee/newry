@@ -67,15 +67,12 @@ async function exportAnalytics(format: string, outputPath?: string) {
 
   try {
     const config = readConfig();
-    const response = await fetch(
-      `${config.apiUrl}/api/enterprise/analytics/export`,
-      {
-        headers: {
-          Authorization: `Bearer ${config.apiKey}`,
-          "Content-Type": "application/json",
-        },
+    const response = await fetch(`${config.apiUrl}/api/enterprise/analytics/export`, {
+      headers: {
+        'Authorization': `Bearer ${config.apiKey}`,
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -84,18 +81,18 @@ async function exportAnalytics(format: string, outputPath?: string) {
     const analytics: AnalyticsData = await response.json();
     spinner.stop();
 
-    const timestamp = new Date().toISOString().split("T")[0];
+    const timestamp = new Date().toISOString().split('T')[0];
     const filename = outputPath || `neurolint-analytics-${timestamp}.${format}`;
 
     let data: string;
     switch (format.toLowerCase()) {
-      case "json":
+      case 'json':
         data = JSON.stringify(analytics, null, 2);
         break;
-      case "csv":
+      case 'csv':
         data = convertToCSV(analytics);
         break;
-      case "txt":
+      case 'txt':
         data = convertToText(analytics);
         break;
       default:
@@ -103,17 +100,14 @@ async function exportAnalytics(format: string, outputPath?: string) {
         return;
     }
 
-    await fs.writeFile(filename, data, "utf8");
+    await fs.writeFile(filename, data, 'utf8');
     console.log(chalk.white(`Analytics exported to: ${filename}`));
     console.log(chalk.gray(`Format: ${format.toUpperCase()}`));
+
   } catch (error) {
     spinner.stop();
     console.log(chalk.white("Failed to export analytics"));
-    console.log(
-      chalk.gray(
-        `Error: ${error instanceof Error ? error.message : String(error)}`,
-      ),
-    );
+    console.log(chalk.gray(`Error: ${error instanceof Error ? error.message : String(error)}`));
   }
 }
 
@@ -122,15 +116,12 @@ async function showDashboard() {
 
   try {
     const config = readConfig();
-    const response = await fetch(
-      `${config.apiUrl}/api/enterprise/analytics/dashboard`,
-      {
-        headers: {
-          Authorization: `Bearer ${config.apiKey}`,
-          "Content-Type": "application/json",
-        },
+    const response = await fetch(`${config.apiUrl}/api/enterprise/analytics/dashboard`, {
+      headers: {
+        'Authorization': `Bearer ${config.apiKey}`,
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -143,57 +134,32 @@ async function showDashboard() {
 
     // Summary Section
     console.log(chalk.white.bold("Executive Summary:"));
-    console.log(
-      chalk.white(
-        `  Total Analyses: ${analytics.summary.totalAnalyses.toLocaleString()}`,
-      ),
-    );
-    console.log(
-      chalk.white(`  Success Rate: ${analytics.summary.successRate}%`),
-    );
-    console.log(
-      chalk.white(`  Avg Fix Time: ${analytics.summary.averageFixTime}s`),
-    );
-    console.log(
-      chalk.white(`  Quality Score: ${analytics.summary.codeQualityScore}/100`),
-    );
-    console.log(
-      chalk.white(
-        `  Team Productivity: +${analytics.summary.teamProductivity}%`,
-      ),
-    );
+    console.log(chalk.white(`  Total Analyses: ${analytics.summary.totalAnalyses.toLocaleString()}`));
+    console.log(chalk.white(`  Success Rate: ${analytics.summary.successRate}%`));
+    console.log(chalk.white(`  Avg Fix Time: ${analytics.summary.averageFixTime}s`));
+    console.log(chalk.white(`  Quality Score: ${analytics.summary.codeQualityScore}/100`));
+    console.log(chalk.white(`  Team Productivity: +${analytics.summary.teamProductivity}%`));
     console.log();
 
     // Team Performance
     console.log(chalk.white.bold("Team Performance:"));
-    analytics.teams.forEach((team) => {
+    analytics.teams.forEach(team => {
       console.log(chalk.white(`  ${team.name}:`));
-      console.log(
-        chalk.gray(
-          `    Members: ${team.members}, Analyses: ${team.analyses}, Quality: ${team.quality}%`,
-        ),
-      );
+      console.log(chalk.gray(`    Members: ${team.members}, Analyses: ${team.analyses}, Quality: ${team.quality}%`));
     });
     console.log();
 
     // Compliance Status
     console.log(chalk.white.bold("Compliance Status:"));
     Object.entries(analytics.compliance).forEach(([framework, data]) => {
-      const statusColor = data.status === "compliant" ? chalk.gray : chalk.gray;
-      console.log(
-        chalk.white(
-          `  ${framework.toUpperCase()}: ${statusColor(data.status)} (${data.score}%)`,
-        ),
-      );
+      const statusColor = data.status === 'compliant' ? chalk.gray : chalk.gray;
+      console.log(chalk.white(`  ${framework.toUpperCase()}: ${statusColor(data.status)} (${data.score}%)`));
     });
+
   } catch (error) {
     spinner.stop();
     console.log(chalk.white("Failed to load dashboard"));
-    console.log(
-      chalk.gray(
-        `Error: ${error instanceof Error ? error.message : String(error)}`,
-      ),
-    );
+    console.log(chalk.gray(`Error: ${error instanceof Error ? error.message : String(error)}`));
   }
 }
 
@@ -202,15 +168,12 @@ async function showComplianceReport() {
 
   try {
     const config = readConfig();
-    const response = await fetch(
-      `${config.apiUrl}/api/enterprise/analytics/compliance`,
-      {
-        headers: {
-          Authorization: `Bearer ${config.apiKey}`,
-          "Content-Type": "application/json",
-        },
+    const response = await fetch(`${config.apiUrl}/api/enterprise/analytics/compliance`, {
+      headers: {
+        'Authorization': `Bearer ${config.apiKey}`,
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -232,20 +195,16 @@ async function showComplianceReport() {
         console.log(chalk.gray(`  Requirements:`));
         data.requirements.forEach((req: any) => {
           const statusIcon =
-            req.status === "met" ? "✓" : req.status === "partial" ? "⚠" : "✗";
+            req.status === "met" ? "MET" : req.status === "partial" ? "PARTIAL" : "NOT MET";
           console.log(chalk.gray(`    ${statusIcon} ${req.title}`));
-        });
       }
       console.log();
     });
+
   } catch (error) {
     spinner.stop();
     console.log(chalk.white("Failed to generate compliance report"));
-    console.log(
-      chalk.gray(
-        `Error: ${error instanceof Error ? error.message : String(error)}`,
-      ),
-    );
+    console.log(chalk.gray(`Error: ${error instanceof Error ? error.message : String(error)}`));
   }
 }
 
@@ -254,15 +213,12 @@ async function showTeamAnalytics() {
 
   try {
     const config = readConfig();
-    const response = await fetch(
-      `${config.apiUrl}/api/enterprise/analytics/teams`,
-      {
-        headers: {
-          Authorization: `Bearer ${config.apiKey}`,
-          "Content-Type": "application/json",
-        },
+    const response = await fetch(`${config.apiUrl}/api/enterprise/analytics/teams`, {
+      headers: {
+        'Authorization': `Bearer ${config.apiKey}`,
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -282,14 +238,11 @@ async function showTeamAnalytics() {
       console.log(chalk.white(`  Productivity: +${team.productivity}%`));
       console.log();
     });
+
   } catch (error) {
     spinner.stop();
     console.log(chalk.white("Failed to load team analytics"));
-    console.log(
-      chalk.gray(
-        `Error: ${error instanceof Error ? error.message : String(error)}`,
-      ),
-    );
+    console.log(chalk.gray(`Error: ${error instanceof Error ? error.message : String(error)}`));
   }
 }
 
@@ -303,7 +256,7 @@ function convertToCSV(analytics: AnalyticsData): string {
     ["Team Productivity", `+${analytics.summary.teamProductivity}%`],
   ];
 
-  return [headers.join(","), ...rows.map((row) => row.join(","))].join("\n");
+  return [headers.join(","), ...rows.map(row => row.join(","))].join("\n");
 }
 
 function convertToText(analytics: AnalyticsData): string {
@@ -320,21 +273,15 @@ Team Productivity: +${analytics.summary.teamProductivity}%
 
 TEAM PERFORMANCE
 ================
-${analytics.teams
-  .map(
-    (team) =>
-      `${team.name}: ${team.members} members, ${team.analyses} analyses, ${team.quality}% quality`,
-  )
-  .join("\n")}
+${analytics.teams.map(team =>
+  `${team.name}: ${team.members} members, ${team.analyses} analyses, ${team.quality}% quality`
+).join('\n')}
 
 COMPLIANCE STATUS
 =================
-${Object.entries(analytics.compliance)
-  .map(
-    ([framework, data]) =>
-      `${framework.toUpperCase()}: ${data.status} (${data.score}%)`,
-  )
-  .join("\n")}
+${Object.entries(analytics.compliance).map(([framework, data]) =>
+  `${framework.toUpperCase()}: ${data.status} (${data.score}%)`
+).join('\n')}
 `;
 }
 
@@ -364,15 +311,15 @@ async function interactiveAnalytics() {
     case "Export analytics data":
       const exportOptions = await inquirer.prompt([
         {
-          type: "list",
-          name: "format",
-          message: "Export format:",
-          choices: ["json", "csv", "txt"],
+          type: 'list',
+          name: 'format',
+          message: 'Export format:',
+          choices: ['json', 'csv', 'txt'],
         },
         {
-          type: "input",
-          name: "filename",
-          message: "Output filename (optional):",
+          type: 'input',
+          name: 'filename',
+          message: 'Output filename (optional):',
         },
       ]);
       await exportAnalytics(exportOptions.format, exportOptions.filename);
@@ -384,10 +331,7 @@ async function interactiveAnalytics() {
       await showTeamAnalytics();
       break;
     case "Generate executive report":
-      await exportAnalytics(
-        "txt",
-        `executive-report-${new Date().toISOString().split("T")[0]}.txt`,
-      );
+      await exportAnalytics("txt", `executive-report-${new Date().toISOString().split('T')[0]}.txt`);
       break;
     default:
       console.log(chalk.gray("Goodbye"));
