@@ -220,6 +220,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Register API documentation routes
   app.use(apiDocsRoutes);
+
+  // Register enterprise routes
+  app.use(enterpriseRoutes);
+
   // User management routes
   app.get("/api/user/:supabaseId", async (req, res) => {
     try {
