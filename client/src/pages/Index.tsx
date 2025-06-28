@@ -352,14 +352,6 @@ export default function Index() {
 
       {/* CLI Tool Section */}
       <CLISection />
-            </h2>
-            <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
-              Get real-time code analysis and automated suggestions directly in
-              your favorite editor. Never leave your development environment.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl">
               <div className="bg-zinc-900 px-4 py-3 flex items-center gap-2 border-b border-zinc-800">
                 <div className="flex gap-2">
