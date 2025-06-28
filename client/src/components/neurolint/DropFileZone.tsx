@@ -214,7 +214,7 @@ export function DropFileZone({ onFile, processing }: DropFileZoneProps) {
     <div className="space-y-6">
       {/* Security Status Indicator */}
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
-        <Shield className="w-4 h-4 text-green-500" />
+        <Shield className="w-4 h-4 text-zinc-400" />
         <span>
           Security validation enabled - Files are automatically scanned for
           malicious content
