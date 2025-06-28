@@ -35,7 +35,9 @@ class EnvironmentManager {
 
   private loadConfig(): void {
     // Load from import.meta.env (Vite environment) - this is the primary source for client-side
-    if (typeof import !== 'undefined' && import.meta?.env) {
+    if (typeof globalThis !== 'undefined' && globalThis.import?.meta?.env) {
+      this.config = { ...globalThis.import.meta.env };
+    } else if (typeof import !== 'undefined' && typeof import.meta !== 'undefined' && import.meta.env) {
       this.config = { ...import.meta.env };
     }
   }
@@ -53,8 +55,6 @@ class EnvironmentManager {
         errors.push(`Missing required environment variable: ${key}`);
       }
     }
-
-    // Validate URLs (none currently required for client)
 
     // Validate environment values
     if (this.config.NODE_ENV && !['development', 'production', 'test'].includes(this.config.NODE_ENV)) {
@@ -132,7 +132,6 @@ class EnvironmentManager {
     return {
       NODE_ENV: this.config.NODE_ENV,
       VITE_APP_ENV: this.config.VITE_APP_ENV,
-
       VITE_PAYPAL_CLIENT_ID: this.config.VITE_PAYPAL_CLIENT_ID,
       VITE_ENABLE_ANALYTICS: this.config.VITE_ENABLE_ANALYTICS,
       VITE_ENABLE_MONITORING: this.config.VITE_ENABLE_MONITORING,
