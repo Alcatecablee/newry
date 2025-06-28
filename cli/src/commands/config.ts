@@ -47,9 +47,49 @@ export async function configCommand(options: ConfigOptions) {
         return;
       }
 
-      const newConfig = { ...config, [key]: value };
+      // Validate specific configuration values
+      if (key === "apiUrl" || key === "api.url") {
+        const urlValidation = validateApiUrl(value);
+        if (!urlValidation.valid) {
+          console.log(chalk.red(`❌ ${urlValidation.errors[0]}`));
+          return;
+        }
+      }
+
+      // Build nested configuration object if needed
+      let newConfig = { ...config };
+      if (key.includes(".")) {
+        const keys = key.split(".");
+        let current = newConfig;
+        for (let i = 0; i < keys.length - 1; i++) {
+          if (!current[keys[i]]) current[keys[i]] = {};
+          current = current[keys[i]];
+        }
+        current[keys[keys.length - 1]] = value;
+      } else {
+        newConfig[key] = value;
+      }
+
+      // Validate the entire configuration
+      const configValidation = await validateConfig(newConfig);
+      if (!configValidation.valid) {
+        console.log(chalk.red("❌ Configuration validation failed:"));
+        configValidation.errors.forEach((error) =>
+          console.log(chalk.red(`  ${error}`)),
+        );
+        return;
+      }
+
       await saveConfig(newConfig);
       console.log(chalk.green(`✅ Set ${key} = ${value}`));
+
+      if (configValidation.errors.length > 0) {
+        console.log(chalk.yellow("⚠ Configuration warnings:"));
+        configValidation.errors.forEach((warning) =>
+          console.log(chalk.yellow(`  ${warning}`)),
+        );
+      }
+
       return;
     }
 
