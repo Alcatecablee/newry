@@ -334,8 +334,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           .json({ error: "No authorization token provided" });
       }
 
-      // For now, return mock data since we don't have user authentication fully set up
-      // In a real implementation, you would decode the token and get user-specific data
+      // For now, return mock data since we're using Supabase auth
+      // TODO: Get actual user data from Supabase and calculate real usage stats
       const mockUsageStats = {
         totalTransformations: 42,
         successfulTransformations: 40,
@@ -346,6 +346,67 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(mockUsageStats);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch usage statistics" });
+    }
+  });
+
+  // Get current user profile from Supabase auth
+  app.get("/api/auth/user", async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res
+          .status(401)
+          .json({ error: "No authorization token provided" });
+      }
+
+      // Extract user ID from Supabase token
+      // For now, return mock user data matching Supabase user structure
+      const mockUser = {
+        id: "supabase-user-id",
+        email: "user@example.com",
+        user_metadata: {
+          full_name: "Test User",
+          avatar_url: null,
+        },
+        app_metadata: {
+          plan_type: "free",
+          monthly_transformations_used: 5,
+          monthly_limit: 25,
+        },
+      };
+
+      res.json(mockUser);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch user profile" });
+    }
+  });
+
+  // Create or update user in our database when they sign up/sign in with Supabase
+  app.post("/api/auth/sync-user", async (req, res) => {
+    try {
+      const { id, email, user_metadata } = req.body;
+
+      if (!id || !email) {
+        return res
+          .status(400)
+          .json({ error: "User ID and email are required" });
+      }
+
+      // Check if user already exists in our database
+      let user = await storage.getUser(id);
+
+      if (!user) {
+        // Create new user in our database
+        user = await storage.createUser({
+          clerkId: id, // Using clerkId field for Supabase user ID for now
+          email,
+          fullName: user_metadata?.full_name || email.split("@")[0],
+        });
+      }
+
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to sync user" });
     }
   });
 
