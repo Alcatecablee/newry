@@ -116,17 +116,19 @@ const MarketPositioning = () => {
 
   const fetchMarketSegments = async () => {
     try {
-      const response = await fetch('/api/enterprise/market-segments');
+      const response = await fetch("/api/enterprise/market-segments");
       if (response.ok) {
         const data = await response.json();
         setMarketSegments(data);
       }
     } catch (error) {
-      console.error('Failed to fetch market segments:', error);
+      console.error("Failed to fetch market segments:", error);
     } finally {
       setLoading(false);
     }
   };
+
+  const customerPersonas: CustomerPersona[] = [
     {
       id: "enterprise",
       name: "Enterprise Development Teams",
