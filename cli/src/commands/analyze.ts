@@ -182,8 +182,8 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
                 delay: 1000,
                 onRetry: (error, attempt) => {
                   console.log(
-                    chalk.yellow(
-                      `⚠ Retrying ${path.relative(process.cwd(), filePath)} (attempt ${attempt})`,
+                    chalk.gray(
+                      `Retrying ${path.relative(process.cwd(), filePath)} (attempt ${attempt})`,
                     ),
                   );
                 },
