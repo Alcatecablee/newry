@@ -402,7 +402,7 @@ const EnhancedTeamDashboard = () => {
                       {analytics?.bugRate.current || 0}%
                     </p>
                   </div>
-                  <AlertTriangle className="w-8 h-8 text-white" />
+                  <AlertTriangle className="w-8 h-8 text-zinc-400" />
                 </div>
                 <p className="text-xs text-gray-400 mt-2">
                   {analytics?.bugRate.change > 0 ? "+" : ""}
