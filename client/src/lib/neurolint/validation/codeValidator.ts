@@ -99,21 +99,11 @@ export class CodeValidator {
         // Skip AST parsing in browser environment to avoid Node.js dependencies
         ast = null;
       } catch (error) {
-        // Try without TypeScript plugin
-        try {
-          ast = parser.parse(code, {
-            ...parseOptions,
-            plugins: parseOptions.plugins.filter((p) => p !== "typescript"),
-          });
-          warnings.push(
-            "Code parsed as JavaScript (TypeScript syntax not detected)",
-          );
-        } catch (fallbackError) {
-          isValid = false;
-          const errorMsg =
-            error instanceof Error ? error.message : "Unknown parsing error";
-          errors.push(`Syntax error: ${errorMsg}`);
-        }
+        // AST parsing is disabled in browser environment
+        isValid = false;
+        const errorMsg =
+          error instanceof Error ? error.message : "Unknown parsing error";
+        errors.push(`Syntax error: ${errorMsg}`);
       }
 
       // Security validation
@@ -326,13 +316,15 @@ export class CodeValidator {
     if (linesChanged > 5000) riskLevel = "high";
 
     // For layers 3-4, skip corruption checks entirely - trust the transformation
-    console.log("Lenient validation: Skipping corruption detection for layers 3-4");
+    console.log(
+      "Lenient validation: Skipping corruption detection for layers 3-4",
+    );
     return { shouldRevert: false, riskLevel, metrics };
   }
 
   private static hasCatastrophicErrors(before: string, after: string): boolean {
     // Only check for errors that would completely break JavaScript parsing
-    
+
     // Check for unmatched braces (basic bracket counting)
     const openBraces = (after.match(/\{/g) || []).length;
     const closeBraces = (after.match(/\}/g) || []).length;
@@ -355,9 +347,11 @@ export class CodeValidator {
 
   private static hasBreakingPatterns(before: string, after: string): boolean {
     // Only check for patterns that would genuinely break the code
-    
+
     // Check for multiple default exports on separate lines
-    const exportLines = after.split('\n').filter(line => line.includes('export default'));
+    const exportLines = after
+      .split("\n")
+      .filter((line) => line.includes("export default"));
     if (exportLines.length > 1) {
       return true;
     }
@@ -376,7 +370,7 @@ export class CodeValidator {
     const openTags = (after.match(/<\w+[^>]*>/g) || []).length;
     const closeTags = (after.match(/<\/\w+>/g) || []).length;
     const selfCloseTags = (after.match(/<\w+[^>]*\/>/g) || []).length;
-    
+
     // Allow reasonable imbalance for self-closing tags and fragments
     if (Math.abs(openTags - closeTags - selfCloseTags) > 3) {
       return true;
