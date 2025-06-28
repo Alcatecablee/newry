@@ -104,7 +104,7 @@ export function IntegrationsSection() {
             return (
               <div
                 key={index}
-                className="group bg-gray-800/50 border border-gray-700 rounded-xl p-6 hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105"
+                className="group bg-gray-800/50 border border-gray-700 rounded-xl p-6 hover:border-zinc-500/50 transition-all duration-300 hover:transform hover:scale-105"
               >
                 <div className="w-12 h-12 bg-zinc-700 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <IconComponent className="w-6 h-6 text-white" />
