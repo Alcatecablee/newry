@@ -330,7 +330,7 @@ ${suggestions.join("\n")}`);
               prev
                 ? {
                     ...prev,
-                    processed: prev.processed + 1,
+                    processed: files.length,
                     files: [...prev.files, item.path],
                   }
                 : null,
@@ -448,13 +448,15 @@ ${suggestions.join("\n")}`);
         return;
       }
 
-      setUploadStatus((prev) =>
-        prev ? { ...prev, total: files.length } : null,
-      );
+      setUploadStatus({
+        total: files.length,
+        processed: files.length,
+        files: files.map((f) => f.path),
+      });
 
       toast({
-        title: "Repository Uploaded",
-        description: `Successfully uploaded ${files.length} files from ${repoInfo.owner}/${repoInfo.repo}`,
+        title: "Repository Imported Successfully",
+        description: `Analyzed ${files.length} files from ${repoInfo.owner}/${repoInfo.repo}. Ready for transformation.`,
       });
 
       if (typeof onRepoUpload === "function") {

@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileCode, Zap, Download, AlertTriangle } from "lucide-react";
+import {
+  FileCode,
+  Zap,
+  Download,
+  AlertTriangle,
+  CheckCircle2,
+  Clock,
+  BarChart3,
+  TrendingUp,
+  Activity,
+} from "lucide-react";
 import {
   NeuroLintOrchestrator,
   NeuroLintLayerResult,
@@ -60,7 +68,7 @@ export function RepoProcessor({
         console.error(`Error processing ${file.path}:`, error);
         results.push({
           ...file,
-          transformed: file.content, // Keep original if processing fails
+          transformed: file.content,
           insights: [],
         });
       }
@@ -74,12 +82,31 @@ export function RepoProcessor({
   };
 
   const downloadResults = () => {
-    // Create a summary report
     const summary = {
-      repository: "GitHub Repository",
+      repository: "GitHub Repository Analysis",
       processedAt: new Date().toISOString(),
       totalFiles: processedFiles.length,
       layersUsed: enabledLayers,
+      summary: {
+        totalChanges: processedFiles.reduce(
+          (sum, file) =>
+            sum +
+            (file.insights?.reduce(
+              (s, insight) => s + (insight.changeCount || 0),
+              0,
+            ) || 0),
+          0,
+        ),
+        filesModified: processedFiles.filter(
+          (file) => file.transformed !== file.content,
+        ).length,
+        successfulLayers: processedFiles.reduce(
+          (sum, file) =>
+            sum +
+            (file.insights?.filter((insight) => insight.success).length || 0),
+          0,
+        ),
+      },
       files: processedFiles.map((file) => ({
         path: file.path,
         hasChanges: file.transformed !== file.content,
@@ -98,14 +125,13 @@ export function RepoProcessor({
       })),
     };
 
-    // Download as JSON
     const blob = new Blob([JSON.stringify(summary, null, 2)], {
       type: "application/json",
     });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "neurolint-repo-results.json";
+    a.download = `neurolint-analysis-${Date.now()}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -126,106 +152,219 @@ export function RepoProcessor({
     (file) => file.transformed !== file.content,
   ).length;
 
-  return (
-    <div className="space-y-6">
-      <Card className="bg-[#16171c]/90 border-zinc-800">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-white">
-            <FileCode className="w-5 h-5 text-zinc-400" />
-            Repository Processor
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div>
-              <div className="text-2xl font-bold text-zinc-400">
-                {files.length}
-              </div>
-              <div className="text-sm text-muted-foreground">Total Files</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-zinc-400">
-                {filesWithChanges}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Files Modified
-              </div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-zinc-400">
-                {totalChanges}
-              </div>
-              <div className="text-sm text-muted-foreground">Total Changes</div>
-            </div>
-          </div>
+  const successfulLayers = processedFiles.reduce(
+    (sum, file) =>
+      sum + (file.insights?.filter((insight) => insight.success).length || 0),
+    0,
+  );
 
+  const progressPercentage = Math.round(
+    (progress.current / Math.max(progress.total, 1)) * 100,
+  );
+
+  return (
+    <div className="space-y-8">
+      {/* Header Section */}
+      <div className="text-center space-y-4">
+        <h3 className="text-2xl font-bold text-white tracking-tight">
+          Repository Analysis Engine
+        </h3>
+        <p className="text-zinc-400 max-w-2xl mx-auto">
+          Advanced multi-layer code analysis and transformation for your entire
+          repository
+        </p>
+      </div>
+
+      {/* Stats Overview */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="border border-zinc-800 rounded-2xl p-6 bg-black/50 backdrop-blur-sm">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-zinc-800/50 rounded-xl">
+              <FileCode className="w-5 h-5 text-zinc-400" />
+            </div>
+            <span className="text-zinc-300 font-semibold">Total Files</span>
+          </div>
+          <div className="text-3xl font-bold text-white mb-1">
+            {files.length}
+          </div>
+          <div className="text-sm text-zinc-500">Ready for processing</div>
+        </div>
+
+        <div className="border border-zinc-800 rounded-2xl p-6 bg-black/50 backdrop-blur-sm">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-zinc-800/50 rounded-xl">
+              <TrendingUp className="w-5 h-5 text-zinc-400" />
+            </div>
+            <span className="text-zinc-300 font-semibold">Modified</span>
+          </div>
+          <div className="text-3xl font-bold text-white mb-1">
+            {filesWithChanges}
+          </div>
+          <div className="text-sm text-zinc-500">Files with changes</div>
+        </div>
+
+        <div className="border border-zinc-800 rounded-2xl p-6 bg-black/50 backdrop-blur-sm">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-zinc-800/50 rounded-xl">
+              <BarChart3 className="w-5 h-5 text-zinc-400" />
+            </div>
+            <span className="text-zinc-300 font-semibold">Changes</span>
+          </div>
+          <div className="text-3xl font-bold text-white mb-1">
+            {totalChanges}
+          </div>
+          <div className="text-sm text-zinc-500">Total improvements</div>
+        </div>
+
+        <div className="border border-zinc-800 rounded-2xl p-6 bg-black/50 backdrop-blur-sm">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-zinc-800/50 rounded-xl">
+              <Activity className="w-5 h-5 text-zinc-400" />
+            </div>
+            <span className="text-zinc-300 font-semibold">Success Rate</span>
+          </div>
+          <div className="text-3xl font-bold text-white mb-1">
+            {processedFiles.length > 0
+              ? Math.round(
+                  (successfulLayers /
+                    (processedFiles.length * enabledLayers.length)) *
+                    100,
+                )
+              : 0}
+            %
+          </div>
+          <div className="text-sm text-zinc-500">Layer completion</div>
+        </div>
+      </div>
+
+      {/* Processing Section */}
+      <div className="max-w-4xl mx-auto">
+        <div className="border border-zinc-800 rounded-3xl p-8 bg-black/50 backdrop-blur-sm">
           {!processing && processedFiles.length === 0 && (
-            <Button
-              onClick={processRepository}
-              className="w-full bg-white text-black hover:bg-gray-100"
-            >
-              <Zap className="w-4 h-4 mr-2" />
-              Process Repository ({files.length} files)
-            </Button>
+            <div className="text-center space-y-6">
+              <div className="space-y-4">
+                <h4 className="text-xl font-semibold text-white">
+                  Ready to Process Repository
+                </h4>
+                <p className="text-zinc-400 max-w-md mx-auto">
+                  Launch the multi-layer analysis engine to transform all{" "}
+                  {files.length} files using {enabledLayers.length} advanced
+                  optimization layers.
+                </p>
+              </div>
+
+              <Button
+                onClick={processRepository}
+                className="h-14 px-8 bg-white text-black hover:bg-gray-100 font-semibold text-lg shadow-lg"
+              >
+                <Zap className="w-5 h-5 mr-3" />
+                Start Analysis ({files.length} files)
+              </Button>
+            </div>
           )}
 
           {processing && (
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-zinc-300">
-                <Zap className="w-4 h-4 animate-pulse" />
-                <span>Processing repository...</span>
+            <div className="space-y-6">
+              {/* Processing Header */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="relative">
+                    <div className="w-12 h-12 border-2 border-zinc-700 border-t-white rounded-full animate-spin" />
+                    <Zap className="absolute inset-0 w-6 h-6 m-auto text-white animate-pulse" />
+                  </div>
+                  <div>
+                    <div className="text-xl font-semibold text-white">
+                      Processing Repository
+                    </div>
+                    <div className="text-sm text-zinc-400">
+                      Running {enabledLayers.length} optimization layers on each
+                      file
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-right">
+                  <div className="text-3xl font-bold text-white">
+                    {progressPercentage}%
+                  </div>
+                  <div className="text-sm text-zinc-500">
+                    {progress.current}/{progress.total} files
+                  </div>
+                </div>
               </div>
-              <div className="text-sm text-muted-foreground">
-                {progress.current}/{progress.total} files processed
-              </div>
-              <div className="text-xs text-muted-foreground truncate">
-                Current: {currentFile}
-              </div>
-              <div className="w-full bg-gray-700 rounded-full h-2">
-                <div
-                  className="bg-white h-2 rounded-full transition-all duration-300"
-                  style={{
-                    width: `${(progress.current / progress.total) * 100}%`,
-                  }}
-                />
+
+              {/* Progress Bar */}
+              <div className="space-y-3">
+                <div className="w-full bg-zinc-800 rounded-full h-3 overflow-hidden">
+                  <div
+                    className="h-3 bg-white rounded-full transition-all duration-500 ease-out"
+                    style={{ width: `${progressPercentage}%` }}
+                  />
+                </div>
+
+                {currentFile && (
+                  <div className="flex items-center gap-2 text-sm text-zinc-400">
+                    <Clock className="w-4 h-4 animate-pulse" />
+                    <span className="truncate">Processing: {currentFile}</span>
+                  </div>
+                )}
               </div>
             </div>
           )}
 
           {processedFiles.length > 0 && !processing && (
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-zinc-300">
-                <FileCode className="w-4 h-4" />
-                <span>Processing complete!</span>
+            <div className="space-y-6">
+              {/* Completion Header */}
+              <div className="text-center space-y-4">
+                <div className="flex items-center justify-center gap-3">
+                  <div className="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center">
+                    <CheckCircle2 className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-semibold text-white">
+                      Analysis Complete
+                    </h4>
+                    <p className="text-zinc-400">
+                      Successfully processed {processedFiles.length} files
+                    </p>
+                  </div>
+                </div>
               </div>
-              <Button
-                onClick={downloadResults}
-                className="w-full bg-white text-black hover:bg-gray-100"
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Download Results Summary
-              </Button>
+
+              {/* Download Results */}
+              <div className="flex justify-center">
+                <Button
+                  onClick={downloadResults}
+                  className="h-12 px-6 bg-white text-black hover:bg-gray-100 font-semibold"
+                >
+                  <Download className="w-5 h-5 mr-3" />
+                  Download Analysis Report
+                </Button>
+              </div>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
+      {/* Results Preview */}
       {processedFiles.length > 0 && (
-        <Card className="bg-[#16171c]/90 border-zinc-800">
-          <CardHeader>
-            <CardTitle className="text-white">File Results</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Tabs defaultValue="summary" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="summary">Summary</TabsTrigger>
-                <TabsTrigger value="files">File Details</TabsTrigger>
-              </TabsList>
+        <div className="max-w-6xl mx-auto">
+          <div className="border border-zinc-800 rounded-3xl p-8 bg-black/50 backdrop-blur-sm">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h4 className="text-xl font-semibold text-white">
+                  Analysis Results Preview
+                </h4>
+                <Badge className="bg-zinc-800 text-zinc-300 border-zinc-700">
+                  {processedFiles.length} files processed
+                </Badge>
+              </div>
 
-              <TabsContent value="summary" className="space-y-4">
-                <div className="grid gap-3">
-                  {processedFiles.slice(0, 10).map((file, index) => {
-                    const hasChanges = file.transformed !== file.content;
+              <div className="grid gap-4 max-h-96 overflow-y-auto">
+                {processedFiles
+                  .filter((file) => file.transformed !== file.content)
+                  .slice(0, 8)
+                  .map((file, index) => {
                     const changeCount =
                       file.insights?.reduce(
                         (sum, insight) => sum + (insight.changeCount || 0),
@@ -235,79 +374,69 @@ export function RepoProcessor({
                     return (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-3 bg-[#22242B] rounded-lg"
+                        className="flex items-center justify-between p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl"
                       >
-                        <div className="flex items-center gap-2">
-                          <FileCode className="w-4 h-4 text-zinc-400" />
-                          <span className="text-sm text-white truncate">
-                            {file.path}
-                          </span>
+                        <div className="flex items-center gap-3 min-w-0">
+                          <FileCode className="w-5 h-5 text-zinc-400 flex-shrink-0" />
+                          <div className="min-w-0">
+                            <div className="text-sm font-medium text-white truncate">
+                              {file.path}
+                            </div>
+                            <div className="text-xs text-zinc-500">
+                              {file.insights?.filter((i) => i.success).length ||
+                                0}
+                              /{enabledLayers.length} layers successful
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          {hasChanges ? (
-                            <Badge className="bg-zinc-600 text-white">
+
+                        <div className="flex items-center gap-3 flex-shrink-0">
+                          {changeCount > 0 ? (
+                            <Badge className="bg-zinc-700 text-zinc-300 border-zinc-600">
                               {changeCount} changes
                             </Badge>
                           ) : (
                             <Badge
                               variant="outline"
-                              className="text-muted-foreground"
+                              className="border-zinc-700 text-zinc-500"
                             >
                               No changes
                             </Badge>
+                          )}
+
+                          {file.insights?.every((i) => i.success) ? (
+                            <CheckCircle2 className="w-4 h-4 text-zinc-400" />
+                          ) : (
+                            <AlertTriangle className="w-4 h-4 text-zinc-500" />
                           )}
                         </div>
                       </div>
                     );
                   })}
 
-                  {processedFiles.length > 10 && (
-                    <div className="text-center text-sm text-muted-foreground">
-                      ... and {processedFiles.length - 10} more files
-                    </div>
-                  )}
-                </div>
-              </TabsContent>
+                {processedFiles.filter(
+                  (file) => file.transformed !== file.content,
+                ).length > 8 && (
+                  <div className="text-center text-sm text-zinc-500 py-4">
+                    ... and{" "}
+                    {processedFiles.filter(
+                      (file) => file.transformed !== file.content,
+                    ).length - 8}{" "}
+                    more files with changes
+                  </div>
+                )}
 
-              <TabsContent value="files" className="space-y-4">
-                <div className="text-sm text-muted-foreground">
-                  Detailed view of all processed files (showing first 5 with
-                  changes)
-                </div>
-                <div className="space-y-4 max-h-96 overflow-y-auto">
-                  {processedFiles
-                    .filter((file) => file.transformed !== file.content)
-                    .slice(0, 5)
-                    .map((file, index) => (
-                      <div key={index} className="p-4 bg-[#22242B] rounded-lg">
-                        <div className="font-medium text-white mb-2">
-                          {file.path}
-                        </div>
-                        <div className="space-y-2">
-                          {file.insights?.map((insight, i) => (
-                            <div
-                              key={i}
-                              className="flex items-center gap-2 text-sm"
-                            >
-                              {insight.success ? (
-                                <div className="w-2 h-2 bg-zinc-400 rounded-full" />
-                              ) : (
-                                <AlertTriangle className="w-4 h-4 text-zinc-400" />
-                              )}
-                              <span className="text-muted-foreground">
-                                {insight.name}: {insight.changeCount || 0}{" "}
-                                changes
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
+                {processedFiles.filter(
+                  (file) => file.transformed !== file.content,
+                ).length === 0 && (
+                  <div className="text-center text-zinc-500 py-8">
+                    No files required changes - your code is already optimized!
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
