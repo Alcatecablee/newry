@@ -124,7 +124,7 @@ const AdminDashboard = () => {
     switch (status) {
       case "connected":
       case "running":
-        return "bg-green-900 text-green-200";
+        return "bg-zinc-800 text-white";
       case "error":
         return "bg-red-900 text-red-200";
       case "memory":
