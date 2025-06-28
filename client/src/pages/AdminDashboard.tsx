@@ -266,19 +266,27 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black p-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <Shield className="w-8 h-8 text-purple-400" />
-            <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
-          </div>
-          <p className="text-zinc-400">
-            Configure system settings, manage integrations, and monitor
-            application health.
-          </p>
-        </div>
+    <div className="min-h-screen bg-black text-white">
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-zinc-900/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-zinc-800/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 h-1/3 bg-zinc-900/15 rounded-full blur-3xl"></div>
+      </div>
+
+      <PageHeader
+        title="Admin Dashboard"
+        description="Configure system settings, manage integrations, and monitor application health."
+        icon={<Shield className="w-4 h-4" />}
+        badge="System Administration"
+        actionButton={{
+          label: "Try NeuroLint",
+          href: "/app"
+        }}
+      />
+
+      <div className="relative z-10 p-6">
+        <div className="max-w-6xl mx-auto">
 
         {/* System Status Overview */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
