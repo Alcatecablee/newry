@@ -137,7 +137,7 @@ export class DatabaseStorage implements IStorage {
         .update(users)
         .set({
           monthlyTransformationsUsed: currentUsage + 1,
-          updatedAt: new Date(),
+          updatedAt: Math.floor(Date.now() / 1000),
         })
         .where(eq(users.clerkId, supabaseId)); // Using clerkId column temporarily for Supabase IDs
 
