@@ -13,7 +13,7 @@ import { z } from "zod";
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
-  supabaseId: text("supabase_id").unique().notNull(),
+  clerkId: text("clerk_id").unique().notNull(), // Using for Supabase IDs temporarily
   email: text("email").unique().notNull(),
   fullName: text("full_name"),
   planType: text("plan_type").default("free"),
