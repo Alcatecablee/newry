@@ -138,7 +138,7 @@ program
   .command("help")
   .description("Show help and examples")
   .action(() => {
-    console.log(chalk.blue.bold("\n📖 NeuroLint CLI Examples:\n"));
+    console.log(chalk.white.bold("\nNeuroLint CLI Examples:\n"));
 
     console.log(chalk.white("Initialize project:"));
     console.log(chalk.gray("  neurolint init\n"));
