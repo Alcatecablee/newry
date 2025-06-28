@@ -233,23 +233,34 @@ const TeamSettings = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black p-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-white mb-2">
-              Team Settings
-            </h1>
-            <p className="text-zinc-400">
-              Manage your team's NeuroLint configuration and permissions
-            </p>
+    <div className="min-h-screen bg-black text-white">
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-zinc-900/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-zinc-800/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 h-1/3 bg-zinc-900/15 rounded-full blur-3xl"></div>
+      </div>
+
+      <PageHeader
+        title="Team Settings"
+        description="Manage your team's NeuroLint configuration, permissions, and collaboration settings."
+        icon={<Settings className="w-4 h-4" />}
+        badge="Team Configuration"
+        actionButton={{
+          label: "Try NeuroLint",
+          href: "/app"
+        }}
+      />
+
+      <div className="relative z-10 p-6">
+        <div className="max-w-6xl mx-auto">
+          {/* Save Button */}
+          <div className="flex justify-end mb-8">
+            <Button onClick={handleSaveSettings} variant="primary">
+              <Save className="w-4 h-4 mr-2" />
+              Save Changes
+            </Button>
           </div>
-          <Button onClick={handleSaveSettings} variant="primary">
-            <Save className="w-4 h-4 mr-2" />
-            Save Changes
-          </Button>
-        </div>
 
         <Tabs defaultValue="general" className="space-y-6">
           <TabsList className="bg-zinc-900 border-zinc-800er">
