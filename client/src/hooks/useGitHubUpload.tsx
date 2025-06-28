@@ -637,25 +637,43 @@ ${suggestions.join("\n")}`);
       try {
         await validateRepository(repoInfo.owner, repoInfo.repo);
       } catch (validationError) {
+        console.log("Validation error caught:", validationError);
+
         // If validation fails due to rate limit, immediately switch to demo mode
-        if (
-          validationError instanceof Error &&
-          validationError.message.toLowerCase().includes("rate limit")
-        ) {
-          console.log(
-            "Rate limit detected during validation, switching to demo mode",
-          );
+        if (validationError instanceof Error) {
+          console.log("Error message:", validationError.message);
+          console.log("Checking for rate limit patterns...");
 
-          toast({
-            title: "Rate Limit Detected",
-            description: "Switching to demo repository automatically...",
-          });
+          const errorMsg = validationError.message.toLowerCase();
+          const isRateLimit =
+            errorMsg.includes("rate limit") ||
+            errorMsg.includes("api rate limit") ||
+            errorMsg.includes("403") ||
+            (errorMsg.includes("wait") && errorMsg.includes("minutes"));
 
-          await loadDemoRepository(onRepoUpload);
-          return; // Exit early with demo mode
-        } else {
-          throw validationError; // Re-throw non-rate-limit errors
+          console.log("Rate limit detected:", isRateLimit);
+
+          if (isRateLimit) {
+            console.log("Switching to demo mode automatically");
+
+            toast({
+              title: "Rate Limit Detected",
+              description: "Loading demo repository instead...",
+            });
+
+            try {
+              await loadDemoRepository(onRepoUpload);
+              console.log("Demo repository loaded successfully");
+              return; // Exit early with demo mode
+            } catch (demoError) {
+              console.error("Failed to load demo repository:", demoError);
+              throw new Error("Failed to load demo repository as fallback");
+            }
+          }
         }
+
+        console.log("Re-throwing validation error");
+        throw validationError; // Re-throw non-rate-limit errors
       }
 
       const initialContents = await fetchRepoContents(
