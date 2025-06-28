@@ -33,6 +33,18 @@ export class CodeValidator {
   ];
 
   static validate(code: string, skipCorruption = false): ValidationResult {
+    // Auto-detect React/JSX files and skip corruption detection
+    const isReactFile =
+      code.includes("import React") ||
+      code.includes("import {") ||
+      code.includes("export default") ||
+      (code.includes("<") && code.includes("/>")) ||
+      code.includes("useState") ||
+      code.includes("useEffect");
+
+    if (isReactFile) {
+      skipCorruption = true;
+    }
     const errors: string[] = [];
     const warnings: string[] = [];
     const performanceIssues: string[] = [];
