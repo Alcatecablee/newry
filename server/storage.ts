@@ -105,9 +105,9 @@ export class DatabaseStorage implements IStorage {
     }
   }
 
-  async incrementUsage(clerkId: string): Promise<boolean> {
+  async incrementUsage(supabaseId: string): Promise<boolean> {
     try {
-      const user = await this.getUserByClerkId(clerkId);
+      const user = await this.getUserBySupabaseId(supabaseId);
       if (!user) return false;
 
       const currentUsage = user.monthlyTransformationsUsed || 0;
@@ -123,7 +123,7 @@ export class DatabaseStorage implements IStorage {
           monthlyTransformationsUsed: currentUsage + 1,
           updatedAt: isPostgres ? new Date() : Math.floor(Date.now() / 1000),
         })
-        .where(eq(users.clerkId, clerkId));
+        .where(eq(users.supabaseId, supabaseId));
 
       return true;
     } catch (error) {
