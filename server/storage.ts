@@ -134,22 +134,21 @@ export class DatabaseStorage implements IStorage {
   async createTransformation(
     transformation: Omit<Transformation, "id" | "createdAt">,
   ): Promise<Transformation> {
-    const transformationWithId = {
-      ...transformation,
-      id: this.generateId(),
-      createdAt: isPostgres ? new Date() : Math.floor(Date.now() / 1000),
-      layersUsed: isPostgres
-        ? transformation.layersUsed
-        : JSON.stringify(transformation.layersUsed),
-    };
-
     if (isPostgres) {
+      // For Postgres, let the database generate UUID and timestamp
       const result = await db
         .insert(transformations)
-        .values(transformationWithId)
+        .values(transformation)
         .returning();
       return result[0];
     } else {
+      // For SQLite
+      const transformationWithId = {
+        ...transformation,
+        id: this.generateId(),
+        createdAt: Math.floor(Date.now() / 1000),
+        layersUsed: JSON.stringify(transformation.layersUsed),
+      };
       await db.insert(transformations).values(transformationWithId);
       const result = await db
         .select()
