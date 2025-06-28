@@ -14,12 +14,12 @@ const program = new Command();
 
 program
   .name("neurolint")
-  .description("NeuroLint CLI - AI-powered code analysis and transformation")
+  .description("NeuroLint CLI - Advanced code analysis and transformation")
   .version("1.0.0");
 
 // Welcome message
 console.log(chalk.blue.bold("🧠 NeuroLint CLI"));
-console.log(chalk.gray("AI-powered code analysis and transformation\n"));
+console.log(chalk.gray("Advanced code analysis and transformation\n"));
 
 // Initialize project command
 program
