@@ -13,6 +13,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/components/PageHeader";
 
 interface UsageStats {
   totalTransformations: number;
