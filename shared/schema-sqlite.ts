@@ -61,12 +61,8 @@ export const teams = sqliteTable("teams", {
   ownerId: text("owner_id").references(() => users.id, { onDelete: "cascade" }),
   planType: text("plan_type").default("team"),
   monthlyLimit: integer("monthly_limit").default(1000),
-  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
-    () => new Date(),
-  ),
-  updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(
-    () => new Date(),
-  ),
+  createdAt: integer("created_at", { mode: "timestamp" }),
+  updatedAt: integer("updated_at", { mode: "timestamp" }),
 });
 
 export const teamMembers = sqliteTable("team_members", {
