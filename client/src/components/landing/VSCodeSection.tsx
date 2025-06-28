@@ -112,10 +112,10 @@ export function VSCodeSection() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">
-                  Smart Quick Fixes
+                  Advanced Quick Fixes
                 </h3>
                 <p className="text-gray-400">
-                  One-click solutions for common issues with intelligent code
+                  One-click solutions for common issues with rule-based code
                   transformations and best practices.
                 </p>
               </div>
