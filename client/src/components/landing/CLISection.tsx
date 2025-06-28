@@ -164,9 +164,9 @@ export function CLISection() {
         {/* Quick Commands */}
         <div className="mt-16 text-center">
           <h3 className="text-2xl font-semibold mb-8 text-white">
-            Get Started in Seconds
+            Enterprise-Grade Features
           </h3>
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
               <div className="w-8 h-8 bg-zinc-800 border border-zinc-700 rounded flex items-center justify-center mb-3">
                 <Download className="w-4 h-4 text-white" />
@@ -174,6 +174,15 @@ export function CLISection() {
               <h4 className="font-semibold mb-2 text-white">Install</h4>
               <code className="text-sm text-white bg-gray-900/50 px-3 py-1 rounded">
                 npm install -g @neurolint/cli
+              </code>
+            </div>
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
+              <div className="w-8 h-8 bg-zinc-800 border border-zinc-700 rounded flex items-center justify-center mb-3">
+                <Shield className="w-4 h-4 text-white" />
+              </div>
+              <h4 className="font-semibold mb-2 text-white">Authenticate</h4>
+              <code className="text-sm text-white bg-gray-900/50 px-3 py-1 rounded">
+                neurolint login
               </code>
             </div>
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
@@ -193,6 +202,44 @@ export function CLISection() {
               <code className="text-sm text-white bg-gray-900/50 px-3 py-1 rounded">
                 neurolint analyze src/
               </code>
+            </div>
+          </div>
+
+          {/* Advanced Commands */}
+          <div className="mt-12">
+            <h4 className="text-lg font-semibold mb-6 text-white">
+              Advanced Operations
+            </h4>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+              <div className="bg-gray-800/30 border border-gray-700 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle2 className="w-4 h-4 text-white" />
+                  <span className="text-white font-medium">Safe Fixes</span>
+                </div>
+                <code className="text-xs text-gray-300 bg-gray-900/50 px-2 py-1 rounded">
+                  neurolint fix --backup --dry-run
+                </code>
+              </div>
+              <div className="bg-gray-800/30 border border-gray-700 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Clock className="w-4 h-4 text-white" />
+                  <span className="text-white font-medium">Status Check</span>
+                </div>
+                <code className="text-xs text-gray-300 bg-gray-900/50 px-2 py-1 rounded">
+                  neurolint status --detailed
+                </code>
+              </div>
+              <div className="bg-gray-800/30 border border-gray-700 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <RefreshCw className="w-4 h-4 text-white" />
+                  <span className="text-white font-medium">
+                    Resume Operations
+                  </span>
+                </div>
+                <code className="text-xs text-gray-300 bg-gray-900/50 px-2 py-1 rounded">
+                  neurolint fix src/ # Auto-resumes
+                </code>
+              </div>
             </div>
           </div>
         </div>
