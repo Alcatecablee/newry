@@ -755,46 +755,18 @@ const EnhancedTeamDashboard = () => {
 
           <TabsContent value="achievements" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Team Achievements */}
-              <Card className="lg:col-span-2">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Trophy className="w-5 h-5 text-yellow-400" />
-                    Team Achievements
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {[
-                      {
-                        name: "Quality Champions",
-                        description: "90%+ quality for 30 days",
-                        icon: "👑",
-                        rarity: "legendary",
-                        progress: 100,
-                      },
-                      {
-                        name: "Speed Demons",
-                        description: "1000+ fixes this month",
-                        icon: "⚡",
-                        rarity: "epic",
-                        progress: 87,
-                      },
-                      {
-                        name: "Collaboration Kings",
-                        description: "50 pair sessions",
-                        icon: "🤝",
-                        rarity: "rare",
-                        progress: 64,
-                      },
-                      {
-                        name: "Bug Busters",
-                        description: "Zero critical bugs",
-                        icon: "🐛",
-                        rarity: "epic",
-                        progress: 100,
-                      },
-                    ].map((achievement) => (
+              {/* Team Achievements - Only show if there are real achievements */}
+              {teamMembers.length > 0 && (
+                <Card className="lg:col-span-2">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Trophy className="w-5 h-5 text-yellow-400" />
+                      Team Members
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {teamMembers.map((member) => (
                       <div
                         key={achievement.name}
                         className="p-4 bg-zinc-900 rounded-lg border border-yellow-400/30"
