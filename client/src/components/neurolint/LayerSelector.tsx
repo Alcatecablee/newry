@@ -60,7 +60,7 @@ export function LayerSelector({
       {/* Key Layers Section */}
       <div className="w-full max-w-4xl">
         <div className="flex items-center gap-2 mb-3">
-          <Star className="w-4 h-4 text-yellow-500" />
+          <Star className="w-4 h-4 text-zinc-400" />
           <span className="text-sm font-medium text-white">
             Key Testing Layers
           </span>
@@ -120,8 +120,8 @@ export function LayerSelector({
                     {getLayerDescription(layer.id)}
                   </p>
                   <div
-                    className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-[#191a1f] ${
-                      isOn ? "bg-green-500" : "bg-red-500"
+                    className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-zinc-900 ${
+                      isOn ? "bg-zinc-400" : "bg-zinc-600"
                     }`}
                   />
                 </Toggle>
@@ -155,7 +155,7 @@ export function LayerSelector({
                       : "bg-zinc-900/20 text-gray-300 border-zinc-800/50 hover:bg-zinc-900/30 hover:border-zinc-700"
                   }
                   touch-manipulation select-none
-                  focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#191a1f]
+                  focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900
                   active:scale-[0.98] transform
                   min-h-[56px]
                   `}
@@ -178,8 +178,8 @@ export function LayerSelector({
                     {layer.name}
                   </span>
                   <div
-                    className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-[#191a1f] ${
-                      isOn ? "bg-green-500" : "bg-red-500"
+                    className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-zinc-900 ${
+                      isOn ? "bg-zinc-400" : "bg-zinc-600"
                     }`}
                   />
                 </Toggle>
