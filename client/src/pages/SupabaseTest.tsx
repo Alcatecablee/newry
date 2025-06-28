@@ -249,9 +249,9 @@ const SupabaseTest = () => {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     {clientTest.success ? (
-                      <CheckCircle className="w-5 h-5 text-green-500" />
+                      <CheckCircle className="w-5 h-5 text-zinc-400" />
                     ) : (
-                      <XCircle className="w-5 h-5 text-red-500" />
+                      <XCircle className="w-5 h-5 text-zinc-400" />
                     )}
                     <span className="font-medium">
                       {clientTest.success
