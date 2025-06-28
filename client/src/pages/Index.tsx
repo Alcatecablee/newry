@@ -506,14 +506,11 @@ export default function Index() {
                 <div className="text-zinc-400">DRY RUN MODE - Preview changes:</div>
                 <div className="text-zinc-400">src/components/Header.tsx - Would be modified</div>
                 <div className="text-white animate-pulse">█</div>
-                      &lt;li&gt;&#123;item&#125;&lt;/li&gt;
-                    </span>
-                  </div>
-                  <div className="text-zinc-400">9 )&#125;</div>
-                  <div className="text-zinc-400">10 &lt;/nav&gt;</div>
-                  <div className="text-zinc-400">11 );</div>
-                  <div className="text-zinc-400">12 &#125;</div>
-                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
                 <div className="mt-4 p-3 bg-zinc-900 border border-zinc-800er rounded-lg">
                   <div className="flex items-center gap-2 text-white text-sm">
