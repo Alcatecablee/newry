@@ -31,6 +31,16 @@ export function GitHubUpload({ onRepoUpload, processing }: GitHubUploadProps) {
     setRepoUrl("");
   };
 
+  const handleDemoMode = async () => {
+    console.log("Manual demo mode triggered");
+    try {
+      await loadDemoRepository(onRepoUpload);
+      console.log("Demo mode completed successfully");
+    } catch (error) {
+      console.error("Demo mode failed:", error);
+    }
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !uploading && !processing && repoUrl.trim()) {
       handleUpload();
@@ -104,7 +114,7 @@ export function GitHubUpload({ onRepoUpload, processing }: GitHubUploadProps) {
             </div>
 
             <Button
-              onClick={() => loadDemoRepository(onRepoUpload)}
+              onClick={handleDemoMode}
               disabled={uploading || processing}
               className="w-full h-12 bg-zinc-900 border border-zinc-700 text-white hover:bg-zinc-800 font-medium"
             >
