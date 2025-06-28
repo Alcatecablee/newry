@@ -114,11 +114,11 @@ program
 
     switch (answers.action) {
       case "Analyze code files":
-        console.log(chalk.green("Starting code analysis..."));
+        console.log(chalk.white("Starting code analysis..."));
         // Launch interactive analysis
         break;
       case "Fix code issues":
-        console.log(chalk.green("Starting code fixes..."));
+        console.log(chalk.white("Starting code fixes..."));
         // Launch interactive fixing
         break;
       case "View project status":
@@ -128,7 +128,7 @@ program
         await configCommand({});
         break;
       default:
-        console.log(chalk.yellow("Goodbye! 👋"));
+        console.log(chalk.white("Goodbye"));
         process.exit(0);
     }
   });
