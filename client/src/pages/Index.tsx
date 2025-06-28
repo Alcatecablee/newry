@@ -387,10 +387,11 @@ export default function Index() {
                   <Terminal className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">
-                      Automated Analysis
+                      Production-Ready Reliability
                     </h4>
                     <p className="text-zinc-400 text-sm">
-                      Run comprehensive code analysis with simple commands
+                      Robust error handling, automatic retry logic, and progress
+                      tracking
                     </p>
                   </div>
                 </div>
@@ -398,11 +399,11 @@ export default function Index() {
                   <GitBranch className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">
-                      CI/CD Integration
+                      Enterprise Authentication
                     </h4>
                     <p className="text-zinc-400 text-sm">
-                      Seamlessly integrate with GitHub Actions, Jenkins, and
-                      more
+                      Secure API key management with built-in authentication
+                      validation
                     </p>
                   </div>
                 </div>
@@ -410,10 +411,10 @@ export default function Index() {
                   <Settings className="w-6 h-6 text-white" />
                   <div>
                     <h4 className="font-semibold text-white">
-                      Configurable Rules
+                      Data Protection
                     </h4>
                     <p className="text-zinc-400 text-sm">
-                      Customize analysis layers and rules for your project needs
+                      Automatic backup creation and atomic file operations
                     </p>
                   </div>
                 </div>
