@@ -5,15 +5,11 @@ import {
   useState,
   useEffect,
 } from "react";
-
-interface User {
-  id: string;
-  email: string;
-  name: string;
-  planType: string;
-  monthlyTransformationsUsed: number;
-  monthlyLimit: number;
-}
+import { supabase, type User, type AuthError } from "@/lib/supabase";
+import type {
+  AuthError as SupabaseAuthError,
+  User as SupabaseUser,
+} from "@supabase/supabase-js";
 
 interface AuthContextType {
   user: User | null;
@@ -28,7 +24,7 @@ interface AuthContextType {
     password: string,
     fullName: string,
   ) => Promise<{ success: boolean; error?: string }>;
-  signOut: () => void;
+  signOut: () => Promise<void>;
   updateUser: () => Promise<void>;
 }
 
@@ -44,54 +40,77 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     const initAuth = async () => {
-      const token = localStorage.getItem("auth_token");
-      if (token) {
-        try {
-          const response = await fetch("/api/auth/profile", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+      // Get initial session
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-          if (response.ok) {
-            const userData = await response.json();
-            setUser(userData);
-          } else {
-            localStorage.removeItem("auth_token");
-          }
-        } catch (error) {
-          console.error("Auth check failed:", error);
-          localStorage.removeItem("auth_token");
-        }
+      if (session?.user) {
+        await updateUserProfile(session.user);
       }
+
       setLoading(false);
     };
 
     initAuth();
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session?.user) {
+        await updateUserProfile(session.user);
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
+
+  const updateUserProfile = async (supabaseUser: SupabaseUser) => {
+    // Map Supabase user to our User type
+    const mappedUser: User = {
+      id: supabaseUser.id,
+      email: supabaseUser.email || "",
+      user_metadata: {
+        full_name:
+          supabaseUser.user_metadata?.full_name ||
+          supabaseUser.email?.split("@")[0],
+        avatar_url: supabaseUser.user_metadata?.avatar_url,
+      },
+      app_metadata: {
+        plan_type: supabaseUser.app_metadata?.plan_type || "free",
+        monthly_transformations_used:
+          supabaseUser.app_metadata?.monthly_transformations_used || 0,
+        monthly_limit: supabaseUser.app_metadata?.monthly_limit || 25,
+      },
+    };
+
+    setUser(mappedUser);
+  };
 
   const signIn = async (
     email: string,
     password: string,
   ): Promise<{ success: boolean; error?: string }> => {
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
       });
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setUser(data.user);
-        localStorage.setItem("auth_token", data.token);
-        return { success: true };
-      } else {
-        return { success: false, error: data.error || "Login failed" };
+      if (error) {
+        return { success: false, error: error.message };
       }
+
+      if (data.user) {
+        await updateUserProfile(data.user);
+        return { success: true };
+      }
+
+      return { success: false, error: "Sign in failed" };
     } catch (error) {
       return { success: false, error: "Network error" };
     }
@@ -103,51 +122,47 @@ export function AuthProvider({ children }: AuthProviderProps) {
     fullName: string,
   ): Promise<{ success: boolean; error?: string }> => {
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName,
+            plan_type: "free",
+            monthly_transformations_used: 0,
+            monthly_limit: 25,
+          },
         },
-        body: JSON.stringify({ email, password, fullName }),
       });
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setUser(data.user);
-        localStorage.setItem("auth_token", data.token);
-        return { success: true };
-      } else {
-        return { success: false, error: data.error || "Registration failed" };
+      if (error) {
+        return { success: false, error: error.message };
       }
+
+      if (data.user) {
+        // User will be updated via onAuthStateChange
+        return { success: true };
+      }
+
+      return { success: false, error: "Registration failed" };
     } catch (error) {
       return { success: false, error: "Network error" };
     }
   };
 
   const updateUser = async () => {
-    const token = localStorage.getItem("auth_token");
-    if (!token) return;
+    const {
+      data: { user: supabaseUser },
+    } = await supabase.auth.getUser();
 
-    try {
-      const response = await fetch("/api/auth/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
-      }
-    } catch (error) {
-      console.error("Failed to update user data:", error);
+    if (supabaseUser) {
+      await updateUserProfile(supabaseUser);
     }
   };
 
-  const signOut = () => {
+  const signOut = async () => {
+    await supabase.auth.signOut();
     setUser(null);
-    localStorage.removeItem("auth_token");
   };
 
   const value = {
