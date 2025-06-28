@@ -57,6 +57,7 @@ const App = () => (
 
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/admin-test" element={<AdminTest />} />
                 <Route path="/supabase-test" element={<SupabaseTest />} />
 
                 <Route path="/teams" element={<EnhancedTeamDashboard />} />
