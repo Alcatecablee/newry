@@ -82,14 +82,14 @@ export class DatabaseStorage implements IStorage {
     return result[0];
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
+  async createUser(insertUser: any): Promise<User> {
     if (isPostgres) {
       // For Postgres, let the database generate the UUID and timestamps
       // Map supabaseId to clerkId field temporarily
       const userData = {
-        ...insertUser,
-        clerkId: insertUser.supabaseId, // Map to existing column
-        supabaseId: undefined, // Remove the field that doesn't exist yet
+        clerkId: insertUser.supabaseId || insertUser.clerkId,
+        email: insertUser.email,
+        fullName: insertUser.fullName,
       };
       const result = await db.insert(users).values(userData).returning();
       return result[0];
