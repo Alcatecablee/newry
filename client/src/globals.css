@@ -192,7 +192,52 @@ html {
 
 /* Input styles */
 .input {
-  @apply bg-black border border-zinc-800 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-zinc-700;
+  @apply bg-black border border-zinc-800 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-zinc-700 transition-all duration-300 ease-out hover:border-zinc-600 focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-black;
+}
+
+/* Loading states */
+.loading-skeleton {
+  @apply bg-zinc-800/50 animate-pulse rounded;
+}
+
+.loading-spinner {
+  @apply border-2 border-current border-t-transparent rounded-full animate-spin;
+}
+
+/* Interactive elements */
+.interactive {
+  @apply transition-all duration-300 ease-out transform hover:scale-105 active:scale-95;
+}
+
+.interactive-subtle {
+  @apply transition-all duration-300 ease-out transform hover:scale-102 active:scale-98;
+}
+
+/* Glass morphism effect */
+.glass {
+  @apply backdrop-blur-xl bg-black/80 border border-zinc-800/50;
+}
+
+.glass-light {
+  @apply backdrop-blur-xl bg-white/10 border border-white/20;
+}
+
+/* Smooth state transitions */
+.state-transition {
+  @apply transition-all duration-300 ease-out;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Feature Card Glow Effects */
