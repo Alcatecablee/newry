@@ -110,7 +110,9 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-              <p className="text-zinc-400 mt-1">Welcome back, {user.name}</p>
+              <p className="text-zinc-400 mt-1">
+                Welcome back, {user.user_metadata.full_name || user.email}
+              </p>
             </div>
             <Link to="/app">
               <Button className="bg-zinc-700 hover:bg-zinc-600">
