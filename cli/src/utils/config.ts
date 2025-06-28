@@ -67,7 +67,7 @@ export async function loadConfig(
     path.join(process.cwd(), ".neurolint.json"),
     path.join(process.cwd(), "neurolint.config.json"),
     path.join(process.cwd(), "package.json"),
-  ].filter(Boolean);
+  ].filter((p): p is string => Boolean(p));
 
   for (const filePath of configPaths) {
     if (await fs.pathExists(filePath)) {
@@ -76,7 +76,11 @@ export async function loadConfig(
 
         if (filePath.endsWith("package.json")) {
           // Extract neurolint config from package.json
-          if (fileContent.neurolint) {
+          if (
+            fileContent &&
+            typeof fileContent === "object" &&
+            fileContent.neurolint
+          ) {
             return { ...defaultConfig, ...fileContent.neurolint };
           }
         } else {
