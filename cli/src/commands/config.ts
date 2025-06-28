@@ -17,15 +17,19 @@ export async function configCommand(options: ConfigOptions) {
       console.log(chalk.white.bold("\nNeuroLint Configuration:\n"));
       console.log(
         chalk.white("API URL:"),
-        chalk.gray(config.apiUrl || "Not set"),
+        chalk.gray(config.api?.url || "Not set"),
       );
       console.log(
         chalk.white("API Key:"),
         chalk.gray(config.apiKey ? "***" + config.apiKey.slice(-4) : "Not set"),
       );
       console.log(
-        chalk.white("Default Layers:"),
-        chalk.gray(config.defaultLayers?.join(",") || "1,2,3,4"),
+        chalk.white("Enabled Layers:"),
+        chalk.gray(config.layers?.enabled?.join(",") || "1,2,3,4"),
+      );
+      console.log(
+        chalk.white("Output Format:"),
+        chalk.gray(config.output?.format || "table"),
       );
       return;
     }
@@ -97,9 +101,10 @@ export async function configCommand(options: ConfigOptions) {
 
     if (options.reset) {
       await saveConfig({
-        apiUrl: "http://localhost:5000",
+        api: { url: "http://localhost:5000", timeout: 60000 },
         apiKey: "",
-        defaultLayers: [1, 2, 3, 4],
+        layers: { enabled: [1, 2, 3, 4], config: {} },
+        output: { format: "table", verbose: false },
       });
       console.log(chalk.white("Configuration reset to defaults"));
       return;
