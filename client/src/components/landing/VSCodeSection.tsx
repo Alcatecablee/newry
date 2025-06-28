@@ -52,7 +52,7 @@ export function VSCodeSection() {
                   <div className="flex items-center gap-2">
                     <span className="text-gray-500">6</span>
                     <span className="text-gray-300"> return (</span>
-                    <div className="bg-yellow-500/20 border border-yellow-500/50 rounded px-2 py-1 text-xs text-yellow-300 ml-4">
+                    <div className="bg-zinc-500/20 border border-zinc-500/50 rounded px-2 py-1 text-xs text-zinc-300 ml-4">
                       <Lightbulb className="w-3 h-3 inline mr-1" />
                       Missing key prop
                     </div>
