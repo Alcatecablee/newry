@@ -482,9 +482,133 @@ export default function Index() {
       {/* REST API Section */}
       <section id="api" className="py-20 bg-black border-t border-zinc-800">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center">
-            <h2 className="text-4xl font-bold text-white">REST API</h2>
-            <p className="text-xl text-zinc-400 mt-4">Coming soon...</p>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-white mb-6">
+              Enterprise REST API
+            </h2>
+            <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
+              Production-ready API for code analysis and transformation with
+              enterprise-grade security, compliance, and scalability
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-white mb-3">
+                Enterprise Security
+              </h3>
+              <ul className="space-y-2 text-zinc-400">
+                <li>• SOC 2 Type II compliant</li>
+                <li>• GDPR and ISO 27001 certified</li>
+                <li>• SSO integration support</li>
+                <li>• Role-based access control</li>
+              </ul>
+            </div>
+
+            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-white mb-3">
+                High Performance
+              </h3>
+              <ul className="space-y-2 text-zinc-400">
+                <li>• 99.9% uptime SLA</li>
+                <li>• Sub-100ms response times</li>
+                <li>• Auto-scaling infrastructure</li>
+                <li>• Global CDN distribution</li>
+              </ul>
+            </div>
+
+            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-white mb-3">
+                Advanced Features
+              </h3>
+              <ul className="space-y-2 text-zinc-400">
+                <li>• 6-layer analysis engine</li>
+                <li>• Real-time transformation</li>
+                <li>• Audit logging and reporting</li>
+                <li>• Custom rule configuration</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div>
+                <h3 className="text-2xl font-semibold text-white mb-4">
+                  Core Endpoints
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <span className="bg-blue-900 text-blue-200 px-2 py-1 rounded text-xs font-mono">
+                      POST
+                    </span>
+                    <span className="text-zinc-300 font-mono">
+                      /api/analyze
+                    </span>
+                    <span className="text-zinc-500">
+                      Advanced code analysis
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="bg-blue-900 text-blue-200 px-2 py-1 rounded text-xs font-mono">
+                      POST
+                    </span>
+                    <span className="text-zinc-300 font-mono">
+                      /api/transform
+                    </span>
+                    <span className="text-zinc-500">Code transformation</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="bg-green-900 text-green-200 px-2 py-1 rounded text-xs font-mono">
+                      GET
+                    </span>
+                    <span className="text-zinc-300 font-mono">/api/layers</span>
+                    <span className="text-zinc-500">
+                      Available analysis layers
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="bg-purple-900 text-purple-200 px-2 py-1 rounded text-xs">
+                      ENTERPRISE
+                    </span>
+                    <span className="text-zinc-300 font-mono">
+                      /api/enterprise/*
+                    </span>
+                    <span className="text-zinc-500">
+                      Advanced enterprise features
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-zinc-800 rounded-lg p-6">
+                <h4 className="text-lg font-medium text-white mb-3">
+                  Quick Start
+                </h4>
+                <pre className="text-sm text-zinc-300 bg-zinc-900 p-4 rounded font-mono overflow-x-auto">
+                  {`curl -X POST \\
+  https://api.neurolint.com/v1/analyze \\
+  -H "Authorization: Bearer YOUR_TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "code": "const x = 1;",
+    "layers": [1, 2, 3]
+  }'`}
+                </pre>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/api-docs" className="inline-block">
+                <button className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-zinc-200 transition-colors">
+                  View Full Documentation
+                </button>
+              </a>
+              <button className="border border-zinc-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-zinc-800 transition-colors">
+                Request Enterprise Demo
+              </button>
+            </div>
           </div>
         </div>
       </section>
