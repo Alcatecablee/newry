@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useTeams, useTeam } from "@/hooks/useTeams";
+import { useTeams, useTeam, useTeamAnalytics } from "@/hooks/useTeams";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
