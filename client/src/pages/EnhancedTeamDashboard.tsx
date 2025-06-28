@@ -366,7 +366,7 @@ const EnhancedTeamDashboard = () => {
                       {analytics?.innovation.current || 0}%
                     </p>
                   </div>
-                  <Lightbulb className="w-8 h-8 text-white" />
+                  <Lightbulb className="w-8 h-8 text-zinc-400" />
                 </div>
                 <p className="text-xs text-gray-400 mt-2">
                   {analytics?.innovation.change > 0 ? "+" : ""}
