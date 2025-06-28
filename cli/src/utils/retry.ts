@@ -129,7 +129,7 @@ export function createRetryableApiCall(
     delay: 1000,
     onRetry: (error, attempt) => {
       console.log(
-        chalk.yellow(`⚠ API call failed (attempt ${attempt}), retrying...`),
+        chalk.white(`API call failed (attempt ${attempt}), retrying...`),
       );
       if (error.response?.status) {
         console.log(
