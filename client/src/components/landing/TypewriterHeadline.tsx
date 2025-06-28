@@ -51,7 +51,7 @@ const TypewriterHeadline: React.FC = () => {
   return (
     <div className="mb-8">
       <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-zinc-900">
-        <span className="block">AI-Powered</span>
+        <span className="block">Advanced</span>
         <span className="block min-h-[1.2em]">
           {currentText}
           <span className="animate-pulse">|</span>

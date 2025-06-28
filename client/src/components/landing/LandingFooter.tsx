@@ -8,7 +8,7 @@ export function LandingFooter() {
           <div>
             <h3 className="text-white font-semibold mb-4">NeuroLint</h3>
             <p className="text-zinc-400 text-sm">
-              AI-powered code transformation for React and TypeScript projects.
+              Advanced code transformation for React and TypeScript projects.
             </p>
           </div>
 

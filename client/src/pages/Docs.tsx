@@ -26,10 +26,10 @@ export default function Docs() {
             Code Cleanup & Modernization
           </h2>
           <p className="leading-relaxed mb-3">
-            <b>NeuroLint</b> is your AI-powered toolkit to bring
-            React/TypeScript codebases into the modern age—without the grind.
-            Save hours, enforce best practices automatically, and bulletproof
-            your codebase for scale.
+            <b>NeuroLint</b> is your advanced toolkit to bring React/TypeScript
+            codebases into the modern age—without the grind. Save hours, enforce
+            best practices automatically, and bulletproof your codebase for
+            scale.
           </p>
           <ul className="list-disc ml-5 mb-2">
             <li>
