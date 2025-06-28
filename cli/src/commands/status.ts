@@ -137,14 +137,16 @@ export async function statusCommand(options: StatusOptions) {
           );
 
           if (response.status === 200) {
-            console.log(`${chalk.green("✓")} NeuroLint API is accessible`);
+            console.log(`${chalk.white("PASS")} NeuroLint API is accessible`);
             if (response.data?.version) {
               console.log(
-                `${chalk.blue("  Version:")} ${response.data.version}`,
+                `${chalk.white("  Version:")} ${response.data.version}`,
               );
             }
             if (response.data?.status) {
-              console.log(`${chalk.blue("  Status:")} ${response.data.status}`);
+              console.log(
+                `${chalk.white("  Status:")} ${response.data.status}`,
+              );
             }
           }
         },
@@ -166,17 +168,17 @@ export async function statusCommand(options: StatusOptions) {
           );
 
           if (authResponse.status === 200) {
-            console.log(`${chalk.green("✓")} Authentication is valid`);
+            console.log(`${chalk.white("PASS")} Authentication is valid`);
           }
         } catch (authError) {
-          console.log(`${chalk.red("✗")} Authentication failed`);
+          console.log(`${chalk.white("FAIL")} Authentication failed`);
           console.log(
             `${chalk.gray('  Run "neurolint login" to re-authenticate')}`,
           );
         }
       }
     } catch (error) {
-      console.log(`${chalk.red("✗")} NeuroLint API is not accessible`);
+      console.log(`${chalk.white("FAIL")} NeuroLint API is not accessible`);
       if (error instanceof Error) {
         if (error.message.includes("ECONNREFUSED")) {
           console.log(
@@ -196,20 +198,20 @@ export async function statusCommand(options: StatusOptions) {
     console.log(chalk.white("\nRecommendations:"));
     if (!hasConfig) {
       console.log(
-        `${chalk.yellow("•")} Run ${chalk.white("neurolint init")} to set up configuration`,
+        `${chalk.white("•")} Run ${chalk.white("neurolint init")} to set up configuration`,
       );
     }
 
     const config = await loadConfig();
     if (!config.apiKey) {
       console.log(
-        `${chalk.yellow("•")} Run ${chalk.white("neurolint login")} to authenticate`,
+        `${chalk.white("•")} Run ${chalk.white("neurolint login")} to authenticate`,
       );
     }
 
     if (jsFiles.length + tsFiles.length > 0) {
       console.log(
-        `${chalk.yellow("•")} Run ${chalk.white("neurolint analyze")} to check your code`,
+        `${chalk.white("•")} Run ${chalk.white("neurolint analyze")} to check your code`,
       );
     }
   } catch (error) {
