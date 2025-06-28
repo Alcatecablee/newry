@@ -211,7 +211,7 @@ export function RepoProcessor({
       </Card>
 
       {processedFiles.length > 0 && (
-        <Card className="bg-[#16171c]/90 border-purple-500/30">
+        <Card className="bg-[#16171c]/90 border-zinc-800">
           <CardHeader>
             <CardTitle className="text-white">File Results</CardTitle>
           </CardHeader>
@@ -238,14 +238,14 @@ export function RepoProcessor({
                         className="flex items-center justify-between p-3 bg-[#22242B] rounded-lg"
                       >
                         <div className="flex items-center gap-2">
-                          <FileCode className="w-4 h-4 text-purple-400" />
+                          <FileCode className="w-4 h-4 text-zinc-400" />
                           <span className="text-sm text-white truncate">
                             {file.path}
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
                           {hasChanges ? (
-                            <Badge className="bg-green-600 text-white">
+                            <Badge className="bg-zinc-600 text-white">
                               {changeCount} changes
                             </Badge>
                           ) : (
