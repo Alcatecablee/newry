@@ -353,12 +353,13 @@ export default function Index() {
       <section id="cli" className="py-20 bg-black border-t border-zinc-800">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center">
-            <h2 className="text-4xl font-bold text-white">Enterprise CLI Tool</h2>
+            <h2 className="text-4xl font-bold text-white">
+              Enterprise CLI Tool
+            </h2>
             <p className="text-xl text-zinc-400 mt-4">Coming soon...</p>
           </div>
         </div>
       </section>
-
 
       {/* VS Code Extension Section */}
       <section id="vscode" className="py-20 bg-black border-t border-zinc-800">
@@ -431,9 +432,13 @@ export default function Index() {
 
       {/* REST API Section */}
       <section id="api" className="py-20 bg-black border-t border-zinc-800">
-
-                <div className="text-white">Successfully analyzed: 22</div>
-
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold text-white">REST API</h2>
+            <p className="text-xl text-zinc-400 mt-4">Coming soon...</p>
+          </div>
+        </div>
+      </section>
 
       {/* Integrations Section */}
       <section className="py-20 bg-black border-t border-zinc-800">
