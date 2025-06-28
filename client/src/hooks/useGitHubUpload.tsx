@@ -398,6 +398,12 @@ ${suggestions.join("\n")}`);
     setUploadStatus({ total: 0, processed: 0, files: [] });
 
     try {
+      // Show initial progress
+      toast({
+        title: "Starting Repository Import",
+        description: `Fetching files from ${repoInfo.owner}/${repoInfo.repo}...`,
+      });
+
       // First validate the repository exists and is accessible
       await validateRepository(repoInfo.owner, repoInfo.repo);
 
@@ -405,17 +411,30 @@ ${suggestions.join("\n")}`);
         repoInfo.owner,
         repoInfo.repo,
       );
+
       const estimatedFiles = initialContents.filter(
         (item) =>
           item.type === "file" &&
-          [".js", ".jsx", ".ts", ".tsx", ".json"].some((ext) =>
+          [".js", ".jsx", ".ts", ".tsx", ".json", ".md"].some((ext) =>
             item.name.endsWith(ext),
           ),
       ).length;
 
-      setUploadStatus((prev) =>
-        prev ? { ...prev, total: Math.max(estimatedFiles, 10) } : null,
+      console.log(
+        `Found ${initialContents.length} items, estimated ${estimatedFiles} relevant files`,
       );
+
+      setUploadStatus((prev) =>
+        prev
+          ? { ...prev, total: Math.min(Math.max(estimatedFiles, 10), 50) }
+          : null,
+      );
+
+      // Show progress update
+      toast({
+        title: "Repository Analysis",
+        description: `Found ${estimatedFiles} relevant files. Starting download...`,
+      });
 
       const files = await getAllFiles(repoInfo.owner, repoInfo.repo);
 
