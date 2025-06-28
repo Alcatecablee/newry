@@ -146,7 +146,7 @@ export function LandingFeatures() {
               {/* Show warning on hover if experimental */}
               {layer.experimental && (
                 <div className="absolute right-2 bottom-2 flex items-center">
-                  <AlertTriangle className="w-4 h-4 text-yellow-400" />
+                  <AlertTriangle className="w-4 h-4 text-zinc-400" />
                   <span className="sr-only">Experimental, not live!</span>
                 </div>
               )}
