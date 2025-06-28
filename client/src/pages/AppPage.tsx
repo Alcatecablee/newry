@@ -21,7 +21,6 @@ import {
   Settings,
   Play,
   Sparkles,
-  Check,
   Clock,
   TrendingUp,
   ArrowLeft,
