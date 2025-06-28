@@ -129,9 +129,8 @@ const AppPage = () => {
                 Multi-Layer Code Analysis
               </h1>
               <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
-                Transform your React & TypeScript code with precision AI
-                analysis. Six intelligent layers of optimization and error
-                detection.
+                Transform your React & TypeScript code with precision analysis.
+                Six intelligent layers of optimization and error detection.
               </p>
             </div>
           </div>
@@ -232,7 +231,7 @@ const AppPage = () => {
                     </div>
                     <div className="text-center">
                       <div className="text-white font-semibold text-lg mb-1">
-                        AI Analysis in Progress
+                        Code Analysis in Progress
                       </div>
                       <span className="text-zinc-400 font-medium">
                         Running {enabledLayers.length} intelligent layer

@@ -191,8 +191,8 @@ export function PasteCodeZone({ onFile, processing }: PasteCodeZoneProps) {
             Paste your code directly
           </h3>
           <p className="text-lg text-gray-300">
-            Advanced AI analysis for <strong>React, Next.js, TypeScript</strong>{" "}
-            code
+            Advanced code analysis for{" "}
+            <strong>React, Next.js, TypeScript</strong> code
           </p>
         </div>
       </div>

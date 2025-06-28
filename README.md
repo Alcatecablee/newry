@@ -1,6 +1,6 @@
 # NeuroLint
 
-AI-powered code analysis and transformation platform with intelligent multi-layer analysis.
+Advanced code analysis and transformation platform with intelligent multi-layer analysis. Currently in beta with smart architecture.
 
 ## Quick Start
 
@@ -106,7 +106,7 @@ npm run db:push
 
 ## Features
 
-- **Multi-layer AI Analysis**: 6 intelligent layers for comprehensive code analysis
+- **Multi-layer Analysis**: 6 intelligent layers for comprehensive code analysis
 - **Real-time Feedback**: Instant code quality assessment
 - **CLI Tool**: Command-line interface for CI/CD integration
 - **VS Code Extension**: Real-time analysis in your editor
@@ -127,7 +127,7 @@ npm run db:push
 
 ```
 ├── client/                 # Frontend React application
-│   ├── src/
+│   ���── src/
 │   │   ├── components/     # Reusable UI components
 │   │   ├── pages/          # Page components
 │   │   ├── lib/            # Utilities and configurations

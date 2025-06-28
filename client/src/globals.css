@@ -25,6 +25,85 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Enhanced animations */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+/* Animation utilities */
+.animate-slide-in-down {
+  animation: slideInDown 0.3s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.3s ease-out forwards;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.3s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
@@ -43,17 +122,58 @@ html {
   background: #444;
 }
 
+/* Enhanced focus indicators */
+*:focus-visible {
+  outline: 2px solid rgb(113 113 122);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .card {
+    border-width: 2px;
+  }
+
+  button:focus,
+  a:focus,
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: 3px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+/* Touch target sizing for mobile */
+@media (pointer: coarse) {
+  button,
+  .btn,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
 /* Global button styles */
 .btn {
-  @apply px-4 py-2 rounded-xl font-medium transition-all duration-300;
+  @apply px-4 py-2 rounded-xl font-medium transition-all duration-300 ease-out;
 }
 
 .btn-primary {
-  @apply bg-black text-white border border-zinc-800 hover:bg-white hover:text-black;
+  @apply bg-black text-white border border-zinc-800 hover:bg-white hover:text-black transform hover:scale-105 active:scale-95;
 }
 
 .btn-secondary {
-  @apply bg-zinc-900 text-white border border-zinc-800 hover:bg-white hover:text-black;
+  @apply bg-zinc-900 text-white border border-zinc-800 hover:bg-white hover:text-black transform hover:scale-105 active:scale-95;
 }
 
 /* Card styles */
@@ -72,7 +192,52 @@ html {
 
 /* Input styles */
 .input {
-  @apply bg-black border border-zinc-800 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-zinc-700;
+  @apply bg-black border border-zinc-800 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-zinc-700 transition-all duration-300 ease-out hover:border-zinc-600 focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-black;
+}
+
+/* Loading states */
+.loading-skeleton {
+  @apply bg-zinc-800/50 animate-pulse rounded;
+}
+
+.loading-spinner {
+  @apply border-2 border-current border-t-transparent rounded-full animate-spin;
+}
+
+/* Interactive elements */
+.interactive {
+  @apply transition-all duration-300 ease-out transform hover:scale-105 active:scale-95;
+}
+
+.interactive-subtle {
+  @apply transition-all duration-300 ease-out transform hover:scale-102 active:scale-98;
+}
+
+/* Glass morphism effect */
+.glass {
+  @apply backdrop-blur-xl bg-black/80 border border-zinc-800/50;
+}
+
+.glass-light {
+  @apply backdrop-blur-xl bg-white/10 border border-white/20;
+}
+
+/* Smooth state transitions */
+.state-transition {
+  @apply transition-all duration-300 ease-out;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Feature Card Glow Effects */
