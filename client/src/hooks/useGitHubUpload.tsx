@@ -652,19 +652,61 @@ ${suggestions.join("\n")}`);
     } catch (error) {
       console.error("Upload error:", error);
       let errorMessage = "Failed to upload repository";
+      let isRateLimit = false;
 
       if (error instanceof Error) {
         errorMessage = error.message;
+        isRateLimit = errorMessage.includes("rate limit");
       } else if (typeof error === "object" && error !== null) {
         errorMessage =
           "Network error or repository access issue. Please check your connection and try again.";
       }
 
-      toast({
-        title: "Upload Failed",
-        description: errorMessage,
-        variant: "destructive",
-      });
+      // If it's a rate limit error, offer demo mode
+      if (isRateLimit) {
+        toast({
+          title: "Rate Limit Reached",
+          description:
+            "GitHub API limit exceeded. Using demo repository instead...",
+        });
+
+        // Use demo mode
+        setDemoMode(true);
+        setUploadStatus({
+          total: DEMO_REPO_FILES.length,
+          processed: 0,
+          files: [],
+        });
+
+        // Simulate upload progress for demo
+        for (let i = 0; i < DEMO_REPO_FILES.length; i++) {
+          await new Promise((resolve) => setTimeout(resolve, 300)); // Simulate delay
+          setUploadStatus((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  processed: i + 1,
+                  files: [...prev.files, DEMO_REPO_FILES[i].path],
+                }
+              : null,
+          );
+        }
+
+        toast({
+          title: "Demo Repository Loaded",
+          description: `Loaded ${DEMO_REPO_FILES.length} demo files. You can now test the analysis features!`,
+        });
+
+        if (typeof onRepoUpload === "function") {
+          onRepoUpload(DEMO_REPO_FILES);
+        }
+      } else {
+        toast({
+          title: "Upload Failed",
+          description: errorMessage,
+          variant: "destructive",
+        });
+      }
     } finally {
       setUploading(false);
       setUploadStatus(null);
