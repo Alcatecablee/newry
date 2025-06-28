@@ -43,26 +43,7 @@ if (DATABASE_URL) {
   })();
 }
 
-async function createSampleData(sqlite: Database.Database) {
-  try {
-    // Check if sample data already exists
-    const existingUsers = sqlite
-      .prepare("SELECT COUNT(*) as count FROM users")
-      .get() as { count: number };
-
-    if (existingUsers.count === 0) {
-      console.log("🔧 Creating sample data...");
-
-      // Sample data creation skipped - all data will be created via Supabase authentication
-      // Teams and transformations will be created when users sign up through Supabase
-
-      console.log("✅ Sample data created successfully");
-      console.log("   📧 Authentication: Sign up with Supabase");
-    }
-  } catch (error) {
-    console.error("❌ Error creating sample data:", error);
-  }
-}
+// Sample data creation removed - all data comes from real Supabase authentication
 
 async function initializeTables(sqlite: Database.Database) {
   try {
