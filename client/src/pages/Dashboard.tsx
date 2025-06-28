@@ -112,7 +112,7 @@ export default function Dashboard() {
               <p className="text-zinc-400 mt-1">Welcome back, {user.name}</p>
             </div>
             <Link to="/app">
-              <Button className="bg-violet-600 hover:bg-violet-700">
+              <Button className="bg-zinc-700 hover:bg-zinc-600">
                 <Code className="w-4 h-4 mr-2" />
                 Analyze Code
               </Button>
