@@ -70,9 +70,7 @@ export const teamMembers = sqliteTable("team_members", {
   teamId: text("team_id").references(() => teams.id, { onDelete: "cascade" }),
   userId: text("user_id").references(() => users.id, { onDelete: "cascade" }),
   role: text("role").default("developer"), // owner, admin, developer, auditor
-  joinedAt: integer("joined_at", { mode: "timestamp" }).$defaultFn(
-    () => new Date(),
-  ),
+  joinedAt: integer("joined_at", { mode: "timestamp" }),
 });
 
 export const teamProjects = sqliteTable("team_projects", {
