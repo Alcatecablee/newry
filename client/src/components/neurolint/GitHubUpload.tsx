@@ -237,15 +237,17 @@ export function GitHubUpload({ onRepoUpload, processing }: GitHubUploadProps) {
                     Recently Processed:
                   </div>
                   <div className="max-h-32 overflow-y-auto space-y-1">
-                    {uploadStatus.files.slice(-5).map((file, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center gap-2 text-xs text-zinc-500 py-1"
-                      >
-                        <CheckCircle2 className="w-3 h-3 text-zinc-600 flex-shrink-0" />
-                        <span className="truncate">{file}</span>
-                      </div>
-                    ))}
+                    {uploadStatus.files
+                      .slice(-5)
+                      .map((file: string, index: number) => (
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 text-xs text-zinc-500 py-1"
+                        >
+                          <CheckCircle2 className="w-3 h-3 text-zinc-600 flex-shrink-0" />
+                          <span className="truncate">{file}</span>
+                        </div>
+                      ))}
                   </div>
                 </div>
               )}
