@@ -32,19 +32,17 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
     const configValidation = await validateConfig(config);
 
     if (!configValidation.valid) {
-      spinner.fail('Configuration validation failed');
-      configValidation.errors.forEach(error => console.log(chalk.white(`ERROR: ${error}`)));
-      return;
-    }
+      spinner.fail("Configuration validation failed");
+      configValidation.errors.forEach((error) =>
+        console.log(chalk.white(`ERROR: ${error}`)),
+      );
       return;
     }
 
     // Check authentication
     if (!config.apiKey) {
       spinner.fail("Authentication required");
-      console.log(
-        chalk.yellow('💡 Run "neurolint login" to authenticate first'),
-      );
+      console.log(chalk.white('Run "neurolint login" to authenticate first'));
       return;
     }
 
