@@ -112,6 +112,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Debug endpoint to check sample data
+  app.get("/api/debug/sample-data", async (req, res) => {
+    try {
+      if (!db) {
+        return res.json({ error: "Database not initialized" });
+      }
+
+      const schema = await import("../shared/schema-sqlite.js");
+
+      // Get sample user
+      const users = await db.select().from(schema.users).limit(5);
+
+      // Get sample teams
+      const teams = await db.select().from(schema.teams).limit(5);
+
+      // Get sample team members
+      const members = await db.select().from(schema.teamMembers).limit(5);
+
+      res.json({
+        users: users.map((u) => ({
+          id: u.id,
+          email: u.email,
+          name: u.fullName,
+        })),
+        teams: teams.map((t) => ({
+          id: t.id,
+          name: t.name,
+          ownerId: t.ownerId,
+        })),
+        members: members.map((m) => ({
+          id: m.id,
+          teamId: m.teamId,
+          userId: m.userId,
+          role: m.role,
+        })),
+        message:
+          "Sample data available. Use test@example.com / password123 to login",
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   // Database info endpoint
   app.get("/api/db/info", async (req, res) => {
     try {
