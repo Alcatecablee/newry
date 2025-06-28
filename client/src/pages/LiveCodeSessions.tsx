@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { orchestrateTransformation } from "@/lib/neurolint/orchestrator";
+import { NeuroLintOrchestrator } from "@/lib/neurolint/orchestrator";
 import { NeuroLintLayerResult } from "@/lib/neurolint/types";
 import {
   Users,
@@ -97,11 +97,12 @@ const LiveCodeSessions = () => {
 
     try {
       // Run NeuroLint transformation with all layers
-      const results = await orchestrateTransformation(code, {
-        dryRun: false,
-        verbose: true,
-        skipLayers: [],
-      });
+      const { transformed, layers } = await NeuroLintOrchestrator(
+        code,
+        "live-session",
+        true,
+        [1, 2, 3, 4, 5, 6],
+      );
 
       // Update layer status based on results
       if (results.layerResults) {
