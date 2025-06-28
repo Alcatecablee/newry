@@ -44,110 +44,141 @@ export interface TeamActivity {
 }
 
 export interface TeamAnalytics {
-  codeQuality: { current: number; previous: number; change: number; trend: string };
-  velocity: { current: number; previous: number; change: number; trend: string };
-  collaboration: { current: number; previous: number; change: number; trend: string };
+  codeQuality: {
+    current: number;
+    previous: number;
+    change: number;
+    trend: string;
+  };
+  velocity: {
+    current: number;
+    previous: number;
+    change: number;
+    trend: string;
+  };
+  collaboration: {
+    current: number;
+    previous: number;
+    change: number;
+    trend: string;
+  };
   bugRate: { current: number; previous: number; change: number; trend: string };
-  techDebt: { current: number; previous: number; change: number; trend: string };
-  innovation: { current: number; previous: number; change: number; trend: string };
+  techDebt: {
+    current: number;
+    previous: number;
+    change: number;
+    trend: string;
+  };
+  innovation: {
+    current: number;
+    previous: number;
+    change: number;
+    trend: string;
+  };
 }
 
-const MOCK_USER_ID = "user-123"; // In real app, this would come from auth
+const MOCK_USER_ID = "user-123"; // TODO: Get from auth context
 
 export function useTeams() {
   return useQuery({
-    queryKey: ['/api/teams'],
+    queryKey: ["/api/teams"],
     queryFn: async () => {
-      const response = await fetch('/api/teams', {
+      const response = await fetch("/api/teams", {
         headers: {
-          'x-user-id': MOCK_USER_ID
-        }
+          "x-user-id": MOCK_USER_ID,
+        },
       });
-      if (!response.ok) throw new Error('Failed to fetch teams');
+      if (!response.ok) throw new Error("Failed to fetch teams");
       const data = await response.json();
       return data.teams as Team[];
-    }
+    },
   });
 }
 
 export function useTeam(teamId: string) {
   return useQuery({
-    queryKey: ['/api/teams', teamId],
+    queryKey: ["/api/teams", teamId],
     queryFn: async () => {
       const response = await fetch(`/api/teams/${teamId}`, {
         headers: {
-          'x-user-id': MOCK_USER_ID
-        }
+          "x-user-id": MOCK_USER_ID,
+        },
       });
-      if (!response.ok) throw new Error('Failed to fetch team');
-      return await response.json() as {
+      if (!response.ok) throw new Error("Failed to fetch team");
+      return (await response.json()) as {
         team: Team;
         members: TeamMember[];
         projects: TeamProject[];
         activities: TeamActivity[];
       };
     },
-    enabled: !!teamId
+    enabled: !!teamId,
   });
 }
 
 export function useTeamAnalytics(teamId: string) {
   return useQuery({
-    queryKey: ['/api/teams', teamId, 'analytics'],
+    queryKey: ["/api/teams", teamId, "analytics"],
     queryFn: async () => {
       const response = await fetch(`/api/teams/${teamId}/analytics`, {
         headers: {
-          'x-user-id': MOCK_USER_ID
-        }
+          "x-user-id": MOCK_USER_ID,
+        },
       });
-      if (!response.ok) throw new Error('Failed to fetch analytics');
+      if (!response.ok) throw new Error("Failed to fetch analytics");
       const data = await response.json();
       return data.analytics as TeamAnalytics;
     },
-    enabled: !!teamId
+    enabled: !!teamId,
   });
 }
 
 export function useCreateTeam() {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (team: { name: string; description?: string }) => {
-      const response = await fetch('/api/teams', {
-        method: 'POST',
+      const response = await fetch("/api/teams", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'x-user-id': MOCK_USER_ID
+          "Content-Type": "application/json",
+          "x-user-id": MOCK_USER_ID,
         },
-        body: JSON.stringify(team)
+        body: JSON.stringify(team),
       });
-      if (!response.ok) throw new Error('Failed to create team');
+      if (!response.ok) throw new Error("Failed to create team");
       return await response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/teams'] });
-    }
+      queryClient.invalidateQueries({ queryKey: ["/api/teams"] });
+    },
   });
 }
 
 export function useCreateProject() {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
-    mutationFn: async ({ teamId, project }: { teamId: string; project: { name: string; repository?: string } }) => {
+    mutationFn: async ({
+      teamId,
+      project,
+    }: {
+      teamId: string;
+      project: { name: string; repository?: string };
+    }) => {
       const response = await fetch(`/api/teams/${teamId}/projects`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'x-user-id': MOCK_USER_ID
+          "Content-Type": "application/json",
+          "x-user-id": MOCK_USER_ID,
         },
-        body: JSON.stringify(project)
+        body: JSON.stringify(project),
       });
-      if (!response.ok) throw new Error('Failed to create project');
+      if (!response.ok) throw new Error("Failed to create project");
       return await response.json();
     },
     onSuccess: (_, { teamId }) => {
-      queryClient.invalidateQueries({ queryKey: ['/api/teams', teamId] });
-    }
+      queryClient.invalidateQueries({ queryKey: ["/api/teams", teamId] });
+    },
   });
 }
