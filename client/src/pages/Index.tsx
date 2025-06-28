@@ -418,6 +418,54 @@ export default function Index() {
                 </div>
               </div>
             </div>
+
+            <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-6">
+              <div className="flex items-center gap-2 mb-4 text-sm text-zinc-400">
+                <Code className="w-4 h-4" />
+                <span>VS Code</span>
+                <div className="flex gap-1 ml-auto">
+                  <div className="w-3 h-3 bg-zinc-600 rounded-full"></div>
+                  <div className="w-3 h-3 bg-zinc-600 rounded-full"></div>
+                  <div className="w-3 h-3 bg-zinc-600 rounded-full"></div>
+                </div>
+              </div>
+              <div className="bg-black/30 p-4 rounded-lg">
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 text-sm">
+                    <div className="w-4 h-4 bg-blue-500 rounded-sm flex items-center justify-center">
+                      <Code className="w-2 h-2 text-white" />
+                    </div>
+                    <span className="text-zinc-300">Header.tsx</span>
+                  </div>
+                  <div className="font-mono text-sm space-y-1">
+                    <div className="text-zinc-500">1  import React from 'react';</div>
+                    <div className="text-zinc-500">2  </div>
+                    <div className="text-zinc-500">3  export function Header() {</div>
+                    <div className="text-zinc-500">4    return (</div>
+                    <div className="flex">
+                      <span className="text-zinc-500">5      </span>
+                      <span className="text-white bg-yellow-500/20 px-1">&lt;div className="header"&gt;</span>
+                      <div className="ml-2 bg-red-500/20 border border-red-500/50 rounded px-2 py-1 text-xs text-red-300">
+                        NeuroLint: Use semantic HTML5 elements
+                      </div>
+                    </div>
+                    <div className="text-zinc-500">6        &lt;h1&gt;Welcome&lt;/h1&gt;</div>
+                    <div className="text-zinc-500">7      &lt;/div&gt;</div>
+                    <div className="text-zinc-500">8    );</div>
+                    <div className="text-zinc-500">9  }</div>
+                  </div>
+                  <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded text-sm">
+                    <div className="flex items-center gap-2 text-blue-300 mb-2">
+                      <Zap className="w-4 h-4" />
+                      <span className="font-medium">Quick Fix Available</span>
+                    </div>
+                    <div className="text-blue-200 text-xs">
+                      Replace with semantic &lt;header&gt; element for better accessibility
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
