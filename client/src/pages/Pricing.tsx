@@ -47,7 +47,7 @@ const Pricing = () => {
           <div className="text-center mb-16">
             <div className="mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900/50 border border-zinc-800/50 rounded-xl backdrop-blur-sm mb-6">
-                <Crown className="w-4 h-4 text-yellow-400" />
+                <Crown className="w-4 h-4 text-white" />
                 <span className="text-sm font-medium text-zinc-400">
                   Pricing Plans
                 </span>
