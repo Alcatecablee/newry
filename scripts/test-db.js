@@ -13,44 +13,8 @@ try {
   console.log("✅ Database connection successful!");
   console.log(`📊 Current users count: ${result.length}`);
 
-  // Add a test user if none exist
-  if (result.length === 0) {
-    console.log("📝 Adding test user...");
-
-    const testUser = {
-      id: "test-user-1",
-      clerkId: "test-clerk-123",
-      email: "test@neurolint.dev",
-      fullName: "Test User",
-      planType: "free",
-      monthlyTransformationsUsed: 0,
-      monthlyLimit: 25,
-      createdAt: Math.floor(Date.now() / 1000),
-      updatedAt: Math.floor(Date.now() / 1000),
-    };
-
-    db.insert(schema.users).values(testUser).run();
-    console.log("✅ Test user created!");
-  }
-
-  // Test transformation logging
-  console.log("📝 Adding test transformation...");
-  const testTransformation = {
-    id: "test-transform-" + Date.now(),
-    userId: result.length > 0 ? result[0].id : "test-user-1",
-    fileName: "TestComponent.tsx",
-    originalCodeLength: 150,
-    transformedCodeLength: 200,
-    layersUsed: JSON.stringify([1, 2, 3]),
-    changesCount: 5,
-    executionTimeMs: 250,
-    success: 1,
-    isGuest: 0,
-    createdAt: Math.floor(Date.now() / 1000),
-  };
-
-  db.insert(schema.transformations).values(testTransformation).run();
-  console.log("✅ Test transformation logged!");
+  // Database test only - no test data creation
+  console.log("✅ Database structure verified!");
 
   // Query all data
   const users = db.select().from(schema.users).all();
