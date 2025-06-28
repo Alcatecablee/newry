@@ -1,7 +1,7 @@
 {
   "name": "neurolint-vscode",
   "displayName": "NeuroLint",
-  "description": "Advanced code analysis and transformation for VS Code",
+  "description": "Advanced rule-based code analysis and transformation for VS Code with AI-ready architecture",
   "version": "1.0.0",
   "publisher": "neurolint",
   "icon": "media/icon.png",
