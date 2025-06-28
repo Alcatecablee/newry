@@ -1,4 +1,4 @@
-import { useAuth as useLocalAuth } from "@/providers/ClerkProvider";
+import { useAuth as useLocalAuth } from "@/providers/AuthProvider";
 
 export interface UserData {
   id: string;

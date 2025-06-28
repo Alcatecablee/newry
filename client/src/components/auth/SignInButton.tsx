@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { LogIn, UserPlus, X, AlertCircle } from "lucide-react";
-import { useAuth } from "@/providers/ClerkProvider";
+import { useAuth } from "@/providers/AuthProvider";
 
 export function SignInButton() {
   const [showModal, setShowModal] = useState(false);

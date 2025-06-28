@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useAuth } from "@/providers/ClerkProvider";
+import { useAuth } from "@/providers/AuthProvider";
 import {
   User,
   Settings,

@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "@/providers/ClerkProvider";
+import { useAuth } from "@/providers/AuthProvider";
 
 export interface Team {
   id: string;

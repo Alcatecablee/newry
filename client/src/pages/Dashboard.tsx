@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "@/providers/ClerkProvider";
+import { useAuth } from "@/providers/AuthProvider";
 import { Link } from "react-router-dom";
 import {
   BarChart,
