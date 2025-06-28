@@ -121,24 +121,75 @@ export async function statusCommand(options: StatusOptions) {
       console.log(`${chalk.blue("  Test files:")} ${testFiles.length}`);
     }
 
-    // Health check
+    // Health check with retry logic
     console.log(chalk.white("\nHealth Check:"));
     try {
       const axios = await import("axios");
       const config = await loadConfig();
 
-      const response = await axios.default.get(`${config.api.url}/health`, {
-        timeout: 5000,
-      });
+      await withRetry(
+        async () => {
+          const response = await axios.default.get(
+            `${config.api?.url || "http://localhost:5000"}/health`,
+            {
+              timeout: 5000,
+            },
+          );
 
-      if (response.status === 200) {
-        console.log(`${chalk.green("✓")} NeuroLint API is accessible`);
+          if (response.status === 200) {
+            console.log(`${chalk.green("✓")} NeuroLint API is accessible`);
+            if (response.data?.version) {
+              console.log(
+                `${chalk.blue("  Version:")} ${response.data.version}`,
+              );
+            }
+            if (response.data?.status) {
+              console.log(`${chalk.blue("  Status:")} ${response.data.status}`);
+            }
+          }
+        },
+        {
+          maxAttempts: 2,
+          delay: 1000,
+        },
+      );
+
+      // Test authentication if API key is configured
+      if (config.apiKey) {
+        try {
+          const authResponse = await axios.default.get(
+            `${config.api?.url || "http://localhost:5000"}/api/auth/verify`,
+            {
+              headers: { Authorization: `Bearer ${config.apiKey}` },
+              timeout: 5000,
+            },
+          );
+
+          if (authResponse.status === 200) {
+            console.log(`${chalk.green("✓")} Authentication is valid`);
+          }
+        } catch (authError) {
+          console.log(`${chalk.red("✗")} Authentication failed`);
+          console.log(
+            `${chalk.gray('  Run "neurolint login" to re-authenticate')}`,
+          );
+        }
       }
     } catch (error) {
       console.log(`${chalk.red("✗")} NeuroLint API is not accessible`);
-      console.log(
-        `${chalk.gray("  Make sure the server is running: npm run dev")}`,
-      );
+      if (error instanceof Error) {
+        if (error.message.includes("ECONNREFUSED")) {
+          console.log(
+            `${chalk.gray("  Make sure the server is running: npm run dev")}`,
+          );
+        } else if (error.message.includes("ENOTFOUND")) {
+          console.log(
+            `${chalk.gray("  Check the API URL in your configuration")}`,
+          );
+        } else {
+          console.log(`${chalk.gray(`  Error: ${error.message}`)}`);
+        }
+      }
     }
 
     // Recommendations
