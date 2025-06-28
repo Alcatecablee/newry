@@ -188,7 +188,23 @@ const LiveCodeSessions = () => {
                 ))}
               </select>
             )}
-            <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+            <Button
+              size="sm"
+              className="bg-blue-600 hover:bg-blue-700"
+              onClick={() => {
+                const newSession = {
+                  id: `session-${Date.now()}`,
+                  name: `Team Session - ${new Date().toLocaleTimeString()}`,
+                  repository: "live-collaboration",
+                  branch: "main",
+                  participants: teamParticipants.slice(0, 3),
+                  isActive: true,
+                  startedAt: new Date().toISOString(),
+                };
+                setActiveSessions((prev) => [...prev, newSession]);
+                setSelectedSession(newSession.id);
+              }}
+            >
               <Play className="w-4 h-4 mr-2" />
               Start Session
             </Button>
@@ -414,7 +430,16 @@ const LiveCodeSessions = () => {
                       Session Workspace
                     </div>
                     <div className="flex items-center gap-2">
-                      <Button size="sm" variant="outline">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          const shareUrl = `${window.location.origin}/teams/session/${selectedSession}`;
+                          navigator.clipboard.writeText(shareUrl);
+                          // You could add a toast notification here
+                          alert("Session link copied to clipboard!");
+                        }}
+                      >
                         <Share className="w-4 h-4 mr-2" />
                         Share
                       </Button>
@@ -498,7 +523,22 @@ export default function Component() {
                       together, and boost productivity with live coding
                       sessions.
                     </p>
-                    <Button className="bg-blue-600 hover:bg-blue-700">
+                    <Button
+                      className="bg-blue-600 hover:bg-blue-700"
+                      onClick={() => {
+                        const newSession = {
+                          id: `session-${Date.now()}`,
+                          name: `New Session - ${new Date().toLocaleTimeString()}`,
+                          repository: "live-collaboration",
+                          branch: "main",
+                          participants: teamParticipants.slice(0, 1),
+                          isActive: true,
+                          startedAt: new Date().toISOString(),
+                        };
+                        setActiveSessions((prev) => [...prev, newSession]);
+                        setSelectedSession(newSession.id);
+                      }}
+                    >
                       <Play className="w-4 h-4 mr-2" />
                       Create New Session
                     </Button>
@@ -529,11 +569,48 @@ export default function Component() {
                   </Button>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button size="sm" variant="outline">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      // Toggle session pause state
+                      setActiveSessions((prev) =>
+                        prev.map((session) =>
+                          session.id === selectedSession
+                            ? { ...session, isActive: !session.isActive }
+                            : session,
+                        ),
+                      );
+                    }}
+                  >
                     <Pause className="w-4 h-4 mr-2" />
-                    Pause Session
+                    {activeSessions.find((s) => s.id === selectedSession)
+                      ?.isActive
+                      ? "Pause Session"
+                      : "Resume Session"}
                   </Button>
-                  <Button size="sm" variant="destructive">
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={() => {
+                      if (selectedSession) {
+                        setActiveSessions((prev) =>
+                          prev.filter(
+                            (session) => session.id !== selectedSession,
+                          ),
+                        );
+                        setSelectedSession(null);
+                        setCurrentCode("");
+                        setLayerAnalysis((prev) =>
+                          prev.map((layer) => ({
+                            ...layer,
+                            status: "pending",
+                            result: undefined,
+                          })),
+                        );
+                      }
+                    }}
+                  >
                     End Session
                   </Button>
                 </div>
