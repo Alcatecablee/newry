@@ -266,7 +266,7 @@ const AppPage = () => {
               {/* Tab Content */}
               <div className="mt-12 space-y-12">
                 <TabsContent value="drop" className="space-y-8">
-                  <div className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
+                  <div className="border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
                     <DropFileZone
                       onFile={handleFileUpload}
                       processing={processing}
@@ -275,7 +275,7 @@ const AppPage = () => {
                 </TabsContent>
 
                 <TabsContent value="paste" className="space-y-8">
-                  <div className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
+                  <div className="border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
                     <PasteCodeZone
                       onFile={handleFileUpload}
                       processing={processing}
@@ -284,12 +284,12 @@ const AppPage = () => {
                 </TabsContent>
 
                 <TabsContent value="github" className="space-y-8">
-                  <div className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
+                  <div className="border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
                     <GitHubUpload onRepoUpload={handleRepoUpload} />
                   </div>
 
                   {repoFiles.length > 0 && (
-                    <div className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
+                    <div className="border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
                       <RepoProcessor
                         files={repoFiles}
                         enabledLayers={enabledLayers}
@@ -301,7 +301,7 @@ const AppPage = () => {
 
                 {/* Processing Indicator */}
                 {processing && (
-                  <div className="flex flex-col items-center justify-center gap-4 py-12 px-6 bg-zinc-900/40 border border-zinc-800/50 rounded-3xl backdrop-blur-sm">
+                  <div className="flex flex-col items-center justify-center gap-4 py-12 px-6 border border-zinc-800/50 rounded-3xl backdrop-blur-sm">
                     <div className="relative">
                       <div className="w-12 h-12 border-4 border-zinc-700 border-t-white rounded-full animate-spin"></div>
                       <Sparkles className="absolute inset-0 w-6 h-6 m-auto text-white animate-pulse" />
@@ -321,7 +321,7 @@ const AppPage = () => {
                 {/* Stats Cards */}
                 {stats && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div className="bg-zinc-900/50 border border-zinc-800/50 rounded-2xl p-6 backdrop-blur-sm">
+                    <div className="border border-zinc-800/50 rounded-2xl p-6 backdrop-blur-sm">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="p-2 bg-zinc-500/20 rounded-xl">
                           <TrendingUp className="w-5 h-5 text-zinc-400" />
@@ -338,7 +338,7 @@ const AppPage = () => {
                       </div>
                     </div>
 
-                    <div className="bg-zinc-900/50 border border-zinc-800/50 rounded-2xl p-6 backdrop-blur-sm">
+                    <div className="border border-zinc-800/50 rounded-2xl p-6 backdrop-blur-sm">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="p-2 bg-zinc-500/20 rounded-xl">
                           <Clock className="w-5 h-5 text-zinc-400" />
@@ -355,7 +355,7 @@ const AppPage = () => {
                       </div>
                     </div>
 
-                    <div className="bg-zinc-900/50 border border-zinc-800/50 rounded-2xl p-6 backdrop-blur-sm">
+                    <div className="border border-zinc-800/50 rounded-2xl p-6 backdrop-blur-sm">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="p-2 bg-zinc-500/20 rounded-xl">
                           <Zap className="w-5 h-5 text-zinc-400" />
@@ -375,7 +375,7 @@ const AppPage = () => {
                 )}
 
                 {/* Code Diff Viewer */}
-                <div className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl overflow-hidden backdrop-blur-sm shadow-2xl">
+                <div className="border border-zinc-800/50 rounded-3xl overflow-hidden backdrop-blur-sm shadow-2xl">
                   <CodeDiffViewer
                     original={originalCode}
                     transformed={transformedCode}
@@ -385,7 +385,7 @@ const AppPage = () => {
 
                 {/* Transformation Insights */}
                 {insights.length > 0 && (
-                  <div className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
+                  <div className="border border-zinc-800/50 rounded-3xl p-8 backdrop-blur-sm shadow-2xl">
                     <TransformationInsights insights={insights} />
                   </div>
                 )}
