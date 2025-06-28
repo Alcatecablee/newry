@@ -126,7 +126,7 @@ const AdminDashboard = () => {
       case "running":
         return "bg-zinc-800 text-white";
       case "error":
-        return "bg-red-900 text-red-200";
+        return "bg-zinc-700 text-zinc-300";
       case "memory":
         return "bg-yellow-900 text-yellow-200";
       default:
