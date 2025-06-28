@@ -9,7 +9,7 @@ interface StatusOptions {
 }
 
 export async function statusCommand(options: StatusOptions) {
-  console.log(chalk.blue.bold("🧠 NeuroLint Project Status\n"));
+  console.log(chalk.white.bold("NeuroLint Project Status\n"));
 
   try {
     // Check configuration
