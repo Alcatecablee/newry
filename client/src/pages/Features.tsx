@@ -308,7 +308,7 @@ const Features = () => {
                                 key={index}
                                 className="flex items-center gap-3 text-sm"
                               >
-                                <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
+                                <CheckCircle className="w-4 h-4 text-zinc-400 flex-shrink-0" />
                                 <span className="text-zinc-300">{detail}</span>
                               </li>
                             ))}
@@ -390,8 +390,8 @@ const Features = () => {
                     className="bg-zinc-900/40 border border-zinc-800/50 rounded-2xl backdrop-blur-sm text-center"
                   >
                     <CardContent className="p-6">
-                      <div className="p-3 bg-green-500/20 rounded-2xl inline-flex mb-4">
-                        <Icon className="w-8 h-8 text-green-400" />
+                      <div className="p-3 bg-zinc-500/20 rounded-2xl inline-flex mb-4">
+                        <Icon className="w-8 h-8 text-zinc-400" />
                       </div>
 
                       <h3 className="text-lg font-bold text-white mb-2">
@@ -413,7 +413,7 @@ const Features = () => {
             <Card className="bg-zinc-900/40 border border-zinc-800/50 rounded-3xl backdrop-blur-sm">
               <CardContent className="p-12 text-center">
                 <div className="mb-8">
-                  <Gauge className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+                  <Gauge className="w-16 h-16 text-zinc-400 mx-auto mb-4" />
                   <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                     Built for Performance
                   </h2>
@@ -462,7 +462,7 @@ const Features = () => {
             <Card className="bg-zinc-900/60 border border-zinc-800/50 rounded-3xl backdrop-blur-sm">
               <CardContent className="p-12">
                 <div className="mb-8">
-                  <Sparkles className="w-16 h-16 text-purple-400 mx-auto mb-6" />
+                  <Sparkles className="w-16 h-16 text-zinc-400 mx-auto mb-6" />
                   <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                     Ready to Transform Your Code?
                   </h2>
