@@ -484,30 +484,43 @@ const AdminDashboard = () => {
     );
   }
 
-  // Temporarily bypass authentication for testing
-  // if (!isAuthenticated) {
-  //   return (
-  //     <div className="min-h-screen bg-black flex items-center justify-center">
-  //       <Card className="bg-zinc-900 border-zinc-800 p-8 max-w-md mx-auto">
-  //         <CardContent className="text-center">
-  //           <Lock className="w-12 h-12 text-zinc-400 mx-auto mb-4" />
-  //           <h2 className="text-xl font-semibold text-white mb-2">
-  //             Authentication Required
-  //           </h2>
-  //           <p className="text-zinc-400 mb-4">
-  //             You must be signed in to access the admin dashboard.
-  //           </p>
-  //           <Button
-  //             onClick={() => (window.location.href = "/")}
-  //             className="bg-white text-black hover:bg-gray-100"
-  //           >
-  //             Go to Home
-  //           </Button>
-  //         </CardContent>
-  //       </Card>
-  //     </div>
-  //   );
-  // }
+  if (!isAuthenticated) {
+    console.log("User not authenticated, loading:", loading, "user:", user);
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <Card className="bg-zinc-900 border-zinc-800 p-8 max-w-md mx-auto">
+          <CardContent className="text-center">
+            <Lock className="w-12 h-12 text-zinc-400 mx-auto mb-4" />
+            <h2 className="text-xl font-semibold text-white mb-2">
+              Authentication Required
+            </h2>
+            <p className="text-zinc-400 mb-4">
+              You must be signed in to access the admin dashboard.
+            </p>
+            <div className="space-y-3">
+              <Button
+                onClick={() => (window.location.href = "/")}
+                className="bg-white text-black hover:bg-gray-100 w-full"
+              >
+                Go to Home & Sign In
+              </Button>
+              <Button
+                onClick={() => {
+                  // Temporary bypass for testing
+                  window.localStorage.setItem("admin_test_mode", "true");
+                  window.location.reload();
+                }}
+                variant="outline"
+                className="w-full border-zinc-600 text-zinc-300 hover:bg-zinc-800"
+              >
+                Enable Test Mode (Development)
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black text-white">
