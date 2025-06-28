@@ -267,7 +267,7 @@ const EnhancedTeamDashboard = () => {
                   }}
                 >
                   <div
-                    className={`w-2 h-2 rounded-full ${liveMode ? "bg-green-400 animate-pulse" : "bg-gray-400"}`}
+                    className={`w-2 h-2 rounded-full ${liveMode ? "bg-zinc-300 animate-pulse" : "bg-zinc-600"}`}
                   />
                   <span>Live Mode {liveMode ? "ON" : "OFF"}</span>
                 </div>
