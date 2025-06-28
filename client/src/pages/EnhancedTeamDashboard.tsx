@@ -557,20 +557,50 @@ const EnhancedTeamDashboard = () => {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <img
-                      src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
-                      alt="Logo"
-                      className="w-5 h-5"
-                    />
-                    AI-Powered Team Insights
-                    <Badge className="bg-blue-900 text-blue-200 ml-2">
-                      Beta
-                    </Badge>
+                    <Bot className="w-5 h-5 text-blue-400" />
+                    Analytics
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
-                    {aiInsights.map((insight) => (
+                  {analytics ? (
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      <div className="p-4 bg-zinc-900 rounded-lg">
+                        <div className="text-2xl font-bold text-white">
+                          {analytics.codeQuality.current}%
+                        </div>
+                        <div className="text-sm text-zinc-400">Code Quality</div>
+                        <div className={`text-xs ${analytics.codeQuality.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>
+                          {analytics.codeQuality.change > 0 ? '+' : ''}{analytics.codeQuality.change}%
+                        </div>
+                      </div>
+                      <div className="p-4 bg-zinc-900 rounded-lg">
+                        <div className="text-2xl font-bold text-white">
+                          {analytics.velocity.current}
+                        </div>
+                        <div className="text-sm text-zinc-400">Velocity</div>
+                        <div className={`text-xs ${analytics.velocity.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>
+                          {analytics.velocity.change > 0 ? '+' : ''}{analytics.velocity.change}
+                        </div>
+                      </div>
+                      <div className="p-4 bg-zinc-900 rounded-lg">
+                        <div className="text-2xl font-bold text-white">
+                          {analytics.collaboration.current}%
+                        </div>
+                        <div className="text-sm text-zinc-400">Collaboration</div>
+                        <div className={`text-xs ${analytics.collaboration.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>
+                          {analytics.collaboration.change > 0 ? '+' : ''}{analytics.collaboration.change}%
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <p className="text-zinc-400">No analytics data available</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
                       <div
                         key={insight.id}
                         className={`p-4 rounded-lg border ${getInsightColor(insight.type)}`}
