@@ -5,6 +5,7 @@ import { GitHubUpload } from "@/components/neurolint/GitHubUpload";
 import { RepoProcessor } from "@/components/neurolint/RepoProcessor";
 import { CodeDiffViewer } from "@/components/neurolint/CodeDiffViewer";
 import { TransformationInsights } from "@/components/neurolint/TransformationInsights";
+import { LayerSelector } from "@/components/neurolint/LayerSelector";
 import {
   NeuroLintOrchestrator,
   NeuroLintLayerResult,
