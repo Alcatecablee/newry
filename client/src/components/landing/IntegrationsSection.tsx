@@ -22,7 +22,7 @@ export function IntegrationsSection() {
       icon: Database,
       description: "DevOps platform integration",
       category: "CI/CD",
-      color: "from-orange-600 to-orange-800",
+      color: "from-zinc-600 to-zinc-800",
     },
     {
       name: "Azure DevOps",
