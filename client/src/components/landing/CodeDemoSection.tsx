@@ -119,9 +119,9 @@ function UserProfile({ userId }: { userId: string }) {
               {/* Terminal Header */}
               <div className="bg-gray-800 px-4 py-3 flex items-center gap-2 border-b border-gray-700">
                 <div className="flex gap-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-zinc-600 rounded-full"></div>
+                  <div className="w-3 h-3 bg-zinc-600 rounded-full"></div>
+                  <div className="w-3 h-3 bg-zinc-600 rounded-full"></div>
                 </div>
                 <div className="text-sm text-gray-300 ml-4 flex items-center gap-2">
                   <Code className="w-4 h-4" />
