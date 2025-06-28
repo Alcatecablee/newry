@@ -1207,6 +1207,43 @@ const AdminDashboard = () => {
           </TabsContent>
         </Tabs>
 
+        {/* Test Save Button */}
+        <Card className="bg-zinc-900 border-zinc-800 mt-6">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold">Test Save Function</h3>
+                <p className="text-sm text-zinc-400">
+                  Test if saving works before using the main form
+                </p>
+              </div>
+              <Button
+                onClick={() => {
+                  console.log("Test save clicked");
+                  const testConfig = { TEST_ADMIN_SAVE: `test_${Date.now()}` };
+                  fetch("/api/admin/save-env", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ envVars: testConfig }),
+                  })
+                    .then((r) => r.json())
+                    .then((data) => {
+                      console.log("Test save result:", data);
+                      alert("Test save result: " + JSON.stringify(data));
+                    })
+                    .catch((err) => {
+                      console.error("Test save error:", err);
+                      alert("Test save error: " + err.message);
+                    });
+                }}
+                className="bg-green-600 text-white hover:bg-green-700"
+              >
+                Test Save
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Save Button */}
         <Card className="bg-zinc-900 border-zinc-800 mt-6">
           <CardContent className="p-6">
