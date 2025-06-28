@@ -148,35 +148,36 @@ const EnhancedTeamDashboard = () => {
   }
 
   // Get real team members from API
-  const teamMembers = teamData?.members?.map(member => ({
-    id: member.id,
-    name: member.userId, // Would need user lookup for real name
-    email: `${member.userId}@company.com`,
-    avatar: "/avatars/default.jpg",
-    role: member.role,
-    skillLevel: member.role === "owner" ? "Lead" : member.role === "admin" ? "Senior" : "Mid",
-    specialties: ["React", "TypeScript"], // Would come from user profile
-    stats: {
-      fixesThisWeek: Math.floor(Math.random() * 30), // Would come from real analytics
-      codeQualityScore: 75 + Math.floor(Math.random() * 25),
-      collaborationScore: 70 + Math.floor(Math.random() * 30),
-      innovationPoints: 50 + Math.floor(Math.random() * 150),
-      mentorshipHours: Math.floor(Math.random() * 15),
-      streak: Math.floor(Math.random() * 30),
-    },
-    currentActivity: {
-      status: "idle",
-      currentFile: null,
-      lastSeen: "Recently",
-      activeSession: null,
-    },
-    achievements: [],
-  })) || [];
-      file: "components/UserProfile.tsx",
-      startedAt: "15 min ago",
-      status: "active",
-    },
-  ];
+  const teamMembers =
+    teamData?.members?.map((member) => ({
+      id: member.id,
+      name: member.userId, // Would need user lookup for real name
+      email: `${member.userId}@company.com`,
+      avatar: "/avatars/default.jpg",
+      role: member.role,
+      skillLevel:
+        member.role === "owner"
+          ? "Lead"
+          : member.role === "admin"
+            ? "Senior"
+            : "Mid",
+      specialties: ["React", "TypeScript"], // Would come from user profile
+      stats: {
+        fixesThisWeek: Math.floor(Math.random() * 30), // Would come from real analytics
+        codeQualityScore: 75 + Math.floor(Math.random() * 25),
+        collaborationScore: 70 + Math.floor(Math.random() * 30),
+        innovationPoints: 50 + Math.floor(Math.random() * 150),
+        mentorshipHours: Math.floor(Math.random() * 15),
+        streak: Math.floor(Math.random() * 30),
+      },
+      currentActivity: {
+        status: "idle",
+        currentFile: null,
+        lastSeen: "Recently",
+        activeSession: null,
+      },
+      achievements: [],
+    })) || [];
 
   const getActivityIcon = (status: string) => {
     switch (status) {
