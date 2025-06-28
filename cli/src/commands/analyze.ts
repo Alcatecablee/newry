@@ -32,10 +32,10 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
     const configValidation = await validateConfig(config);
 
     if (!configValidation.valid) {
-      spinner.fail("Configuration validation failed");
-      configValidation.errors.forEach((error) =>
-        console.log(chalk.red(`❌ ${error}`)),
-      );
+      spinner.fail('Configuration validation failed');
+      configValidation.errors.forEach(error => console.log(chalk.white(`ERROR: ${error}`)));
+      return;
+    }
       return;
     }
 
