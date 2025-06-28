@@ -209,9 +209,11 @@ const AppPage = () => {
                       {layer.description}
                     </p>
 
-                    {isEnabled && (
-                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-zinc-500 rounded-full border-2 border-black" />
-                    )}
+                    <div
+                      className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-black ${
+                        isEnabled ? "bg-green-500" : "bg-red-500"
+                      }`}
+                    />
                   </button>
                 );
               })}
