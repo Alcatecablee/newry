@@ -352,47 +352,7 @@ export default function Index() {
 
       {/* CLI Tool Section */}
       <CLISection />
-            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl">
-              <div className="bg-zinc-900 px-4 py-3 flex items-center gap-2 border-b border-zinc-800">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-                <span className="text-sm text-zinc-400 ml-4">
-                  component.tsx - NeuroLint
-                </span>
-              </div>
-              <div className="p-6">
-                <div className="font-mono text-sm space-y-2">
-                <div className="text-white">$ neurolint login</div>
-                <div className="text-zinc-400">NeuroLint Authentication</div>
-                <div className="text-zinc-400">Authentication successful</div>
-                <div className="text-white">$ neurolint analyze src/</div>
-                <div className="text-zinc-400">Discovering and validating files...</div>
-                <div className="text-zinc-400">Found 24 valid files to analyze</div>
-                <div className="text-zinc-400">Analysis (18/24) 75.0% - ETA: 8s</div>
-                <div className="text-white">PASS Layer 1: Configuration Validation</div>
-                <div className="text-white">PASS Layer 2: Pattern & Entity Fixes</div>
-                <div className="text-white">PASS Layer 3: Component Best Practices</div>
-                <div className="text-zinc-400">Discovering and validating files...</div>
-                <div className="text-zinc-400">Found 24 valid files to analyze</div>
-                <div className="text-zinc-400">Analysis (18/24) 75.0% - ETA: 8s</div>
-                <div className="text-white">PASS Layer 1: Configuration Validation</div>
-                <div className="text-white">PASS Layer 2: Pattern & Entity Fixes</div>
-                <div className="text-white">PASS Layer 3: Component Best Practices</div>
-                <div className="text-white">Analysis Complete</div>
-                <div className="text-white">Successfully analyzed: 22</div>
-                <div className="text-white">Failed: 2</div>
-                <div className="text-white">$ neurolint fix --backup --dry-run</div>
-                <div className="text-zinc-400">DRY RUN MODE - Preview changes:</div>
-                <div className="text-zinc-400">src/components/Header.tsx - Would be modified</div>
-                <div className="text-white animate-pulse">█</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* VS Code Extension Section */}
       <section id="vscode" className="py-20 bg-black border-t border-zinc-800">
