@@ -15,6 +15,52 @@ export interface FileValidationOptions {
   maxFiles?: number;
 }
 
+export interface Config {
+  apiKey?: string;
+  apiUrl?: string;
+  [key: string]: any;
+}
+
+// Add missing validateApiConnection function
+export async function validateApiConnection(config: Config): Promise<boolean> {
+  if (!config.apiKey) {
+    throw new Error("API key not configured");
+  }
+
+  if (!config.apiUrl) {
+    throw new Error("API URL not configured");
+  }
+
+  try {
+    const response = await fetch(`${config.apiUrl}/api/health`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${config.apiKey}`,
+        "Content-Type": "application/json",
+      },
+      signal: AbortSignal.timeout(10000), // 10 second timeout
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `API connection failed: ${response.status} ${response.statusText}`,
+      );
+    }
+
+    return true;
+  } catch (error) {
+    if (error instanceof Error) {
+      if (error.name === "TimeoutError") {
+        throw new Error(
+          "API connection timeout - check your network connection",
+        );
+      }
+      throw new Error(`API connection failed: ${error.message}`);
+    }
+    throw new Error("Unknown API connection error");
+  }
+}
+
 export async function validateFiles(
   patterns: string[],
   options: FileValidationOptions = {},

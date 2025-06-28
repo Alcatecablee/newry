@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import ora from "ora";
 import inquirer from "inquirer";
+import crypto from "crypto";
 import { readConfig } from "../utils/config";
 import { validateApiConnection } from "../utils/validation";
 
@@ -327,9 +328,7 @@ async function showWebhookLogs(webhookId: string) {
 }
 
 function generateSecret(): string {
-  return Array.from(crypto.getRandomValues(new Uint8Array(32)))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+  return crypto.randomBytes(32).toString("hex");
 }
 
 async function interactiveWebhookManagement() {
