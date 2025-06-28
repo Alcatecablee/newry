@@ -358,8 +358,10 @@ export default function Index() {
 
           <div className="relative mb-16">
             <p className="text-2xl md:text-3xl text-gray-200 mb-16 max-w-4xl mx-auto leading-relaxed px-8 py-8 backdrop-blur-xl rounded-3xl border-2 border-zinc-800/30 font-medium">
-              Experience the future of code analysis with our{" "}
-              <span className="text-white font-black">AI-powered platform</span>
+              Experience advanced code analysis with our{" "}
+              <span className="text-white font-black">
+                transformation platform
+              </span>
               . Detect bugs, optimize performance, and{" "}
               <span className="text-white font-black">
                 maintain clean code automatically
