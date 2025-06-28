@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useTeams, useTeam, useTeamAnalytics } from "@/hooks/useTeams";
-import { orchestrateTransformation } from "@/lib/neurolint/orchestrator";
+import { NeuroLintOrchestrator } from "@/lib/neurolint/orchestrator";
 import { NeuroLintLayerResult } from "@/lib/neurolint/types";
 import {
   Users,
@@ -76,11 +76,12 @@ const TeamDashboard = () => {
     setAnalyzingProjects((prev) => new Set(prev).add(projectId));
 
     try {
-      const results = await orchestrateTransformation(code, {
-        dryRun: false,
-        verbose: true,
-        skipLayers: [],
-      });
+      const { transformed, layers } = await NeuroLintOrchestrator(
+        code,
+        "team-project",
+        true,
+        [1, 2, 3, 4, 5, 6],
+      );
 
       if (results.layerResults) {
         setLayerAnalysis((prev) => ({
