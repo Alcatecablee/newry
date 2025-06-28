@@ -482,10 +482,6 @@ const EnhancedTeamDashboard = () => {
                   </CardContent>
                 </Card>
               )}
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
 
               {/* Team Activity Feed */}
               <Card>
