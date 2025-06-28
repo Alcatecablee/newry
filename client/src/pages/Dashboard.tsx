@@ -156,14 +156,8 @@ export default function Dashboard() {
   };
 
   const getPlanColor = (planType: string) => {
-    switch (planType) {
-      case "pro":
-        return "bg-yellow-600";
-      case "enterprise":
-        return "bg-purple-600";
-      default:
-        return "bg-zinc-700";
-    }
+    // Use only zinc colors for all plans
+    return "bg-zinc-700";
   };
 
   const getNextPlan = (currentPlan: string) => {
