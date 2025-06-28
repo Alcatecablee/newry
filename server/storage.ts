@@ -73,11 +73,11 @@ export class DatabaseStorage implements IStorage {
     return result[0];
   }
 
-  async getUserByClerkId(clerkId: string): Promise<User | undefined> {
+  async getUserBySupabaseId(supabaseId: string): Promise<User | undefined> {
     const result = await db
       .select()
       .from(users)
-      .where(eq(users.clerkId, clerkId))
+      .where(eq(users.supabaseId, supabaseId))
       .limit(1);
     return result[0];
   }
