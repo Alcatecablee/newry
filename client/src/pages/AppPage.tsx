@@ -130,7 +130,7 @@ const AppPage = () => {
               </h1>
               <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
                 Transform your React & TypeScript code with precision analysis.
-                Six intelligent layers of optimization and error detection.
+                Six advanced layers of optimization and error detection.
               </p>
             </div>
           </div>
