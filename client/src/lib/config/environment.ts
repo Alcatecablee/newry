@@ -4,8 +4,8 @@
 
 interface EnvironmentConfig {
   // App configuration
-  NODE_ENV: 'development' | 'production' | 'test';
-  VITE_APP_ENV: 'development' | 'production' | 'staging';
+  NODE_ENV: "development" | "production" | "test";
+  VITE_APP_ENV: "development" | "production" | "staging";
 
   // Database (server-side only)
   DATABASE_URL?: string;
@@ -35,10 +35,13 @@ class EnvironmentManager {
 
   private loadConfig(): void {
     // Load from import.meta.env (Vite environment) - this is the primary source for client-side
-    if (typeof globalThis !== 'undefined' && globalThis.import?.meta?.env) {
-      this.config = { ...globalThis.import.meta.env };
-    } else if (typeof import !== 'undefined' && typeof import.meta !== 'undefined' && import.meta.env) {
-      this.config = { ...import.meta.env };
+    try {
+      if (import.meta?.env) {
+        this.config = { ...import.meta.env };
+      }
+    } catch (e) {
+      // Fallback for environments without import.meta
+      console.warn("Unable to load environment config");
     }
   }
 
@@ -46,9 +49,7 @@ class EnvironmentManager {
     const errors: string[] = [];
 
     // Required environment variables
-    const required: (keyof EnvironmentConfig)[] = [
-      'VITE_PAYPAL_CLIENT_ID',
-    ];
+    const required: (keyof EnvironmentConfig)[] = ["VITE_PAYPAL_CLIENT_ID"];
 
     for (const key of required) {
       if (!this.config[key]) {
@@ -57,33 +58,43 @@ class EnvironmentManager {
     }
 
     // Validate environment values
-    if (this.config.NODE_ENV && !['development', 'production', 'test'].includes(this.config.NODE_ENV)) {
-      errors.push('NODE_ENV must be development, production, or test');
+    if (
+      this.config.NODE_ENV &&
+      !["development", "production", "test"].includes(this.config.NODE_ENV)
+    ) {
+      errors.push("NODE_ENV must be development, production, or test");
     }
 
-    if (this.config.VITE_APP_ENV && !['development', 'production', 'staging'].includes(this.config.VITE_APP_ENV)) {
-      errors.push('VITE_APP_ENV must be development, production, or staging');
+    if (
+      this.config.VITE_APP_ENV &&
+      !["development", "production", "staging"].includes(
+        this.config.VITE_APP_ENV,
+      )
+    ) {
+      errors.push("VITE_APP_ENV must be development, production, or staging");
     }
 
     // Production-specific validations
     if (this.isProd()) {
       const prodRequired: (keyof EnvironmentConfig)[] = [
-        'PAYPAL_CLIENT_SECRET',
-        'JWT_SECRET',
-        'ENCRYPTION_KEY',
-        'DATABASE_URL',
+        "PAYPAL_CLIENT_SECRET",
+        "JWT_SECRET",
+        "ENCRYPTION_KEY",
+        "DATABASE_URL",
       ];
 
       for (const key of prodRequired) {
         if (!this.config[key]) {
-          errors.push(`Missing required production environment variable: ${key}`);
+          errors.push(
+            `Missing required production environment variable: ${key}`,
+          );
         }
       }
 
       // Check for default/example values in production
 
       if (this.config.JWT_SECRET && this.config.JWT_SECRET.length < 32) {
-        errors.push('JWT_SECRET must be at least 32 characters in production');
+        errors.push("JWT_SECRET must be at least 32 characters in production");
       }
     }
 
@@ -91,31 +102,39 @@ class EnvironmentManager {
     return { isValid: this.validated, errors };
   }
 
-  get<K extends keyof EnvironmentConfig>(key: K): EnvironmentConfig[K] | undefined {
+  get<K extends keyof EnvironmentConfig>(
+    key: K,
+  ): EnvironmentConfig[K] | undefined {
     if (!this.validated) {
-      console.warn('Environment not validated. Call validate() first.');
+      console.warn("Environment not validated. Call validate() first.");
     }
     return this.config[key] as EnvironmentConfig[K];
   }
 
   getRequired<K extends keyof EnvironmentConfig>(key: K): EnvironmentConfig[K] {
     const value = this.get(key);
-    if (value === undefined || value === '') {
+    if (value === undefined || value === "") {
       throw new Error(`Required environment variable ${key} is not set`);
     }
     return value;
   }
 
   isDev(): boolean {
-    return this.config.NODE_ENV === 'development' || this.config.VITE_APP_ENV === 'development';
+    return (
+      this.config.NODE_ENV === "development" ||
+      this.config.VITE_APP_ENV === "development"
+    );
   }
 
   isProd(): boolean {
-    return this.config.NODE_ENV === 'production' || this.config.VITE_APP_ENV === 'production';
+    return (
+      this.config.NODE_ENV === "production" ||
+      this.config.VITE_APP_ENV === "production"
+    );
   }
 
   isTest(): boolean {
-    return this.config.NODE_ENV === 'test';
+    return this.config.NODE_ENV === "test";
   }
 
   private isValidUrl(url: string): boolean {
@@ -156,8 +175,9 @@ class EnvironmentManager {
   }
 
   private generateRandomString(length: number): string {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
     for (let i = 0; i < length; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
@@ -172,7 +192,7 @@ export const env = new EnvironmentManager();
 const validation = env.validate();
 if (!validation.isValid) {
   if (env.isDev()) {
-    console.warn('Environment validation failed:', validation.errors);
+    console.warn("Environment validation failed:", validation.errors);
   }
 }
 
