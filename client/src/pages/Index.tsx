@@ -512,15 +512,20 @@ export default function Index() {
         </div>
       </section>
 
-                <div className="mt-4 p-3 bg-zinc-900 border border-zinc-800er rounded-lg">
-                  <div className="flex items-center gap-2 text-white text-sm">
-                    <Code className="w-4 h-4" />
-                    <span>NeuroLint suggests: Add key prop to list items</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* VS Code Extension Section */}
+      <section id="vscode" className="py-20 bg-black border-t border-zinc-800">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
+              VS Code Extension
+            </h2>
+            <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
+              Transform your development experience with real-time analysis and
+              intelligent suggestions directly in your favorite editor.
+            </p>
+          </div>
 
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="space-y-6">
                 <h3 className="text-2xl font-semibold text-white">
