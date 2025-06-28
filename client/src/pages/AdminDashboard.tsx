@@ -462,9 +462,20 @@ const AdminDashboard = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="supabase-service-key">
-                      Supabase Service Role Key (Optional)
-                    </Label>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="supabase-service-key">
+                        Supabase Service Role Key (Optional)
+                      </Label>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setShowServiceKey(!showServiceKey)}
+                        className="text-zinc-400 hover:text-white"
+                      >
+                        {showServiceKey ? "Hide" : "Show"}
+                      </Button>
+                    </div>
                     <Input
                       id="supabase-service-key"
                       placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
@@ -476,10 +487,12 @@ const AdminDashboard = () => {
                         }))
                       }
                       className="bg-zinc-800 border-zinc-700 text-white"
-                      type="password"
+                      type={showServiceKey ? "text" : "password"}
                     />
                     <p className="text-xs text-zinc-500 mt-1">
-                      Only needed for admin operations. Keep this secret!
+                      {envConfig.SUPABASE_SERVICE_ROLE_KEY
+                        ? "✅ Service role key is configured"
+                        : "Only needed for admin operations. Keep this secret!"}
                     </p>
                   </div>
                 </div>
