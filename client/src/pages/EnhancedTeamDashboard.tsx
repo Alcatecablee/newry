@@ -584,7 +584,7 @@ const EnhancedTeamDashboard = () => {
                             Code Quality
                           </div>
                           <div
-                            className={`text-xs ${analytics.codeQuality.trend === "up" ? "text-green-400" : "text-red-400"}`}
+                            className={`text-xs ${analytics.codeQuality.trend === "up" ? "text-zinc-300" : "text-zinc-500"}`}
                           >
                             {analytics.codeQuality.change > 0 ? "+" : ""}
                             {analytics.codeQuality.change}%
