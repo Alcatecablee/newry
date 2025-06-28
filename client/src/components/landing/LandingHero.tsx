@@ -17,7 +17,7 @@ export function LandingHero() {
       />
       <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-extrabold text-white text-center leading-tight mb-4">
         AI-powered Drop-in <br className="hidden xs:block" />
-        <span className="text-purple-300">Code & Config Fixer</span>
+        <span className="text-white">Code & Config Fixer</span>
       </h1>
       <div className="text-base sm:text-xl text-gray-300 font-medium mb-8 max-w-md text-center px-2">
         Revolutionary AI-powered code analysis platform with CLI, VS Code
