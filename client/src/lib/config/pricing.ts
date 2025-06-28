@@ -67,11 +67,3 @@ export const PAYPAL_CONFIG = {
     environment: "live" as const,
   },
 };
-
-export const CLERK_CONFIG = {
-  publishableKey: import.meta.env.VITE_CLERK_PUBLISHABLE_KEY || "",
-  signInUrl: "/sign-in",
-  signUpUrl: "/sign-up",
-  afterSignInUrl: "/app",
-  afterSignUpUrl: "/app",
-};
