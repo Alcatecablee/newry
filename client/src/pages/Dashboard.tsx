@@ -126,18 +126,21 @@ export default function Dashboard() {
         </div>
 
         {/* Plan Status Card */}
-        <div className={`${getPlanColor(user.planType)} p-6 rounded-xl mb-8`}>
+        <div
+          className={`${getPlanColor(user.app_metadata.plan_type || "free")} p-6 rounded-xl mb-8`}
+        >
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Crown className="w-5 h-5 text-white" />
                 <h2 className="text-xl font-bold text-white">
-                  {user.planType.toUpperCase()} Plan
+                  {(user.app_metadata.plan_type || "free").toUpperCase()} Plan
                 </h2>
               </div>
               <p className="text-white/90">
-                {user.monthlyTransformationsUsed} / {user.monthlyLimit}{" "}
-                transformations used this month
+                {user.app_metadata.monthly_transformations_used || 0} /{" "}
+                {user.app_metadata.monthly_limit || 25} transformations used
+                this month
               </p>
               <div className="mt-3 w-full bg-white/20 rounded-full h-2">
                 <div
