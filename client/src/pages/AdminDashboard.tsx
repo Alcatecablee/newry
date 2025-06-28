@@ -559,6 +559,18 @@ const AdminDashboard = () => {
           }}
         />
 
+        {/* Test Mode Alert */}
+        {isTestMode && (
+          <Alert className="mb-6 border-orange-500 bg-orange-500/10">
+            <Info className="h-4 w-4" />
+            <AlertDescription>
+              🧪 Test Mode Enabled: Authentication is bypassed for development
+              testing. Click "Exit Test Mode" above to restore normal
+              authentication.
+            </AlertDescription>
+          </Alert>
+        )}
+
         {/* System Status Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <Card className="bg-zinc-900 border-zinc-800">
