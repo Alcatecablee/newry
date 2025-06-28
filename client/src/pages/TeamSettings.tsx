@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,65 +41,85 @@ interface CustomRule {
   createdAt: string;
 }
 
+interface TeamData {
+  id: string;
+  name: string;
+  plan: string;
+  usage: { current: number; limit: number };
+  defaultLayers: number[];
+}
+
 const TeamSettings = () => {
-  const [teamName, setTeamName] = useState("Acme Engineering");
+  const [teamData, setTeamData] = useState<TeamData | null>(null);
+  const [teamName, setTeamName] = useState("");
   const [notifications, setNotifications] = useState({
-    slackWebhook: "https://hooks.slack.com/services/...",
-    emailAlerts: true,
-    failureAlerts: true,
-    successSummary: true,
-    weeklyReport: true,
+    slackWebhook: "",
+    emailAlerts: false,
+    failureAlerts: false,
+    successSummary: false,
+    weeklyReport: false,
   });
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [customRules, setCustomRules] = useState<CustomRule[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const [members, setMembers] = useState<TeamMember[]>([
-    {
-      id: "1",
-      name: "Sarah Chen",
-      email: "sarah@company.com",
-      role: "Owner",
-      permissions: ["all"],
-      lastActive: "2 hours ago",
-    },
-    {
-      id: "2",
-      name: "Mike Rodriguez",
-      email: "mike@company.com",
-      role: "Admin",
-      permissions: ["run-fixes", "view-reports", "manage-rules"],
-      lastActive: "4 hours ago",
-    },
-    {
-      id: "3",
-      name: "Alex Kim",
-      email: "alex@company.com",
-      role: "Developer",
-      permissions: ["run-fixes", "view-reports"],
-      lastActive: "1 hour ago",
-    },
-  ]);
+  useEffect(() => {
+    fetchTeamData();
+    fetchTeamMembers();
+    fetchCustomRules();
+    fetchNotificationSettings();
+  }, []);
 
-  const [customRules, setCustomRules] = useState<CustomRule[]>([
-    {
-      id: "1",
-      name: "React Hooks Only",
-      description: "Enforce React hooks pattern, discourage class components",
-      layers: [3],
-      conditions: ["*.tsx", "*.jsx"],
-      active: true,
-      createdBy: "Sarah Chen",
-      createdAt: "2024-01-15",
-    },
-    {
-      id: "2",
-      name: "Strict TypeScript",
-      description: "Enforce strict TypeScript settings across all files",
-      layers: [1, 2],
-      conditions: ["*.ts", "*.tsx"],
-      active: true,
-      createdBy: "Mike Rodriguez",
-      createdAt: "2024-01-10",
-    },
-  ]);
+  const fetchTeamData = async () => {
+    try {
+      const response = await fetch("/api/teams/current");
+      if (response.ok) {
+        const data = await response.json();
+        setTeamData(data);
+        setTeamName(data.name || "");
+      }
+    } catch (error) {
+      console.error("Failed to fetch team data:", error);
+    }
+  };
+
+  const fetchTeamMembers = async () => {
+    try {
+      const response = await fetch("/api/teams/members");
+      if (response.ok) {
+        const data = await response.json();
+        setMembers(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch team members:", error);
+    }
+  };
+
+  const fetchCustomRules = async () => {
+    try {
+      const response = await fetch("/api/teams/rules");
+      if (response.ok) {
+        const data = await response.json();
+        setCustomRules(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch custom rules:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchNotificationSettings = async () => {
+    try {
+      const response = await fetch("/api/teams/notifications");
+      if (response.ok) {
+        const data = await response.json();
+        setNotifications(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch notification settings:", error);
+    }
+  };
 
   const rolePermissions = {
     Owner: ["all"],
@@ -242,10 +262,7 @@ const TeamSettings = () => {
                   <Label>Default Layers</Label>
                   <div className="flex items-center gap-2 mt-2">
                     {[1, 2, 3, 4].map((layer) => (
-                      <Badge
-                        key={layer}
-                        className="bg-zinc-900 text-white"
-                      >
+                      <Badge key={layer} className="bg-zinc-900 text-white">
                         Layer {layer}
                       </Badge>
                     ))}
@@ -297,9 +314,7 @@ const TeamSettings = () => {
                         </Badge>
 
                         <div className="text-right">
-                          <p className="text-zinc-400 text-sm">
-                            Last active
-                          </p>
+                          <p className="text-zinc-400 text-sm">Last active</p>
                           <p className="text-white text-sm">
                             {member.lastActive}
                           </p>
