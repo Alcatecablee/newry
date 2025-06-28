@@ -538,7 +538,7 @@ const AdminDashboard = () => {
 
       <div className="relative z-10 container mx-auto px-4 py-8">
         <PageHeader
-          title="Admin Dashboard"
+          title={`Admin Dashboard ${isTestMode ? "(Test Mode)" : ""}`}
           description="Configure and monitor NeuroLint system settings"
           className="mb-8"
           breadcrumb={{
@@ -548,8 +548,14 @@ const AdminDashboard = () => {
             ],
           }}
           cta={{
-            label: "Try NeuroLint",
-            href: "/app",
+            label: isTestMode ? "Exit Test Mode" : "Try NeuroLint",
+            href: isTestMode ? "#" : "/app",
+            onClick: isTestMode
+              ? () => {
+                  window.localStorage.removeItem("admin_test_mode");
+                  window.location.reload();
+                }
+              : undefined,
           }}
         />
 
