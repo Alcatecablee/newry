@@ -427,21 +427,7 @@ export default function Index() {
       <section id="api" className="py-20 bg-black border-t border-zinc-800">
 
                 <div className="text-white">Successfully analyzed: 22</div>
-                <div className="text-white">Failed: 2</div>
-                <div className="text-white">$ neurolint fix --backup --dry-run</div>
-                <div className="text-zinc-400">DRY RUN MODE - Preview changes:</div>
-                <div className="text-zinc-400">src/components/Header.tsx - Would be modified</div>
-                <div className="text-white animate-pulse">█</div>
-              </div>
-                    "performance": &#123; "totalTime": 0.85 &#125;
-                  </div>
-                  <div className="text-white">&#125;</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Integrations Section */}
       <section className="py-20 bg-black border-t border-zinc-800">
