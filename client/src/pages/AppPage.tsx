@@ -134,7 +134,7 @@ const AppPage = () => {
           <div className="text-center mb-16">
             <div className="mb-6">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-                AI-Powered Code Analysis
+                Multi-Layer Code Analysis
               </h1>
               <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
                 Transform your React & TypeScript code with precision AI
@@ -168,7 +168,7 @@ const AppPage = () => {
                     onClick={() => toggleLayer(layer.id)}
                     className={`group relative p-4 rounded-xl border transition-all duration-200 text-left transform active:scale-[0.98] ${
                       isEnabled
-                        ? "bg-[#292939] border-[#342d66] shadow-lg shadow-purple-900/20"
+                        ? "bg-[#292939] border-zinc-600 shadow-lg shadow-zinc-900/20"
                         : "bg-[#1a1b21] border-[#292939] hover:border-[#3a3a45] hover:bg-[#232329]"
                     }`}
                   >
@@ -176,7 +176,7 @@ const AppPage = () => {
                       <div
                         className={`flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold transition-all duration-200 ${
                           isEnabled
-                            ? "bg-purple-600 text-white border border-purple-500"
+                            ? "bg-zinc-600 text-white border border-zinc-500"
                             : "bg-[#292939] text-gray-400 border border-[#3a3a45] group-hover:bg-[#343445] group-hover:text-gray-300"
                         }`}
                       >
@@ -210,7 +210,7 @@ const AppPage = () => {
                     </p>
 
                     {isEnabled && (
-                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-500 rounded-full border-2 border-black" />
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-zinc-500 rounded-full border-2 border-black" />
                     )}
                   </button>
                 );
@@ -321,8 +321,8 @@ const AppPage = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     <div className="bg-zinc-900/50 border border-zinc-800/50 rounded-2xl p-6 backdrop-blur-sm">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-green-500/20 rounded-xl">
-                          <TrendingUp className="w-5 h-5 text-green-400" />
+                        <div className="p-2 bg-zinc-500/20 rounded-xl">
+                          <TrendingUp className="w-5 h-5 text-zinc-400" />
                         </div>
                         <span className="text-zinc-300 font-semibold">
                           Changes Applied
@@ -338,8 +338,8 @@ const AppPage = () => {
 
                     <div className="bg-zinc-900/50 border border-zinc-800/50 rounded-2xl p-6 backdrop-blur-sm">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-blue-500/20 rounded-xl">
-                          <Clock className="w-5 h-5 text-blue-400" />
+                        <div className="p-2 bg-zinc-500/20 rounded-xl">
+                          <Clock className="w-5 h-5 text-zinc-400" />
                         </div>
                         <span className="text-zinc-300 font-semibold">
                           Processing Time
@@ -355,8 +355,8 @@ const AppPage = () => {
 
                     <div className="bg-zinc-900/50 border border-zinc-800/50 rounded-2xl p-6 backdrop-blur-sm">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-purple-500/20 rounded-xl">
-                          <Zap className="w-5 h-5 text-purple-400" />
+                        <div className="p-2 bg-zinc-500/20 rounded-xl">
+                          <Zap className="w-5 h-5 text-zinc-400" />
                         </div>
                         <span className="text-zinc-300 font-semibold">
                           Success Rate
