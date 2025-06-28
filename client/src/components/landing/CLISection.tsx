@@ -101,11 +101,12 @@ export function CLISection() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">
-                  Lightning Fast Analysis
+                  Production-Ready Reliability
                 </h3>
                 <p className="text-gray-400">
-                  Process thousands of files in seconds with parallel analysis
-                  and advanced caching.
+                  Robust error handling, automatic retry logic, and progress
+                  tracking with resumption capabilities for interrupted
+                  operations.
                 </p>
               </div>
             </div>
@@ -116,11 +117,11 @@ export function CLISection() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">
-                  CI/CD Integration
+                  Enterprise Authentication
                 </h3>
                 <p className="text-gray-400">
-                  Seamlessly integrate with GitHub Actions, Jenkins, GitLab CI,
-                  and other automation tools.
+                  Secure API key management with built-in authentication
+                  validation and session management for team environments.
                 </p>
               </div>
             </div>
@@ -131,11 +132,11 @@ export function CLISection() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">
-                  Flexible Configuration
+                  Advanced Input Validation
                 </h3>
                 <p className="text-gray-400">
-                  Customize analysis layers, output formats, and file patterns
-                  to match your project needs.
+                  Comprehensive file validation, size limits, and pattern
+                  matching with detailed error reporting for safer operations.
                 </p>
               </div>
             </div>
@@ -146,11 +147,11 @@ export function CLISection() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">
-                  Safe Transformations
+                  Data Protection
                 </h3>
                 <p className="text-gray-400">
-                  Preview changes with dry-run mode and automatic backups before
-                  applying fixes.
+                  Automatic backup creation, atomic file operations, and
+                  rollback capabilities ensure your code is never at risk.
                 </p>
               </div>
             </div>
