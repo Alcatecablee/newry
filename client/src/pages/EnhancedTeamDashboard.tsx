@@ -348,7 +348,7 @@ const EnhancedTeamDashboard = () => {
                       {analytics?.velocity.current || 0}%
                     </p>
                   </div>
-                  <Bot className="w-8 h-8 text-white" />
+                  <Bot className="w-8 h-8 text-zinc-400" />
                 </div>
                 <p className="text-xs text-gray-400 mt-2">
                   {analytics?.velocity.change > 0 ? "+" : ""}
