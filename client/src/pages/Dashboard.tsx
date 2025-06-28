@@ -209,8 +209,8 @@ export default function Dashboard() {
     <div className="min-h-screen bg-black text-white">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-violet-900/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-purple-900/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-zinc-900/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-zinc-800/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -320,8 +320,8 @@ export default function Dashboard() {
               <Card className="bg-zinc-900/50 border-zinc-800">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <div className="p-2 bg-blue-600/20 rounded-lg">
-                      <BarChart className="w-5 h-5 text-blue-400" />
+                    <div className="p-2 bg-zinc-800/50 rounded-lg">
+                      <BarChart className="w-5 h-5 text-zinc-400" />
                     </div>
                   </div>
                   <div className="space-y-1">
@@ -338,8 +338,8 @@ export default function Dashboard() {
               <Card className="bg-zinc-900/50 border-zinc-800">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <div className="p-2 bg-green-600/20 rounded-lg">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
+                    <div className="p-2 bg-zinc-800/50 rounded-lg">
+                      <CheckCircle className="w-5 h-5 text-zinc-400" />
                     </div>
                   </div>
                   <div className="space-y-1">
@@ -354,8 +354,8 @@ export default function Dashboard() {
               <Card className="bg-zinc-900/50 border-zinc-800">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <div className="p-2 bg-purple-600/20 rounded-lg">
-                      <Clock className="w-5 h-5 text-purple-400" />
+                    <div className="p-2 bg-zinc-800/50 rounded-lg">
+                      <Clock className="w-5 h-5 text-zinc-400" />
                     </div>
                   </div>
                   <div className="space-y-1">
@@ -374,8 +374,8 @@ export default function Dashboard() {
               <Card className="bg-zinc-900/50 border-zinc-800">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <div className="p-2 bg-orange-600/20 rounded-lg">
-                      <TrendingUp className="w-5 h-5 text-orange-400" />
+                    <div className="p-2 bg-zinc-800/50 rounded-lg">
+                      <TrendingUp className="w-5 h-5 text-zinc-400" />
                     </div>
                   </div>
                   <div className="space-y-1">
