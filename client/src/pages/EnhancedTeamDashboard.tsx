@@ -330,7 +330,7 @@ const EnhancedTeamDashboard = () => {
                       {analytics?.codeQuality.current || 0}%
                     </p>
                   </div>
-                  <Trophy className="w-8 h-8 text-white" />
+                  <Trophy className="w-8 h-8 text-zinc-400" />
                 </div>
                 <p className="text-xs text-gray-400 mt-2">
                   {analytics?.codeQuality.change > 0 ? "+" : ""}
