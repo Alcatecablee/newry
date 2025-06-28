@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 
@@ -75,10 +74,10 @@ export function useGitHubUpload() {
   const getAllFiles = async (owner: string, repo: string, path = ""): Promise<{ path: string; content: string }[]> => {
     const contents = await fetchRepoContents(owner, repo, path);
     const files: { path: string; content: string }[] = [];
-    
+
     const supportedExtensions = ['.js', '.jsx', '.ts', '.tsx', '.json'];
     const excludePatterns = ['node_modules', '.git', 'dist', 'build', '.next'];
-    
+
     for (const item of contents) {
       if (excludePatterns.some(pattern => item.path.includes(pattern))) {
         continue;
@@ -86,7 +85,7 @@ export function useGitHubUpload() {
 
       if (item.type === 'file') {
         const hasValidExtension = supportedExtensions.some(ext => item.name.endsWith(ext));
-        
+
         if (hasValidExtension && item.download_url) {
           try {
             const content = await downloadFile(item.download_url);
@@ -94,7 +93,7 @@ export function useGitHubUpload() {
               path: item.path,
               content
             });
-            
+
             setUploadStatus(prev => prev ? {
               ...prev,
               processed: prev.processed + 1,
@@ -109,12 +108,12 @@ export function useGitHubUpload() {
         files.push(...subFiles);
       }
     }
-    
+
     return files;
   };
 
   const uploadRepository = async (
-    repoUrl: string, 
+    repoUrl: string,
     onRepoUpload: (files: { path: string; content: string }[]) => void
   ) => {
     if (!repoUrl.trim()) {
@@ -126,21 +125,15 @@ export function useGitHubUpload() {
       return;
     }
 
-    // Allow test mode to bypass URL validation
-    if (repoUrl.toLowerCase() !== 'test' && repoUrl.toLowerCase() !== 'mock' && !isValidGitHubUrl(repoUrl)) {
+    // Validate GitHub URL
+    if (!isValidGitHubUrl(repoUrl)) {
       toast({
-        title: "Invalid URL",
-        description: "Please enter a valid GitHub repository URL (e.g., https://github.com/user/repo) or 'test' for demo",
+        title: "Invalid GitHub URL",
+        description: "Please enter a valid GitHub repository URL",
         variant: "destructive"
       });
       return;
     }
-
-    // Handle test mode
-    if (repoUrl.toLowerCase() === 'test' || repoUrl.toLowerCase() === 'mock') {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      const mockFiles = [
         {
           path: 'src/App.js',
           content: `import React, { useState } from 'react';
@@ -148,7 +141,7 @@ import './App.css';
 
 function App() {
   const [count, setCount] = useState(0);
-  
+
   return (
     <div className="App">
       <header className="App-header">
@@ -173,8 +166,8 @@ export default App;`
 
 export const Button: React.FC<ButtonProps> = ({ onClick, children, disabled = false }) => {
   return (
-    <button 
-      onClick={onClick} 
+    <button
+      onClick={onClick}
       disabled={disabled}
       className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
     >
@@ -202,18 +195,18 @@ export const debounce = (func, wait) => {
 };`
         }
       ];
-      
+
       setUploadStatus({ total: mockFiles.length, processed: mockFiles.length, files: mockFiles.map(f => f.path) });
-      
+
       toast({
         title: "Test Repository Loaded",
         description: `Successfully loaded ${mockFiles.length} sample files for testing`
       });
-      
+
       if (typeof onRepoUpload === 'function') {
         onRepoUpload(mockFiles);
       }
-      
+
       setUploading(false);
       setUploadStatus(null);
       return;
@@ -234,15 +227,15 @@ export const debounce = (func, wait) => {
 
     try {
       const initialContents = await fetchRepoContents(repoInfo.owner, repoInfo.repo);
-      const estimatedFiles = initialContents.filter(item => 
-        item.type === 'file' && 
+      const estimatedFiles = initialContents.filter(item =>
+        item.type === 'file' &&
         ['.js', '.jsx', '.ts', '.tsx', '.json'].some(ext => item.name.endsWith(ext))
       ).length;
-      
+
       setUploadStatus(prev => prev ? { ...prev, total: Math.max(estimatedFiles, 10) } : null);
 
       const files = await getAllFiles(repoInfo.owner, repoInfo.repo);
-      
+
       if (files.length === 0) {
         toast({
           title: "No Supported Files Found",
@@ -262,19 +255,19 @@ export const debounce = (func, wait) => {
       if (typeof onRepoUpload === 'function') {
         onRepoUpload(files);
       }
-      
+
     } catch (error) {
       console.error('Upload error:', error);
       let errorMessage = "Failed to upload repository";
-      
+
       if (error instanceof Error) {
         errorMessage = error.message;
       } else if (typeof error === 'object' && error !== null) {
         errorMessage = "Network error or repository access issue. Please check your connection and try again.";
       }
-      
+
       toast({
-        title: "Upload Failed", 
+        title: "Upload Failed",
         description: errorMessage,
         variant: "destructive"
       });
