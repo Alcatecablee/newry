@@ -334,15 +334,40 @@ const EnhancedTeamDashboard = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                // AI Assistant functionality
+                console.log("AI Assistant clicked");
+                // Could open AI chat modal or navigate to AI page
+              }}
+            >
               <Bot className="w-4 h-4 mr-2" />
               AI Assistant
             </Button>
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                // Start collaborative session
+                console.log("Start Session clicked");
+                // Could redirect to live collaboration page
+                window.location.href = "/team/live-sessions";
+              }}
+            >
               <Rocket className="w-4 h-4 mr-2" />
               Start Session
             </Button>
-            <Button variant="primary" size="sm">
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => {
+                // Navigate to team settings
+                console.log("Team Settings clicked");
+                window.location.href = "/team/settings";
+              }}
+            >
               <Settings className="w-4 h-4 mr-2" />
               Team Settings
             </Button>
