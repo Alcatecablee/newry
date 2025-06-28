@@ -83,32 +83,38 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createUser(insertUser: any): Promise<User> {
-    if (isPostgres) {
-      // For Postgres, let the database generate the UUID and timestamps
-      // Map supabaseId to clerkId field temporarily
-      const userData = {
-        clerkId: insertUser.supabaseId || insertUser.clerkId,
-        email: insertUser.email,
-        fullName: insertUser.fullName,
-      };
-      const result = await db.insert(users).values(userData).returning();
-      return result[0];
-    } else {
-      // For SQLite, we need to generate ID but let schema defaults handle timestamps
-      const userData = {
-        id: this.generateId(),
-        clerkId: insertUser.supabaseId || insertUser.clerkId,
-        email: insertUser.email,
-        fullName: insertUser.fullName,
-        passwordHash: insertUser.passwordHash || "temp_hash", // Required field
-      };
-      await db.insert(users).values(userData);
-      const result = await db
-        .select()
-        .from(users)
-        .where(eq(users.id, userData.id))
-        .limit(1);
-      return result[0];
+    try {
+      if (isPostgres) {
+        // For Postgres, let the database generate the UUID and timestamps
+        // Map supabaseId to clerkId field temporarily
+        const userData = {
+          clerkId: insertUser.supabaseId || insertUser.clerkId,
+          email: insertUser.email,
+          fullName: insertUser.fullName,
+        };
+        const result = await db.insert(users).values(userData).returning();
+        return result[0];
+      } else {
+        // For SQLite, we need to generate ID but let schema defaults handle timestamps
+        const userData = {
+          id: this.generateId(),
+          clerkId: insertUser.supabaseId || insertUser.clerkId,
+          email: insertUser.email,
+          fullName: insertUser.fullName,
+          passwordHash: insertUser.passwordHash || "temp_hash", // Required field
+        };
+        console.log("Inserting user data:", JSON.stringify(userData, null, 2));
+        await db.insert(users).values(userData);
+        const result = await db
+          .select()
+          .from(users)
+          .where(eq(users.id, userData.id))
+          .limit(1);
+        return result[0];
+      }
+    } catch (error) {
+      console.error("Error in createUser:", error);
+      throw error;
     }
   }
 
