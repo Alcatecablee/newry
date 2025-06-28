@@ -234,7 +234,7 @@ const AppPage = () => {
                         Code Analysis in Progress
                       </div>
                       <span className="text-zinc-400 font-medium">
-                        Running {enabledLayers.length} intelligent layer
+                        Running {enabledLayers.length} advanced layer
                         {enabledLayers.length !== 1 ? "s" : ""}...
                       </span>
                     </div>
