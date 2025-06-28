@@ -217,7 +217,7 @@ const EnhancedTeamDashboard = () => {
         badge="Team Management"
         actionButton={{
           label: "Try NeuroLint",
-          href: "/app"
+          href: "/app",
         }}
       />
 
@@ -316,444 +316,196 @@ const EnhancedTeamDashboard = () => {
             </div>
           </div>
 
-        {/* Enhanced Metrics with Gamification */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
-          <Card className="bg-zinc-900 border-zinc-800er">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-300 text-sm">Code Quality</p>
-                  <p className="text-3xl font-bold text-white">
-                    {analytics?.codeQuality.current || 0}%
-                  </p>
+          {/* Enhanced Metrics with Gamification */}
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+            <Card className="bg-zinc-900 border-zinc-800er">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-300 text-sm">Code Quality</p>
+                    <p className="text-3xl font-bold text-white">
+                      {analytics?.codeQuality.current || 0}%
+                    </p>
+                  </div>
+                  <Trophy className="w-8 h-8 text-white" />
                 </div>
-                <Trophy className="w-8 h-8 text-white" />
-              </div>
-              <p className="text-xs text-gray-400 mt-2">
-                {analytics?.codeQuality.change > 0 ? "+" : ""}
-                {analytics?.codeQuality.change || 0}% from last period
-              </p>
-            </CardContent>
-          </Card>
+                <p className="text-xs text-gray-400 mt-2">
+                  {analytics?.codeQuality.change > 0 ? "+" : ""}
+                  {analytics?.codeQuality.change || 0}% from last period
+                </p>
+              </CardContent>
+            </Card>
 
-          <Card className="bg-zinc-900 border-zinc-800er">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-300 text-sm">Team Velocity</p>
-                  <p className="text-3xl font-bold text-white">
-                    {analytics?.velocity.current || 0}%
-                  </p>
+            <Card className="bg-zinc-900 border-zinc-800er">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-300 text-sm">Team Velocity</p>
+                    <p className="text-3xl font-bold text-white">
+                      {analytics?.velocity.current || 0}%
+                    </p>
+                  </div>
+                  <Bot className="w-8 h-8 text-white" />
                 </div>
-                <Bot className="w-8 h-8 text-white" />
-              </div>
-              <p className="text-xs text-gray-400 mt-2">
-                {analytics?.velocity.change > 0 ? "+" : ""}
-                {analytics?.velocity.change || 0}% this period
-              </p>
-            </CardContent>
-          </Card>
+                <p className="text-xs text-gray-400 mt-2">
+                  {analytics?.velocity.change > 0 ? "+" : ""}
+                  {analytics?.velocity.change || 0}% this period
+                </p>
+              </CardContent>
+            </Card>
 
-          <Card className="bg-zinc-900 border-zinc-800er">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-300 text-sm">Innovation Score</p>
-                  <p className="text-3xl font-bold text-white">
-                    {analytics?.innovation.current || 0}%
-                  </p>
+            <Card className="bg-zinc-900 border-zinc-800er">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-300 text-sm">Innovation Score</p>
+                    <p className="text-3xl font-bold text-white">
+                      {analytics?.innovation.current || 0}%
+                    </p>
+                  </div>
+                  <Lightbulb className="w-8 h-8 text-white" />
                 </div>
-                <Lightbulb className="w-8 h-8 text-white" />
-              </div>
-              <p className="text-xs text-gray-400 mt-2">
-                {analytics?.innovation.change > 0 ? "+" : ""}
-                {analytics?.innovation.change || 0}% change
-              </p>
-            </CardContent>
-          </Card>
+                <p className="text-xs text-gray-400 mt-2">
+                  {analytics?.innovation.change > 0 ? "+" : ""}
+                  {analytics?.innovation.change || 0}% change
+                </p>
+              </CardContent>
+            </Card>
 
-          <Card className="bg-zinc-900 border-zinc-800er">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-300 text-sm">Collaboration</p>
-                  <p className="text-3xl font-bold text-white">
-                    {analytics?.collaboration.current || 0}%
-                  </p>
+            <Card className="bg-zinc-900 border-zinc-800er">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-300 text-sm">Collaboration</p>
+                    <p className="text-3xl font-bold text-white">
+                      {analytics?.collaboration.current || 0}%
+                    </p>
+                  </div>
+                  <Heart className="w-8 h-8 text-white" />
                 </div>
-                <Heart className="w-8 h-8 text-white" />
-              </div>
-              <p className="text-xs text-gray-400 mt-2">
-                {analytics?.collaboration.change > 0 ? "+" : ""}
-                {analytics?.collaboration.change || 0}% change
-              </p>
-            </CardContent>
-          </Card>
+                <p className="text-xs text-gray-400 mt-2">
+                  {analytics?.collaboration.change > 0 ? "+" : ""}
+                  {analytics?.collaboration.change || 0}% change
+                </p>
+              </CardContent>
+            </Card>
 
-          <Card className="bg-zinc-900 border-zinc-800er">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-300 text-sm">Bug Rate</p>
-                  <p className="text-3xl font-bold text-white">
-                    {analytics?.bugRate.current || 0}%
-                  </p>
+            <Card className="bg-zinc-900 border-zinc-800er">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-300 text-sm">Bug Rate</p>
+                    <p className="text-3xl font-bold text-white">
+                      {analytics?.bugRate.current || 0}%
+                    </p>
+                  </div>
+                  <AlertTriangle className="w-8 h-8 text-white" />
                 </div>
-                <AlertTriangle className="w-8 h-8 text-white" />
-              </div>
-              <p className="text-xs text-gray-400 mt-2">
-                {analytics?.bugRate.change > 0 ? "+" : ""}
-                {analytics?.bugRate.change || 0}% change
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+                <p className="text-xs text-gray-400 mt-2">
+                  {analytics?.bugRate.change > 0 ? "+" : ""}
+                  {analytics?.bugRate.change || 0}% change
+                </p>
+              </CardContent>
+            </Card>
+          </div>
 
-        <Tabs defaultValue="live" className="space-y-6">
-          <TabsList className="bg-zinc-900 border-zinc-800er">
-            <TabsTrigger
-              value="live"
-              className="data-[state=active]:bg-white data-[state=active]:text-black"
-            >
-              <Activity className="w-4 h-4 mr-2" />
-              Live Activity
-            </TabsTrigger>
-            <TabsTrigger
-              value="ai-insights"
-              className="data-[state=active]:bg-white data-[state=active]:text-black"
-            >
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
-                alt="Logo"
-                className="w-4 h-4 mr-2"
-              />
-              AI Insights
-            </TabsTrigger>
-            <TabsTrigger
-              value="team"
-              className="data-[state=active]:bg-white data-[state=active]:text-black"
-            >
-              <Users className="w-4 h-4 mr-2" />
-              Team Performance
-            </TabsTrigger>
-            <TabsTrigger
-              value="achievements"
-              className="data-[state=active]:bg-white data-[state=active]:text-black"
-            >
-              <Award className="w-4 h-4 mr-2" />
-              Achievements
-            </TabsTrigger>
-            <TabsTrigger
-              value="analytics"
-              className="data-[state=active]:bg-white data-[state=active]:text-black"
-            >
-              <BarChart3 className="w-4 h-4 mr-2" />
-              Deep Analytics
-            </TabsTrigger>
-          </TabsList>
+          <Tabs defaultValue="live" className="space-y-6">
+            <TabsList className="bg-zinc-900 border-zinc-800er">
+              <TabsTrigger
+                value="live"
+                className="data-[state=active]:bg-white data-[state=active]:text-black"
+              >
+                <Activity className="w-4 h-4 mr-2" />
+                Live Activity
+              </TabsTrigger>
+              <TabsTrigger
+                value="ai-insights"
+                className="data-[state=active]:bg-white data-[state=active]:text-black"
+              >
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+                  alt="Logo"
+                  className="w-4 h-4 mr-2"
+                />
+                AI Insights
+              </TabsTrigger>
+              <TabsTrigger
+                value="team"
+                className="data-[state=active]:bg-white data-[state=active]:text-black"
+              >
+                <Users className="w-4 h-4 mr-2" />
+                Team Performance
+              </TabsTrigger>
+              <TabsTrigger
+                value="achievements"
+                className="data-[state=active]:bg-white data-[state=active]:text-black"
+              >
+                <Award className="w-4 h-4 mr-2" />
+                Achievements
+              </TabsTrigger>
+              <TabsTrigger
+                value="analytics"
+                className="data-[state=active]:bg-white data-[state=active]:text-black"
+              >
+                <BarChart3 className="w-4 h-4 mr-2" />
+                Deep Analytics
+              </TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="live" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Live Sessions - Only show if there are real active sessions */}
-              {teamData?.activities && teamData.activities.length > 0 && (
+            <TabsContent value="live" className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Live Sessions - Only show if there are real active sessions */}
+                {teamData?.activities && teamData.activities.length > 0 && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Activity className="w-5 h-5 text-blue-400" />
+                        Recent Team Activity
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-3">
+                        {teamData.activities.slice(0, 5).map((activity) => (
+                          <div
+                            key={activity.id}
+                            className="p-3 bg-zinc-900 rounded-lg border border-zinc-700"
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="text-white text-sm">
+                                {activity.action}
+                              </span>
+                              <span className="text-zinc-400 text-xs">
+                                {new Date(activity.createdAt).toLocaleString()}
+                              </span>
+                            </div>
+                            {activity.project && (
+                              <p className="text-zinc-300 text-xs mt-1">
+                                Project: {activity.project}
+                              </p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Team Activity Feed */}
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Activity className="w-5 h-5 text-blue-400" />
-                      Recent Team Activity
+                      <Activity className="w-5 h-5" />
+                      Real-time Activity
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      {teamData.activities.slice(0, 5).map((activity) => (
-                        <div
-                          key={activity.id}
-                          className="p-3 bg-zinc-900 rounded-lg border border-zinc-700"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="text-white text-sm">
-                              {activity.action}
-                            </span>
-                            <span className="text-zinc-400 text-xs">
-                              {new Date(activity.createdAt).toLocaleString()}
-                            </span>
-                          </div>
-                          {activity.project && (
-                            <p className="text-zinc-300 text-xs mt-1">
-                              Project: {activity.project}
-                            </p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Team Activity Feed */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Activity className="w-5 h-5" />
-                    Real-time Activity
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4 max-h-96 overflow-y-auto">
-                    {teamMembers.map((member) => (
-                      <div
-                        key={member.id}
-                        className="flex items-center gap-3 p-3 bg-zinc-900 rounded-lg"
-                      >
-                        <div className="relative">
-                          <Avatar className="w-8 h-8">
-                            <AvatarFallback>
-                              {member.name
-                                .split(" ")
-                                .map((n) => n[0])
-                                .join("")}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div className="absolute -bottom-1 -right-1">
-                            {getActivityIcon(member.currentActivity.status)}
-                          </div>
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-white font-medium">
-                              {member.name}
-                            </span>
-                            <Badge
-                              className={getSkillLevelColor(member.skillLevel)}
-                            >
-                              {member.skillLevel}
-                            </Badge>
-                          </div>
-                          <p className="text-zinc-400 text-sm">
-                            {member.currentActivity.status === "coding" &&
-                              `Coding in ${member.currentActivity.currentFile}`}
-                            {member.currentActivity.status === "reviewing" &&
-                              `Reviewing ${member.currentActivity.currentFile}`}
-                            {member.currentActivity.status === "mentoring" &&
-                              "In mentoring session"}
-                            {member.currentActivity.status === "offline" &&
-                              "Offline"}
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <div className="flex items-center gap-1">
-                            <Flame className="w-3 h-3 text-orange-400" />
-                            <span className="text-orange-400 text-sm">
-                              {member.stats.streak}
-                            </span>
-                          </div>
-                          <p className="text-zinc-400 text-xs">
-                            {member.currentActivity.lastSeen}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="ai-insights" className="space-y-6">
-            <div className="grid grid-cols-1 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Bot className="w-5 h-5 text-blue-400" />
-                    Analytics
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {analytics ? (
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      <div className="p-4 bg-zinc-900 rounded-lg">
-                        <div className="text-2xl font-bold text-white">
-                          {analytics.codeQuality.current}%
-                        </div>
-                        <div className="text-sm text-zinc-400">
-                          Code Quality
-                        </div>
-                        <div
-                          className={`text-xs ${analytics.codeQuality.trend === "up" ? "text-green-400" : "text-red-400"}`}
-                        >
-                          {analytics.codeQuality.change > 0 ? "+" : ""}
-                          {analytics.codeQuality.change}%
-                        </div>
-                      </div>
-                      <div className="p-4 bg-zinc-900 rounded-lg">
-                        <div className="text-2xl font-bold text-white">
-                          {analytics.velocity.current}
-                        </div>
-                        <div className="text-sm text-zinc-400">Velocity</div>
-                        <div
-                          className={`text-xs ${analytics.velocity.trend === "up" ? "text-green-400" : "text-red-400"}`}
-                        >
-                          {analytics.velocity.change > 0 ? "+" : ""}
-                          {analytics.velocity.change}
-                        </div>
-                      </div>
-                      <div className="p-4 bg-zinc-900 rounded-lg">
-                        <div className="text-2xl font-bold text-white">
-                          {analytics.collaboration.current}%
-                        </div>
-                        <div className="text-sm text-zinc-400">
-                          Collaboration
-                        </div>
-                        <div
-                          className={`text-xs ${analytics.collaboration.trend === "up" ? "text-green-400" : "text-red-400"}`}
-                        >
-                          {analytics.collaboration.change > 0 ? "+" : ""}
-                          {analytics.collaboration.change}%
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="text-center py-8">
-                      <p className="text-zinc-400">
-                        No analytics data available
-                      </p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="team" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Team Performance Grid */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Team Performance Matrix</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {teamMembers.map((member) => (
-                      <div
-                        key={member.id}
-                        className="p-4 bg-zinc-900 rounded-lg"
-                      >
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center gap-3">
-                            <Avatar className="w-10 h-10">
-                              <AvatarFallback>
-                                {member.name
-                                  .split(" ")
-                                  .map((n) => n[0])
-                                  .join("")}
-                              </AvatarFallback>
-                            </Avatar>
-                            <div>
-                              <p className="text-white font-medium">
-                                {member.name}
-                              </p>
-                              <div className="flex items-center gap-2">
-                                <Badge
-                                  className={getSkillLevelColor(
-                                    member.skillLevel,
-                                  )}
-                                >
-                                  {member.skillLevel}
-                                </Badge>
-                                <div className="flex items-center gap-1">
-                                  <Flame className="w-3 h-3 text-orange-400" />
-                                  <span className="text-orange-400 text-xs">
-                                    {member.stats.streak} days
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-2xl font-bold text-white">
-                              {member.stats.codeQualityScore}
-                            </div>
-                            <div className="text-xs text-zinc-400">
-                              Quality Score
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4 text-sm">
-                          <div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-zinc-400">Fixes</span>
-                              <span className="text-white">
-                                {member.stats.fixesThisWeek}
-                              </span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-zinc-400">
-                                Collaboration
-                              </span>
-                              <span className="text-white">
-                                {member.stats.collaborationScore}%
-                              </span>
-                            </div>
-                          </div>
-                          <div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-zinc-400">Innovation</span>
-                              <span className="text-white">
-                                {member.stats.innovationPoints}
-                              </span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-zinc-400">Mentoring</span>
-                              <span className="text-white">
-                                {member.stats.mentorshipHours}h
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="mt-3">
-                          <div className="flex items-center gap-1 flex-wrap">
-                            {member.specialties.map((specialty) => (
-                              <Badge
-                                key={specialty}
-                                className="bg-zinc-900 text-zinc-400 text-xs"
-                              >
-                                {specialty}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Skill Distribution */}
-              {/* Skills section removed - no real skills data available */}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="achievements" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Team Achievements - Only show if there are real achievements */}
-              {teamMembers.length > 0 && (
-                <Card className="lg:col-span-2">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Trophy className="w-5 h-5 text-yellow-400" />
-                      Team Members
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-4 max-h-96 overflow-y-auto">
                       {teamMembers.map((member) => (
                         <div
                           key={member.id}
-                          className="p-4 bg-zinc-900 rounded-lg border border-blue-400/30"
+                          className="flex items-center gap-3 p-3 bg-zinc-900 rounded-lg"
                         >
-                          <div className="flex items-center gap-3 mb-2">
+                          <div className="relative">
                             <Avatar className="w-8 h-8">
                               <AvatarFallback>
                                 {member.name
@@ -762,13 +514,218 @@ const EnhancedTeamDashboard = () => {
                                   .join("")}
                               </AvatarFallback>
                             </Avatar>
-                            <div>
-                              <p className="text-white font-medium">
+                            <div className="absolute -bottom-1 -right-1">
+                              {getActivityIcon(member.currentActivity.status)}
+                            </div>
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2">
+                              <span className="text-white font-medium">
                                 {member.name}
-                              </p>
-                              <p className="text-zinc-400 text-xs">
-                                {member.role}
-                              </p>
+                              </span>
+                              <Badge
+                                className={getSkillLevelColor(
+                                  member.skillLevel,
+                                )}
+                              >
+                                {member.skillLevel}
+                              </Badge>
+                            </div>
+                            <p className="text-zinc-400 text-sm">
+                              {member.currentActivity.status === "coding" &&
+                                `Coding in ${member.currentActivity.currentFile}`}
+                              {member.currentActivity.status === "reviewing" &&
+                                `Reviewing ${member.currentActivity.currentFile}`}
+                              {member.currentActivity.status === "mentoring" &&
+                                "In mentoring session"}
+                              {member.currentActivity.status === "offline" &&
+                                "Offline"}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <div className="flex items-center gap-1">
+                              <Flame className="w-3 h-3 text-orange-400" />
+                              <span className="text-orange-400 text-sm">
+                                {member.stats.streak}
+                              </span>
+                            </div>
+                            <p className="text-zinc-400 text-xs">
+                              {member.currentActivity.lastSeen}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="ai-insights" className="space-y-6">
+              <div className="grid grid-cols-1 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Bot className="w-5 h-5 text-blue-400" />
+                      Analytics
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {analytics ? (
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div className="p-4 bg-zinc-900 rounded-lg">
+                          <div className="text-2xl font-bold text-white">
+                            {analytics.codeQuality.current}%
+                          </div>
+                          <div className="text-sm text-zinc-400">
+                            Code Quality
+                          </div>
+                          <div
+                            className={`text-xs ${analytics.codeQuality.trend === "up" ? "text-green-400" : "text-red-400"}`}
+                          >
+                            {analytics.codeQuality.change > 0 ? "+" : ""}
+                            {analytics.codeQuality.change}%
+                          </div>
+                        </div>
+                        <div className="p-4 bg-zinc-900 rounded-lg">
+                          <div className="text-2xl font-bold text-white">
+                            {analytics.velocity.current}
+                          </div>
+                          <div className="text-sm text-zinc-400">Velocity</div>
+                          <div
+                            className={`text-xs ${analytics.velocity.trend === "up" ? "text-green-400" : "text-red-400"}`}
+                          >
+                            {analytics.velocity.change > 0 ? "+" : ""}
+                            {analytics.velocity.change}
+                          </div>
+                        </div>
+                        <div className="p-4 bg-zinc-900 rounded-lg">
+                          <div className="text-2xl font-bold text-white">
+                            {analytics.collaboration.current}%
+                          </div>
+                          <div className="text-sm text-zinc-400">
+                            Collaboration
+                          </div>
+                          <div
+                            className={`text-xs ${analytics.collaboration.trend === "up" ? "text-green-400" : "text-red-400"}`}
+                          >
+                            {analytics.collaboration.change > 0 ? "+" : ""}
+                            {analytics.collaboration.change}%
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="text-center py-8">
+                        <p className="text-zinc-400">
+                          No analytics data available
+                        </p>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="team" className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Team Performance Grid */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Team Performance Matrix</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {teamMembers.map((member) => (
+                        <div
+                          key={member.id}
+                          className="p-4 bg-zinc-900 rounded-lg"
+                        >
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-3">
+                              <Avatar className="w-10 h-10">
+                                <AvatarFallback>
+                                  {member.name
+                                    .split(" ")
+                                    .map((n) => n[0])
+                                    .join("")}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div>
+                                <p className="text-white font-medium">
+                                  {member.name}
+                                </p>
+                                <div className="flex items-center gap-2">
+                                  <Badge
+                                    className={getSkillLevelColor(
+                                      member.skillLevel,
+                                    )}
+                                  >
+                                    {member.skillLevel}
+                                  </Badge>
+                                  <div className="flex items-center gap-1">
+                                    <Flame className="w-3 h-3 text-orange-400" />
+                                    <span className="text-orange-400 text-xs">
+                                      {member.stats.streak} days
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-2xl font-bold text-white">
+                                {member.stats.codeQualityScore}
+                              </div>
+                              <div className="text-xs text-zinc-400">
+                                Quality Score
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                              <div className="flex items-center justify-between">
+                                <span className="text-zinc-400">Fixes</span>
+                                <span className="text-white">
+                                  {member.stats.fixesThisWeek}
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span className="text-zinc-400">
+                                  Collaboration
+                                </span>
+                                <span className="text-white">
+                                  {member.stats.collaborationScore}%
+                                </span>
+                              </div>
+                            </div>
+                            <div>
+                              <div className="flex items-center justify-between">
+                                <span className="text-zinc-400">
+                                  Innovation
+                                </span>
+                                <span className="text-white">
+                                  {member.stats.innovationPoints}
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span className="text-zinc-400">Mentoring</span>
+                                <span className="text-white">
+                                  {member.stats.mentorshipHours}h
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="mt-3">
+                            <div className="flex items-center gap-1 flex-wrap">
+                              {member.specialties.map((specialty) => (
+                                <Badge
+                                  key={specialty}
+                                  className="bg-zinc-900 text-zinc-400 text-xs"
+                                >
+                                  {specialty}
+                                </Badge>
+                              ))}
                             </div>
                           </div>
                         </div>
@@ -776,95 +733,143 @@ const EnhancedTeamDashboard = () => {
                     </div>
                   </CardContent>
                 </Card>
-              )}
 
-              {/* Leaderboard */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Crown className="w-5 h-5 text-yellow-400" />
-                    Leaderboard
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {teamMembers
-                      .sort(
-                        (a, b) =>
-                          b.stats.innovationPoints - a.stats.innovationPoints,
-                      )
-                      .map((member, index) => (
-                        <div
-                          key={member.id}
-                          className="flex items-center gap-3 p-2 bg-zinc-900 rounded-lg"
-                        >
+                {/* Skill Distribution */}
+                {/* Skills section removed - no real skills data available */}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="achievements" className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Team Achievements - Only show if there are real achievements */}
+                {teamMembers.length > 0 && (
+                  <Card className="lg:col-span-2">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Trophy className="w-5 h-5 text-yellow-400" />
+                        Team Members
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {teamMembers.map((member) => (
                           <div
-                            className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                              index === 0
-                                ? "bg-yellow-400 text-black"
-                                : index === 1
-                                  ? "bg-gray-400 text-black"
-                                  : index === 2
-                                    ? "bg-orange-600 text-white"
-                                    : "bg-zinc-900 text-white"
-                            }`}
+                            key={member.id}
+                            className="p-4 bg-zinc-900 rounded-lg border border-blue-400/30"
                           >
-                            {index + 1}
+                            <div className="flex items-center gap-3 mb-2">
+                              <Avatar className="w-8 h-8">
+                                <AvatarFallback>
+                                  {member.name
+                                    .split(" ")
+                                    .map((n) => n[0])
+                                    .join("")}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div>
+                                <p className="text-white font-medium">
+                                  {member.name}
+                                </p>
+                                <p className="text-zinc-400 text-xs">
+                                  {member.role}
+                                </p>
+                              </div>
+                            </div>
                           </div>
-                          <Avatar className="w-8 h-8">
-                            <AvatarFallback className="text-xs">
-                              {member.name
-                                .split(" ")
-                                .map((n) => n[0])
-                                .join("")}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div className="flex-1">
-                            <p className="text-white text-sm font-medium">
-                              {member.name}
-                            </p>
-                            <p className="text-zinc-400 text-xs">
-                              {member.stats.innovationPoints} points
-                            </p>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Leaderboard */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Crown className="w-5 h-5 text-yellow-400" />
+                      Leaderboard
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {teamMembers
+                        .sort(
+                          (a, b) =>
+                            b.stats.innovationPoints - a.stats.innovationPoints,
+                        )
+                        .map((member, index) => (
+                          <div
+                            key={member.id}
+                            className="flex items-center gap-3 p-2 bg-zinc-900 rounded-lg"
+                          >
+                            <div
+                              className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                                index === 0
+                                  ? "bg-yellow-400 text-black"
+                                  : index === 1
+                                    ? "bg-gray-400 text-black"
+                                    : index === 2
+                                      ? "bg-orange-600 text-white"
+                                      : "bg-zinc-900 text-white"
+                              }`}
+                            >
+                              {index + 1}
+                            </div>
+                            <Avatar className="w-8 h-8">
+                              <AvatarFallback className="text-xs">
+                                {member.name
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1">
+                              <p className="text-white text-sm font-medium">
+                                {member.name}
+                              </p>
+                              <p className="text-zinc-400 text-xs">
+                                {member.stats.innovationPoints} points
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
+                        ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
 
-          <TabsContent value="analytics" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Code Quality Trends</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-zinc-400">
-                      Interactive quality trend chart would go here
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+            <TabsContent value="analytics" className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Code Quality Trends</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                      <p className="text-zinc-400">
+                        Interactive quality trend chart would go here
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>Team Velocity</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
-                    <p className="text-zinc-400">
-                      Velocity and productivity metrics chart
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-        </Tabs>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Team Velocity</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-64 flex items-center justify-center bg-zinc-900 rounded-lg">
+                      <p className="text-zinc-400">
+                        Velocity and productivity metrics chart
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
     </div>
   );
