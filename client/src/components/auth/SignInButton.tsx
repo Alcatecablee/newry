@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { LogIn, UserPlus, X, AlertCircle } from "lucide-react";
+import { LogIn, UserPlus, X, AlertCircle, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/providers/AuthProvider";
 
 export function SignInButton() {
