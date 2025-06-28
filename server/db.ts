@@ -41,7 +41,7 @@ if (DATABASE_URL) {
   initializeTables(sqlite);
 }
 
-function createSampleData(sqlite: Database.Database) {
+async function createSampleData(sqlite: Database.Database) {
   try {
     // Check if sample data already exists
     const existingUsers = sqlite
