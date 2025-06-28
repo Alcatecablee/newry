@@ -717,12 +717,71 @@ export default function Component() {
                   </Button>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+          )}
+        </div>
+
+        {/* Settings Modal */}
+        {settingsOpen && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <Card className="bg-zinc-900 border-zinc-800 max-w-md w-full mx-4">
+              <CardHeader>
+                <CardTitle className="text-white">Session Settings</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <label className="text-white text-sm font-medium">Max Participants</label>
+                  <input
+                    type="number"
+                    value={sessionSettings.maxParticipants}
+                    onChange={(e) => setSessionSettings(prev => ({ ...prev, maxParticipants: parseInt(e.target.value) || 10 }))}
+                    className="w-full mt-1 p-2 bg-zinc-800 text-white rounded border border-zinc-600"
+                    min="1" max="50"
+                  />
+                </div>
+                <div>
+                  <label className="text-white text-sm font-medium">Analysis Delay (ms)</label>
+                  <input
+                    type="number"
+                    value={sessionSettings.analysisDelay}
+                    onChange={(e) => setSessionSettings(prev => ({ ...prev, analysisDelay: parseInt(e.target.value) || 1000 }))}
+                    className="w-full mt-1 p-2 bg-zinc-800 text-white rounded border border-zinc-600"
+                    min="100" max="5000" step="100"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={sessionSettings.autoSave}
+                    onChange={(e) => setSessionSettings(prev => ({ ...prev, autoSave: e.target.checked }))}
+                    className="w-4 h-4"
+                  />
+                  <label className="text-white text-sm">Auto-save code to session</label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={autoAnalysis}
+                    onChange={(e) => setAutoAnalysis(e.target.checked)}
+                    className="w-4 h-4"
+                  />
+                  <label className="text-white text-sm">Auto-run NeuroLint analysis</label>
+                </div>
+                <div className="flex justify-end gap-2 pt-4">
+                  <Button variant="outline" onClick={() => setSettingsOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button onClick={() => setSettingsOpen(false)}>
+                    Save Settings
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         )}
       </div>
     </div>
   );
 };
 
+export default LiveCodeSessions;
 export default LiveCodeSessions;
