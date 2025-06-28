@@ -195,7 +195,7 @@ const Pricing = () => {
               </div>
 
               <div className="p-6 bg-zinc-900/40 border border-zinc-800/50 rounded-2xl backdrop-blur-sm">
-                <Zap className="w-8 h-8 text-yellow-400 mx-auto mb-4" />
+                <Zap className="w-8 h-8 text-white mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-white mb-2">
                   Cancel Anytime
                 </h3>
