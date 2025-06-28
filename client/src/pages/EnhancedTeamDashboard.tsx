@@ -774,7 +774,10 @@ const EnhancedTeamDashboard = () => {
                           <div className="flex items-center gap-3 mb-2">
                             <Avatar className="w-8 h-8">
                               <AvatarFallback>
-                                {member.name.split(" ").map((n) => n[0]).join("")}
+                                {member.name
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
                               </AvatarFallback>
                             </Avatar>
                             <div>
@@ -788,9 +791,10 @@ const EnhancedTeamDashboard = () => {
                           </div>
                         </div>
                       ))}
-                  </div>
-                </CardContent>
-              </Card>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
 
               {/* Leaderboard */}
               <Card>
