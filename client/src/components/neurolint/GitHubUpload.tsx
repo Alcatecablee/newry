@@ -169,11 +169,20 @@ export function GitHubUpload({ onRepoUpload, processing }: GitHubUploadProps) {
                   </div>
                   <div>
                     <div className="text-white font-semibold">
-                      {uploading ? "Importing Files..." : "Import Complete"}
+                      {uploading
+                        ? demoMode
+                          ? "Loading Demo Files..."
+                          : "Importing Files..."
+                        : demoMode
+                          ? "Demo Complete"
+                          : "Import Complete"}
                     </div>
                     <div className="text-sm text-zinc-400">
                       {uploadStatus.processed} of {uploadStatus.total} files
                       processed
+                      {demoMode && (
+                        <span className="ml-2 text-zinc-500">(Demo Mode)</span>
+                      )}
                     </div>
                   </div>
                 </div>
