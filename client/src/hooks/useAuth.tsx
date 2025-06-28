@@ -1,4 +1,5 @@
-import { useAuth as useLocalAuth } from "@/providers/AuthProvider";
+import { useAuth as useSupabaseAuth } from "@/providers/AuthProvider";
+import { supabase } from "@/lib/supabase";
 
 export interface UserData {
   id: string;
@@ -10,27 +11,37 @@ export interface UserData {
 }
 
 export function useAuth() {
-  const auth = useLocalAuth();
+  const auth = useSupabaseAuth();
 
   const canUseTransformation = () => {
     if (!auth.user) return true; // Allow guest usage
-    return auth.user.monthlyTransformationsUsed < auth.user.monthlyLimit;
+    return (
+      (auth.user.app_metadata?.monthly_transformations_used || 0) <
+      (auth.user.app_metadata?.monthly_limit || 25)
+    );
   };
 
   const incrementUsage = async () => {
     if (!auth.user) return true; // Guest usage always allowed
 
     try {
-      const token = localStorage.getItem("auth_token");
-      const response = await fetch("/api/auth/increment-usage", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+      // Update user metadata in Supabase
+      const currentUsage =
+        auth.user.app_metadata?.monthly_transformations_used || 0;
+      const limit = auth.user.app_metadata?.monthly_limit || 25;
+
+      if (currentUsage >= limit) {
+        return false; // Usage limit reached
+      }
+
+      const { error } = await supabase.auth.updateUser({
+        data: {
+          ...auth.user.app_metadata,
+          monthly_transformations_used: currentUsage + 1,
         },
       });
 
-      if (response.ok) {
+      if (!error) {
         await auth.updateUser(); // Refresh user data
         return true;
       }
@@ -51,13 +62,18 @@ export function useAuth() {
       ? {
           id: auth.user.id,
           email: auth.user.email,
-          full_name: auth.user.name,
-          plan_type: auth.user.planType as "free" | "pro" | "enterprise",
-          monthly_transformations_used: auth.user.monthlyTransformationsUsed,
-          monthly_limit: auth.user.monthlyLimit,
+          full_name: auth.user.user_metadata?.full_name || null,
+          plan_type:
+            (auth.user.app_metadata?.plan_type as
+              | "free"
+              | "pro"
+              | "enterprise") || "free",
+          monthly_transformations_used:
+            auth.user.app_metadata?.monthly_transformations_used || 0,
+          monthly_limit: auth.user.app_metadata?.monthly_limit || 25,
         }
       : null,
-    clerkUser: auth.user,
+    clerkUser: auth.user, // For compatibility
     loading: auth.loading,
     signOut: auth.signOut,
     canUseTransformation,
