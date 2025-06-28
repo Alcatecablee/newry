@@ -447,61 +447,41 @@ const EnhancedTeamDashboard = () => {
 
           <TabsContent value="live" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Live Sessions */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Zap className="w-5 h-5 text-yellow-400" />
-                    Live Collaboration Sessions
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {liveSessions.map((session) => (
-                    <div
-                      key={session.id}
-                      className="p-4 bg-zinc-900 rounded-lg border border-yellow-400/30"
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <Badge className="bg-yellow-900 text-yellow-200">
-                          {session.type}
-                        </Badge>
-                        <div className="flex items-center gap-1">
-                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                          <span className="text-green-400 text-xs">LIVE</span>
+              {/* Live Sessions - Only show if there are real active sessions */}
+              {teamData?.activities && teamData.activities.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Activity className="w-5 h-5 text-blue-400" />
+                      Recent Team Activity
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {teamData.activities.slice(0, 5).map((activity) => (
+                        <div
+                          key={activity.id}
+                          className="p-3 bg-zinc-900 rounded-lg border border-zinc-700"
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="text-white text-sm">
+                              {activity.action}
+                            </span>
+                            <span className="text-zinc-400 text-xs">
+                              {new Date(activity.createdAt).toLocaleString()}
+                            </span>
+                          </div>
+                          {activity.project && (
+                            <p className="text-zinc-300 text-xs mt-1">
+                              Project: {activity.project}
+                            </p>
+                          )}
                         </div>
-                      </div>
-                      <p className="text-white font-medium">
-                        {session.repository}/{session.file}
-                      </p>
-                      <div className="flex items-center gap-2 mt-2">
-                        <div className="flex -space-x-2">
-                          {session.participants.map((participantId) => {
-                            const participant = teamMembers.find(
-                              (m) => m.id === participantId,
-                            );
-                            return participant ? (
-                              <Avatar
-                                key={participant.id}
-                                className="w-6 h-6 border-2 border-zinc-800-dark"
-                              >
-                                <AvatarFallback className="text-xs">
-                                  {participant.name
-                                    .split(" ")
-                                    .map((n) => n[0])
-                                    .join("")}
-                                </AvatarFallback>
-                              </Avatar>
-                            ) : null;
-                          })}
-                        </div>
-                        <span className="text-zinc-400 text-xs">
-                          {session.startedAt}
-                        </span>
-                        <Button size="sm" variant="outline" className="ml-auto">
-                          <Eye className="w-3 h-3 mr-1" />
-                          Watch
-                        </Button>
-                      </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
                     </div>
                   ))}
                 </CardContent>
