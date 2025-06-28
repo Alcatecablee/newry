@@ -227,12 +227,10 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
     const successful = results.filter((r) => r.success);
     const failed = results.filter((r) => !r.success);
 
-    console.log(chalk.white(`\nAnalyzing with layers: ${layers.join(", ")}\n`));
-    console.log(
-      `${chalk.green("✓")} Successfully analyzed: ${successful.length}`,
-    );
+    console.log(chalk.white(`\nSummary:`));
+    console.log(chalk.white(`Successfully analyzed: ${successful.length}`));
     if (failed.length > 0) {
-      console.log(`${chalk.red("✗")} Failed: ${failed.length}`);
+      console.log(chalk.white(`Failed: ${failed.length}`));
     }
 
     // Show layer-specific stats
