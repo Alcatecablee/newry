@@ -339,7 +339,7 @@ ${suggestions.join("\n")}`);
     repo: string,
     path = "",
     retryCount = 0,
-  ): Promise<RepoFile[]> => {
+  ): Promise<GitHubContent[]> => {
     const cacheKey = `${owner}/${repo}/${path}`;
 
     // Check cache first
