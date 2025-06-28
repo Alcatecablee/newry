@@ -23,6 +23,29 @@ export function useGitHubUpload() {
     return githubRegex.test(url.replace(/\.git$/, ""));
   };
 
+  const suggestCorrections = (owner: string, repo: string) => {
+    const suggestions = [];
+
+    // Common username variations
+    if (owner.toLowerCase().includes("alcatecable")) {
+      suggestions.push(`• Try "alcatecable" instead of "${owner}"`);
+    }
+
+    // Common repository name patterns
+    if (repo.includes("-")) {
+      suggestions.push(`• Try "${repo.replace(/-/g, "_")}" (with underscores)`);
+      suggestions.push(`• Try "${repo.replace(/-/g, "")}" (no separators)`);
+    }
+
+    if (repo.includes("_")) {
+      suggestions.push(`• Try "${repo.replace(/_/g, "-")}" (with hyphens)`);
+    }
+
+    return suggestions.length > 0
+      ? suggestions
+      : [`• Double-check the repository name on GitHub`];
+  };
+
   const extractRepoInfo = (url: string) => {
     const match = url.match(/github\.com\/([^\/]+)\/([^\/]+)/);
     if (!match) return null;
@@ -30,6 +53,58 @@ export function useGitHubUpload() {
       owner: match[1],
       repo: match[2].replace(/\.git$/, ""),
     };
+  };
+
+  const validateRepository = async (
+    owner: string,
+    repo: string,
+  ): Promise<boolean> => {
+    try {
+      // First check if the repository exists by accessing the repository info endpoint
+      const response = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}`,
+        {
+          headers: {
+            Accept: "application/vnd.github.v3+json",
+          },
+        },
+      );
+
+      if (response.ok) {
+        const repoData = await response.json();
+        if (repoData.private) {
+          throw new Error(
+            `Repository "${owner}/${repo}" is private. Please make it public or use a public repository.`,
+          );
+        }
+        return true;
+      }
+
+      if (response.status === 404) {
+        const suggestions = suggestCorrections(owner, repo);
+        throw new Error(`Repository "${owner}/${repo}" not found. Please check:
+• Repository name spelling is correct
+• Repository exists on GitHub
+• You have the correct owner/username
+• Try visiting: https://github.com/${owner}/${repo}
+
+Suggestions:
+${suggestions.join("\n")}`);
+      }
+
+      if (response.status === 403) {
+        throw new Error(
+          "GitHub API rate limit exceeded. Please try again later.",
+        );
+      }
+
+      throw new Error(
+        `GitHub API error ${response.status}: Unable to access repository`,
+      );
+    } catch (error) {
+      console.error("Error validating repository:", error);
+      throw error;
+    }
   };
 
   const fetchRepoContents = async (
@@ -49,18 +124,23 @@ export function useGitHubUpload() {
 
       if (!response.ok) {
         if (response.status === 404) {
-          throw new Error(`Repository not found. Please check:
-• Repository name spelling (current: ${owner}/${repo})
-• Repository is public (not private)
-• URL is correct format: https://github.com/username/repository`);
+          if (path === "") {
+            throw new Error(
+              `Repository "${owner}/${repo}" not found or is empty.`,
+            );
+          } else {
+            throw new Error(
+              `Path "${path}" not found in repository "${owner}/${repo}".`,
+            );
+          }
         }
         if (response.status === 403) {
           throw new Error(
-            "GitHub API rate limit exceeded. Please try again later or use 'test' for demo.",
+            "GitHub API rate limit exceeded. Please try again later.",
           );
         }
         throw new Error(
-          `GitHub API error: ${response.status}. Please verify the repository exists and is public.`,
+          `GitHub API error ${response.status}: Unable to fetch repository contents`,
         );
       }
 
@@ -167,6 +247,9 @@ export function useGitHubUpload() {
     setUploadStatus({ total: 0, processed: 0, files: [] });
 
     try {
+      // First validate the repository exists and is accessible
+      await validateRepository(repoInfo.owner, repoInfo.repo);
+
       const initialContents = await fetchRepoContents(
         repoInfo.owner,
         repoInfo.repo,

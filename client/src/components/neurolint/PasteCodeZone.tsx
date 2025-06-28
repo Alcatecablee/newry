@@ -168,7 +168,7 @@ export function PasteCodeZone({ onFile, processing }: PasteCodeZoneProps) {
     <div className="space-y-6">
       {/* Security Status Indicator */}
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
-        <Shield className="w-4 h-4 text-green-500" />
+        <Shield className="w-4 h-4 text-zinc-400" />
         <span>
           Security validation enabled - Code is automatically scanned for
           malicious content
@@ -182,7 +182,7 @@ export function PasteCodeZone({ onFile, processing }: PasteCodeZoneProps) {
             <div className="w-16 h-16 bg-[#292939] rounded-2xl flex items-center justify-center border border-[#342d66]">
               <Code className="w-8 h-8 text-white" />
             </div>
-            <div className="absolute -top-1 -right-1 w-4 h-4 bg-purple-500 rounded-full border-2 border-black" />
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-zinc-500 rounded-full border-2 border-black" />
           </div>
         </div>
 

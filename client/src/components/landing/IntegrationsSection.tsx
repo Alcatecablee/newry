@@ -22,14 +22,14 @@ export function IntegrationsSection() {
       icon: Database,
       description: "DevOps platform integration",
       category: "CI/CD",
-      color: "from-orange-600 to-orange-800",
+      color: "from-zinc-600 to-zinc-800",
     },
     {
       name: "Azure DevOps",
       icon: Cloud,
       description: "Microsoft cloud development tools",
       category: "Cloud",
-      color: "from-blue-500 to-blue-700",
+      color: "from-zinc-600 to-zinc-800",
     },
     {
       name: "CircleCI",
@@ -104,7 +104,7 @@ export function IntegrationsSection() {
             return (
               <div
                 key={index}
-                className="group bg-gray-800/50 border border-gray-700 rounded-xl p-6 hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105"
+                className="group bg-gray-800/50 border border-gray-700 rounded-xl p-6 hover:border-zinc-500/50 transition-all duration-300 hover:transform hover:scale-105"
               >
                 <div className="w-12 h-12 bg-zinc-700 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <IconComponent className="w-6 h-6 text-white" />
@@ -230,7 +230,7 @@ jobs:
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full mt-2"></div>
+                  <div className="w-2 h-2 bg-zinc-400 rounded-full mt-2"></div>
                   <div>
                     <h4 className="font-medium text-white mb-1">
                       Team Consistency
@@ -242,7 +242,7 @@ jobs:
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
+                  <div className="w-2 h-2 bg-zinc-400 rounded-full mt-2"></div>
                   <div>
                     <h4 className="font-medium text-white mb-1">
                       Reduced Technical Debt

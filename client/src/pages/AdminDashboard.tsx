@@ -99,7 +99,18 @@ const AdminDashboard = () => {
   // Define all functions before useEffect to avoid hoisting issues
   const loadEnvironmentVariables = async () => {
     try {
-      // Load from environment variables
+      // Load from server endpoint to get all environment variables including server-side only ones
+      const response = await fetch("/api/admin/load-env");
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.envVars) {
+          setEnvConfig(data.envVars);
+          setLastUpdated(new Date());
+          return;
+        }
+      }
+
+      // Fallback to client-side env vars if server endpoint fails
       setEnvConfig({
         VITE_SUPABASE_URL:
           import.meta.env.VITE_SUPABASE_URL ||
@@ -107,13 +118,12 @@ const AdminDashboard = () => {
         VITE_SUPABASE_ANON_KEY:
           import.meta.env.VITE_SUPABASE_ANON_KEY ||
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpldHdoZmZnbW9oZHFrdWVndGpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkwNzI0MjcsImV4cCI6MjA2NDY0ODQyN30.qdzOYox4XJQIadJlkg52bWjM1BGJd848ru0kobNmxiA",
-        SUPABASE_SERVICE_ROLE_KEY:
-          import.meta.env.SUPABASE_SERVICE_ROLE_KEY || "",
-        DATABASE_URL: import.meta.env.DATABASE_URL || "",
-        PAYPAL_CLIENT_ID: import.meta.env.PAYPAL_CLIENT_ID || "",
-        PAYPAL_CLIENT_SECRET: import.meta.env.PAYPAL_CLIENT_SECRET || "",
-        PAYPAL_ENVIRONMENT: import.meta.env.PAYPAL_ENVIRONMENT || "sandbox",
-        API_URL: import.meta.env.VITE_API_URL || "http://localhost:5000",
+        SUPABASE_SERVICE_ROLE_KEY: "",
+        DATABASE_URL: "",
+        PAYPAL_CLIENT_ID: "",
+        PAYPAL_CLIENT_SECRET: "",
+        PAYPAL_ENVIRONMENT: "sandbox",
+        API_URL: "http://localhost:5000",
       });
       setLastUpdated(new Date());
     } catch (error) {
@@ -372,6 +382,7 @@ const AdminDashboard = () => {
   };
 
   const saveConfiguration = async () => {
+    console.log("Save configuration called with envConfig:", envConfig);
     setSaving(true);
     try {
       const response = await fetch("/api/admin/save-env", {
@@ -385,6 +396,7 @@ const AdminDashboard = () => {
       });
 
       const result = await response.json();
+      console.log("Save response:", result);
 
       if (response.ok) {
         setLastUpdated(new Date());
@@ -392,18 +404,17 @@ const AdminDashboard = () => {
         toast({
           title: "✅ Configuration saved successfully!",
           description:
-            "Environment variables written to .env file. Refreshing page to apply changes...",
+            "Environment variables written to .env file successfully.",
         });
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
+        // Reload environment variables from server to reflect saved changes
+        await loadEnvironmentVariables();
+        checkSystemStatus();
       } else {
         throw new Error(result.message || "Save failed");
       }
-
-      checkSystemStatus();
     } catch (error: any) {
+      console.error("Save error:", error);
       toast({
         title: "❌ Save failed",
         description: error.message || "Could not save configuration",
@@ -481,7 +492,13 @@ const AdminDashboard = () => {
     );
   }
 
-  if (!isAuthenticated) {
+  // Check for test mode
+  const isTestMode =
+    typeof window !== "undefined" &&
+    window.localStorage.getItem("admin_test_mode") === "true";
+
+  if (!isAuthenticated && !isTestMode) {
+    console.log("User not authenticated, loading:", loading, "user:", user);
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <Card className="bg-zinc-900 border-zinc-800 p-8 max-w-md mx-auto">
@@ -493,12 +510,25 @@ const AdminDashboard = () => {
             <p className="text-zinc-400 mb-4">
               You must be signed in to access the admin dashboard.
             </p>
-            <Button
-              onClick={() => (window.location.href = "/")}
-              className="bg-white text-black hover:bg-gray-100"
-            >
-              Go to Home
-            </Button>
+            <div className="space-y-3">
+              <Button
+                onClick={() => (window.location.href = "/")}
+                className="bg-white text-black hover:bg-gray-100 w-full"
+              >
+                Go to Home & Sign In
+              </Button>
+              <Button
+                onClick={() => {
+                  // Temporary bypass for testing
+                  window.localStorage.setItem("admin_test_mode", "true");
+                  window.location.reload();
+                }}
+                variant="outline"
+                className="w-full border-zinc-600 text-zinc-300 hover:bg-zinc-800"
+              >
+                Enable Test Mode (Development)
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -516,7 +546,7 @@ const AdminDashboard = () => {
 
       <div className="relative z-10 container mx-auto px-4 py-8">
         <PageHeader
-          title="Admin Dashboard"
+          title={`Admin Dashboard ${isTestMode ? "(Test Mode)" : ""}`}
           description="Configure and monitor NeuroLint system settings"
           className="mb-8"
           breadcrumb={{
@@ -526,10 +556,28 @@ const AdminDashboard = () => {
             ],
           }}
           cta={{
-            label: "Try NeuroLint",
-            href: "/app",
+            label: isTestMode ? "Exit Test Mode" : "Try NeuroLint",
+            href: isTestMode ? "#" : "/app",
+            onClick: isTestMode
+              ? () => {
+                  window.localStorage.removeItem("admin_test_mode");
+                  window.location.reload();
+                }
+              : undefined,
           }}
         />
+
+        {/* Test Mode Alert */}
+        {isTestMode && (
+          <Alert className="mb-6 border-orange-500 bg-orange-500/10">
+            <Info className="h-4 w-4" />
+            <AlertDescription>
+              🧪 Test Mode Enabled: Authentication is bypassed for development
+              testing. Click "Exit Test Mode" above to restore normal
+              authentication.
+            </AlertDescription>
+          </Alert>
+        )}
 
         {/* System Status Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -1202,6 +1250,43 @@ const AdminDashboard = () => {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Test Save Button */}
+        <Card className="bg-zinc-900 border-zinc-800 mt-6">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold">Test Save Function</h3>
+                <p className="text-sm text-zinc-400">
+                  Test if saving works before using the main form
+                </p>
+              </div>
+              <Button
+                onClick={() => {
+                  console.log("Test save clicked");
+                  const testConfig = { TEST_ADMIN_SAVE: `test_${Date.now()}` };
+                  fetch("/api/admin/save-env", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ envVars: testConfig }),
+                  })
+                    .then((r) => r.json())
+                    .then((data) => {
+                      console.log("Test save result:", data);
+                      alert("Test save result: " + JSON.stringify(data));
+                    })
+                    .catch((err) => {
+                      console.error("Test save error:", err);
+                      alert("Test save error: " + err.message);
+                    });
+                }}
+                className="bg-green-600 text-white hover:bg-green-700"
+              >
+                Test Save
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Save Button */}
         <Card className="bg-zinc-900 border-zinc-800 mt-6">

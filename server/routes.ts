@@ -63,6 +63,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Load current environment variables endpoint
+  app.get("/api/admin/load-env", async (req, res) => {
+    try {
+      const fs = await import("fs");
+      const path = await import("path");
+
+      // Read the .env file directly
+      const envPath = path.join(process.cwd(), ".env");
+      let envContent = "";
+
+      try {
+        envContent = fs.readFileSync(envPath, "utf8");
+      } catch (error) {
+        console.warn(".env file not found, using default values");
+      }
+
+      // Parse the .env file content
+      const envVars = {
+        VITE_SUPABASE_URL: "",
+        VITE_SUPABASE_ANON_KEY: "",
+        SUPABASE_SERVICE_ROLE_KEY: "",
+        DATABASE_URL: "",
+        PAYPAL_CLIENT_ID: "",
+        PAYPAL_CLIENT_SECRET: "",
+        PAYPAL_ENVIRONMENT: "sandbox",
+        API_URL: "http://localhost:5000",
+      };
+
+      // Parse environment variables from .env file
+      const envLines = envContent.split("\n");
+      for (const line of envLines) {
+        const trimmedLine = line.trim();
+        if (trimmedLine && !trimmedLine.startsWith("#")) {
+          const [key, ...valueParts] = trimmedLine.split("=");
+          const value = valueParts.join("=");
+          if (key && value !== undefined && envVars.hasOwnProperty(key)) {
+            envVars[key as keyof typeof envVars] = value;
+          }
+        }
+      }
+
+      res.json({ success: true, envVars });
+    } catch (error: any) {
+      console.error("Failed to load env vars:", error);
+      res.status(500).json({
+        error: "Failed to load environment variables",
+        message: error.message,
+      });
+    }
+  });
+
   // Save environment variables endpoint
   app.post("/api/admin/save-env", async (req, res) => {
     try {

@@ -60,9 +60,9 @@ export function UserButton() {
   const getPlanIcon = () => {
     switch (planType) {
       case "pro":
-        return <Zap className="w-4 h-4 text-yellow-500" />;
+        return <Zap className="w-4 h-4 text-zinc-400" />;
       case "enterprise":
-        return <Crown className="w-4 h-4 text-purple-500" />;
+        return <Crown className="w-4 h-4 text-zinc-400" />;
       default:
         return <Users className="w-4 h-4 text-gray-400" />;
     }
@@ -71,9 +71,9 @@ export function UserButton() {
   const getPlanColor = () => {
     switch (planType) {
       case "pro":
-        return "bg-yellow-500/20 text-yellow-300 border-yellow-500/30";
+        return "bg-zinc-500/20 text-zinc-300 border-zinc-500/30";
       case "enterprise":
-        return "bg-purple-500/20 text-purple-300 border-purple-500/30";
+        return "bg-zinc-500/20 text-zinc-300 border-zinc-500/30";
       default:
         return "bg-gray-500/20 text-gray-300 border-gray-500/30";
     }
@@ -139,13 +139,7 @@ export function UserButton() {
                 </div>
                 <div className="w-full bg-zinc-800 rounded-full h-1.5">
                   <div
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      usagePercentage > 90
-                        ? "bg-red-500"
-                        : usagePercentage > 70
-                          ? "bg-yellow-500"
-                          : "bg-green-500"
-                    }`}
+                    className="h-1.5 rounded-full transition-all duration-300 bg-white"
                     style={{ width: `${Math.min(usagePercentage, 100)}%` }}
                   />
                 </div>

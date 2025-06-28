@@ -31,9 +31,9 @@ export function HowToDropDown() {
             </li>
             <li>
               <b>Add your code:</b> Either{" "}
-              <span className="font-bold text-purple-300">drop a file</span> or{" "}
-              <span className="font-bold text-purple-300">paste code</span> in
-              the box.
+              <span className="font-bold text-zinc-300">drop a file</span> or{" "}
+              <span className="font-bold text-zinc-300">paste code</span> in the
+              box.
             </li>
             <li>
               <b>Let NeuroLint do the work:</b> The AI will upgrade, fix, and

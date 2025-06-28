@@ -24,6 +24,7 @@ import EnterpriseAnalytics from "./pages/enterprise/EnterpriseAnalytics";
 import AdvancedAI from "./pages/enterprise/AdvancedAI";
 import MarketPositioning from "./pages/enterprise/MarketPositioning";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminTest from "./pages/AdminTest";
 import Dashboard from "./pages/Dashboard";
 import SupabaseTest from "./pages/SupabaseTest";
 import NotFound from "./pages/NotFound";
@@ -56,6 +57,7 @@ const App = () => (
 
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/admin-test" element={<AdminTest />} />
                 <Route path="/supabase-test" element={<SupabaseTest />} />
 
                 <Route path="/teams" element={<EnhancedTeamDashboard />} />

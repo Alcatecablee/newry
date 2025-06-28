@@ -23,7 +23,7 @@ export function PricingCard({
 
   return (
     <Card
-      className={`relative ${planData.popular ? "border-purple-500 border-2" : "border-gray-700"} bg-black/50 backdrop-blur-sm`}
+      className={`relative ${planData.popular ? "border-white border-2" : "border-gray-700"} bg-black/50 backdrop-blur-sm`}
     >
       {planData.popular && (
         <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-zinc-900">
@@ -45,7 +45,7 @@ export function PricingCard({
         <ul className="space-y-3">
           {planData.features.map((feature, index) => (
             <li key={index} className="flex items-center gap-3 text-gray-300">
-              <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+              <Check className="w-5 h-5 text-zinc-400 flex-shrink-0" />
               <span>{feature}</span>
             </li>
           ))}

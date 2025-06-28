@@ -11,7 +11,7 @@ export function SiteFooter() {
           <span className="text-zinc-400">Have feedback?</span>
           <a
             href="mailto:founder@neurolint.com"
-            className="text-white font-medium hover:text-purple-300 transition-colors px-3 py-1 bg-zinc-800/50 hover:bg-zinc-800 rounded-full"
+            className="text-white font-medium hover:text-zinc-300 transition-colors px-3 py-1 bg-zinc-800/50 hover:bg-zinc-800 rounded-full"
           >
             Contact Us
           </a>

@@ -325,8 +325,8 @@ const LiveCodeSessions = () => {
                           <Badge
                             className={
                               session.isActive
-                                ? "bg-green-900 text-green-200"
-                                : "bg-yellow-900 text-yellow-200"
+                                ? "bg-zinc-900 text-zinc-200"
+                                : "bg-zinc-900 text-zinc-200"
                             }
                           >
                             {session.isActive ? "Live" : "Paused"}

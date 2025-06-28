@@ -135,18 +135,18 @@ export function LandingFeatures() {
                 <label className="flex items-center gap-1 ml-1">
                   <input
                     type="checkbox"
-                    className="form-checkbox rounded border-blue-400 focus:ring-2 focus:ring-blue-400 accent-purple-400 w-5 h-5 bg-[#26233b]"
+                    className="form-checkbox rounded border-zinc-400 focus:ring-2 focus:ring-zinc-400 accent-zinc-400 w-5 h-5 bg-[#26233b]"
                     checked={experimentalStates[layer.name] || false}
                     onChange={() => handleToggle(layer.name)}
                     disabled={true}
                   />
-                  <span className="text-xs text-purple-400">Demo</span>
+                  <span className="text-xs text-zinc-400">Demo</span>
                 </label>
               )}
               {/* Show warning on hover if experimental */}
               {layer.experimental && (
                 <div className="absolute right-2 bottom-2 flex items-center">
-                  <AlertTriangle className="w-4 h-4 text-yellow-400" />
+                  <AlertTriangle className="w-4 h-4 text-zinc-400" />
                   <span className="sr-only">Experimental, not live!</span>
                 </div>
               )}
@@ -172,10 +172,10 @@ export function LandingFeatures() {
         </div>
 
         {/* Differentiators */}
-        <h3 className="text-xl font-semibold text-purple-200 mb-2 mt-4 flex items-center gap-2">
+        <h3 className="text-xl font-semibold text-zinc-200 mb-2 mt-4 flex items-center gap-2">
           <Zap className="w-5 h-5" /> What makes NeuroLint different?
         </h3>
-        <ul className="ml-5 list-disc space-y-1 text-sm text-purple-100">
+        <ul className="ml-5 list-disc space-y-1 text-sm text-zinc-100">
           <li>
             <b>
               All 6 code-fixing layers are production-ready and powerful

@@ -83,31 +83,41 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createUser(insertUser: any): Promise<User> {
-    if (isPostgres) {
-      // For Postgres, let the database generate the UUID and timestamps
-      // Map supabaseId to clerkId field temporarily
-      const userData = {
-        clerkId: insertUser.supabaseId || insertUser.clerkId,
-        email: insertUser.email,
-        fullName: insertUser.fullName,
-      };
-      const result = await db.insert(users).values(userData).returning();
-      return result[0];
-    } else {
-      // For SQLite, we need to generate ID and handle timestamps
-      const userWithId = {
-        ...insertUser,
-        id: this.generateId(),
-        createdAt: Math.floor(Date.now() / 1000),
-        updatedAt: Math.floor(Date.now() / 1000),
-      };
-      await db.insert(users).values(userWithId);
-      const result = await db
-        .select()
-        .from(users)
-        .where(eq(users.id, userWithId.id))
-        .limit(1);
-      return result[0];
+    try {
+      if (isPostgres) {
+        // For Postgres, let the database generate the UUID and timestamps
+        // Map supabaseId to clerkId field temporarily
+        const userData = {
+          clerkId: insertUser.supabaseId || insertUser.clerkId,
+          email: insertUser.email,
+          fullName: insertUser.fullName,
+        };
+        const result = await db.insert(users).values(userData).returning();
+        return result[0];
+      } else {
+        // For SQLite, provide all required fields including unix timestamps
+        const now = Math.floor(Date.now() / 1000);
+        const userData = {
+          id: this.generateId(),
+          clerkId: insertUser.supabaseId || insertUser.clerkId,
+          email: insertUser.email,
+          fullName: insertUser.fullName,
+          passwordHash: insertUser.passwordHash || "temp_hash", // Required field
+          createdAt: now,
+          updatedAt: now,
+        };
+
+        await db.insert(users).values(userData);
+        const result = await db
+          .select()
+          .from(users)
+          .where(eq(users.id, userData.id))
+          .limit(1);
+        return result[0];
+      }
+    } catch (error) {
+      console.error("Error in createUser:", error);
+      throw error;
     }
   }
 
@@ -127,7 +137,7 @@ export class DatabaseStorage implements IStorage {
         .update(users)
         .set({
           monthlyTransformationsUsed: currentUsage + 1,
-          updatedAt: isPostgres ? new Date() : Math.floor(Date.now() / 1000),
+          updatedAt: Math.floor(Date.now() / 1000),
         })
         .where(eq(users.clerkId, supabaseId)); // Using clerkId column temporarily for Supabase IDs
 
@@ -152,8 +162,8 @@ export class DatabaseStorage implements IStorage {
       const transformationWithId = {
         ...transformation,
         id: this.generateId(),
-        createdAt: Math.floor(Date.now() / 1000),
         layersUsed: JSON.stringify(transformation.layersUsed),
+        createdAt: Math.floor(Date.now() / 1000),
       };
       await db.insert(transformations).values(transformationWithId);
       const result = await db
@@ -173,14 +183,15 @@ export class DatabaseStorage implements IStorage {
         const result = await db.insert(teams).values(team).returning();
         return result[0];
       } else {
-        // For SQLite, generate ID and handle timestamps
+        // For SQLite, generate ID and provide unix timestamps
+        const now = Math.floor(Date.now() / 1000);
         const teamWithId = {
           ...team,
           id: this.generateId(),
           planType: "team",
           monthlyLimit: 1000,
-          createdAt: Math.floor(Date.now() / 1000),
-          updatedAt: Math.floor(Date.now() / 1000),
+          createdAt: now,
+          updatedAt: now,
         };
         await db.insert(teams).values(teamWithId);
         const result = await db
@@ -249,7 +260,7 @@ export class DatabaseStorage implements IStorage {
         ...member,
         id: this.generateId(),
         role: member.role || "developer",
-        joinedAt: isPostgres ? new Date() : Math.floor(Date.now() / 1000),
+        joinedAt: Math.floor(Date.now() / 1000),
       };
 
       if (isPostgres) {

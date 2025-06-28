@@ -187,9 +187,9 @@ const SupabaseTest = () => {
                           <div className="text-xs">
                             <div className="flex items-center gap-2">
                               {testResult.details.serviceKeyTest.working ? (
-                                <CheckCircle className="w-3 h-3 text-green-500" />
+                                <CheckCircle className="w-3 h-3 text-zinc-400" />
                               ) : (
-                                <XCircle className="w-3 h-3 text-red-500" />
+                                <XCircle className="w-3 h-3 text-zinc-400" />
                               )}
                               Service Key Working
                             </div>
@@ -235,8 +235,8 @@ const SupabaseTest = () => {
                     variant="outline"
                     className={
                       clientTest.success
-                        ? "border-green-500 text-green-400"
-                        : "border-red-500 text-red-400"
+                        ? "border-zinc-500 text-zinc-400"
+                        : "border-zinc-500 text-zinc-400"
                     }
                   >
                     {clientTest.success ? "success" : "error"}
@@ -249,9 +249,9 @@ const SupabaseTest = () => {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     {clientTest.success ? (
-                      <CheckCircle className="w-5 h-5 text-green-500" />
+                      <CheckCircle className="w-5 h-5 text-zinc-400" />
                     ) : (
-                      <XCircle className="w-5 h-5 text-red-500" />
+                      <XCircle className="w-5 h-5 text-zinc-400" />
                     )}
                     <span className="font-medium">
                       {clientTest.success
@@ -324,17 +324,17 @@ const SupabaseTest = () => {
 
           {/* Summary */}
           <Alert
-            className={`${testResult?.status === "connected" && clientTest?.success ? "border-green-500 bg-green-500/10" : "border-orange-500 bg-orange-500/10"}`}
+            className={`${testResult?.status === "connected" && clientTest?.success ? "border-zinc-500 bg-zinc-500/10" : "border-zinc-500 bg-zinc-500/10"}`}
           >
             <AlertTriangle className="h-4 w-4" />
             <AlertDescription>
               {testResult?.status === "connected" && clientTest?.success ? (
-                <span className="text-green-400">
+                <span className="text-zinc-400">
                   ✅ Supabase is properly connected and ready to use! You can
                   now sign up and use authentication.
                 </span>
               ) : (
-                <span className="text-orange-400">
+                <span className="text-zinc-400">
                   ⚠️ There may be issues with the Supabase connection. Check the
                   details above and verify your configuration.
                 </span>

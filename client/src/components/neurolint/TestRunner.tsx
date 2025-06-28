@@ -310,15 +310,7 @@ export function TestRunner() {
             const IconComponent = layer.icon;
             return (
               <Card key={layer.layerId} className="relative overflow-hidden">
-                <div
-                  className={`absolute top-0 left-0 right-0 h-1 ${
-                    layer.passRate === 100
-                      ? "bg-green-500"
-                      : layer.passRate >= 50
-                        ? "bg-yellow-500"
-                        : "bg-red-500"
-                  }`}
-                />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-white" />
                 <CardHeader className="pb-2">
                   <CardTitle className="flex items-center gap-2 text-sm">
                     <IconComponent className="w-4 h-4" />
@@ -363,7 +355,7 @@ export function TestRunner() {
 
       {/* Performance Insights */}
       {performanceInsights.length > 0 && (
-        <Alert className="border-yellow-200 bg-yellow-50">
+        <Alert className="border-zinc-200 bg-zinc-50">
           <Lightbulb className="h-4 w-4" />
           <AlertDescription>
             <div className="space-y-1">
@@ -436,7 +428,7 @@ export function TestRunner() {
                           <CardTitle className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               {result.passed ? (
-                                <CheckCircle className="w-5 h-5 text-green-500" />
+                                <CheckCircle className="w-5 h-5 text-zinc-400" />
                               ) : (
                                 <XCircle className="w-5 h-5 text-red-500" />
                               )}
@@ -599,13 +591,13 @@ export function TestRunner() {
 function getCategoryColor(category: string): string {
   switch (category) {
     case "config":
-      return "border-blue-500 text-blue-700";
+      return "border-zinc-500 text-zinc-700";
     case "pattern":
-      return "border-purple-500 text-purple-700";
+      return "border-zinc-500 text-zinc-700";
     case "hydration":
-      return "border-green-500 text-green-700";
+      return "border-zinc-500 text-zinc-700";
     case "component":
-      return "border-orange-500 text-orange-700";
+      return "border-zinc-500 text-zinc-700";
     default:
       return "border-gray-500 text-gray-700";
   }
