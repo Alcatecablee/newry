@@ -196,7 +196,7 @@ const LiveCodeSessions = () => {
       </div>
 
       <div className="max-w-7xl mx-auto p-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Active Sessions Panel */}
           <div className="lg:col-span-1">
             <Card className="bg-zinc-900 border-zinc-800">
