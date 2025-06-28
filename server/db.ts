@@ -53,33 +53,9 @@ async function createSampleData(sqlite: Database.Database) {
     if (existingUsers.count === 0) {
       console.log("🔧 Creating sample data...");
 
-      // Create sample user with password "password123"
-      const bcrypt = await import("bcrypt");
-      const hashedPassword = bcrypt.hashSync("password123", 10);
-
+      // Note: Sample user creation removed - authentication now handled by Supabase
       const userId = "sample-user-123";
       const now = Math.floor(Date.now() / 1000);
-
-      // Insert sample user
-      sqlite
-        .prepare(
-          `
-        INSERT INTO users (id, clerk_id, email, full_name, password_hash, plan_type, monthly_transformations_used, monthly_limit, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-      `,
-        )
-        .run(
-          userId,
-          userId,
-          "test@example.com",
-          "Test User",
-          hashedPassword,
-          "pro",
-          5,
-          500,
-          now,
-          now,
-        );
 
       // Create sample team
       const teamId = "sample-team-123";
