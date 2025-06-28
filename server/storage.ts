@@ -95,13 +95,16 @@ export class DatabaseStorage implements IStorage {
         const result = await db.insert(users).values(userData).returning();
         return result[0];
       } else {
-        // For SQLite, only provide required fields and let defaults work
+        // For SQLite, provide all required fields including timestamps
+        const now = new Date();
         const userData = {
           id: this.generateId(),
           clerkId: insertUser.supabaseId || insertUser.clerkId,
           email: insertUser.email,
           fullName: insertUser.fullName,
           passwordHash: insertUser.passwordHash || "temp_hash", // Required field
+          createdAt: now,
+          updatedAt: now,
         };
         console.log("Inserting user data:", JSON.stringify(userData, null, 2));
         await db.insert(users).values(userData);
