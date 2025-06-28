@@ -63,6 +63,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Load current environment variables endpoint
+  app.get("/api/admin/load-env", async (req, res) => {
+    try {
+      const envVars = {
+        VITE_SUPABASE_URL: process.env.VITE_SUPABASE_URL || "",
+        VITE_SUPABASE_ANON_KEY: process.env.VITE_SUPABASE_ANON_KEY || "",
+        SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY || "",
+        DATABASE_URL: process.env.DATABASE_URL || "",
+        PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID || "",
+        PAYPAL_CLIENT_SECRET: process.env.PAYPAL_CLIENT_SECRET || "",
+        PAYPAL_ENVIRONMENT: process.env.PAYPAL_ENVIRONMENT || "sandbox",
+        API_URL: process.env.API_URL || "http://localhost:5000",
+      };
+
+      res.json({ success: true, envVars });
+    } catch (error: any) {
+      console.error("Failed to load env vars:", error);
+      res.status(500).json({
+        error: "Failed to load environment variables",
+        message: error.message,
+      });
+    }
+  });
+
   // Save environment variables endpoint
   app.post("/api/admin/save-env", async (req, res) => {
     try {
