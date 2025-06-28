@@ -91,7 +91,7 @@ export async function loginCommand(options: LoginOptions) {
       console.log(chalk.white(`API URL: ${apiUrl}`));
       console.log(
         chalk.white(
-          `API Key: ${"*".repeat(apiKey.length - 4)}${apiKey.slice(-4)}`,
+          `API Key: ${"*".repeat((apiKey?.length || 4) - 4)}${apiKey?.slice(-4) || ""}`,
         ),
       );
 
