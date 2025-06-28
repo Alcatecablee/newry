@@ -221,29 +221,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Register API documentation routes
   app.use(apiDocsRoutes);
   // User management routes
-  app.get("/api/user/:clerkId", async (req, res) => {
+  app.get("/api/user/:supabaseId", async (req, res) => {
     try {
-      const user = await storage.getUserByClerkId(req.params.clerkId);
+      const user = await storage.getUserBySupabaseId(req.params.supabaseId);
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
       res.json(user);
     } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: "Failed to fetch user" });
     }
   });
 
-  app.post("/api/user", async (req, res) => {
+  app.post("/api/users", async (req, res) => {
     try {
-      const { clerkId, email, fullName } = req.body;
+      const { supabaseId, email, fullName } = req.body;
 
       // Check if user already exists
-      const existingUser = await storage.getUserByClerkId(clerkId);
+      const existingUser = await storage.getUserBySupabaseId(supabaseId);
       if (existingUser) {
         return res.json(existingUser);
       }
 
-      const user = await storage.createUser({ clerkId, email, fullName });
+      const user = await storage.createUser({ supabaseId, email, fullName });
       res.json(user);
     } catch (error) {
       res.status(500).json({ error: "Failed to create user" });
