@@ -149,13 +149,16 @@ export default function Dashboard() {
                 />
               </div>
             </div>
-            {getNextPlan(user.planType) && (
+            {getNextPlan(user.app_metadata.plan_type || "free") && (
               <Link to="/pricing">
                 <Button
                   variant="secondary"
                   className="bg-white text-black hover:bg-gray-100"
                 >
-                  Upgrade to {getNextPlan(user.planType)?.toUpperCase()}
+                  Upgrade to{" "}
+                  {getNextPlan(
+                    user.app_metadata.plan_type || "free",
+                  )?.toUpperCase()}
                   <ArrowUpRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
