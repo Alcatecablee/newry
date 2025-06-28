@@ -23,7 +23,7 @@ export function PricingCard({
 
   return (
     <Card
-      className={`relative ${planData.popular ? "border-purple-500 border-2" : "border-gray-700"} bg-black/50 backdrop-blur-sm`}
+      className={`relative ${planData.popular ? "border-white border-2" : "border-gray-700"} bg-black/50 backdrop-blur-sm`}
     >
       {planData.popular && (
         <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-zinc-900">
