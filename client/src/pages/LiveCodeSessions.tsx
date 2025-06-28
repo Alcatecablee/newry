@@ -10,16 +10,13 @@ import {
   Users,
   MessageCircle,
   Code,
-  Clock,
   Play,
   Pause,
-  Send,
   Mic,
   MicOff,
   Video,
   VideoOff,
   Share,
-  Bot,
   ArrowLeft,
   Settings,
   Zap,
@@ -58,6 +55,13 @@ interface LayerStatus {
   result?: NeuroLintLayerResult;
 }
 
+interface SessionSettings {
+  maxParticipants: number;
+  allowGuestAccess: boolean;
+  analysisDelay: number;
+  autoSave: boolean;
+}
+
 const LiveCodeSessions = () => {
   const [selectedTeamId, setSelectedTeamId] = useState<string>("demo-team");
   const [activeSessions, setActiveSessions] = useState<LiveSession[]>([]);
@@ -77,7 +81,7 @@ const LiveCodeSessions = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [autoAnalysis, setAutoAnalysis] = useState(true);
-  const [sessionSettings, setSessionSettings] = useState({
+  const [sessionSettings, setSessionSettings] = useState<SessionSettings>({
     maxParticipants: 10,
     allowGuestAccess: false,
     analysisDelay: 1000,
@@ -88,65 +92,13 @@ const LiveCodeSessions = () => {
   const { data: teams, isLoading: teamsLoading } = useTeams();
   const { data: teamData, isLoading: teamLoading } = useTeam(selectedTeamId);
 
-  // Show loading state
-  if (teamsLoading || teamLoading) {
-    return (
-      <div className="min-h-screen bg-black p-6 flex items-center justify-center">
-        <div className="text-white text-lg">Loading live sessions...</div>
-      </div>
-    );
-  }
-
-  // Real-time NeuroLint analysis
-  const runLayerAnalysis = async (code: string) => {
-    if (!code.trim()) return;
-
-    setIsAnalyzing(true);
-    setLayerAnalysis((prev) =>
-      prev.map((layer) => ({ ...layer, status: "pending" })),
-    );
-
-    try {
-      // Run NeuroLint transformation with all layers
-      const { transformed, layers } = await NeuroLintOrchestrator(
-        code,
-        "live-session",
-        true,
-        [1, 2, 3, 4, 5, 6],
-      );
-
-      // Update layer status based on results
-      if (layers) {
-        setLayerAnalysis((prev) =>
-          prev.map((layer) => {
-            const result = layers.find((r) =>
-              r.name.includes(layer.name.split(" ")[0]),
-            );
-            return {
-              ...layer,
-              status: result?.success ? "success" : "error",
-              result: result,
-            };
-          }),
-        );
-      }
-    } catch (error) {
-      console.error("Layer analysis failed:", error);
-      setLayerAnalysis((prev) =>
-        prev.map((layer) => ({ ...layer, status: "error" })),
-      );
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
-
-  // Convert team members to participants (only if they have active sessions)
+  // Convert team members to participants
   const teamParticipants: Participant[] =
     teamData?.members?.map((member) => ({
       id: member.id,
       name: member.userId,
       role: member.role === "owner" ? "host" : "collaborator",
-      isOnline: false, // Would come from WebSocket in real implementation
+      isOnline: false,
       micStatus: "off",
       videoStatus: "off",
     })) || [];
@@ -171,19 +123,44 @@ const LiveCodeSessions = () => {
     selectedSession,
   ]);
 
-  // Handle code changes with session persistence
-  const handleCodeChange = (newCode: string) => {
-    setCurrentCode(newCode);
+  // Real-time NeuroLint analysis with error boundaries
+  const runLayerAnalysis = async (code: string) => {
+    if (!code.trim()) return;
 
-    // Auto-save to session if enabled
-    if (sessionSettings.autoSave && selectedSession) {
-      setActiveSessions((prev) =>
-        prev.map((session) =>
-          session.id === selectedSession
-            ? { ...session, currentCode: newCode }
-            : session,
-        ),
+    setIsAnalyzing(true);
+    setLayerAnalysis((prev) =>
+      prev.map((layer) => ({ ...layer, status: "running" as const })),
+    );
+
+    try {
+      const { transformed, layers } = await NeuroLintOrchestrator(
+        code,
+        "live-session",
+        true,
+        [1, 2, 3, 4, 5, 6],
       );
+
+      if (layers) {
+        setLayerAnalysis((prev) =>
+          prev.map((layer) => {
+            const result = layers.find((r) =>
+              r.name.includes(layer.name.split(" ")[0]),
+            );
+            return {
+              ...layer,
+              status: result?.success ? "success" : "error",
+              result: result,
+            };
+          }),
+        );
+      }
+    } catch (error) {
+      console.error("Layer analysis failed:", error);
+      setLayerAnalysis((prev) =>
+        prev.map((layer) => ({ ...layer, status: "error" })),
+      );
+    } finally {
+      setIsAnalyzing(false);
     }
   };
 
@@ -213,7 +190,6 @@ const LiveCodeSessions = () => {
       setActiveSessions((prev) => [...prev, newSession]);
       setSelectedSession(newSession.id);
 
-      // Initialize with saved code if available
       if (newSession.currentCode) {
         setCurrentCode(newSession.currentCode);
       }
@@ -222,6 +198,30 @@ const LiveCodeSessions = () => {
       alert("Failed to create session. Please try again.");
     }
   };
+
+  // Handle code changes with session persistence
+  const handleCodeChange = (newCode: string) => {
+    setCurrentCode(newCode);
+
+    if (sessionSettings.autoSave && selectedSession) {
+      setActiveSessions((prev) =>
+        prev.map((session) =>
+          session.id === selectedSession
+            ? { ...session, currentCode: newCode }
+            : session,
+        ),
+      );
+    }
+  };
+
+  // Show loading state
+  if (teamsLoading || teamLoading) {
+    return (
+      <div className="min-h-screen bg-black p-6 flex items-center justify-center">
+        <div className="text-white text-lg">Loading live sessions...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -243,7 +243,7 @@ const LiveCodeSessions = () => {
                 Live Code Sessions
               </h1>
               <p className="text-zinc-400 text-sm">
-                Collaborate in real-time with your team
+                Collaborate in real-time with NeuroLint integration
               </p>
             </div>
           </div>
@@ -285,7 +285,7 @@ const LiveCodeSessions = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-white">
                   <Users className="w-5 h-5" />
-                  Active Sessions
+                  Active Sessions ({activeSessions.length})
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -296,7 +296,7 @@ const LiveCodeSessions = () => {
                     </div>
                     <p className="text-zinc-400 text-sm">No active sessions</p>
                     <p className="text-zinc-500 text-xs mt-1">
-                      Start a new session to collaborate with your team
+                      Start a new session to collaborate
                     </p>
                   </div>
                 ) : (
@@ -304,7 +304,11 @@ const LiveCodeSessions = () => {
                     {activeSessions.map((session) => (
                       <div
                         key={session.id}
-                        className="p-3 bg-zinc-800 rounded-lg hover:bg-zinc-750 cursor-pointer"
+                        className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                          selectedSession === session.id
+                            ? "bg-zinc-700 border-blue-600"
+                            : "bg-zinc-800 border-zinc-700 hover:bg-zinc-750"
+                        }`}
                         onClick={() => setSelectedSession(session.id)}
                       >
                         <div className="flex items-center justify-between mb-2">
@@ -378,125 +382,27 @@ const LiveCodeSessions = () => {
                               {participant.name.substring(0, 2).toUpperCase()}
                             </AvatarFallback>
                           </Avatar>
+                          <div>
+                            <p className="text-white text-sm font-medium">
+                              {participant.name}
+                            </p>
+                            <p className="text-zinc-400 text-xs">
+                              {participant.role}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <div
+                            className={`w-2 h-2 rounded-full ${participant.isOnline ? "bg-green-400" : "bg-zinc-600"}`}
+                          />
+                          <span className="text-xs text-zinc-500">
+                            {participant.isOnline ? "Online" : "Offline"}
+                          </span>
                         </div>
                       </div>
-                    </div>
-                  ) : (
-                    <div className="text-center py-8">
-                      <div className="w-20 h-20 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <Play className="w-10 h-10 text-zinc-600" />
-                      </div>
-                      <h3 className="text-xl font-semibold text-white mb-2">
-                        Start Your First Live Session
-                      </h3>
-                      <p className="text-zinc-400 mb-6 max-w-md">
-                        Collaborate with your team in real-time. Share code, debug together,
-                        and boost productivity with live coding sessions.
-                      </p>
-                      <Button
-                        className="bg-blue-600 hover:bg-blue-700"
-                        onClick={() => createSession({
-                          name: `New Session - ${new Date().toLocaleTimeString()}`
-                        })}
-                      >
-                        <Play className="w-4 h-4 mr-2" />
-                        Create New Session
-                      </Button>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        </div>
-
-        {/* Session Controls */}
-        {selectedSession && (
-          <Card className="bg-zinc-900 border-zinc-800 mt-6">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => setMicEnabled(!micEnabled)}
-                    className={micEnabled ? "bg-green-900 border-green-700" : ""}
-                  >
-                    {micEnabled ? <Mic className="w-4 h-4 mr-2" /> : <MicOff className="w-4 h-4 mr-2" />}
-                    {micEnabled ? 'Mic On' : 'Mic Off'}
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => setVideoEnabled(!videoEnabled)}
-                    className={videoEnabled ? "bg-green-900 border-green-700" : ""}
-                  >
-                    {videoEnabled ? <Video className="w-4 h-4 mr-2" /> : <VideoOff className="w-4 h-4 mr-2" />}
-                    {videoEnabled ? 'Video On' : 'Video Off'}
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => setChatOpen(!chatOpen)}
-                    className={chatOpen ? "bg-blue-900 border-blue-700" : ""}
-                  >
-                    <MessageCircle className="w-4 h-4 mr-2" />
-                    {chatOpen ? 'Hide Chat' : 'Show Chat'}
-                  </Button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => {
-                      setActiveSessions(prev => prev.map(session =>
-                        session.id === selectedSession
-                          ? { ...session, isActive: !session.isActive }
-                          : session
-                      ));
-                    }}
-                  >
-                    <Pause className="w-4 h-4 mr-2" />
-                    {activeSessions.find(s => s.id === selectedSession)?.isActive ? 'Pause Session' : 'Resume Session'}
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="destructive"
-                    onClick={() => {
-                      if (selectedSession) {
-                        setActiveSessions(prev => prev.filter(session => session.id !== selectedSession));
-                        setSelectedSession(null);
-                        setCurrentCode("");
-                        setLayerAnalysis(prev => prev.map(layer => ({ ...layer, status: "pending", result: undefined })));
-                      }
-                    }}
-                  >
-                    End Session
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-                        setSelectedSession(null);
-                        setCurrentCode("");
-                        setLayerAnalysis((prev) =>
-                          prev.map((layer) => ({
-                            ...layer,
-                            status: "pending",
-                            result: undefined,
-                          })),
-                        );
-                      }
-                    }}
-                  >
-                    End Session
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
@@ -507,10 +413,10 @@ const LiveCodeSessions = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-white">
                   <Layers className="w-5 h-5 text-blue-400" />
-                  NeuroLint Layers
+                  NeuroLint Analysis
                   {isAnalyzing && (
                     <Badge className="bg-blue-900 text-blue-200 animate-pulse">
-                      Analyzing
+                      Running
                     </Badge>
                   )}
                 </CardTitle>
@@ -520,7 +426,7 @@ const LiveCodeSessions = () => {
                   {layerAnalysis.map((layer) => (
                     <div
                       key={layer.layerId}
-                      className="p-3 bg-zinc-800 rounded-lg border-l-4 border-l-zinc-600"
+                      className="p-3 bg-zinc-800 rounded-lg border-l-4"
                       style={{
                         borderLeftColor:
                           layer.status === "success"
@@ -569,7 +475,7 @@ const LiveCodeSessions = () => {
                     </div>
                   ))}
                 </div>
-                <div className="mt-4 pt-3 border-t border-zinc-700">
+                <div className="mt-4 pt-3 border-t border-zinc-700 space-y-2">
                   <Button
                     size="sm"
                     onClick={() => runLayerAnalysis(currentCode)}
@@ -579,6 +485,15 @@ const LiveCodeSessions = () => {
                     <Zap className="w-4 h-4 mr-2" />
                     {isAnalyzing ? "Analyzing..." : "Run Analysis"}
                   </Button>
+                  <div className="flex items-center gap-2 text-xs">
+                    <input
+                      type="checkbox"
+                      checked={autoAnalysis}
+                      onChange={(e) => setAutoAnalysis(e.target.checked)}
+                      className="w-3 h-3"
+                    />
+                    <label className="text-zinc-400">Auto-run analysis</label>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -601,7 +516,6 @@ const LiveCodeSessions = () => {
                         onClick={() => {
                           const shareUrl = `${window.location.origin}/teams/session/${selectedSession}`;
                           navigator.clipboard.writeText(shareUrl);
-                          // You could add a toast notification here
                           alert("Session link copied to clipboard!");
                         }}
                       >
@@ -634,7 +548,8 @@ const LiveCodeSessions = () => {
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() => handleCodeChange(currentCode)}
+                          onClick={() => runLayerAnalysis(currentCode)}
+                          disabled={isAnalyzing || !currentCode.trim()}
                         >
                           <Target className="w-3 h-3 mr-1" />
                           Analyze
@@ -647,7 +562,7 @@ const LiveCodeSessions = () => {
                       placeholder="// Start typing your code here...
 // NeuroLint will analyze in real-time with 6 layers:
 // 1. Configuration validation
-// 2. Entity cleanup
+// 2. Entity cleanup  
 // 3. Component structure
 // 4. Hydration patterns
 // 5. Next.js optimization
@@ -694,19 +609,11 @@ export default function Component() {
                     </p>
                     <Button
                       className="bg-blue-600 hover:bg-blue-700"
-                      onClick={() => {
-                        const newSession = {
-                          id: `session-${Date.now()}`,
+                      onClick={() =>
+                        createSession({
                           name: `New Session - ${new Date().toLocaleTimeString()}`,
-                          repository: "live-collaboration",
-                          branch: "main",
-                          participants: teamParticipants.slice(0, 1),
-                          isActive: true,
-                          startedAt: new Date().toISOString(),
-                        };
-                        setActiveSessions((prev) => [...prev, newSession]);
-                        setSelectedSession(newSession.id);
-                      }}
+                        })
+                      }
                     >
                       <Play className="w-4 h-4 mr-2" />
                       Create New Session
@@ -769,7 +676,6 @@ export default function Component() {
                     size="sm"
                     variant="outline"
                     onClick={() => {
-                      // Toggle session pause state
                       setActiveSessions((prev) =>
                         prev.map((session) =>
                           session.id === selectedSession
@@ -811,8 +717,9 @@ export default function Component() {
                   </Button>
                 </div>
               </div>
-          )}
-        </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Settings Modal */}
         {settingsOpen && (
@@ -823,33 +730,57 @@ export default function Component() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <label className="text-white text-sm font-medium">Max Participants</label>
+                  <label className="text-white text-sm font-medium">
+                    Max Participants
+                  </label>
                   <input
                     type="number"
                     value={sessionSettings.maxParticipants}
-                    onChange={(e) => setSessionSettings(prev => ({ ...prev, maxParticipants: parseInt(e.target.value) || 10 }))}
+                    onChange={(e) =>
+                      setSessionSettings((prev) => ({
+                        ...prev,
+                        maxParticipants: parseInt(e.target.value) || 10,
+                      }))
+                    }
                     className="w-full mt-1 p-2 bg-zinc-800 text-white rounded border border-zinc-600"
-                    min="1" max="50"
+                    min="1"
+                    max="50"
                   />
                 </div>
                 <div>
-                  <label className="text-white text-sm font-medium">Analysis Delay (ms)</label>
+                  <label className="text-white text-sm font-medium">
+                    Analysis Delay (ms)
+                  </label>
                   <input
                     type="number"
                     value={sessionSettings.analysisDelay}
-                    onChange={(e) => setSessionSettings(prev => ({ ...prev, analysisDelay: parseInt(e.target.value) || 1000 }))}
+                    onChange={(e) =>
+                      setSessionSettings((prev) => ({
+                        ...prev,
+                        analysisDelay: parseInt(e.target.value) || 1000,
+                      }))
+                    }
                     className="w-full mt-1 p-2 bg-zinc-800 text-white rounded border border-zinc-600"
-                    min="100" max="5000" step="100"
+                    min="100"
+                    max="5000"
+                    step="100"
                   />
                 </div>
                 <div className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     checked={sessionSettings.autoSave}
-                    onChange={(e) => setSessionSettings(prev => ({ ...prev, autoSave: e.target.checked }))}
+                    onChange={(e) =>
+                      setSessionSettings((prev) => ({
+                        ...prev,
+                        autoSave: e.target.checked,
+                      }))
+                    }
                     className="w-4 h-4"
                   />
-                  <label className="text-white text-sm">Auto-save code to session</label>
+                  <label className="text-white text-sm">
+                    Auto-save code to session
+                  </label>
                 </div>
                 <div className="flex items-center gap-2">
                   <input
@@ -858,10 +789,15 @@ export default function Component() {
                     onChange={(e) => setAutoAnalysis(e.target.checked)}
                     className="w-4 h-4"
                   />
-                  <label className="text-white text-sm">Auto-run NeuroLint analysis</label>
+                  <label className="text-white text-sm">
+                    Auto-run NeuroLint analysis
+                  </label>
                 </div>
                 <div className="flex justify-end gap-2 pt-4">
-                  <Button variant="outline" onClick={() => setSettingsOpen(false)}>
+                  <Button
+                    variant="outline"
+                    onClick={() => setSettingsOpen(false)}
+                  >
                     Cancel
                   </Button>
                   <Button onClick={() => setSettingsOpen(false)}>
@@ -877,5 +813,4 @@ export default function Component() {
   );
 };
 
-export default LiveCodeSessions;
 export default LiveCodeSessions;
