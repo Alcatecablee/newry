@@ -202,46 +202,60 @@ const EnhancedTeamDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Enhanced Header with Live Status */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <div>
-              <div className="flex items-center gap-4 mb-2">
-                <h1 className="text-3xl font-bold text-white">
-                  Team Command Center
-                </h1>
-                {teams && teams.length > 0 ? (
-                  <select
-                    value={selectedTeamId}
-                    onChange={(e) => setSelectedTeamId(e.target.value)}
-                    className="bg-zinc-800 text-white px-3 py-1 rounded border border-zinc-600 text-sm"
+    <div className="min-h-screen bg-black text-white">
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-zinc-900/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-zinc-800/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 h-1/3 bg-zinc-900/15 rounded-full blur-3xl"></div>
+      </div>
+
+      <PageHeader
+        title="Team Command Center"
+        description="Real-time collaboration, performance analytics, and team insights for enhanced productivity."
+        icon={<Users className="w-4 h-4" />}
+        badge="Team Management"
+        actionButton={{
+          label: "Try NeuroLint",
+          href: "/app"
+        }}
+      />
+
+      <div className="relative z-10 p-6">
+        <div className="max-w-7xl mx-auto">
+          {/* Team Selector and Live Status */}
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-4">
+              {teams && teams.length > 0 ? (
+                <select
+                  value={selectedTeamId}
+                  onChange={(e) => setSelectedTeamId(e.target.value)}
+                  className="bg-zinc-800 text-white px-3 py-1 rounded border border-zinc-600 text-sm"
+                >
+                  {teams.map((team) => (
+                    <option key={team.id} value={team.id}>
+                      {team.name}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                !teamsLoading && (
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      createTeam.mutate({
+                        name: "My Team",
+                        description: "My development team",
+                      });
+                    }}
+                    disabled={createTeam.isPending}
                   >
-                    {teams.map((team) => (
-                      <option key={team.id} value={team.id}>
-                        {team.name}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  !teamsLoading && (
-                    <Button
-                      size="sm"
-                      onClick={() => {
-                        createTeam.mutate({
-                          name: "My Team",
-                          description: "My development team",
-                        });
-                      }}
-                      disabled={createTeam.isPending}
-                    >
-                      <Users className="w-4 h-4 mr-2" />
-                      {createTeam.isPending ? "Creating..." : "Create Team"}
-                    </Button>
-                  )
-                )}
-              </div>
+                    <Users className="w-4 h-4 mr-2" />
+                    {createTeam.isPending ? "Creating..." : "Create Team"}
+                  </Button>
+                )
+              )}
+
               <div className="flex items-center gap-4 text-zinc-400">
                 <div
                   className="flex items-center gap-2 cursor-pointer hover:text-white transition-colors"
@@ -253,7 +267,7 @@ const EnhancedTeamDashboard = () => {
                   }}
                 >
                   <div
-                    className={`w-2 h-2 rounded-full ${liveMode ? "bg-white animate-pulse" : "bg-gray-400"}`}
+                    className={`w-2 h-2 rounded-full ${liveMode ? "bg-green-400 animate-pulse" : "bg-gray-400"}`}
                   />
                   <span>Live Mode {liveMode ? "ON" : "OFF"}</span>
                 </div>
@@ -267,48 +281,40 @@ const EnhancedTeamDashboard = () => {
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                // AI Assistant functionality
-                console.log("AI Assistant clicked");
-                // Could open AI chat modal or navigate to AI page
-              }}
-            >
-              <Bot className="w-4 h-4 mr-2" />
-              AI Assistant
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                // Start collaborative session
-                console.log("Start Session clicked");
-                // Could redirect to live collaboration page
-                window.location.href = "/team/live-sessions";
-              }}
-            >
-              <Rocket className="w-4 h-4 mr-2" />
-              Start Session
-            </Button>
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={() => {
-                // Navigate to team settings
-                console.log("Team Settings clicked");
-                window.location.href = "/team/settings";
-              }}
-            >
-              <Settings className="w-4 h-4 mr-2" />
-              Team Settings
-            </Button>
+            <div className="flex items-center gap-4">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  console.log("AI Assistant clicked");
+                }}
+              >
+                <Bot className="w-4 h-4 mr-2" />
+                AI Assistant
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  window.location.href = "/team/live-sessions";
+                }}
+              >
+                <Rocket className="w-4 h-4 mr-2" />
+                Start Session
+              </Button>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={() => {
+                  window.location.href = "/team/settings";
+                }}
+              >
+                <Settings className="w-4 h-4 mr-2" />
+                Team Settings
+              </Button>
+            </div>
           </div>
-        </div>
 
         {/* Enhanced Metrics with Gamification */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
