@@ -36,7 +36,7 @@ export const InfoWidget: React.FC = () => {
 
       {/* Widget Panel */}
       {isOpen && (
-        <div className="w-80 bg-zinc-900/95 border border-zinc-700 rounded-2xl shadow-2xl backdrop-blur-xl overflow-hidden animate-in slide-in-from-bottom-5 duration-300">
+        <div className="w-80 bg-zinc-900/95 border border-zinc-700 rounded-2xl shadow-2xl backdrop-blur-xl overflow-hidden transform transition-all duration-300 ease-out">
           {/* Header */}
           <div className="p-4 border-b border-zinc-800">
             <div className="flex items-center justify-between">
