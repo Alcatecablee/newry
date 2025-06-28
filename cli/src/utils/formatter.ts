@@ -86,13 +86,15 @@ function formatSummary(results: any[]) {
       }
     });
 
-    console.log(`${chalk.blue("Total issues found:")} ${totalIssues}`);
+    console.log(chalk.white(`Total issues found: ${totalIssues}`));
 
-    console.log(chalk.blue("\nLayer Performance:"));
+    console.log(chalk.white("\nLayer Performance:"));
     Object.entries(layerStats).forEach(([layerId, stats]: [string, any]) => {
-      console.log(`Layer ${layerId} (${stats.name}):`);
+      console.log(chalk.white(`Layer ${layerId} (${stats.name}):`));
       console.log(
-        `  Files: ${stats.files}, Changes: ${stats.changes}, Issues: ${stats.issues}`,
+        chalk.gray(
+          `  Files: ${stats.files}, Changes: ${stats.changes}, Issues: ${stats.issues}`,
+        ),
       );
     });
   }
