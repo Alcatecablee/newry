@@ -32,7 +32,7 @@ export default function AdminTest() {
       if (response.ok) {
         setLastSaved(new Date());
         toast({
-          title: "✅ Environment variable saved!",
+          title: "Environment variable saved!",
           description: `${testKey}=${testValue} written to .env file`,
         });
       } else {
@@ -70,7 +70,7 @@ export default function AdminTest() {
       if (response.ok) {
         setLastSaved(new Date());
         toast({
-          title: "✅ Quick test successful!",
+          title: "Quick test successful!",
           description: "Multiple environment variables saved successfully",
         });
       } else {
@@ -95,8 +95,8 @@ export default function AdminTest() {
         </h1>
 
         {lastSaved && (
-          <div className="mb-6 p-4 bg-green-900/20 border border-green-500 rounded-lg">
-            ✅ Last saved: {lastSaved.toLocaleString()}
+          <div className="mb-6 p-4 bg-zinc-900/20 border border-zinc-500 rounded-lg">
+            Last saved: {lastSaved.toLocaleString()}
           </div>
         )}
 
@@ -177,7 +177,7 @@ export default function AdminTest() {
                   const response = await fetch("/api/health");
                   const data = await response.json();
                   toast({
-                    title: "✅ API is working",
+                    title: "API is working",
                     description: `Server status: ${data.status} at ${data.timestamp}`,
                   });
                 } catch (error) {
