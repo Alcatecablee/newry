@@ -42,7 +42,9 @@ const AppPage = () => {
   const [insights, setInsights] = useState<NeuroLintLayerResult[]>([]);
   const [processing, setProcessing] = useState(false);
   const [enabledLayers, setEnabledLayers] = useState<number[]>([1, 2, 3, 4]);
-  const [mode, setMode] = useState<"drop" | "paste" | "github">("drop");
+  const [mode, setMode] = useState<"drop" | "paste" | "github" | "repo">(
+    "drop",
+  );
   const [repoFiles, setRepoFiles] = useState<RepoFile[]>([]);
 
   const handleFileUpload = async (code: string) => {
