@@ -429,8 +429,12 @@ export default function Index() {
                 <span className="text-sm text-zinc-400 ml-4">Terminal</span>
               </div>
               <div className="p-6 font-mono text-sm space-y-2">
+                <div className="text-white">$ neurolint login</div>
+                <div className="text-zinc-400">NeuroLint Authentication</div>
+                <div className="text-zinc-400">Authentication successful</div>
                 <div className="text-white">$ neurolint analyze src/</div>
-                <div className="text-zinc-400">Analyzing 24 files...</div>
+                <div className="text-zinc-400">Discovering and validating files...</div>
+                <div className="text-zinc-400">Found 24 valid files to analyze</div>
                 <div className="text-white">
                   ��� Layer 1: Configuration (0.2s)
                 </div>
