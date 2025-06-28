@@ -181,65 +181,84 @@ export const SiteHeader = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-zinc-800/50">
-            <div className="px-4 py-3 space-y-2">
-              <Link
-                to="/features"
-                className="block px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Features
-              </Link>
-              <Link
-                to="/pricing"
-                className="block px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Pricing
-              </Link>
-              <Link
-                to="/app"
-                className="block px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                App
-              </Link>
-              <Link
-                to="/teams"
-                className="block px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Teams
-              </Link>
-              <Link
-                to="/test"
-                className="block px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Test Suite
-              </Link>
-              <Link
-                to="/admin"
-                className="block px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Admin
-              </Link>
+        {/* Mobile Navigation Overlay */}
+        <div
+          className={`md:hidden fixed inset-0 z-40 transition-all duration-300 ease-out ${
+            isMenuOpen
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          }`}
+        >
+          {/* Backdrop */}
+          <div
+            className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-out ${
+              isMenuOpen ? "opacity-100" : "opacity-0"
+            }`}
+            onClick={() => setIsMenuOpen(false)}
+            aria-hidden="true"
+          />
 
-              <div className="px-3 py-2 border-t border-zinc-800/50 mt-2 pt-4">
+          {/* Mobile Menu Panel */}
+          <div
+            ref={menuRef}
+            id="mobile-menu"
+            className={`absolute top-16 left-0 right-0 bg-black/98 backdrop-blur-xl border-b border-zinc-800/50 shadow-2xl shadow-black/50 transform transition-all duration-300 ease-out ${
+              isMenuOpen
+                ? "translate-y-0 opacity-100"
+                : "-translate-y-full opacity-0"
+            }`}
+            role="menu"
+            aria-labelledby="mobile-menu-button"
+          >
+            <nav className="px-4 py-6 space-y-1" role="navigation">
+              {[
+                { to: "/features", label: "Features" },
+                { to: "/pricing", label: "Pricing" },
+                { to: "/app", label: "App" },
+                { to: "/teams", label: "Teams" },
+                { to: "/test", label: "Test Suite" },
+                { to: "/admin", label: "Admin" },
+              ].map((item, index) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className={`block px-4 py-3 text-base font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-300 ease-out transform hover:translate-x-2 focus:translate-x-2 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-black min-h-[48px] flex items-center ${
+                    location.pathname === item.to
+                      ? "text-white bg-zinc-800/50"
+                      : ""
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                  role="menuitem"
+                  style={{
+                    animationDelay: `${index * 50}ms`,
+                    animation: isMenuOpen
+                      ? `slideInLeft 0.3s ease-out ${index * 50}ms forwards`
+                      : "none",
+                  }}
+                >
+                  {item.label}
+                </Link>
+              ))}
+
+              {/* Auth Section in Mobile Menu */}
+              <div className="border-t border-zinc-800/50 mt-4 pt-4 px-4">
                 {loading ? (
-                  <div className="w-8 h-8 rounded-full bg-zinc-800/50 animate-pulse" />
+                  <div
+                    className="w-8 h-8 rounded-full bg-zinc-800/50 animate-pulse"
+                    role="status"
+                    aria-label="Loading user authentication status"
+                  />
                 ) : isAuthenticated ? (
                   <UserButton />
                 ) : (
-                  <SignInButton />
+                  <div className="w-full">
+                    <SignInButton />
+                  </div>
                 )}
               </div>
-            </div>
+            </nav>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );
