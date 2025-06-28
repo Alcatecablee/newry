@@ -115,7 +115,7 @@ export function SignInButton() {
   if (showModal) {
     return (
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center transition-all duration-300 ease-out ${
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-all duration-300 ease-out ${
           isModalVisible ? "opacity-100" : "opacity-0"
         }`}
         role="dialog"
@@ -123,23 +123,32 @@ export function SignInButton() {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
         style={{
-          padding: "20px",
+          display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          display: "flex",
+          minHeight: "100vh",
+          padding: "20px",
+          boxSizing: "border-box",
         }}
       >
         <div
           ref={modalRef}
-          className={`bg-zinc-900 rounded-xl border border-zinc-800 w-full max-w-md shadow-2xl transform transition-all duration-300 ease-out ${
+          className={`bg-zinc-900 rounded-xl border border-zinc-800 shadow-2xl transform transition-all duration-300 ease-out ${
             isModalVisible
               ? "opacity-100 scale-100 translate-y-0"
               : "opacity-0 scale-95 translate-y-4"
           }`}
           style={{
+            width: "100%",
+            maxWidth: "400px",
             maxHeight: "90vh",
             overflow: "auto",
-            margin: "0 auto",
+            position: "relative",
+            top: "50%",
+            left: "50%",
+            transform: isModalVisible
+              ? "translate(-50%, -50%) scale(1)"
+              : "translate(-50%, -50%) scale(0.95) translateY(16px)",
           }}
         >
           {/* Header */}
