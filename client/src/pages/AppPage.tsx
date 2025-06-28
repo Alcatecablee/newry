@@ -94,14 +94,6 @@ const AppPage = () => {
         }
       : null;
 
-  const toggleLayer = (layerId: number) => {
-    setEnabledLayers((prev) =>
-      prev.includes(layerId)
-        ? prev.filter((id) => id !== layerId)
-        : [...prev, layerId].sort(),
-    );
-  };
-
   return (
     <div className="min-h-screen bg-black">
       {/* Background Effects */}
