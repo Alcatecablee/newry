@@ -261,7 +261,7 @@ export function APISection() {
               your applications today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+              <button className="bg-white hover:bg-gray-100 text-black px-6 py-3 rounded-lg font-medium transition-colors">
                 Get API Key
               </button>
               <button className="border border-gray-600 hover:bg-gray-800 text-white px-6 py-3 rounded-lg font-medium transition-colors">
