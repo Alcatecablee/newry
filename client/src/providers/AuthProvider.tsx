@@ -70,9 +70,30 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   const updateUserProfile = async (supabaseUser: SupabaseUser) => {
+    // Always create the mapped user first
+    const mappedUser: User = {
+      id: supabaseUser.id,
+      email: supabaseUser.email || "",
+      user_metadata: {
+        full_name:
+          supabaseUser.user_metadata?.full_name ||
+          supabaseUser.email?.split("@")[0],
+        avatar_url: supabaseUser.user_metadata?.avatar_url,
+      },
+      app_metadata: {
+        plan_type: supabaseUser.app_metadata?.plan_type || "free",
+        monthly_transformations_used:
+          supabaseUser.app_metadata?.monthly_transformations_used || 0,
+        monthly_limit: supabaseUser.app_metadata?.monthly_limit || 25,
+      },
+    };
+
+    // Set user immediately to avoid blocking the UI
+    setUser(mappedUser);
+
+    // Try to sync with database in the background
     try {
-      // Sync user with our database
-      await fetch("/api/auth/sync-user", {
+      const response = await fetch("/api/auth/sync-user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,47 +103,26 @@ export function AuthProvider({ children }: AuthProviderProps) {
           email: supabaseUser.email,
           user_metadata: supabaseUser.user_metadata,
         }),
+        // Add timeout to prevent hanging requests
+        signal: AbortSignal.timeout(10000), // 10 second timeout
       });
 
-      // Map Supabase user to our User type
-      const mappedUser: User = {
-        id: supabaseUser.id,
-        email: supabaseUser.email || "",
-        user_metadata: {
-          full_name:
-            supabaseUser.user_metadata?.full_name ||
-            supabaseUser.email?.split("@")[0],
-          avatar_url: supabaseUser.user_metadata?.avatar_url,
-        },
-        app_metadata: {
-          plan_type: supabaseUser.app_metadata?.plan_type || "free",
-          monthly_transformations_used:
-            supabaseUser.app_metadata?.monthly_transformations_used || 0,
-          monthly_limit: supabaseUser.app_metadata?.monthly_limit || 25,
-        },
-      };
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-      setUser(mappedUser);
+      const syncedUser = await response.json();
+      console.log("User synced successfully with database:", syncedUser.id);
+
+      // Optionally update user with synced data if needed
+      // setUser(syncedUser);
     } catch (error) {
-      console.error("Failed to sync user with database:", error);
-      // Still set the user even if sync fails
-      const mappedUser: User = {
-        id: supabaseUser.id,
-        email: supabaseUser.email || "",
-        user_metadata: {
-          full_name:
-            supabaseUser.user_metadata?.full_name ||
-            supabaseUser.email?.split("@")[0],
-          avatar_url: supabaseUser.user_metadata?.avatar_url,
-        },
-        app_metadata: {
-          plan_type: supabaseUser.app_metadata?.plan_type || "free",
-          monthly_transformations_used:
-            supabaseUser.app_metadata?.monthly_transformations_used || 0,
-          monthly_limit: supabaseUser.app_metadata?.monthly_limit || 25,
-        },
-      };
-      setUser(mappedUser);
+      console.warn(
+        "Failed to sync user with database (continuing with cached user):",
+        error,
+      );
+      // Don't throw the error - just log it and continue with the mapped user
+      // The user can still use the app even if sync fails
     }
   };
 
