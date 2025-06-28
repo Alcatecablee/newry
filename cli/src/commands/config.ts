@@ -1,6 +1,39 @@
 import chalk from "chalk";
-import { loadConfig, saveConfig, validateConfig } from "../utils/config";
+import {
+  loadConfig,
+  saveConfig,
+  validateConfig,
+  NeuroLintConfig,
+} from "../utils/config";
 import { validateApiUrl } from "../utils/validation";
+
+function getConfigValue(config: NeuroLintConfig, key: string): any {
+  if (key.includes(".")) {
+    const keys = key.split(".");
+    let current: any = config;
+    for (const k of keys) {
+      current = current?.[k];
+      if (current === undefined) return undefined;
+    }
+    return current;
+  } else {
+    return (config as any)[key];
+  }
+}
+
+function setConfigValue(config: any, key: string, value: string): void {
+  if (key.includes(".")) {
+    const keys = key.split(".");
+    let current = config;
+    for (let i = 0; i < keys.length - 1; i++) {
+      if (!current[keys[i]]) current[keys[i]] = {};
+      current = current[keys[i]];
+    }
+    current[keys[keys.length - 1]] = value;
+  } else {
+    config[key] = value;
+  }
+}
 
 interface ConfigOptions {
   set?: string;
