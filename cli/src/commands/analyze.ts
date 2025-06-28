@@ -32,32 +32,36 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
     const configValidation = await validateConfig(config);
 
     if (!configValidation.valid) {
-      spinner.fail('Configuration validation failed');
-      configValidation.errors.forEach(error => console.log(chalk.white(`ERROR: ${error}`)));
+      spinner.fail("Configuration validation failed");
+      configValidation.errors.forEach((error) =>
+        console.log(chalk.white(`ERROR: ${error}`)),
+      );
       return;
     }
 
     // Check authentication
     if (!config.apiKey) {
       spinner.fail("Authentication required");
-      console.log(
-        chalk.white('Run "neurolint login" to authenticate first'),
-      );
+      console.log(chalk.white('Run "neurolint login" to authenticate first'));
       return;
     }
 
     // Validate input parameters
-    const layersValidation = validateLayerNumbers(options.layers || '1,2,3,4');
+    const layersValidation = validateLayerNumbers(options.layers || "1,2,3,4");
     if (!layersValidation.valid) {
-      spinner.fail('Invalid layer specification');
-      layersValidation.errors.forEach(error => console.log(chalk.white(`ERROR: ${error}`)));
+      spinner.fail("Invalid layer specification");
+      layersValidation.errors.forEach((error) =>
+        console.log(chalk.white(`ERROR: ${error}`)),
+      );
       return;
     }
 
-    const outputValidation = validateOutputFormat(options.output || 'table');
+    const outputValidation = validateOutputFormat(options.output || "table");
     if (!outputValidation.valid) {
-      spinner.fail('Invalid output format');
-      outputValidation.errors.forEach(error => console.log(chalk.white(`ERROR: ${error}`)));
+      spinner.fail("Invalid output format");
+      outputValidation.errors.forEach((error) =>
+        console.log(chalk.white(`ERROR: ${error}`)),
+      );
       return;
     }
 
@@ -91,9 +95,9 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
     }
 
     if (fileValidation.warnings.length > 0) {
-      spinner.warn('File validation warnings');
-      fileValidation.warnings.forEach(warning => console.log(chalk.gray(`WARNING: ${warning}`)));
-    }
+      spinner.warn("File validation warnings");
+      fileValidation.warnings.forEach((warning) =>
+        console.log(chalk.gray(`WARNING: ${warning}`)),
       );
     }
 
