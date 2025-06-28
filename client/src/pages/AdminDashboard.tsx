@@ -372,6 +372,7 @@ const AdminDashboard = () => {
   };
 
   const saveConfiguration = async () => {
+    console.log("Save configuration called with envConfig:", envConfig);
     setSaving(true);
     try {
       const response = await fetch("/api/admin/save-env", {
@@ -385,6 +386,7 @@ const AdminDashboard = () => {
       });
 
       const result = await response.json();
+      console.log("Save response:", result);
 
       if (response.ok) {
         setLastUpdated(new Date());
@@ -404,6 +406,7 @@ const AdminDashboard = () => {
 
       checkSystemStatus();
     } catch (error: any) {
+      console.error("Save error:", error);
       toast({
         title: "❌ Save failed",
         description: error.message || "Could not save configuration",
