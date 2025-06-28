@@ -45,7 +45,7 @@ export function PricingCard({
         <ul className="space-y-3">
           {planData.features.map((feature, index) => (
             <li key={index} className="flex items-center gap-3 text-gray-300">
-              <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+              <Check className="w-5 h-5 text-zinc-400 flex-shrink-0" />
               <span>{feature}</span>
             </li>
           ))}
