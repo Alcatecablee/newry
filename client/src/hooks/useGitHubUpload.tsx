@@ -250,26 +250,77 @@ ${suggestions.join("\n")}`);
     owner: string,
     repo: string,
     path = "",
+    maxFiles = 50, // Reduced limit to avoid rate limits
   ): Promise<{ path: string; content: string }[]> => {
     const contents = await fetchRepoContents(owner, repo, path);
     const files: { path: string; content: string }[] = [];
 
-    const supportedExtensions = [".js", ".jsx", ".ts", ".tsx", ".json"];
-    const excludePatterns = ["node_modules", ".git", "dist", "build", ".next"];
+    // More comprehensive file filtering
+    const supportedExtensions = [".js", ".jsx", ".ts", ".tsx", ".json", ".md"];
+    const excludePatterns = [
+      "node_modules",
+      ".git",
+      "dist",
+      "build",
+      ".next",
+      "coverage",
+      "__pycache__",
+      ".vscode",
+      ".idea",
+    ];
 
-    for (const item of contents) {
+    // Filter contents first to reduce API calls
+    const filteredContents = contents.filter((item) => {
       if (excludePatterns.some((pattern) => item.path.includes(pattern))) {
-        continue;
+        return false;
       }
 
       if (item.type === "file") {
         const hasValidExtension = supportedExtensions.some((ext) =>
           item.name.endsWith(ext),
         );
+        const isImportantFile = [
+          "package.json",
+          "tsconfig.json",
+          "README.md",
+        ].includes(item.name);
+        return hasValidExtension || isImportantFile;
+      }
 
-        if (hasValidExtension && item.download_url) {
+      return true; // Include directories
+    });
+
+    console.log(
+      `Processing ${filteredContents.length} filtered items in ${path || "root"}`,
+    );
+
+    // Process items with better rate limiting
+    for (
+      let i = 0;
+      i < filteredContents.length && files.length < maxFiles;
+      i++
+    ) {
+      const item = filteredContents[i];
+
+      // Add delay between items to respect rate limits
+      if (i > 0) {
+        await GitHubRateLimit.delay(200);
+      }
+
+      if (item.type === "file") {
+        if (item.download_url) {
           try {
             const content = await downloadFile(item.download_url);
+
+            // Skip extremely large files
+            if (content.length > 300 * 1024) {
+              // 300KB limit
+              console.warn(
+                `Skipping large file: ${item.path} (${Math.round(content.length / 1024)}KB)`,
+              );
+              continue;
+            }
+
             files.push({
               path: item.path,
               content,
@@ -284,17 +335,30 @@ ${suggestions.join("\n")}`);
                   }
                 : null,
             );
+
+            console.log(`✓ Downloaded: ${item.path}`);
           } catch (error) {
             console.warn(`Failed to download ${item.path}:`, error);
           }
         }
-      } else if (item.type === "dir") {
-        const subFiles = await getAllFiles(owner, repo, item.path);
-        files.push(...subFiles);
+      } else if (item.type === "dir" && files.length < maxFiles) {
+        try {
+          const remainingQuota = maxFiles - files.length;
+          const subFiles = await getAllFiles(
+            owner,
+            repo,
+            item.path,
+            remainingQuota,
+          );
+          files.push(...subFiles);
+        } catch (error) {
+          console.warn(`Failed to process directory ${item.path}:`, error);
+          // Continue with other items instead of failing completely
+        }
       }
     }
 
-    return files;
+    return files.slice(0, maxFiles);
   };
 
   const uploadRepository = async (
