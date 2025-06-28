@@ -17,7 +17,7 @@ export function BetaBanner() {
             </span>
           </div>
           <span className="text-sm text-zinc-200 font-medium">
-            NeuroLint is currently in development
+            Advanced code transformation tool - AI integration coming soon
           </span>
           <a
             href="mailto:founder@neurolint.com"
