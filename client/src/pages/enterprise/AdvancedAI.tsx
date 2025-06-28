@@ -416,13 +416,13 @@ const AdvancedAI = () => {
                   Advanced AI Platform
                 </h1>
                 <p className="text-zinc-400">
-                  Next-generation AI-powered development assistance
+                  Next-generation development assistance platform
                 </p>
               </div>
             </div>
-            <Badge className="bg-purple-900 text-purple-200 flex items-center gap-1">
+            <Badge className="bg-zinc-900 text-zinc-200 flex items-center gap-1">
               <Sparkles className="w-3 h-3" />
-              AI-Powered
+              Advanced
             </Badge>
           </div>
           <div className="flex items-center gap-4">

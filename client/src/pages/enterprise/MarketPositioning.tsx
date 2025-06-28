@@ -304,7 +304,7 @@ const MarketPositioning = () => {
   const valuePropositions: ValueProposition[] = [
     {
       id: "ai-automation",
-      title: "AI-Powered Code Transformation",
+      title: "Advanced Code Transformation",
       description:
         "Automatically modernize legacy code with enterprise-grade AI that understands your team's patterns",
       target_persona: ["cto", "dev-lead"],
