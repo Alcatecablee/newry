@@ -11,11 +11,11 @@ const faqData: FAQItem[] = [
   {
     question: "What is NeuroLint and how does it work?",
     answer:
-      "NeuroLint is an AI-powered code analysis and transformation platform that automatically fixes code issues, improves performance, and enforces best practices. It uses a 6-layer analysis system combining AST parsing, pattern recognition, and machine learning to identify and fix problems in TypeScript, JavaScript, React, and Next.js codebases.",
+      "NeuroLint is an advanced code analysis and transformation platform that automatically fixes code issues, improves performance, and enforces best practices. It uses a sophisticated 6-layer analysis system combining AST parsing, pattern recognition, and rule-based transformations to identify and fix problems in TypeScript, JavaScript, React, and Next.js codebases. Built with AI-ready architecture for future machine learning integration.",
     keywords: [
       "code analysis",
       "automated fixing",
-      "AI-powered",
+      "advanced transformation",
       "TypeScript",
       "JavaScript",
       "React",
