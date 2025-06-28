@@ -19,26 +19,26 @@ export async function statusCommand(options: StatusOptions) {
     console.log(chalk.white("Configuration:"));
     if (hasConfig) {
       console.log(
-        `${chalk.green("✓")} Configuration file found: .neurolint.json`,
+        `${chalk.white("PASS")} Configuration file found: .neurolint.json`,
       );
 
       const config = await loadConfig();
-      console.log(`${chalk.blue("  API URL:")} ${config.api.url}`);
+      console.log(`${chalk.white("  API URL:")} ${config.api.url}`);
       console.log(
-        `${chalk.blue("  Enabled Layers:")} ${config.layers.enabled.join(", ")}`,
+        `${chalk.white("  Enabled Layers:")} ${config.layers.enabled.join(", ")}`,
       );
-      console.log(`${chalk.blue("  Output Format:")} ${config.output.format}`);
+      console.log(`${chalk.white("  Output Format:")} ${config.output.format}`);
 
       if (config.apiKey) {
-        console.log(`${chalk.green("✓")} API key configured`);
+        console.log(`${chalk.white("PASS")} API key configured`);
       } else {
         console.log(
-          `${chalk.yellow("⚠")} No API key configured (run: neurolint login)`,
+          `${chalk.white("WARN")} No API key configured (run: neurolint login)`,
         );
       }
     } else {
       console.log(
-        `${chalk.yellow("⚠")} No configuration found (run: neurolint init)`,
+        `${chalk.white("WARN")} No configuration found (run: neurolint init)`,
       );
     }
 
@@ -47,27 +47,27 @@ export async function statusCommand(options: StatusOptions) {
     const packageJsonPath = path.join(process.cwd(), "package.json");
     if (await fs.pathExists(packageJsonPath)) {
       const packageJson = await fs.readJson(packageJsonPath);
-      console.log(`${chalk.green("✓")} package.json found`);
+      console.log(`${chalk.white("PASS")} package.json found`);
 
       const deps = {
         ...packageJson.dependencies,
         ...packageJson.devDependencies,
       };
       if (deps.typescript) {
-        console.log(`${chalk.green("✓")} TypeScript project detected`);
+        console.log(`${chalk.white("PASS")} TypeScript project detected`);
       }
       if (deps.react) {
-        console.log(`${chalk.green("✓")} React project detected`);
+        console.log(`${chalk.white("PASS")} React project detected`);
       }
       if (deps.next) {
-        console.log(`${chalk.green("✓")} Next.js project detected`);
+        console.log(`${chalk.white("PASS")} Next.js project detected`);
       }
     }
 
     // Check for TypeScript config
     const tsconfigPath = path.join(process.cwd(), "tsconfig.json");
     if (await fs.pathExists(tsconfigPath)) {
-      console.log(`${chalk.green("✓")} tsconfig.json found`);
+      console.log(`${chalk.white("PASS")} tsconfig.json found`);
     }
 
     // Scan for files
@@ -80,10 +80,10 @@ export async function statusCommand(options: StatusOptions) {
     });
 
     console.log(chalk.white("\nFile Statistics:"));
-    console.log(`${chalk.blue("  JavaScript files:")} ${jsFiles.length}`);
-    console.log(`${chalk.blue("  TypeScript files:")} ${tsFiles.length}`);
+    console.log(`${chalk.white("  JavaScript files:")} ${jsFiles.length}`);
+    console.log(`${chalk.white("  TypeScript files:")} ${tsFiles.length}`);
     console.log(
-      `${chalk.blue("  Total files:")} ${jsFiles.length + tsFiles.length}`,
+      `${chalk.white("  Total files:")} ${jsFiles.length + tsFiles.length}`,
     );
 
     if (options.detailed) {
@@ -97,7 +97,7 @@ export async function statusCommand(options: StatusOptions) {
       });
 
       Object.entries(extensions).forEach(([ext, count]) => {
-        console.log(`${chalk.blue(`  ${ext} files:`)} ${count}`);
+        console.log(`${chalk.white(`  ${ext} files:`)} ${count}`);
       });
 
       // Check for common patterns
@@ -109,7 +109,7 @@ export async function statusCommand(options: StatusOptions) {
           /\/[A-Z]/.test(f),
       );
       console.log(
-        `${chalk.blue("  Component files:")} ${componentFiles.length}`,
+        `${chalk.white("  Component files:")} ${componentFiles.length}`,
       );
 
       const testFiles = [...jsFiles, ...tsFiles].filter(
@@ -118,7 +118,7 @@ export async function statusCommand(options: StatusOptions) {
           f.includes(".spec.") ||
           f.includes("__tests__"),
       );
-      console.log(`${chalk.blue("  Test files:")} ${testFiles.length}`);
+      console.log(`${chalk.white("  Test files:")} ${testFiles.length}`);
     }
 
     // Health check with retry logic
