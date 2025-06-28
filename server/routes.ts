@@ -334,16 +334,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
           .json({ error: "No authorization token provided" });
       }
 
-      // For now, return mock data since we're using Supabase auth
-      // TODO: Get actual user data from Supabase and calculate real usage stats
-      const mockUsageStats = {
-        totalTransformations: 42,
-        successfulTransformations: 40,
-        totalExecutionTime: 2400, // in milliseconds
-        successRate: 95.2,
-      };
+      // TODO: Extract user ID from Supabase JWT token
+      // For now, get all transformations data from database
+      const transformationsQuery = await db.select().from(transformations);
 
-      res.json(mockUsageStats);
+      const totalTransformations = transformationsQuery.length;
+      const successfulTransformations = transformationsQuery.filter(
+        (t) => t.success,
+      ).length;
+      const totalExecutionTime = transformationsQuery.reduce(
+        (sum, t) => sum + (t.executionTimeMs || 0),
+        0,
+      );
+      const successRate =
+        totalTransformations > 0
+          ? (successfulTransformations / totalTransformations) * 100
+          : 0;
+
+      res.json({
+        totalTransformations,
+        successfulTransformations,
+        totalExecutionTime,
+        successRate,
+      });
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch usage statistics" });
     }
