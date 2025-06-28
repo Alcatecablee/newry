@@ -86,6 +86,48 @@ const LiveCodeSessions = () => {
     );
   }
 
+  // Real-time NeuroLint analysis
+  const runLayerAnalysis = async (code: string) => {
+    if (!code.trim()) return;
+
+    setIsAnalyzing(true);
+    setLayerAnalysis((prev) =>
+      prev.map((layer) => ({ ...layer, status: "pending" })),
+    );
+
+    try {
+      // Run NeuroLint transformation with all layers
+      const results = await orchestrateTransformation(code, {
+        dryRun: false,
+        verbose: true,
+        skipLayers: [],
+      });
+
+      // Update layer status based on results
+      if (results.layerResults) {
+        setLayerAnalysis((prev) =>
+          prev.map((layer) => {
+            const result = results.layerResults!.find((r) =>
+              r.name.includes(layer.name.split(" ")[0]),
+            );
+            return {
+              ...layer,
+              status: result?.success ? "success" : "error",
+              result: result,
+            };
+          }),
+        );
+      }
+    } catch (error) {
+      console.error("Layer analysis failed:", error);
+      setLayerAnalysis((prev) =>
+        prev.map((layer) => ({ ...layer, status: "error" })),
+      );
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
   // Convert team members to participants (only if they have active sessions)
   const teamParticipants: Participant[] =
     teamData?.members?.map((member) => ({
@@ -96,6 +138,16 @@ const LiveCodeSessions = () => {
       micStatus: "off",
       videoStatus: "off",
     })) || [];
+
+  // Handle code changes and trigger analysis
+  const handleCodeChange = (newCode: string) => {
+    setCurrentCode(newCode);
+    // Debounce analysis to avoid too many calls
+    const timeoutId = setTimeout(() => {
+      runLayerAnalysis(newCode);
+    }, 1000);
+    return () => clearTimeout(timeoutId);
+  };
 
   return (
     <div className="min-h-screen bg-black text-white">
