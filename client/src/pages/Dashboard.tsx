@@ -220,7 +220,8 @@ export default function Dashboard() {
             </div>
             <div className="space-y-1">
               <p className="text-2xl font-bold text-white">
-                {user.monthlyLimit - user.monthlyTransformationsUsed}
+                {(user.app_metadata.monthly_limit || 25) -
+                  (user.app_metadata.monthly_transformations_used || 0)}
               </p>
               <p className="text-sm text-zinc-400">Remaining This Month</p>
             </div>
