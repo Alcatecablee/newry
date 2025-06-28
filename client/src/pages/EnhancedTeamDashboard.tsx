@@ -315,7 +315,7 @@ const EnhancedTeamDashboard = () => {
                 <h1 className="text-3xl font-bold text-white">
                   Team Command Center
                 </h1>
-                {teams && teams.length > 0 && (
+                {teams && teams.length > 0 ? (
                   <select
                     value={selectedTeamId}
                     onChange={(e) => setSelectedTeamId(e.target.value)}
@@ -327,6 +327,22 @@ const EnhancedTeamDashboard = () => {
                       </option>
                     ))}
                   </select>
+                ) : (
+                  !teamsLoading && (
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        createTeam.mutate({
+                          name: "My Team",
+                          description: "My development team",
+                        });
+                      }}
+                      disabled={createTeam.isPending}
+                    >
+                      <Users className="w-4 h-4 mr-2" />
+                      {createTeam.isPending ? "Creating..." : "Create Team"}
+                    </Button>
+                  )
                 )}
               </div>
               <div className="flex items-center gap-4 text-zinc-400">
