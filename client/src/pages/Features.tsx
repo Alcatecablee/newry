@@ -40,8 +40,8 @@ const Features = () => {
       description:
         "Optimizes TypeScript, Next.js config, and package.json with modern settings.",
       icon: Settings,
-      color: "text-blue-400",
-      bgColor: "bg-blue-500/20",
+      color: "text-zinc-400",
+      bgColor: "bg-zinc-500/20",
       details: [
         "TypeScript configuration optimization",
         "Next.js App Router best practices",
@@ -56,8 +56,8 @@ const Features = () => {
       description:
         "Cleans up HTML entities, old patterns, and modernizes JS/TS code.",
       icon: Search,
-      color: "text-green-400",
-      bgColor: "bg-green-500/20",
+      color: "text-zinc-400",
+      bgColor: "bg-zinc-500/20",
       details: [
         "HTML entity cleanup",
         "Legacy pattern modernization",
@@ -72,8 +72,8 @@ const Features = () => {
       description:
         "Solves missing key props, accessibility, prop types, and missing imports.",
       icon: Puzzle,
-      color: "text-purple-400",
-      bgColor: "bg-purple-500/20",
+      color: "text-zinc-400",
+      bgColor: "bg-zinc-500/20",
       details: [
         "React key prop fixes",
         "Accessibility improvements",
@@ -87,8 +87,8 @@ const Features = () => {
       name: "Hydration & SSR Guard",
       description: "Fixes hydration bugs and adds SSR/localStorage protection.",
       icon: Shield,
-      color: "text-orange-400",
-      bgColor: "bg-orange-500/20",
+      color: "text-zinc-400",
+      bgColor: "bg-zinc-500/20",
       details: [
         "Hydration mismatch fixes",
         "SSR compatibility checks",
@@ -103,8 +103,8 @@ const Features = () => {
       description:
         "Optimizes Next.js App Router patterns, 'use client' directives, and import order.",
       icon: Rocket,
-      color: "text-pink-400",
-      bgColor: "bg-pink-500/20",
+      color: "text-zinc-400",
+      bgColor: "bg-zinc-500/20",
       details: [
         "App Router pattern optimization",
         "'use client' directive placement",
@@ -119,8 +119,8 @@ const Features = () => {
       description:
         "Adds error handling, performance optimizations, and code quality improvements.",
       icon: TrendingUp,
-      color: "text-yellow-400",
-      bgColor: "bg-yellow-500/20",
+      color: "text-zinc-400",
+      bgColor: "bg-zinc-500/20",
       details: [
         "Error boundary integration",
         "Performance monitoring",
