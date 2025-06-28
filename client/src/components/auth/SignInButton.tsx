@@ -92,7 +92,7 @@ export function SignInButton() {
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-colors"
                   placeholder="Enter your full name"
                   required
                 />
@@ -160,7 +160,7 @@ export function SignInButton() {
               <button
                 type="button"
                 onClick={switchMode}
-                className="text-violet-400 hover:text-violet-300 font-medium transition-colors"
+                className="text-zinc-400 hover:text-zinc-300 font-medium transition-colors"
               >
                 {mode === "signin" ? "Sign up" : "Sign in"}
               </button>
