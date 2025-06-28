@@ -46,6 +46,16 @@ interface LiveSession {
   participants: Participant[];
   isActive: boolean;
   startedAt: string;
+  currentCode?: string;
+  layerResults?: NeuroLintLayerResult[];
+  isAnalyzing?: boolean;
+}
+
+interface LayerStatus {
+  layerId: number;
+  name: string;
+  status: "pending" | "running" | "success" | "error";
+  result?: NeuroLintLayerResult;
 }
 
 const LiveCodeSessions = () => {
