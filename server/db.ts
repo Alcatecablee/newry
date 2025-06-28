@@ -110,7 +110,7 @@ async function createSampleData(sqlite: Database.Database) {
         );
 
       console.log("✅ Sample data created successfully");
-      console.log("   📧 Test credentials: test@example.com / password123");
+      console.log("   📧 Authentication: Sign up with Supabase");
     }
   } catch (error) {
     console.error("❌ Error creating sample data:", error);
