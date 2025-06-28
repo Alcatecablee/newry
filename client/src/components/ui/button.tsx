@@ -62,18 +62,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Comp = asChild ? Slot : "button";
 
-    return (
-      <Comp
-        className={cn(
-          buttonVariants({ variant, size }),
-          loading && "cursor-wait",
-          className,
-        )}
-        ref={ref}
-        disabled={disabled || loading}
-        aria-disabled={disabled || loading}
-        {...props}
-      >
+    const content = (
+      <>
         {loading ? (
           <>
             <div
@@ -92,6 +82,43 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out pointer-events-none"
           aria-hidden="true"
         />
+      </>
+    );
+
+    if (asChild) {
+      return (
+        <Comp
+          className={cn(
+            buttonVariants({ variant, size }),
+            loading && "cursor-wait",
+            className,
+          )}
+          ref={ref}
+          {...props}
+        >
+          <span
+            className="relative flex items-center justify-center gap-2 w-full h-full"
+            aria-disabled={disabled || loading}
+          >
+            {content}
+          </span>
+        </Comp>
+      );
+    }
+
+    return (
+      <Comp
+        className={cn(
+          buttonVariants({ variant, size }),
+          loading && "cursor-wait",
+          className,
+        )}
+        ref={ref}
+        disabled={disabled || loading}
+        aria-disabled={disabled || loading}
+        {...props}
+      >
+        {content}
       </Comp>
     );
   },
