@@ -275,14 +275,14 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <span className="text-zinc-300">Plan Type</span>
                 <span className="text-white font-medium">
-                  {user.planType.toUpperCase()}
+                  {(user.app_metadata.plan_type || "free").toUpperCase()}
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
                 <span className="text-zinc-300">Monthly Limit</span>
                 <span className="text-white font-medium">
-                  {user.monthlyLimit} transformations
+                  {user.app_metadata.monthly_limit || 25} transformations
                 </span>
               </div>
 
@@ -297,7 +297,7 @@ export default function Dashboard() {
                         : "text-green-400"
                   }`}
                 >
-                  {user.monthlyTransformationsUsed} (
+                  {user.app_metadata.monthly_transformations_used || 0} (
                   {getUsagePercentage().toFixed(1)}%)
                 </span>
               </div>
