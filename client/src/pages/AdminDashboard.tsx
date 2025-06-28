@@ -26,6 +26,8 @@ import {
   CheckCircle,
   XCircle,
   Info,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 
 interface EnvConfig {
