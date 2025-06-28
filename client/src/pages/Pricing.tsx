@@ -217,10 +217,11 @@ const Pricing = () => {
                   What are the 6 transformation layers?
                 </h4>
                 <p className="text-zinc-400 text-sm">
-                  Our AI system uses 6 specialized layers: Configuration
-                  Validation, Pattern & Entity Fixes, Component Best Practices,
-                  Hydration & SSR Guard, Next.js Optimization, and Quality &
-                  Performance improvements.
+                  Our advanced rule-based system uses 6 specialized layers:
+                  Configuration Validation, Pattern & Entity Fixes, Component
+                  Best Practices, Hydration & SSR Guard, Next.js Optimization,
+                  and Quality & Performance improvements. AI integration planned
+                  for future releases.
                 </p>
               </div>
 
