@@ -84,39 +84,12 @@ const TeamAnalytics = () => {
   const [selectedMetric, setSelectedMetric] = useState<string>("overview");
   const [predictiveMode, setPredictiveMode] = useState(true);
 
-  // Mock data - would come from real analytics API
-  const teamMetrics: TeamMetrics = {
-    codeQuality: {
-      current: 94,
-      previous: 89,
-      change: 5.6,
-      trend: "up",
-      target: 95,
-      projection: 96,
-    },
-    velocity: {
-      current: 87,
-      previous: 82,
-      change: 6.1,
-      trend: "up",
-      target: 90,
-      projection: 91,
-    },
-    collaboration: {
-      current: 92,
-      previous: 94,
-      change: -2.1,
-      trend: "down",
-      target: 95,
-      projection: 89,
-    },
-    bugRate: {
-      current: 3.2,
-      previous: 4.1,
-      change: -21.9,
-      trend: "up", // down is good for bug rate
-      target: 2.5,
-      projection: 2.8,
+  // Get real analytics data from API
+  const teamMetrics: TeamMetrics = analyticsData ? {
+    codeQuality: analyticsData.codeQuality,
+    velocity: analyticsData.velocity,
+    collaboration: analyticsData.collaboration,
+    bugRate: analyticsData.bugRate,
     },
     techDebt: {
       current: 23,
