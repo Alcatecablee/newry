@@ -9,6 +9,14 @@ import teamRoutes from "./routes/teams";
 import supabaseTestRoutes from "./routes/supabase-test";
 import enterpriseRoutes from "./routes/enterprise";
 
+// Import schema for database tables
+import * as pgSchema from "../shared/schema.js";
+import * as sqliteSchema from "../shared/schema-sqlite.js";
+
+// Use appropriate schema based on database type
+const schema = isPostgres ? pgSchema : sqliteSchema;
+const { transformations, users } = schema;
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
   app.get("/api/health", (req, res) => {
