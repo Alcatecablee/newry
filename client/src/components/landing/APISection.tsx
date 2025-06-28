@@ -153,7 +153,7 @@ export function APISection() {
                 </h3>
                 <p className="text-gray-400">
                   Lightning-fast analysis with global CDN distribution and
-                  intelligent caching for optimal response times.
+                  advanced caching for optimal response times.
                 </p>
               </div>
             </div>
