@@ -43,37 +43,50 @@ export function CLISection() {
                   $ npm install -g @neurolint/cli
                 </div>
                 <div className="text-gray-400">Installing NeuroLint CLI...</div>
+                <div className="text-white">$ neurolint login</div>
+                <div className="text-white">NeuroLint Authentication</div>
+                <div className="text-gray-300">Authentication successful</div>
                 <div className="text-white">$ neurolint init</div>
                 <div className="text-white">NeuroLint CLI</div>
                 <div className="text-gray-300">
-                  ✓ Configuration created successfully!
+                  Configuration created successfully
                 </div>
                 <div className="text-white">$ neurolint analyze src/</div>
-                <div className="text-gray-300">Analyzing 47 files...</div>
                 <div className="text-gray-300">
-                  ✓ Layer 1: Configuration Validation (12 fixes)
+                  Discovering and validating files...
                 </div>
                 <div className="text-gray-300">
-                  ✓ Layer 2: Pattern & Entity Fixes (8 fixes)
+                  Found 47 valid files to analyze
                 </div>
                 <div className="text-gray-300">
-                  ✓ Layer 3: Component Best Practices (15 fixes)
+                  Analysis (35/47) 74.5% - ETA: 12s
                 </div>
                 <div className="text-gray-300">
-                  ✓ Layer 4: Hydration & SSR Guard (5 fixes)
+                  PASS Layer 1: Configuration Validation
                 </div>
+                <div className="text-gray-300">
+                  PASS Layer 2: Pattern & Entity Fixes
+                </div>
+                <div className="text-gray-300">
+                  PASS Layer 3: Component Best Practices
+                </div>
+                <div className="text-gray-300">
+                  PASS Layer 4: Hydration & SSR Guard
+                </div>
+                <div className="text-white">Analysis Complete</div>
+                <div className="text-white">Successfully analyzed: 45</div>
+                <div className="text-white">Failed: 2</div>
                 <div className="text-white">
-                  Analysis complete: 40 issues found, 35 auto-fixable
+                  $ neurolint fix --backup --dry-run
                 </div>
-                <div className="text-white">$ neurolint fix --dry-run</div>
-                <div className="text-zinc-400">
+                <div className="text-gray-300">
                   DRY RUN MODE - Preview changes:
                 </div>
                 <div className="text-gray-300">
-                  ~ src/components/Header.tsx - Missing key props
+                  src/components/Header.tsx - Would be modified
                 </div>
                 <div className="text-gray-300">
-                  ~ src/utils/helpers.ts - Performance optimization
+                  src/utils/helpers.ts - Would be modified
                 </div>
                 <div className="text-white animate-pulse">█</div>
               </div>
