@@ -633,9 +633,7 @@ export default function Index() {
                 </div>
                 <div className="text-white">$ neurolint fix --auto</div>
                 <div className="text-zinc-400">Applying automatic fixes...</div>
-                <div className="text-white">
-                  ✅ Fixed 8/12 issues successfully
-                </div>
+                <div className="text-white">Fixed 8/12 issues successfully</div>
               </div>
             </div>
           </div>
