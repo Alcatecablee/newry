@@ -38,7 +38,9 @@ if (DATABASE_URL) {
   db = drizzleSQLite(sqlite, { schema: schemaSqlite });
 
   // Create tables if they don't exist
-  await initializeTables(sqlite);
+  (async () => {
+    await initializeTables(sqlite);
+  })();
 }
 
 async function createSampleData(sqlite: Database.Database) {
