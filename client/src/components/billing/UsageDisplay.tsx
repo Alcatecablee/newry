@@ -42,7 +42,7 @@ export function UsageDisplay() {
             </div>
             <Progress value={usagePercentage} className="h-2" />
             {usagePercentage >= 90 && (
-              <p className="text-yellow-500 text-sm">
+              <p className="text-zinc-400 text-sm">
                 You're approaching your monthly limit. Consider upgrading to Pro
                 for unlimited transformations.
               </p>
