@@ -52,7 +52,7 @@ function createSampleData(sqlite: Database.Database) {
       console.log("🔧 Creating sample data...");
 
       // Create sample user with password "password123"
-      const bcrypt = require("bcrypt");
+      const bcrypt = await import("bcrypt");
       const hashedPassword = bcrypt.hashSync("password123", 10);
 
       const userId = "sample-user-123";
