@@ -290,9 +290,9 @@ export function RepoProcessor({
                               className="flex items-center gap-2 text-sm"
                             >
                               {insight.success ? (
-                                <div className="w-2 h-2 bg-green-400 rounded-full" />
+                                <div className="w-2 h-2 bg-zinc-400 rounded-full" />
                               ) : (
-                                <AlertTriangle className="w-4 h-4 text-yellow-400" />
+                                <AlertTriangle className="w-4 h-4 text-zinc-400" />
                               )}
                               <span className="text-muted-foreground">
                                 {insight.name}: {insight.changeCount || 0}{" "}
