@@ -548,6 +548,48 @@ ${suggestions.join("\n")}`);
     return files.slice(0, maxFiles);
   };
 
+  const loadDemoRepository = async (
+    onRepoUpload: (files: { path: string; content: string }[]) => void,
+  ) => {
+    setUploading(true);
+    setDemoMode(true);
+    setUploadStatus({
+      total: DEMO_REPO_FILES.length,
+      processed: 0,
+      files: [],
+    });
+
+    toast({
+      title: "Loading Demo Repository",
+      description: "Simulating repository import with demo files...",
+    });
+
+    // Simulate upload progress
+    for (let i = 0; i < DEMO_REPO_FILES.length; i++) {
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      setUploadStatus((prev) =>
+        prev
+          ? {
+              ...prev,
+              processed: i + 1,
+              files: [...prev.files, DEMO_REPO_FILES[i].path],
+            }
+          : null,
+      );
+    }
+
+    toast({
+      title: "Demo Repository Ready",
+      description: `Loaded ${DEMO_REPO_FILES.length} demo files. Try the analysis features!`,
+    });
+
+    if (typeof onRepoUpload === "function") {
+      onRepoUpload(DEMO_REPO_FILES);
+    }
+
+    setUploading(false);
+  };
+
   const uploadRepository = async (
     repoUrl: string,
     onRepoUpload: (files: { path: string; content: string }[]) => void,
