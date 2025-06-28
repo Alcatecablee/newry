@@ -151,14 +151,76 @@ const LiveCodeSessions = () => {
       videoStatus: "off",
     })) || [];
 
-  // Handle code changes and trigger analysis
+  // Enhanced real-time analysis with error handling
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    if (autoAnalysis && currentCode.trim() && selectedSession) {
+      timeoutId = setTimeout(() => {
+        runLayerAnalysis(currentCode);
+      }, sessionSettings.analysisDelay);
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [
+    currentCode,
+    autoAnalysis,
+    sessionSettings.analysisDelay,
+    selectedSession,
+  ]);
+
+  // Handle code changes with session persistence
   const handleCodeChange = (newCode: string) => {
     setCurrentCode(newCode);
-    // Debounce analysis to avoid too many calls
-    const timeoutId = setTimeout(() => {
-      runLayerAnalysis(newCode);
-    }, 1000);
-    return () => clearTimeout(timeoutId);
+
+    // Auto-save to session if enabled
+    if (sessionSettings.autoSave && selectedSession) {
+      setActiveSessions((prev) =>
+        prev.map((session) =>
+          session.id === selectedSession
+            ? { ...session, currentCode: newCode }
+            : session,
+        ),
+      );
+    }
+  };
+
+  // Enhanced session creation with validation
+  const createSession = (sessionData: Partial<LiveSession>) => {
+    try {
+      if (activeSessions.length >= sessionSettings.maxParticipants) {
+        alert(`Maximum ${sessionSettings.maxParticipants} sessions allowed`);
+        return;
+      }
+
+      const newSession: LiveSession = {
+        id: `session-${Date.now()}`,
+        name:
+          sessionData.name || `Session - ${new Date().toLocaleTimeString()}`,
+        repository: sessionData.repository || "live-collaboration",
+        branch: sessionData.branch || "main",
+        participants: teamParticipants.slice(
+          0,
+          Math.min(3, sessionSettings.maxParticipants),
+        ),
+        isActive: true,
+        startedAt: new Date().toISOString(),
+        currentCode: sessionData.currentCode || "",
+      };
+
+      setActiveSessions((prev) => [...prev, newSession]);
+      setSelectedSession(newSession.id);
+
+      // Initialize with saved code if available
+      if (newSession.currentCode) {
+        setCurrentCode(newSession.currentCode);
+      }
+    } catch (error) {
+      console.error("Failed to create session:", error);
+      alert("Failed to create session. Please try again.");
+    }
   };
 
   return (
