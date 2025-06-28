@@ -35,11 +35,11 @@ export function LayerSelector({
                 text-sm font-semibold
                 ${
                   isOn
-                    ? "bg-[#292939] text-white border-[#342d66] shadow-lg shadow-purple-900/20"
+                    ? "bg-[#292939] text-white border-zinc-600 shadow-lg shadow-zinc-900/20"
                     : "bg-[#1a1b21] text-gray-300 border-[#292939] hover:bg-[#232329] hover:border-[#3a3a45]"
                 }
                 touch-manipulation select-none
-                focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#191a1f]
+                focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#191a1f]
                 active:scale-[0.98] transform
                 min-h-[56px]
                 `}
@@ -51,7 +51,7 @@ export function LayerSelector({
                 className={`inline-flex items-center justify-center w-8 h-8 text-sm font-bold rounded-lg mr-3 border transition-all duration-200
                   ${
                     isOn
-                      ? "bg-purple-600 text-white border-purple-500"
+                      ? "bg-zinc-600 text-white border-zinc-500"
                       : "bg-[#292939] text-gray-400 border-[#3a3a45] group-hover:bg-[#343445] group-hover:text-gray-300"
                   }
                   `}
@@ -62,7 +62,7 @@ export function LayerSelector({
                 {layer.name}
               </span>
               {isOn && (
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-500 rounded-full border-2 border-[#191a1f]" />
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-zinc-500 rounded-full border-2 border-[#191a1f]" />
               )}
             </Toggle>
           );

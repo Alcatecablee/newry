@@ -121,7 +121,7 @@ export function TestRunner() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Zap className="w-5 h-5 text-purple-500" />
+            <Zap className="w-5 h-5 text-zinc-400" />
             <Badge variant="outline" className="ml-auto">
               {useAST ? "AST-based" : "Regex-based"}
             </Badge>
