@@ -143,7 +143,7 @@ const Pricing = () => {
                           key={index}
                           className="flex items-start gap-3 text-zinc-300"
                         >
-                          <Check className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                          <Check className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
                           <span className="text-sm leading-relaxed">
                             {feature}
                           </span>
