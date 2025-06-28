@@ -180,7 +180,12 @@ export default function Dashboard() {
   };
 
   const formatExecutionTime = (ms: number) => {
-    if (ms < 1000) return `${ms}ms`;
+    if (ms < 1000) {
+      // For milliseconds, round to 1 decimal place or whole number for cleaner display
+      return ms % 1 === 0
+        ? `${Math.round(ms)}ms`
+        : `${Math.round(ms * 10) / 10}ms`;
+    }
     return `${(ms / 1000).toFixed(1)}s`;
   };
 
