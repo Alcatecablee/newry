@@ -82,8 +82,8 @@ export function LayerSelector({
                   text-sm
                   ${
                     isOn
-                      ? "bg-zinc-900 text-white border-zinc-800 shadow-lg shadow-zinc-900/20"
-                      : "bg-zinc-900/40 text-gray-300 border-zinc-800/50 hover:bg-zinc-900/60 hover:border-zinc-700"
+                      ? "bg-zinc-900/40 text-white border-zinc-800/50 shadow-lg shadow-zinc-900/20"
+                      : "bg-zinc-900/20 text-gray-300 border-zinc-800/30 hover:bg-zinc-900/30 hover:border-zinc-800/40"
                   }
                   touch-manipulation select-none
                   focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900
@@ -151,8 +151,8 @@ export function LayerSelector({
                   text-sm font-semibold
                   ${
                     isOn
-                      ? "bg-zinc-900 text-white border-zinc-800 shadow-lg shadow-zinc-900/20"
-                      : "bg-zinc-900/40 text-gray-300 border-zinc-800/50 hover:bg-zinc-900/60 hover:border-zinc-700"
+                      ? "bg-zinc-900/40 text-white border-zinc-800/50 shadow-lg shadow-zinc-900/20"
+                      : "bg-zinc-900/20 text-gray-300 border-zinc-800/30 hover:bg-zinc-900/30 hover:border-zinc-800/40"
                   }
                   touch-manipulation select-none
                   focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900
