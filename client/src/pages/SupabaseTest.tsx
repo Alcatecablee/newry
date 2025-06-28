@@ -324,7 +324,7 @@ const SupabaseTest = () => {
 
           {/* Summary */}
           <Alert
-            className={`${testResult?.status === "connected" && clientTest?.success ? "border-green-500 bg-green-500/10" : "border-orange-500 bg-orange-500/10"}`}
+            className={`${testResult?.status === "connected" && clientTest?.success ? "border-zinc-500 bg-zinc-500/10" : "border-zinc-500 bg-zinc-500/10"}`}
           >
             <AlertTriangle className="h-4 w-4" />
             <AlertDescription>
