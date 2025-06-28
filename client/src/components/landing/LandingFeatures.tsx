@@ -1,4 +1,3 @@
-
 import { Zap, Users, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
@@ -51,7 +50,9 @@ const LAYERS = [
 
 export function LandingFeatures() {
   // Store toggle state per experimental layer, but do *not* run code, demo only:
-  const [experimentalStates, setExperimentalStates] = useState<Record<string, boolean>>({});
+  const [experimentalStates, setExperimentalStates] = useState<
+    Record<string, boolean>
+  >({});
 
   const handleToggle = (name: string) => {
     setExperimentalStates((prev) => ({
@@ -68,7 +69,7 @@ export function LandingFeatures() {
       <div className="max-w-3xl w-full">
         {/* Features Title */}
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 flex items-center gap-2">
-          <Zap className="text-purple-300" />
+          <Zap className="text-white" />
           Features & Roadmap
         </h2>
 
@@ -77,7 +78,8 @@ export function LandingFeatures() {
           <div className="flex items-center text-blue-300 text-base font-semibold">
             <Users className="mr-2" />
             <span>
-              Engineer or AI researcher? Help build the world’s first fully-automated code refactoring platform!
+              Engineer or AI researcher? Help build the world’s first
+              fully-automated code refactoring platform!
             </span>
           </div>
           <Button
@@ -109,7 +111,11 @@ export function LandingFeatures() {
                     : "bg-[#23233b] text-gray-300"
                 }
               >
-                {layer.status === "live" ? "LIVE" : layer.experimental ? "EXPERIMENTAL" : "READY"}
+                {layer.status === "live"
+                  ? "LIVE"
+                  : layer.experimental
+                    ? "EXPERIMENTAL"
+                    : "READY"}
               </Badge>
               {/* Name/Index */}
               <span
@@ -121,7 +127,9 @@ export function LandingFeatures() {
               >
                 {idx + 1}. {layer.name}
               </span>
-              <span className="ml-2 text-xs text-gray-300 flex-1">{layer.description}</span>
+              <span className="ml-2 text-xs text-gray-300 flex-1">
+                {layer.description}
+              </span>
               {/* If experimental, show demo toggle */}
               {layer.experimental && (
                 <label className="flex items-center gap-1 ml-1">
@@ -150,9 +158,19 @@ export function LandingFeatures() {
         <div className="bg-[#232332] border border-yellow-700 text-yellow-200 rounded-lg p-4 mb-6 text-sm flex items-center gap-2">
           <AlertTriangle className="w-5 h-5 text-yellow-300" />
           <div>
-            <b>Experimental Layers:</b> The toggles above are for demonstration only.
-            These features are not yet live or safe—real code will only be processed by the <span className="text-green-300 font-bold">ConfigMaster (LIVE)</span> layer.
-            Want to help us ship these? <a href="mailto:founder@neurolint.com" className="underline text-blue-200">Join as a technical collaborator!</a>
+            <b>Experimental Layers:</b> The toggles above are for demonstration
+            only. These features are not yet live or safe—real code will only be
+            processed by the{" "}
+            <span className="text-green-300 font-bold">
+              ConfigMaster (LIVE)
+            </span>{" "}
+            layer. Want to help us ship these?{" "}
+            <a
+              href="mailto:founder@neurolint.com"
+              className="underline text-blue-200"
+            >
+              Join as a technical collaborator!
+            </a>
           </div>
         </div>
 
@@ -162,16 +180,21 @@ export function LandingFeatures() {
         </h3>
         <ul className="ml-5 list-disc space-y-1 text-sm text-purple-100">
           <li>
-            <b>All 6 code-fixing layers are production-ready and powerful
-              individually</b>
+            <b>
+              All 6 code-fixing layers are production-ready and powerful
+              individually
+            </b>
             : config, patterns, smart component repair, hydration/SSR, and more.
           </li>
           <li>
-            Robust dry run, backup, safety, transparency, and per-layer commands.
+            Robust dry run, backup, safety, transparency, and per-layer
+            commands.
           </li>
           <li>
             <span className="font-bold text-green-400">
-              Seeking co-founder to master the orchestration—layers are solid, we need help integrating them for truly seamless, automated multi-layer repair!
+              Seeking co-founder to master the orchestration—layers are solid,
+              we need help integrating them for truly seamless, automated
+              multi-layer repair!
             </span>
           </li>
         </ul>
@@ -185,10 +208,22 @@ export function LandingFeatures() {
         </h2>
         <div className="bg-[#13141a] rounded-lg border border-[#262633] p-6 text-gray-200">
           <ol className="list-decimal ml-5 space-y-2 text-sm">
-            <li>Upload your TypeScript/Next.js project or configs—no setup required.</li>
-            <li>Select the AI layer(s) you want to run, including full-stack config upgrades.</li>
-            <li>Preview and approve changes. Full dry run, transparency, and safety tooling always enabled.</li>
-            <li>Enjoy a modernized, production-ready codebase in seconds. Advanced orchestrator coming soon.</li>
+            <li>
+              Upload your TypeScript/Next.js project or configs—no setup
+              required.
+            </li>
+            <li>
+              Select the AI layer(s) you want to run, including full-stack
+              config upgrades.
+            </li>
+            <li>
+              Preview and approve changes. Full dry run, transparency, and
+              safety tooling always enabled.
+            </li>
+            <li>
+              Enjoy a modernized, production-ready codebase in seconds. Advanced
+              orchestrator coming soon.
+            </li>
           </ol>
         </div>
       </div>
