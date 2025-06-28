@@ -53,60 +53,8 @@ async function createSampleData(sqlite: Database.Database) {
     if (existingUsers.count === 0) {
       console.log("🔧 Creating sample data...");
 
-      // Note: Sample user creation removed - authentication now handled by Supabase
-      const userId = "sample-user-123";
-      const now = Math.floor(Date.now() / 1000);
-
-      // Create sample team
-      const teamId = "sample-team-123";
-      sqlite
-        .prepare(
-          `
-        INSERT INTO teams (id, name, description, owner_id, plan_type, monthly_limit, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `,
-        )
-        .run(
-          teamId,
-          "Sample Team",
-          "A sample team for testing",
-          userId,
-          "team",
-          1000,
-          now,
-          now,
-        );
-
-      // Add user to team
-      const memberId = "sample-member-123";
-      sqlite
-        .prepare(
-          `
-        INSERT INTO team_members (id, team_id, user_id, role, joined_at)
-        VALUES (?, ?, ?, ?, ?)
-      `,
-        )
-        .run(memberId, teamId, userId, "owner", now);
-
-      // Create sample project
-      const projectId = "sample-project-123";
-      sqlite
-        .prepare(
-          `
-        INSERT INTO team_projects (id, team_id, name, repository, health_score, total_issues, fixed_issues, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-      `,
-        )
-        .run(
-          projectId,
-          teamId,
-          "Sample Project",
-          "https://github.com/example/repo",
-          85,
-          10,
-          8,
-          now,
-          now,
+      // Sample data creation skipped - all data will be created via Supabase authentication
+      // Teams and transformations will be created when users sign up through Supabase
         );
 
       console.log("✅ Sample data created successfully");
