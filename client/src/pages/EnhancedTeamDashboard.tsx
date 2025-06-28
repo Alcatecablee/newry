@@ -596,7 +596,7 @@ const EnhancedTeamDashboard = () => {
                           </div>
                           <div className="text-sm text-zinc-400">Velocity</div>
                           <div
-                            className={`text-xs ${analytics.velocity.trend === "up" ? "text-green-400" : "text-red-400"}`}
+                            className={`text-xs ${analytics.velocity.trend === "up" ? "text-zinc-300" : "text-zinc-500"}`}
                           >
                             {analytics.velocity.change > 0 ? "+" : ""}
                             {analytics.velocity.change}
