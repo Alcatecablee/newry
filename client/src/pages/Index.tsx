@@ -966,6 +966,9 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Technology Section */}
+      <TechnologySection />
+
       {/* FAQ Section */}
       <FAQSection />
 
