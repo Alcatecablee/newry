@@ -2,7 +2,7 @@
 
 This guide explains how to test all enterprise CLI features safely and comprehensively.
 
-## 🚀 Quick Start Testing
+## Quick Start Testing
 
 ### 1. Build the CLI
 
@@ -26,20 +26,20 @@ node test-enterprise.js
 node dev-server-mock.js
 ```
 
-## 🧪 Test Categories
+## Test Categories
 
 ### **Basic CLI Tests**
 
-- ✅ Help commands and documentation
-- ✅ Version information
-- ✅ Command validation
-- ✅ Error handling
+- Help commands and documentation
+- Version information
+- Command validation
+- Error handling
 
 ### **Enterprise Authentication**
 
-- ✅ Authentication validation
-- ✅ API connectivity checks
-- ✅ Enterprise-only command protection
+- Authentication validation
+- API connectivity checks
+- Enterprise-only command protection
 
 ### **Team Management**
 
@@ -86,7 +86,7 @@ node dev-server-mock.js
 ./dist/cli.js audit --compliance
 ```
 
-## 🔧 Testing with Mock Server
+## Testing with Mock Server
 
 ### 1. Start Mock Server
 
@@ -114,7 +114,7 @@ node dev-server-mock.js
 ./dist/cli.js audit --trail --days 7
 ```
 
-## 📊 Interactive Testing
+## Interactive Testing
 
 ### Test Interactive Modes
 
@@ -132,7 +132,7 @@ node dev-server-mock.js
 ./dist/cli.js interactive
 ```
 
-## 🛡️ Security Testing
+## Security Testing
 
 ### Test Authentication
 
@@ -156,7 +156,7 @@ node dev-server-mock.js
 ./dist/cli.js sso --setup invalid-type --domain test
 ```
 
-## 📋 Test Checklist
+## Test Checklist
 
 ### Core Functionality
 
@@ -188,7 +188,7 @@ node dev-server-mock.js
 - [ ] Output formatting is consistent
 - [ ] Help text is comprehensive
 
-## 🐛 Common Issues & Solutions
+## Common Issues & Solutions
 
 ### Build Issues
 
@@ -220,19 +220,19 @@ rm -rf node_modules/
 npm install
 ```
 
-## 📈 Test Results
+## Test Results
 
 The test suite validates:
 
-- ✅ **15+ Command Tests** - All CLI commands and options
-- ✅ **Authentication** - Enterprise auth requirements
-- ✅ **Error Handling** - Graceful failure scenarios
-- ✅ **Input Validation** - Parameter validation
-- ✅ **Interactive Modes** - User interaction flows
-- ✅ **API Integration** - Network request handling
-- ✅ **File Operations** - Export and file handling
+- **15+ Command Tests** - All CLI commands and options
+- **Authentication** - Enterprise auth requirements
+- **Error Handling** - Graceful failure scenarios
+- **Input Validation** - Parameter validation
+- **Interactive Modes** - User interaction flows
+- **API Integration** - Network request handling
+- **File Operations** - Export and file handling
 
-## 🚀 Production Testing
+## Production Testing
 
 ### Before Deployment
 
@@ -251,7 +251,7 @@ The test suite validates:
 - [ ] Test export functionality
 - [ ] Validate interactive modes
 
-## 📞 Need Help?
+## Need Help?
 
 If tests fail or you encounter issues:
 

@@ -314,18 +314,16 @@ app.use("*", (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(
-    `🚀 Mock Enterprise API Server running on http://localhost:${PORT}`,
-  );
-  console.log(`📚 Available endpoints:`);
+  console.log(`Mock Enterprise API Server running on http://localhost:${PORT}`);
+  console.log(`Available endpoints:`);
   console.log(`   GET  /api/health`);
   console.log(`   GET  /api/teams`);
   console.log(`   GET  /api/enterprise/webhooks`);
   console.log(`   GET  /api/enterprise/sso-providers`);
   console.log(`   GET  /api/enterprise/audit/trail`);
   console.log(`   GET  /api/enterprise/analytics/dashboard`);
-  console.log(`\n🔑 Use any Bearer token for authentication`);
+  console.log(`\nUse any Bearer token for authentication`);
   console.log(
-    `\n💡 Test with: curl -H "Authorization: Bearer test" http://localhost:${PORT}/api/health`,
+    `\nTest with: curl -H "Authorization: Bearer test" http://localhost:${PORT}/api/health`,
   );
 });

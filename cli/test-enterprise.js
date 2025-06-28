@@ -26,7 +26,7 @@ class CLITester {
 
   // Run all tests
   async runAll() {
-    console.log("🚀 Starting NeuroLint Enterprise CLI Tests\n");
+    console.log("Starting NeuroLint Enterprise CLI Tests\n");
 
     // Check if CLI is built
     if (!fs.existsSync(CLI_PATH)) {
@@ -44,7 +44,7 @@ class CLITester {
   // Run a single test
   async runTest({ name, command, expectedOutputs, shouldFail }) {
     return new Promise((resolve) => {
-      console.log(`🧪 Testing: ${name}`);
+      console.log(`Testing: ${name}`);
       console.log(`   Command: neurolint ${command}`);
 
       const args = command.split(" ");
@@ -81,10 +81,10 @@ class CLITester {
         }
 
         if (testPassed) {
-          console.log(`   ✅ PASSED`);
+          console.log(`   PASSED`);
           this.results.passed++;
         } else {
-          console.log(`   ❌ FAILED`);
+          console.log(`   FAILED`);
           console.log(`   Exit code: ${code}`);
           if (output) {
             console.log(`   Output: ${output.substring(0, 200)}...`);
@@ -112,17 +112,17 @@ class CLITester {
   }
 
   printResults() {
-    console.log("📊 Test Results:");
-    console.log(`   ✅ Passed: ${this.results.passed}`);
-    console.log(`   ❌ Failed: ${this.results.failed}`);
+    console.log("Test Results:");
+    console.log(`   Passed: ${this.results.passed}`);
+    console.log(`   Failed: ${this.results.failed}`);
     console.log(
-      `   📈 Success Rate: ${((this.results.passed / (this.results.passed + this.results.failed)) * 100).toFixed(1)}%`,
+      `   Success Rate: ${((this.results.passed / (this.results.passed + this.results.failed)) * 100).toFixed(1)}%`,
     );
 
     if (this.results.failed === 0) {
-      console.log("\n🎉 All tests passed! Your Enterprise CLI is ready.");
+      console.log("\nAll tests passed! Your Enterprise CLI is ready.");
     } else {
-      console.log("\n⚠️  Some tests failed. Please check the issues above.");
+      console.log("\nSome tests failed. Please check the issues above.");
     }
   }
 }
