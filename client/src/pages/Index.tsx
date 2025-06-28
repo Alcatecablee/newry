@@ -357,9 +357,9 @@ export default function Index() {
               Enterprise CLI Tool
             </h2>
             <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
-              Production-ready command line interface with robust error
-              handling, progress tracking, and enterprise-grade reliability.
-              Built for professional development workflows and CI/CD pipelines.
+              Production-ready command line interface with robust error handling,
+              progress tracking, and enterprise-grade reliability. Built for professional
+              development workflows and CI/CD pipelines.
             </p>
           </div>
 
@@ -390,8 +390,7 @@ export default function Index() {
                       Production-Ready Reliability
                     </h4>
                     <p className="text-zinc-400 text-sm">
-                      Robust error handling, automatic retry logic, and progress
-                      tracking
+                      Robust error handling, automatic retry logic, and progress tracking
                     </p>
                   </div>
                 </div>
@@ -402,8 +401,7 @@ export default function Index() {
                       Enterprise Authentication
                     </h4>
                     <p className="text-zinc-400 text-sm">
-                      Secure API key management with built-in authentication
-                      validation
+                      Secure API key management with built-in authentication validation
                     </p>
                   </div>
                 </div>
@@ -673,37 +671,24 @@ export default function Index() {
                 </div>
                 <span className="text-sm text-zinc-400 ml-4">API Example</span>
               </div>
-              <div className="p-6 font-mono text-sm space-y-4">
-                <div>
-                  <div className="text-zinc-400 mb-2">// Request</div>
-                  <div className="text-white">
-                    curl -X POST https://api.neurolint.com/analyze \\
-                  </div>
-                  <div className="text-zinc-400 ml-4">
-                    -H "Authorization: Bearer YOUR_API_KEY" \\
-                  </div>
-                  <div className="text-zinc-400 ml-4">
-                    -H "Content-Type: application/json" \\
-                  </div>
-                  <div className="text-zinc-400 ml-4">-d '&#123;</div>
-                  <div className="text-zinc-400 ml-8">
-                    "code": "function test() &#123; ... &#125;",
-                  </div>
-                  <div className="text-zinc-400 ml-8">"layers": [1, 2, 3]</div>
-                  <div className="text-zinc-400 ml-4">&#125;'</div>
-                </div>
-
-                <div>
-                  <div className="text-zinc-400 mb-2">// Response</div>
-                  <div className="text-white">&#123;</div>
-                  <div className="text-zinc-400 ml-4">"layers": [</div>
-                  <div className="text-zinc-400 ml-8">
-                    &#123; "id": 1, "status": "success", "changes": 2 &#125;,
-                  </div>
-                  <div className="text-zinc-400 ml-8">
-                    &#123; "id": 2, "status": "success", "changes": 1 &#125;
-                  </div>
-                  <div className="text-zinc-400 ml-4">],</div>
+              <div className="p-6 font-mono text-sm space-y-2">
+                <div className="text-white">$ neurolint login</div>
+                <div className="text-zinc-400">NeuroLint Authentication</div>
+                <div className="text-zinc-400">Authentication successful</div>
+                <div className="text-white">$ neurolint analyze src/</div>
+                <div className="text-zinc-400">Discovering and validating files...</div>
+                <div className="text-zinc-400">Found 24 valid files to analyze</div>
+                <div className="text-zinc-400">Analysis (18/24) 75.0% - ETA: 8s</div>
+                <div className="text-white">PASS Layer 1: Configuration Validation</div>
+                <div className="text-white">PASS Layer 2: Pattern & Entity Fixes</div>
+                <div className="text-white">PASS Layer 3: Component Best Practices</div>
+                <div className="text-white">Analysis Complete</div>
+                <div className="text-white">Successfully analyzed: 22</div>
+                <div className="text-white">Failed: 2</div>
+                <div className="text-white">$ neurolint fix --backup --dry-run</div>
+                <div className="text-zinc-400">DRY RUN MODE - Preview changes:</div>
+                <div className="text-zinc-400">src/components/Header.tsx - Would be modified</div>
+                <div className="text-white animate-pulse">█</div>
                   <div className="text-zinc-400 ml-4">
                     "performance": &#123; "totalTime": 0.85 &#125;
                   </div>
