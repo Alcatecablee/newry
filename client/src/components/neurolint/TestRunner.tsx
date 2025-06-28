@@ -428,7 +428,7 @@ export function TestRunner() {
                           <CardTitle className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               {result.passed ? (
-                                <CheckCircle className="w-5 h-5 text-green-500" />
+                                <CheckCircle className="w-5 h-5 text-zinc-400" />
                               ) : (
                                 <XCircle className="w-5 h-5 text-red-500" />
                               )}
