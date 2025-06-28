@@ -767,36 +767,27 @@ const EnhancedTeamDashboard = () => {
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {teamMembers.map((member) => (
-                      <div
-                        key={achievement.name}
-                        className="p-4 bg-zinc-900 rounded-lg border border-yellow-400/30"
-                      >
-                        <div className="flex items-center gap-3 mb-2">
-                          <span className="text-2xl">{achievement.icon}</span>
-                          <div>
-                            <p className="text-white font-medium">
-                              {achievement.name}
-                            </p>
-                            <p className="text-zinc-400 text-xs">
-                              {achievement.description}
-                            </p>
+                        <div
+                          key={member.id}
+                          className="p-4 bg-zinc-900 rounded-lg border border-blue-400/30"
+                        >
+                          <div className="flex items-center gap-3 mb-2">
+                            <Avatar className="w-8 h-8">
+                              <AvatarFallback>
+                                {member.name.split(" ").map((n) => n[0]).join("")}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <p className="text-white font-medium">
+                                {member.name}
+                              </p>
+                              <p className="text-zinc-400 text-xs">
+                                {member.role}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                        <div className="w-full bg-zinc-900 h-2 rounded-full">
-                          <div
-                            className={`h-2 rounded-full ${
-                              achievement.progress === 100
-                                ? '"bg-zinc-900"'
-                                : '"bg-zinc-900"'
-                            }`}
-                            style={{ width: `${achievement.progress}%` }}
-                          />
-                        </div>
-                        <p className="text-xs text-zinc-400 mt-1">
-                          {achievement.progress}% complete
-                        </p>
-                      </div>
-                    ))}
+                      ))}
                   </div>
                 </CardContent>
               </Card>
