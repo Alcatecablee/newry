@@ -187,9 +187,9 @@ const SupabaseTest = () => {
                           <div className="text-xs">
                             <div className="flex items-center gap-2">
                               {testResult.details.serviceKeyTest.working ? (
-                                <CheckCircle className="w-3 h-3 text-green-500" />
+                                <CheckCircle className="w-3 h-3 text-zinc-400" />
                               ) : (
-                                <XCircle className="w-3 h-3 text-red-500" />
+                                <XCircle className="w-3 h-3 text-zinc-400" />
                               )}
                               Service Key Working
                             </div>
