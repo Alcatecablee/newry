@@ -164,7 +164,12 @@ const LiveCodeSessions = () => {
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [currentCode, autoAnalysis, sessionSettings.analysisDelay, selectedSession]);
+  }, [
+    currentCode,
+    autoAnalysis,
+    sessionSettings.analysisDelay,
+    selectedSession,
+  ]);
 
   // Handle code changes with session persistence
   const handleCodeChange = (newCode: string) => {
@@ -172,11 +177,13 @@ const LiveCodeSessions = () => {
 
     // Auto-save to session if enabled
     if (sessionSettings.autoSave && selectedSession) {
-      setActiveSessions(prev => prev.map(session =>
-        session.id === selectedSession
-          ? { ...session, currentCode: newCode }
-          : session
-      ));
+      setActiveSessions((prev) =>
+        prev.map((session) =>
+          session.id === selectedSession
+            ? { ...session, currentCode: newCode }
+            : session,
+        ),
+      );
     }
   };
 
@@ -190,16 +197,20 @@ const LiveCodeSessions = () => {
 
       const newSession: LiveSession = {
         id: `session-${Date.now()}`,
-        name: sessionData.name || `Session - ${new Date().toLocaleTimeString()}`,
+        name:
+          sessionData.name || `Session - ${new Date().toLocaleTimeString()}`,
         repository: sessionData.repository || "live-collaboration",
         branch: sessionData.branch || "main",
-        participants: teamParticipants.slice(0, Math.min(3, sessionSettings.maxParticipants)),
+        participants: teamParticipants.slice(
+          0,
+          Math.min(3, sessionSettings.maxParticipants),
+        ),
         isActive: true,
         startedAt: new Date().toISOString(),
         currentCode: sessionData.currentCode || "",
       };
 
-      setActiveSessions(prev => [...prev, newSession]);
+      setActiveSessions((prev) => [...prev, newSession]);
       setSelectedSession(newSession.id);
 
       // Initialize with saved code if available
@@ -253,9 +264,11 @@ const LiveCodeSessions = () => {
             <Button
               size="sm"
               className="bg-blue-600 hover:bg-blue-700"
-              onClick={() => createSession({
-                name: `Team Session - ${new Date().toLocaleTimeString()}`
-              })}
+              onClick={() =>
+                createSession({
+                  name: `Team Session - ${new Date().toLocaleTimeString()}`,
+                })
+              }
             >
               <Play className="w-4 h-4 mr-2" />
               Start Session
@@ -294,6 +307,43 @@ const LiveCodeSessions = () => {
                         className="p-3 bg-zinc-800 rounded-lg hover:bg-zinc-750 cursor-pointer"
                         onClick={() => setSelectedSession(session.id)}
                       >
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-white font-medium text-sm">
+                            {session.name}
+                          </span>
+                          <Badge
+                            className={
+                              session.isActive
+                                ? "bg-green-900 text-green-200"
+                                : "bg-yellow-900 text-yellow-200"
+                            }
+                          >
+                            {session.isActive ? "Live" : "Paused"}
+                          </Badge>
+                        </div>
+                        <p className="text-zinc-400 text-xs">
+                          {session.repository}/{session.branch}
+                        </p>
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="flex -space-x-1">
+                            {session.participants
+                              .slice(0, 3)
+                              .map((participant) => (
+                                <Avatar
+                                  key={participant.id}
+                                  className="w-6 h-6 border-2 border-zinc-800"
+                                >
+                                  <AvatarFallback className="text-xs bg-zinc-700">
+                                    {participant.name
+                                      .substring(0, 2)
+                                      .toUpperCase()}
+                                  </AvatarFallback>
+                                </Avatar>
+                              ))}
+                          </div>
+                          <span className="text-zinc-500 text-xs">
+                            {session.participants.length} participants
+                          </span>
                         </div>
                       </div>
                     ))}
