@@ -94,7 +94,7 @@ export const teamActivities = sqliteTable("team_activities", {
   project: text("project"),
   details: text("details"), // JSON string for SQLite
   type: text("type").default("scan"), // fix, scan, config, error
-  createdAt: integer("created_at", { mode: "timestamp" }),
+  createdAt: integer("created_at"),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
