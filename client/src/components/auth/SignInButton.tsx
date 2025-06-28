@@ -115,17 +115,23 @@ export function SignInButton() {
   if (showModal) {
     return (
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 p-4 flex items-center justify-center transition-all duration-300 ease-out ${
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center transition-all duration-300 ease-out ${
           isModalVisible ? "opacity-100" : "opacity-0"
         }`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
+        style={{
+          padding: "20px",
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+        }}
       >
         <div
           ref={modalRef}
-          className={`bg-zinc-900 rounded-xl border border-zinc-800 w-full max-w-md shadow-2xl mx-auto transform transition-all duration-300 ease-out ${
+          className={`bg-zinc-900 rounded-xl border border-zinc-800 w-full max-w-md shadow-2xl transform transition-all duration-300 ease-out ${
             isModalVisible
               ? "opacity-100 scale-100 translate-y-0"
               : "opacity-0 scale-95 translate-y-4"
@@ -133,6 +139,7 @@ export function SignInButton() {
           style={{
             maxHeight: "90vh",
             overflow: "auto",
+            margin: "0 auto",
           }}
         >
           {/* Header */}
