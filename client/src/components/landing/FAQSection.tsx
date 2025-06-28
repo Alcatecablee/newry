@@ -78,12 +78,12 @@ const faqData: FAQItem[] = [
   {
     question: "How accurate are NeuroLint's code transformations?",
     answer:
-      "NeuroLint achieves 95%+ accuracy in code transformations through our multi-layer validation system. Each transformation is tested across multiple scenarios before application. Our AI models are trained on millions of code patterns and continuously improved based on user feedback and real-world usage.",
+      "NeuroLint achieves high accuracy in code transformations through our multi-layer validation system and extensive rule-based pattern matching. Each transformation is tested across multiple scenarios before application using AST parsing and syntax validation. Our transformation rules are continuously refined based on real-world usage and community feedback.",
     keywords: [
       "accuracy",
       "transformations",
       "validation",
-      "AI models",
+      "rule-based",
       "code quality",
     ],
   },
