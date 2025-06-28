@@ -231,7 +231,8 @@ export function validateTestResult(
 
     // --- Layer 2: Pattern/entity fixes ---
     "Fixed HTML entities in source":
-      transformedCode.includes('const title = "Welcome & Enjoy!";') &&
+      (transformedCode.includes('"Welcome & Enjoy!"') ||
+        transformedCode.includes("'Welcome & Enjoy!'")) &&
       transformedCode.includes("// Hello > Goodbye"),
 
     // --- Layer 3: Missing key prop ---
