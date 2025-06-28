@@ -123,59 +123,23 @@ const WebhookSystem = () => {
     }
   };
 
-  const recentEvents: WebhookEvent[] = [
-    {
-      id: "1",
-      type: "fix.completed",
-      description: "Code fixes completed for frontend-app",
-      payload: {
-        repository: "frontend-app",
-        fixes: 23,
-        user: "sarah.chen@company.com",
-        duration: "1.2s",
-      },
-      timestamp: "2024-01-20T14:32:15Z",
-      endpointId: "1",
-      deliveryStatus: "success",
-      attempts: 1,
-      responseCode: 200,
-      responseTime: 245,
-    },
-    {
-      id: "2",
-      type: "vulnerability.detected",
-      description: "Security vulnerability found in api-service",
-      payload: {
-        repository: "api-service",
-        severity: "high",
-        type: "XSS",
-        file: "src/auth/validate.js",
-      },
-      timestamp: "2024-01-20T14:15:42Z",
-      endpointId: "2",
-      deliveryStatus: "success",
-      attempts: 1,
-      responseCode: 201,
-      responseTime: 512,
-    },
-    {
-      id: "3",
-      type: "scan.completed",
-      description: "Full repository scan completed",
-      payload: {
-        repository: "mobile-app",
-        issues: 12,
-        fixes: 8,
-        duration: "45s",
-      },
-      timestamp: "2024-01-20T13:45:33Z",
-      endpointId: "3",
-      deliveryStatus: "failed",
-      attempts: 3,
-      responseCode: 500,
-      errorMessage: "Internal server error",
-    },
-  ];
+  const [recentEvents, setRecentEvents] = useState<WebhookEvent[]>([]);
+
+  const fetchRecentEvents = async () => {
+    try {
+      const response = await fetch("/api/enterprise/webhook-events");
+      if (response.ok) {
+        const data = await response.json();
+        setRecentEvents(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch webhook events:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRecentEvents();
+  }, []);
 
   const integrationTemplates: IntegrationTemplate[] = [
     {
