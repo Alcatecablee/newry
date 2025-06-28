@@ -244,8 +244,29 @@ export class DatabaseStorage implements IStorage {
 
   async addTeamMember(member: InsertTeamMember): Promise<TeamMember> {
     if (db) {
-      const result = await db.insert(teamMembers).values(member).returning();
-      return result[0];
+      const memberWithId = {
+        ...member,
+        id: this.generateId(),
+        role: member.role || "developer",
+        joinedAt: isPostgres ? new Date() : Math.floor(Date.now() / 1000),
+      };
+
+      if (isPostgres) {
+        const result = await db
+          .insert(teamMembers)
+          .values(memberWithId)
+          .returning();
+        return result[0];
+      } else {
+        // For SQLite, insert and then select
+        await db.insert(teamMembers).values(memberWithId);
+        const result = await db
+          .select()
+          .from(teamMembers)
+          .where(eq(teamMembers.id, memberWithId.id))
+          .limit(1);
+        return result[0];
+      }
     } else {
       const newMember: TeamMember = {
         id: this.generateId(),
