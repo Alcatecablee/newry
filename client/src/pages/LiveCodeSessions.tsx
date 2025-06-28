@@ -128,14 +128,12 @@ const LiveCodeSessions = () => {
         column: 5 + index * 3,
         color: ["#ff6b6b", "#4ecdc4", "#45b7d1"][index],
       },
-      isTyping: Math.random() > 0.7,
-      micStatus: Math.random() > 0.5 ? "on" : "off",
-      videoStatus: Math.random() > 0.6 ? "on" : "off",
-      connectionQuality: ["excellent", "good", "fair"][
-        Math.floor(Math.random() * 3)
-      ],
+      isTyping: false,
+      micStatus: "off",
+      videoStatus: "off",
+      connectionQuality: "excellent",
       joinedAt: new Date().toISOString(),
-      contributions: Math.floor(Math.random() * 30),
+      contributions: 0,
     })) || [];
 
   const aiAssistants: AIAssistant[] = [
