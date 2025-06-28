@@ -378,11 +378,106 @@ const LiveCodeSessions = () => {
                               {participant.name.substring(0, 2).toUpperCase()}
                             </AvatarFallback>
                           </Avatar>
-                        setActiveSessions((prev) =>
-                          prev.filter(
-                            (session) => session.id !== selectedSession,
-                          ),
-                        );
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <div className="w-20 h-20 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <Play className="w-10 h-10 text-zinc-600" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-white mb-2">
+                        Start Your First Live Session
+                      </h3>
+                      <p className="text-zinc-400 mb-6 max-w-md">
+                        Collaborate with your team in real-time. Share code, debug together,
+                        and boost productivity with live coding sessions.
+                      </p>
+                      <Button
+                        className="bg-blue-600 hover:bg-blue-700"
+                        onClick={() => createSession({
+                          name: `New Session - ${new Date().toLocaleTimeString()}`
+                        })}
+                      >
+                        <Play className="w-4 h-4 mr-2" />
+                        Create New Session
+                      </Button>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </div>
+
+        {/* Session Controls */}
+        {selectedSession && (
+          <Card className="bg-zinc-900 border-zinc-800 mt-6">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setMicEnabled(!micEnabled)}
+                    className={micEnabled ? "bg-green-900 border-green-700" : ""}
+                  >
+                    {micEnabled ? <Mic className="w-4 h-4 mr-2" /> : <MicOff className="w-4 h-4 mr-2" />}
+                    {micEnabled ? 'Mic On' : 'Mic Off'}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setVideoEnabled(!videoEnabled)}
+                    className={videoEnabled ? "bg-green-900 border-green-700" : ""}
+                  >
+                    {videoEnabled ? <Video className="w-4 h-4 mr-2" /> : <VideoOff className="w-4 h-4 mr-2" />}
+                    {videoEnabled ? 'Video On' : 'Video Off'}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setChatOpen(!chatOpen)}
+                    className={chatOpen ? "bg-blue-900 border-blue-700" : ""}
+                  >
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    {chatOpen ? 'Hide Chat' : 'Show Chat'}
+                  </Button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      setActiveSessions(prev => prev.map(session =>
+                        session.id === selectedSession
+                          ? { ...session, isActive: !session.isActive }
+                          : session
+                      ));
+                    }}
+                  >
+                    <Pause className="w-4 h-4 mr-2" />
+                    {activeSessions.find(s => s.id === selectedSession)?.isActive ? 'Pause Session' : 'Resume Session'}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={() => {
+                      if (selectedSession) {
+                        setActiveSessions(prev => prev.filter(session => session.id !== selectedSession));
+                        setSelectedSession(null);
+                        setCurrentCode("");
+                        setLayerAnalysis(prev => prev.map(layer => ({ ...layer, status: "pending", result: undefined })));
+                      }
+                    }}
+                  >
+                    End Session
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
                         setSelectedSession(null);
                         setCurrentCode("");
                         setLayerAnalysis((prev) =>
