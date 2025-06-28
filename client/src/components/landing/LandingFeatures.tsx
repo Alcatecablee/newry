@@ -75,7 +75,7 @@ export function LandingFeatures() {
 
         {/* CALL TO ACTION FOR ENGINEERING COLLABORATORS */}
         <div className="flex flex-col xs:flex-row items-stretch xs:items-center gap-3 mb-7">
-          <div className="flex items-center text-blue-300 text-base font-semibold">
+          <div className="flex items-center text-white text-base font-semibold">
             <Users className="mr-2" />
             <span>
               Engineer or AI researcher? Help build the world’s first
