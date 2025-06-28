@@ -425,8 +425,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Transformation usage tracking
   app.post("/api/increment-usage", async (req, res) => {
     try {
-      const { clerkId } = req.body;
-      const success = await storage.incrementUsage(clerkId);
+      const { supabaseId } = req.body;
+      const success = await storage.incrementUsage(supabaseId);
       res.json({ success });
     } catch (error) {
       res.status(500).json({ error: "Failed to increment usage" });
