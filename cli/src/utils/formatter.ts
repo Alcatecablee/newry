@@ -23,7 +23,7 @@ function formatTable(results: any[]) {
     console.log(`${status} ${result.file}`);
 
     if (result.success && result.layers) {
-      result.layers.forEach((layer) => {
+      result.layers.forEach((layer: any) => {
         const layerStatus =
           layer.status === "success" ? chalk.white("PASS") : chalk.gray("SKIP");
         const changes = layer.changes || 0;
@@ -32,7 +32,7 @@ function formatTable(results: any[]) {
         );
 
         if (layer.insights && layer.insights.length > 0) {
-          layer.insights.forEach((insight) => {
+          layer.insights.forEach((insight: any) => {
             const severity = chalk.gray("•");
             console.log(`     ${severity} ${insight.message}`);
           });
@@ -61,12 +61,15 @@ function formatSummary(results: any[]) {
 
   if (successful.length > 0) {
     // Calculate layer statistics
-    const layerStats = {};
+    const layerStats: Record<
+      string,
+      { name: string; files: number; changes: number; issues: number }
+    > = {};
     let totalIssues = 0;
 
-    successful.forEach((result) => {
+    successful.forEach((result: any) => {
       if (result.layers) {
-        result.layers.forEach((layer) => {
+        result.layers.forEach((layer: any) => {
           if (!layerStats[layer.id]) {
             layerStats[layer.id] = {
               name: layer.name,
