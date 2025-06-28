@@ -66,6 +66,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("Login attempt for email:", email);
 
     if (!email || !password) {
       return res.status(400).json({ error: "Email and password are required" });
@@ -78,15 +79,22 @@ router.post("/login", async (req, res) => {
       .where(eq(schema.users.email, email))
       .limit(1);
 
+    console.log("Found users:", users.length);
+
     if (users.length === 0) {
+      console.log("No user found with email:", email);
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
     const user = users[0];
+    console.log("User found, checking password...");
 
     // Verify password
     const isValidPassword = await bcrypt.compare(password, user.passwordHash);
+    console.log("Password valid:", isValidPassword);
+
     if (!isValidPassword) {
+      console.log("Password comparison failed for user:", email);
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
