@@ -230,7 +230,7 @@ export function APISection() {
               </p>
             </div>
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
-              <div className="bg-purple-600/20 text-purple-400 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
+              <div className="bg-zinc-600/20 text-zinc-400 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
                 GET
               </div>
               <h4 className="font-semibold mb-2 text-white">/api/layers</h4>
