@@ -154,22 +154,19 @@ export function LandingFeatures() {
           ))}
         </div>
 
-        {/* Experimental safety notice */}
-        <div className="bg-[#232332] border border-yellow-700 text-yellow-200 rounded-lg p-4 mb-6 text-sm flex items-center gap-2">
-          <AlertTriangle className="w-5 h-5 text-yellow-300" />
+        {/* Current Implementation Notice */}
+        <div className="bg-zinc-900 border border-zinc-700 text-zinc-200 rounded-lg p-4 mb-6 text-sm flex items-center gap-2">
+          <AlertTriangle className="w-5 h-5 text-zinc-400" />
           <div>
-            <b>Experimental Layers:</b> The toggles above are for demonstration
-            only. These features are not yet live or safe—real code will only be
-            processed by the{" "}
-            <span className="text-green-300 font-bold">
-              ConfigMaster (LIVE)
-            </span>{" "}
-            layer. Want to help us ship these?{" "}
+            <b>Current Implementation:</b> NeuroLint currently uses
+            sophisticated rule-based transformations and AST parsing. All layers
+            shown above are functional and use proven pattern-matching
+            techniques. AI integration is planned for future releases.{" "}
             <a
               href="mailto:founder@neurolint.com"
-              className="underline text-blue-200"
+              className="underline text-white"
             >
-              Join as a technical collaborator!
+              Share feedback or collaborate!
             </a>
           </div>
         </div>
