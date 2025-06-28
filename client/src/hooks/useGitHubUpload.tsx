@@ -48,9 +48,176 @@ class GitHubRateLimit {
 // Request cache to avoid duplicate API calls
 const requestCache = new Map<string, any>();
 
+// Demo repository data for when rate limits are hit
+const DEMO_REPO_FILES = [
+  {
+    path: "src/components/Button.tsx",
+    content: `import React from 'react';
+
+interface ButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  variant?: 'primary' | 'secondary';
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  onClick,
+  disabled = false,
+  variant = 'primary'
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={\`btn btn-\${variant}\`}
+    >
+      {children}
+    </button>
+  );
+};`
+  },
+  {
+    path: "src/components/Modal.tsx",
+    content: `import React, { useState } from 'react';
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+}
+
+export function Modal({ isOpen, onClose, title, children }: ModalProps) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <h2>{title}</h2>
+          <button onClick={onClose}>×</button>
+        </div>
+        <div className="modal-body">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}`
+  },
+  {
+    path: "src/hooks/useAuth.ts",
+    content: `import { useState, useEffect } from 'react';
+
+interface User {
+  id: string;
+  email: string;
+  name: string;
+}
+
+export function useAuth() {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      // Simulate API call
+      setTimeout(() => {
+        setUser({
+          id: '1',
+          email: 'user@example.com',
+          name: 'Demo User'
+        });
+        setLoading(false);
+      }, 1000);
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  const login = async (email: string, password: string) => {
+    setLoading(true);
+    // Simulate login
+    setTimeout(() => {
+      const user = { id: '1', email, name: 'Demo User' };
+      setUser(user);
+      localStorage.setItem('auth_token', 'demo_token');
+      setLoading(false);
+    }, 1000);
+  };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('auth_token');
+  };
+
+  return { user, loading, login, logout };
+}`
+  },
+  {
+    path: "src/utils/api.ts",
+    content: `const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
+export class ApiClient {
+  private baseURL: string;
+
+  constructor(baseURL: string = API_BASE_URL) {
+    this.baseURL = baseURL;
+  }
+
+  async get(endpoint: string) {
+    const response = await fetch(\`\${this.baseURL}\${endpoint}\`);
+    if (!response.ok) {
+      throw new Error(\`HTTP error! status: \${response.status}\`);
+    }
+    return response.json();
+  }
+
+  async post(endpoint: string, data: any) {
+    const response = await fetch(\`\${this.baseURL}\${endpoint}\`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error(\`HTTP error! status: \${response.status}\`);
+    }
+    return response.json();
+  }
+}
+
+export const apiClient = new ApiClient();`
+  },
+  {
+    path: "package.json",
+    content: `{
+  "name": "demo-react-app",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^4.9.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
+}`
+  }
+];
+
 export function useGitHubUpload() {
   const [uploading, setUploading] = useState(false);
-  const [uploadStatus, setUploadStatus] = useState<UploadStatus | null>(null);
+  const [uploadStatus, setUploadStatus] = useState<UploadStatus | null>(null>();
+  const [demoMode, setDemoMode] = useState(false);
 
   const isValidGitHubUrl = (url: string) => {
     const githubRegex = /^https:\/\/github\.com\/[\w\-\.]+\/[\w\-\.]+\/?$/;
@@ -110,10 +277,8 @@ export function useGitHubUpload() {
       );
 
       // Check rate limit headers
-      const remainingRequests = response.headers.get("x-ratelimit-remaining");
-      console.log(
-        `GitHub API requests remaining: ${remainingRequests || "unknown"}`,
-      );
+      const remainingRequests = response.headers.get('x-ratelimit-remaining');
+      console.log(`GitHub API requests remaining: ${remainingRequests || 'unknown'}`);
 
       if (response.ok) {
         const repoData = await response.json();
@@ -139,13 +304,9 @@ ${suggestions.join("\n")}`);
       }
 
       if (response.status === 403) {
-        const rateLimitReset = response.headers.get("x-ratelimit-reset");
-        const resetTime = rateLimitReset
-          ? new Date(parseInt(rateLimitReset) * 1000)
-          : null;
-        const waitTime = resetTime
-          ? Math.ceil((resetTime.getTime() - Date.now()) / 60000)
-          : 60;
+        const rateLimitReset = response.headers.get('x-ratelimit-reset');
+        const resetTime = rateLimitReset ? new Date(parseInt(rateLimitReset) * 1000) : null;
+        const waitTime = resetTime ? Math.ceil((resetTime.getTime() - Date.now()) / 60000) : 60;
 
         throw new Error(
           `GitHub API rate limit exceeded. Please wait ${waitTime} minutes before trying again, or use the demo mode below.`,
