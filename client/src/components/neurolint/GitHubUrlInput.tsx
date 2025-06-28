@@ -132,9 +132,9 @@ export function GitHubUrlInput({
           {verifying ? (
             <div className="w-4 h-4 animate-spin rounded-full border-2 border-zinc-300 border-t-transparent" />
           ) : verificationStatus === "valid" ? (
-            <CheckCircle className="w-4 h-4 text-green-500" />
+            <CheckCircle className="w-4 h-4 text-zinc-400" />
           ) : verificationStatus === "invalid" ? (
-            <AlertCircle className="w-4 h-4 text-red-500" />
+            <AlertCircle className="w-4 h-4 text-zinc-400" />
           ) : (
             "Verify"
           )}
