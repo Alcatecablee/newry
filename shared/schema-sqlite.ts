@@ -50,12 +50,8 @@ export const payments = sqliteTable("payments", {
   status: text("status").default("pending"),
   paymentType: text("payment_type").default("subscription"),
   description: text("description"),
-  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
-    () => new Date(),
-  ),
-  updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(
-    () => new Date(),
-  ),
+  createdAt: integer("created_at", { mode: "timestamp" }),
+  updatedAt: integer("updated_at", { mode: "timestamp" }),
 });
 
 export const teams = sqliteTable("teams", {
