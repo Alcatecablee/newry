@@ -115,39 +115,35 @@ export function SignInButton() {
   if (showModal) {
     return (
       <div
-        className="fixed inset-0 bg-black/60 z-50 p-4"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "100vh",
-          minWidth: "100vw",
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-        }}
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 p-4 flex items-center justify-center transition-all duration-300 ease-out ${
+          isModalVisible ? "opacity-100" : "opacity-0"
+        }`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
       >
         <div
-          className="bg-zinc-900 rounded-xl border border-zinc-800 w-full max-w-md shadow-2xl mx-auto"
+          ref={modalRef}
+          className={`bg-zinc-900 rounded-xl border border-zinc-800 w-full max-w-md shadow-2xl mx-auto transform transition-all duration-300 ease-out ${
+            isModalVisible
+              ? "opacity-100 scale-100 translate-y-0"
+              : "opacity-0 scale-95 translate-y-4"
+          }`}
           style={{
             maxHeight: "90vh",
             overflow: "auto",
-            margin: "auto",
           }}
         >
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-zinc-800">
-            <h2 className="text-xl font-semibold text-white">
+            <h2 id="modal-title" className="text-xl font-semibold text-white">
               {mode === "signin" ? "Sign In to NeuroLint" : "Create Account"}
             </h2>
             <button
-              onClick={() => {
-                setShowModal(false);
-                resetForm();
-              }}
-              className="text-zinc-400 hover:text-white transition-colors"
+              onClick={closeModal}
+              className="text-zinc-400 hover:text-white transition-all duration-200 ease-out hover:scale-110 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-zinc-900 rounded p-1"
+              aria-label="Close dialog"
             >
               <X className="w-5 h-5" />
             </button>
