@@ -183,8 +183,8 @@ export class DatabaseStorage implements IStorage {
         const result = await db.insert(teams).values(team).returning();
         return result[0];
       } else {
-        // For SQLite, generate ID and provide timestamps
-        const now = new Date();
+        // For SQLite, generate ID and provide unix timestamps
+        const now = Math.floor(Date.now() / 1000);
         const teamWithId = {
           ...team,
           id: this.generateId(),
