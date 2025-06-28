@@ -5,6 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useTeams, useTeam, useTeamAnalytics } from "@/hooks/useTeams";
+import { orchestrateTransformation } from "@/lib/neurolint/orchestrator";
+import { NeuroLintLayerResult } from "@/lib/neurolint/types";
 import {
   Users,
   TrendingUp,
@@ -17,6 +19,11 @@ import {
   Settings,
   Filter,
   Download,
+  Layers,
+  Zap,
+  Target,
+  Code,
+  Bot,
 } from "lucide-react";
 
 interface TeamMember {
