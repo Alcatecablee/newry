@@ -100,7 +100,7 @@ export function LayerSelector({
                       ${
                         isOn
                           ? "bg-zinc-600 text-white border-zinc-500"
-                          : "bg-zinc-800/50 text-gray-400 border-zinc-700 group-hover:bg-zinc-700 group-hover:text-gray-300"
+                          : "bg-[#292939] text-gray-400 border-[#3a3a45] group-hover:bg-[#343445] group-hover:text-gray-300"
                       }
                       `}
                     >
@@ -168,7 +168,7 @@ export function LayerSelector({
                     ${
                       isOn
                         ? "bg-zinc-600 text-white border-zinc-500"
-                        : "bg-zinc-800/50 text-gray-400 border-zinc-700 group-hover:bg-zinc-700 group-hover:text-gray-300"
+                        : "bg-[#292939] text-gray-400 border-[#3a3a45] group-hover:bg-[#343445] group-hover:text-gray-300"
                     }
                     `}
                   >
