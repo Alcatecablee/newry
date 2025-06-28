@@ -219,7 +219,7 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
     await progress.complete(true);
 
     // Format and display results
-    console.log(chalk.green("\n✅ Analysis Complete!\n"));
+    console.log(chalk.white("\nAnalysis Complete\n"));
 
     formatResults(results, options.output || "table");
 
