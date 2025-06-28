@@ -135,12 +135,12 @@ export function LandingFeatures() {
                 <label className="flex items-center gap-1 ml-1">
                   <input
                     type="checkbox"
-                    className="form-checkbox rounded border-blue-400 focus:ring-2 focus:ring-blue-400 accent-purple-400 w-5 h-5 bg-[#26233b]"
+                    className="form-checkbox rounded border-zinc-400 focus:ring-2 focus:ring-zinc-400 accent-zinc-400 w-5 h-5 bg-[#26233b]"
                     checked={experimentalStates[layer.name] || false}
                     onChange={() => handleToggle(layer.name)}
                     disabled={true}
                   />
-                  <span className="text-xs text-purple-400">Demo</span>
+                  <span className="text-xs text-zinc-400">Demo</span>
                 </label>
               )}
               {/* Show warning on hover if experimental */}
