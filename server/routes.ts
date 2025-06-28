@@ -372,23 +372,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
           .json({ error: "No authorization token provided" });
       }
 
-      // Extract user ID from Supabase token
-      // For now, return mock user data matching Supabase user structure
-      const mockUser = {
-        id: "supabase-user-id",
-        email: "user@example.com",
+      // TODO: Decode Supabase JWT token to get user ID
+      // For now, get user data from database
+      const usersQuery = await db.select().from(users).limit(1);
+
+      if (usersQuery.length === 0) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      const user = usersQuery[0];
+      const userProfile = {
+        id: user.id,
+        email: user.email,
         user_metadata: {
-          full_name: "Test User",
+          full_name: user.fullName,
           avatar_url: null,
         },
         app_metadata: {
-          plan_type: "free",
-          monthly_transformations_used: 5,
-          monthly_limit: 25,
+          plan_type: user.planType || "free",
+          monthly_transformations_used: user.monthlyTransformationsUsed || 0,
+          monthly_limit: user.monthlyLimit || 25,
         },
       };
 
-      res.json(mockUser);
+      res.json(userProfile);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch user profile" });
     }
