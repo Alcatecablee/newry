@@ -1,6 +1,6 @@
 # NeuroLint CLI
 
-AI-powered code analysis and transformation command-line tool.
+Advanced code analysis and transformation command-line tool.
 
 ## Installation
 
@@ -9,6 +9,7 @@ npm install -g @neurolint/cli
 ```
 
 Or run directly:
+
 ```bash
 npx @neurolint/cli
 ```
@@ -16,11 +17,13 @@ npx @neurolint/cli
 ## Quick Start
 
 1. **Initialize your project:**
+
    ```bash
    neurolint init
    ```
 
 2. **Analyze your code:**
+
    ```bash
    neurolint analyze src/
    ```
@@ -34,6 +37,7 @@ npx @neurolint/cli
 ## Commands
 
 ### `neurolint init`
+
 Initialize NeuroLint configuration in your project.
 
 ```bash
@@ -42,6 +46,7 @@ neurolint init [options]
 ```
 
 ### `neurolint analyze [files...]`
+
 Analyze code files for issues and improvements.
 
 ```bash
@@ -55,6 +60,7 @@ neurolint analyze src/ [options]
 ```
 
 ### `neurolint fix [files...]`
+
 Fix code issues automatically.
 
 ```bash
@@ -68,6 +74,7 @@ neurolint fix src/ [options]
 ```
 
 ### `neurolint status`
+
 Show project analysis status and statistics.
 
 ```bash
@@ -76,9 +83,11 @@ neurolint status [options]
 ```
 
 ### `neurolint interactive`
+
 Run NeuroLint in interactive mode.
 
 ### `neurolint login`
+
 Authenticate with NeuroLint service.
 
 ## Configuration
