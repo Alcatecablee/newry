@@ -74,14 +74,25 @@ class FileSecurityValidator {
       );
     }
 
-    // Content pattern validation
+    // Content pattern validation (only block truly dangerous patterns)
     for (const { pattern, description } of this.DANGEROUS_PATTERNS) {
       if (pattern.test(content)) {
-        errors.push(`Potentially dangerous ${description} detected`);
-        sanitizedContent = sanitizedContent.replace(
-          pattern,
-          `/* REMOVED: ${description} */`,
-        );
+        // Only treat script tags and protocols as actual errors
+        if (
+          description.includes("script tag") ||
+          description.includes("protocol")
+        ) {
+          errors.push(`Dangerous ${description} detected`);
+          sanitizedContent = sanitizedContent.replace(
+            pattern,
+            `/* REMOVED: ${description} */`,
+          );
+        } else {
+          // For other patterns, just warn but don't block
+          warnings.push(
+            `Pattern detected: ${description} (allowed for React development)`,
+          );
+        }
       }
     }
 
