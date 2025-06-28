@@ -392,21 +392,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
           .json({ error: "User ID and email are required" });
       }
 
-      // Check if user already exists in our database
-      let user = await storage.getUser(id);
+      // Check if user already exists in our database using clerkId field for Supabase ID
+      let user = await storage.getUserByClerkId(id);
 
       if (!user) {
-        // Create new user in our database
-        user = await storage.createUser({
-          clerkId: id, // Using clerkId field for Supabase user ID for now
-          email,
-          fullName: user_metadata?.full_name || email.split("@")[0],
-        });
+        try {
+          // Create new user in our database
+          user = await storage.createUser({
+            clerkId: id, // Using clerkId field for Supabase user ID for now
+            email,
+            fullName: user_metadata?.full_name || email.split("@")[0],
+          });
+        } catch (createError) {
+          console.error("Error creating user:", createError);
+          // If user creation fails due to duplicate, try to get the existing user
+          user = await storage.getUserByClerkId(id);
+          if (!user) {
+            throw createError;
+          }
+        }
       }
 
       res.json(user);
     } catch (error) {
-      res.status(500).json({ error: "Failed to sync user" });
+      console.error("Failed to sync user:", error);
+      res
+        .status(500)
+        .json({ error: "Failed to sync user", details: error.message });
     }
   });
 
