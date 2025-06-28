@@ -113,7 +113,7 @@ async function showAuditTrail(
 
     events.forEach((event) => {
       const riskColor = getRiskColor(event.riskLevel);
-      const statusIcon = event.success ? "✓" : "✗";
+      const statusIcon = event.success ? "SUCCESS" : "FAILED";
 
       console.log(chalk.white(`${event.timestamp} ${statusIcon}`));
       console.log(chalk.gray(`  User: ${event.userEmail} (${event.userId})`));
@@ -241,7 +241,7 @@ async function searchAuditEvents(query: string, days: number) {
 
     results.events.forEach((event: AuditEvent) => {
       const riskColor = getRiskColor(event.riskLevel);
-      const statusIcon = event.success ? "✓" : "✗";
+      const statusIcon = event.success ? "SUCCESS" : "FAILED";
 
       console.log(chalk.white(`${event.timestamp} ${statusIcon}`));
       console.log(
