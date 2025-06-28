@@ -11,6 +11,7 @@ const TypewriterHeadline: React.FC = () => {
     "Fix Bugs Instantly",
     "Optimize Everything",
     "Write Better Code",
+    "Modernize Legacy Code",
   ];
 
   const typingSpeed = 100;
