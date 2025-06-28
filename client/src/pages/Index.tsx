@@ -416,8 +416,25 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Demo Section */}
-      <CodeDemoSection />
+      {/* Test Suite CTA Section */}
+      <section className="py-16 px-4 bg-zinc-900/30">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-black mb-6 text-white tracking-tight">
+            See NeuroLint in Action
+          </h2>
+          <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
+            Try our interactive test suite to see how NeuroLint transforms your
+            code
+          </p>
+          <Link
+            to="/test"
+            className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-xl"
+          >
+            <Play className="w-6 h-6" />
+            Try Test Suite
+          </Link>
+        </div>
+      </section>
 
       {/* Features Section */}
       <section id="features" className="py-24 px-4 relative">
@@ -625,7 +642,7 @@ export default function Index() {
                 <div className="text-white">$ neurolint analyze src/</div>
                 <div className="text-zinc-400">Analyzing 24 files...</div>
                 <div className="text-white">
-                  ✓ Layer 1: Configuration (0.2s)
+                  ��� Layer 1: Configuration (0.2s)
                 </div>
                 <div className="text-white">
                   ✓ Layer 2: Pattern Detection (0.8s)
