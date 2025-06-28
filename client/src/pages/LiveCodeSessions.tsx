@@ -63,7 +63,7 @@ interface SessionSettings {
 }
 
 const LiveCodeSessions = () => {
-  const [selectedTeamId, setSelectedTeamId] = useState<string>("demo-team");
+  const [selectedTeamId, setSelectedTeamId] = useState<string>("");
   const [activeSessions, setActiveSessions] = useState<LiveSession[]>([]);
   const [selectedSession, setSelectedSession] = useState<string | null>(null);
   const [currentCode, setCurrentCode] = useState<string>("");
@@ -91,6 +91,13 @@ const LiveCodeSessions = () => {
   // Fetch teams data
   const { data: teams, isLoading: teamsLoading } = useTeams();
   const { data: teamData, isLoading: teamLoading } = useTeam(selectedTeamId);
+
+  // Auto-select first team when teams are loaded
+  useEffect(() => {
+    if (teams && teams.length > 0 && !selectedTeamId) {
+      setSelectedTeamId(teams[0].id);
+    }
+  }, [teams, selectedTeamId]);
 
   // Convert team members to participants
   const teamParticipants: Participant[] =
