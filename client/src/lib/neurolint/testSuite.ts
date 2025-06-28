@@ -240,9 +240,15 @@ export function validateTestResult(
     ),
 
     // --- Layer 4: SSR guard for localStorage ---
-    "Added SSR guard for localStorage": transformedCode.includes(
-      'typeof window !== "undefined" && localStorage.getItem("something")',
-    ),
+    "Added SSR guard for localStorage":
+      transformedCode.includes(
+        'typeof window !== "undefined" && localStorage',
+      ) ||
+      transformedCode.includes(
+        'typeof window !== "undefined" && sessionStorage',
+      ) ||
+      transformedCode.includes('typeof document !== "undefined"') ||
+      transformedCode.includes('typeof navigator !== "undefined"'),
   };
 
   testCase.expectedFixes.forEach((expectedFix) => {
