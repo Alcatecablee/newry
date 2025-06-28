@@ -1,7 +1,7 @@
 {
   "name": "@neurolint/cli",
   "version": "1.0.0",
-  "description": "NeuroLint CLI - AI-powered code analysis and transformation tool",
+  "description": "NeuroLint CLI - Advanced code analysis and transformation tool",
   "main": "dist/index.js",
   "bin": {
     "neurolint": "dist/cli.js",
@@ -16,7 +16,7 @@
   },
   "keywords": [
     "linting",
-    "code-analysis", 
+    "code-analysis",
     "typescript",
     "react",
     "nextjs",
