@@ -186,7 +186,7 @@ const AdvancedAI = () => {
       id: "smart-refactoring",
       name: "Smart Refactoring",
       description:
-        "AI-powered code refactoring with pattern recognition and optimization suggestions",
+        "Advanced code refactoring with pattern recognition and optimization suggestions",
       category: "optimization",
       maturity: "stable",
       enabled: true,

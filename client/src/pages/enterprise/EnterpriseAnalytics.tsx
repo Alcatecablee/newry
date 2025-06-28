@@ -291,7 +291,7 @@ const EnterpriseAnalytics = () => {
         type: "efficiency",
         title: "Automated Code Review Pipeline",
         description:
-          "Implement AI-powered code review to reduce manual review time by 60%",
+          "Implement automated code review to reduce manual review time by 60%",
         potentialValue: "$2.4M annually",
         effort: "medium",
         timeline: "3 months",
