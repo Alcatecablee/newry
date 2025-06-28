@@ -11,6 +11,7 @@ import {
   NeuroLintLayerResult,
   LAYER_LIST,
 } from "@/lib/neurolint/orchestrator";
+import { formatProcessingTime } from "@/lib/utils/timeFormat";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -78,18 +79,6 @@ const AppPage = () => {
 
   const handleRepoProcessingComplete = (processedFiles: RepoFile[]) => {
     setRepoFiles(processedFiles);
-  };
-
-  // Format processing time for clean display
-  const formatProcessingTime = (ms: number): string => {
-    if (ms < 1000) {
-      // For milliseconds, round to 1 decimal place or whole number
-      return ms % 1 === 0
-        ? `${Math.round(ms)}ms`
-        : `${Math.round(ms * 10) / 10}ms`;
-    }
-    // For seconds, show 1 decimal place
-    return `${(ms / 1000).toFixed(1)}s`;
   };
 
   const stats =
