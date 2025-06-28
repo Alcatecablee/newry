@@ -220,8 +220,8 @@ export async function statusAuth() {
     const config = await loadConfig();
 
     if (!config.apiKey) {
-      console.log(chalk.yellow("❌ Not authenticated"));
-      console.log(chalk.gray('💡 Run "neurolint login" to authenticate'));
+      console.log(chalk.white("Not authenticated"));
+      console.log(chalk.gray('Run "neurolint login" to authenticate'));
       return false;
     }
 
@@ -238,13 +238,13 @@ export async function statusAuth() {
       );
 
       spinner.succeed("Authentication valid");
-      console.log(chalk.green("✅ Authenticated"));
+      console.log(chalk.white("Authenticated"));
 
       return true;
     } catch (error) {
       spinner.fail("Authentication invalid");
-      console.log(chalk.red("❌ Authentication expired or invalid"));
-      console.log(chalk.gray('💡 Run "neurolint login" to re-authenticate'));
+      console.log(chalk.white("Authentication expired or invalid"));
+      console.log(chalk.gray('Run "neurolint login" to re-authenticate'));
 
       return false;
     }
