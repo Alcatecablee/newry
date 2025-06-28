@@ -78,7 +78,7 @@ export async function fixCommand(files: string[], options: FixOptions) {
     if (!fileValidation.valid) {
       spinner.fail("File validation failed");
       fileValidation.errors.forEach((error) =>
-        console.log(chalk.red(`❌ ${error}`)),
+        console.log(chalk.white(`ERROR: ${error}`)),
       );
       return;
     }
@@ -86,7 +86,7 @@ export async function fixCommand(files: string[], options: FixOptions) {
     if (fileValidation.warnings.length > 0) {
       spinner.warn("File validation warnings");
       fileValidation.warnings.forEach((warning) =>
-        console.log(chalk.yellow(`⚠ ${warning}`)),
+        console.log(chalk.gray(`WARNING: ${warning}`)),
       );
     }
 
@@ -105,12 +105,10 @@ export async function fixCommand(files: string[], options: FixOptions) {
       .map((l) => parseInt(l.trim())) || [1, 2, 3, 4];
 
     if (options.dryRun) {
-      console.log(
-        chalk.yellow("\n🔍 DRY RUN MODE - No files will be modified\n"),
-      );
+      console.log(chalk.white("\nDRY RUN MODE - No files will be modified\n"));
     }
 
-    console.log(chalk.blue(`\n🔧 Fixing with layers: ${layers.join(", ")}\n`));
+    console.log(chalk.white(`\nFixing with layers: ${layers.join(", ")}\n`));
 
     // Check for resumable operation
     const resumeState = await resumeOperation("fix");
@@ -129,8 +127,8 @@ export async function fixCommand(files: string[], options: FixOptions) {
       if (resume) {
         filesToProcess = resumeState.files.remaining;
         console.log(
-          chalk.blue(
-            `\n🔄 Resuming fix operation with ${filesToProcess.length} remaining files\n`,
+          chalk.white(
+            `\nResuming fix operation with ${filesToProcess.length} remaining files\n`,
           ),
         );
       }
@@ -210,8 +208,8 @@ export async function fixCommand(files: string[], options: FixOptions) {
                 delay: 2000,
                 onRetry: (error, attempt) => {
                   console.log(
-                    chalk.yellow(
-                      `⚠ Retrying fix for ${path.relative(process.cwd(), filePath)} (attempt ${attempt})`,
+                    chalk.gray(
+                      `Retrying fix for ${path.relative(process.cwd(), filePath)} (attempt ${attempt})`,
                     ),
                   );
                 },
