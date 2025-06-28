@@ -4,6 +4,8 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { orchestrateTransformation } from "@/lib/neurolint/orchestrator";
+import { NeuroLintLayerResult } from "@/lib/neurolint/types";
 import {
   Users,
   MessageCircle,
@@ -20,6 +22,11 @@ import {
   Bot,
   ArrowLeft,
   Settings,
+  Zap,
+  CheckCircle,
+  AlertCircle,
+  Layers,
+  Target,
 } from "lucide-react";
 
 interface Participant {
