@@ -23,6 +23,29 @@ export function useGitHubUpload() {
     return githubRegex.test(url.replace(/\.git$/, ""));
   };
 
+  const suggestCorrections = (owner: string, repo: string) => {
+    const suggestions = [];
+
+    // Common username variations
+    if (owner.toLowerCase().includes("alcatecable")) {
+      suggestions.push(`• Try "alcatecable" instead of "${owner}"`);
+    }
+
+    // Common repository name patterns
+    if (repo.includes("-")) {
+      suggestions.push(`• Try "${repo.replace(/-/g, "_")}" (with underscores)`);
+      suggestions.push(`• Try "${repo.replace(/-/g, "")}" (no separators)`);
+    }
+
+    if (repo.includes("_")) {
+      suggestions.push(`• Try "${repo.replace(/_/g, "-")}" (with hyphens)`);
+    }
+
+    return suggestions.length > 0
+      ? suggestions
+      : [`• Double-check the repository name on GitHub`];
+  };
+
   const extractRepoInfo = (url: string) => {
     const match = url.match(/github\.com\/([^\/]+)\/([^\/]+)/);
     if (!match) return null;
