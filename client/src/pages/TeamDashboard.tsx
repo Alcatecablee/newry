@@ -83,10 +83,10 @@ const TeamDashboard = () => {
         [1, 2, 3, 4, 5, 6],
       );
 
-      if (results.layerResults) {
+      if (layers) {
         setLayerAnalysis((prev) => ({
           ...prev,
-          [projectId]: results.layerResults!,
+          [projectId]: layers,
         }));
       }
     } catch (error) {
