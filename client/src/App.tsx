@@ -78,6 +78,7 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
             <SiteFooter />
+            <InfoWidget />
           </div>
         </BrowserRouter>
       </TooltipProvider>
