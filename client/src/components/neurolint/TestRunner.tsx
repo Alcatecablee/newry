@@ -226,6 +226,83 @@ export function TestRunner() {
 
   return (
     <div className="space-y-6">
+      {/* Test Configuration - Moved to Top */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Target className="w-5 h-5 text-zinc-400" />
+            Test Configuration
+            <Badge variant="outline" className="ml-auto">
+              {useAST ? "AST-based" : "Regex-based"}
+            </Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* Layer selector UI */}
+          <div className="my-3 flex flex-col sm:flex-row gap-3 items-center">
+            <LayerSelector
+              enabledLayers={enabledLayers}
+              setEnabledLayers={setEnabledLayers}
+            />
+            <Button
+              variant="outline"
+              onClick={() => setEnabledLayers(LAYER_LIST.map((l) => l.id))}
+              disabled={enabledLayers.length === LAYER_LIST.length}
+              className="ml-auto"
+            >
+              All Layers
+            </Button>
+          </div>
+          <div className="flex items-center gap-4 mb-4">
+            <Button
+              onClick={runAllTests}
+              disabled={isRunning || enabledLayers.length === 0}
+              className="flex items-center gap-2"
+            >
+              <PlayCircle className="w-4 h-4" />
+              {isRunning
+                ? "Running Tests..."
+                : `Run ${enabledLayers.length === LAYER_LIST.length ? "All" : "Selected"} Layer${enabledLayers.length !== 1 ? "s" : ""} Tests`}
+            </Button>
+
+            <Button
+              variant="outline"
+              onClick={() => setUseAST(!useAST)}
+              className="flex items-center gap-2"
+            >
+              <Settings className="w-4 h-4" />
+              {useAST ? "Switch to Regex" : "Switch to AST"}
+            </Button>
+
+            {results.length > 0 && (
+              <div className="flex items-center gap-4">
+                <Badge
+                  variant={
+                    passRate === 100
+                      ? "default"
+                      : passRate > 50
+                        ? "secondary"
+                        : "destructive"
+                  }
+                >
+                  {passedTests}/{totalTests} Passed ({passRate.toFixed(1)}%)
+                </Badge>
+              </div>
+            )}
+          </div>
+
+          {isRunning && (
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Clock className="w-4 h-4" />
+                Running: {currentTest}
+              </div>
+              <Progress value={progress} className="w-full" />
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       {/* Key Layers Performance Dashboard */}
       {results.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -302,82 +379,6 @@ export function TestRunner() {
           </AlertDescription>
         </Alert>
       )}
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Target className="w-5 h-5 text-zinc-400" />
-            Test Configuration
-            <Badge variant="outline" className="ml-auto">
-              {useAST ? "AST-based" : "Regex-based"}
-            </Badge>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {/* Layer selector UI */}
-          <div className="my-3 flex flex-col sm:flex-row gap-3 items-center">
-            <LayerSelector
-              enabledLayers={enabledLayers}
-              setEnabledLayers={setEnabledLayers}
-            />
-            <Button
-              variant="outline"
-              onClick={() => setEnabledLayers(LAYER_LIST.map((l) => l.id))}
-              disabled={enabledLayers.length === LAYER_LIST.length}
-              className="ml-auto"
-            >
-              All Layers
-            </Button>
-          </div>
-          <div className="flex items-center gap-4 mb-4">
-            <Button
-              onClick={runAllTests}
-              disabled={isRunning || enabledLayers.length === 0}
-              className="flex items-center gap-2"
-            >
-              <PlayCircle className="w-4 h-4" />
-              {isRunning
-                ? "Running Tests..."
-                : `Run ${enabledLayers.length === LAYER_LIST.length ? "All" : "Selected"} Layer${enabledLayers.length !== 1 ? "s" : ""} Tests`}
-            </Button>
-
-            <Button
-              variant="outline"
-              onClick={() => setUseAST(!useAST)}
-              className="flex items-center gap-2"
-            >
-              <Settings className="w-4 h-4" />
-              {useAST ? "Switch to Regex" : "Switch to AST"}
-            </Button>
-
-            {results.length > 0 && (
-              <div className="flex items-center gap-4">
-                <Badge
-                  variant={
-                    passRate === 100
-                      ? "default"
-                      : passRate > 50
-                        ? "secondary"
-                        : "destructive"
-                  }
-                >
-                  {passedTests}/{totalTests} Passed ({passRate.toFixed(1)}%)
-                </Badge>
-              </div>
-            )}
-          </div>
-
-          {isRunning && (
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Clock className="w-4 h-4" />
-                Running: {currentTest}
-              </div>
-              <Progress value={progress} className="w-full" />
-            </div>
-          )}
-        </CardContent>
-      </Card>
 
       {results.length > 0 && (
         <Tabs defaultValue="all" className="space-y-4">
