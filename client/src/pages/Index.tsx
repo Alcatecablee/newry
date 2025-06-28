@@ -976,8 +976,8 @@ export default function Index() {
               Ready to Transform Your Code?
             </h2>
             <p className="text-xl md:text-2xl text-gray-300 mb-16 max-w-4xl mx-auto font-medium">
-              Join thousands of developers who are writing better code with our
-              AI-powered platform
+              Join developers who are writing better code with our advanced
+              transformation platform
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
