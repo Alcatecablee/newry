@@ -50,15 +50,12 @@ export const SiteHeader = () => {
             >
               App
             </Link>
-            <span
-              className="px-4 py-2 text-sm font-medium text-zinc-500 cursor-not-allowed rounded-lg relative group"
-              title="Coming Soon"
+            <Link
+              to="/teams"
+              className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
             >
               Teams
-              <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-zinc-700 text-zinc-300 rounded-full text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">
-                Soon
-              </span>
-            </span>
+            </Link>
             <Link
               to="/test"
               className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
@@ -126,9 +123,13 @@ export const SiteHeader = () => {
               >
                 App
               </Link>
-              <div className="block px-3 py-2 text-sm font-medium text-zinc-500 rounded-lg">
-                Teams <span className="text-xs">(Coming Soon)</span>
-              </div>
+              <Link
+                to="/teams"
+                className="block px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Teams
+              </Link>
               <Link
                 to="/test"
                 className="block px-3 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
