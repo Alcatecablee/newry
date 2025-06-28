@@ -147,7 +147,7 @@ const AdminDashboard = () => {
         setSystemStats((prev) => ({
           ...prev,
           uptime: healthData.uptime || "Unknown",
-          activeUsers: Math.floor(Math.random() * 10) + 1, // Mock data
+          activeUsers: healthData.activeUsers || 0,
         }));
       }
     } catch (error) {
