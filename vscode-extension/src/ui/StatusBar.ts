@@ -3,6 +3,10 @@ import * as vscode from "vscode";
 export class NeuroLintStatusBar {
   private _statusBarItem: vscode.StatusBarItem;
   private _isAnalyzing: boolean = false;
+  private _currentStatus: string = "Ready";
+  private _statusHistory: Array<{ status: string; timestamp: number }> = [];
+  private _autoHideTimers: Set<NodeJS.Timeout> = new Set();
+  private _isDisposed: boolean = false;
 
   constructor() {
     this._statusBarItem = vscode.window.createStatusBarItem(
@@ -12,7 +16,7 @@ export class NeuroLintStatusBar {
 
     this._statusBarItem.command = "neurolint.showOutput";
     this._statusBarItem.name = "NeuroLint Status";
-    this.updateStatus("Ready");
+    this.updateStatus("Initializing...");
     this._statusBarItem.show();
   }
 
@@ -48,46 +52,43 @@ export class NeuroLintStatusBar {
   }
 
   public showError(message: string): void {
+    if (this._isDisposed) return;
+
+    this._currentStatus = message;
     this._statusBarItem.text = `$(error) NeuroLint: ${message}`;
     this._statusBarItem.backgroundColor = new vscode.ThemeColor(
       "statusBarItem.errorBackground",
     );
-    this._statusBarItem.tooltip = `NeuroLint Error: ${message}\nClick to view output for details`;
+    this._statusBarItem.tooltip = `NeuroLint Error: ${message}\nClick to view output for details\nRight-click for configuration`;
 
-    // Auto-hide error after 10 seconds
-    setTimeout(() => {
-      if (this._statusBarItem.text.includes("$(error)")) {
-        this.updateStatus("Ready");
-      }
-    }, 10000);
+    this.addToHistory("error", message);
+    this.scheduleAutoHide(10000, "error");
   }
 
   public showWarning(message: string): void {
+    if (this._isDisposed) return;
+
+    this._currentStatus = message;
     this._statusBarItem.text = `$(warning) NeuroLint: ${message}`;
     this._statusBarItem.backgroundColor = new vscode.ThemeColor(
       "statusBarItem.warningBackground",
     );
-    this._statusBarItem.tooltip = `NeuroLint Warning: ${message}`;
+    this._statusBarItem.tooltip = `NeuroLint Warning: ${message}\nClick to view output`;
 
-    // Auto-hide warning after 5 seconds
-    setTimeout(() => {
-      if (this._statusBarItem.text.includes("$(warning)")) {
-        this.updateStatus("Ready");
-      }
-    }, 5000);
+    this.addToHistory("warning", message);
+    this.scheduleAutoHide(5000, "warning");
   }
 
   public showSuccess(message: string): void {
+    if (this._isDisposed) return;
+
+    this._currentStatus = message;
     this._statusBarItem.text = `$(check) NeuroLint: ${message}`;
     this._statusBarItem.backgroundColor = undefined;
     this._statusBarItem.tooltip = `NeuroLint: ${message}`;
 
-    // Auto-hide success after 3 seconds
-    setTimeout(() => {
-      if (this._statusBarItem.text.includes(message)) {
-        this.updateStatus("Ready");
-      }
-    }, 3000);
+    this.addToHistory("success", message);
+    this.scheduleAutoHide(3000, "success");
   }
 
   public hide(): void {
@@ -98,8 +99,67 @@ export class NeuroLintStatusBar {
     this._statusBarItem.show();
   }
 
+  private addToHistory(level: string, message: string): void {
+    this._statusHistory.push({
+      status: `${level}: ${message}`,
+      timestamp: Date.now(),
+    });
+
+    // Keep only last 10 status updates
+    if (this._statusHistory.length > 10) {
+      this._statusHistory = this._statusHistory.slice(-10);
+    }
+  }
+
+  private scheduleAutoHide(delay: number, statusType: string): void {
+    this.clearAutoHideTimers();
+
+    const timer = setTimeout(() => {
+      if (
+        !this._isDisposed &&
+        this._statusBarItem.text.includes(
+          `$(${this.getIconForType(statusType)})`,
+        )
+      ) {
+        this.updateStatus("Ready");
+      }
+      this._autoHideTimers.delete(timer);
+    }, delay);
+
+    this._autoHideTimers.add(timer);
+  }
+
+  private getIconForType(statusType: string): string {
+    switch (statusType) {
+      case "error":
+        return "error";
+      case "warning":
+        return "warning";
+      case "success":
+        return "check";
+      default:
+        return "check";
+    }
+  }
+
+  private clearAutoHideTimers(): void {
+    this._autoHideTimers.forEach((timer) => clearTimeout(timer));
+    this._autoHideTimers.clear();
+  }
+
+  public getCurrentStatus(): string {
+    return this._currentStatus;
+  }
+
+  public getStatusHistory(): Array<{ status: string; timestamp: number }> {
+    return [...this._statusHistory];
+  }
+
   public dispose(): void {
+    this._isDisposed = true;
+    this.clearAutoHideTimers();
     this._statusBarItem.dispose();
+    this._statusHistory = [];
   }
 
   private createTooltip(message: string, isLoading: boolean): string {

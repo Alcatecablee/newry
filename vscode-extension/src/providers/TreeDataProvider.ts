@@ -14,9 +14,13 @@ export class NeuroLintTreeDataProvider
 
   private analysisResults: Map<string, any> = new Map();
   private workspaceStats: any = null;
+  private refreshTimer: NodeJS.Timeout | undefined;
+  private maxCacheSize: number = 50;
+  private isDisposed: boolean = false;
 
   constructor(private apiClient: ApiClient) {
     this.loadWorkspaceStats();
+    this.startPeriodicRefresh();
   }
 
   refresh(): void {
@@ -349,28 +353,104 @@ export class NeuroLintTreeDataProvider
   }
 
   private async loadWorkspaceStats(): Promise<void> {
+    if (this.isDisposed) return;
+
     try {
-      // This would typically fetch from the API
-      this.workspaceStats = {
-        totalFiles: 47,
-        analyzedFiles: 45,
-        totalIssues: 12,
-        qualityScore: 87,
-      };
+      if (this.apiClient.isConnectionHealthy()) {
+        // Try to fetch real stats from API
+        const stats = await this.apiClient.getWorkspaceStats();
+        this.workspaceStats = {
+          ...stats,
+          lastUpdated: Date.now(),
+        };
+      } else {
+        // Use cached stats or compute from local analysis
+        this.workspaceStats = this.computeLocalStats();
+      }
       this.refresh();
     } catch (error) {
-      // Handle error silently for now
+      // Fall back to computed stats
+      this.workspaceStats = this.computeLocalStats();
+      this.refresh();
     }
   }
 
+  private computeLocalStats(): any {
+    const totalIssues = Array.from(this.analysisResults.values()).reduce(
+      (sum, result) => sum + (result.issues?.length || 0),
+      0,
+    );
+
+    const analyzedFiles = this.analysisResults.size;
+
+    // Estimate quality score based on issues per file ratio
+    const averageIssuesPerFile =
+      analyzedFiles > 0 ? totalIssues / analyzedFiles : 0;
+    const qualityScore = Math.max(
+      0,
+      Math.min(100, 100 - averageIssuesPerFile * 10),
+    );
+
+    return {
+      totalFiles: analyzedFiles, // We only know about analyzed files
+      analyzedFiles,
+      totalIssues,
+      qualityScore: Math.round(qualityScore),
+      lastUpdated: Date.now(),
+      source: "local",
+    };
+  }
+
   public updateAnalysisResults(filePath: string, result: any): void {
-    this.analysisResults.set(filePath, result);
+    if (this.isDisposed) return;
+
+    this.analysisResults.set(filePath, {
+      ...result,
+      timestamp: Date.now(),
+    });
+
+    // Manage cache size
+    if (this.analysisResults.size > this.maxCacheSize) {
+      const entries = Array.from(this.analysisResults.entries());
+      entries.sort((a, b) => (a[1].timestamp || 0) - (b[1].timestamp || 0));
+
+      // Remove oldest entries
+      const toRemove = this.analysisResults.size - this.maxCacheSize;
+      for (let i = 0; i < toRemove; i++) {
+        this.analysisResults.delete(entries[i][0]);
+      }
+    }
+
     this.refresh();
   }
 
   public updateWorkspaceStats(stats: any): void {
-    this.workspaceStats = stats;
+    if (this.isDisposed) return;
+
+    this.workspaceStats = {
+      ...stats,
+      lastUpdated: Date.now(),
+    };
     this.refresh();
+  }
+
+  private startPeriodicRefresh(): void {
+    this.refreshTimer = setInterval(() => {
+      if (!this.isDisposed) {
+        this.loadWorkspaceStats();
+      }
+    }, 30000); // Refresh every 30 seconds
+  }
+
+  public dispose(): void {
+    this.isDisposed = true;
+    this._onDidChangeTreeData.dispose();
+    this.analysisResults.clear();
+
+    if (this.refreshTimer) {
+      clearInterval(this.refreshTimer);
+      this.refreshTimer = undefined;
+    }
   }
 }
 
