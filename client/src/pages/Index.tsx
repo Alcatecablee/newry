@@ -282,7 +282,7 @@ function UserProfile({ userId }: { userId: string }) {
                   <span className="text-zinc-300 font-semibold">
                     Issues Fixed:
                   </span>
-                  <span className="text-green-400 font-black text-lg">8</span>
+                  <span className="text-white font-black text-lg">8</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-zinc-300 font-semibold">
