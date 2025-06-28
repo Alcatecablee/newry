@@ -591,13 +591,13 @@ export function TestRunner() {
 function getCategoryColor(category: string): string {
   switch (category) {
     case "config":
-      return "border-blue-500 text-blue-700";
+      return "border-zinc-500 text-zinc-700";
     case "pattern":
-      return "border-purple-500 text-purple-700";
+      return "border-zinc-500 text-zinc-700";
     case "hydration":
-      return "border-green-500 text-green-700";
+      return "border-zinc-500 text-zinc-700";
     case "component":
-      return "border-orange-500 text-orange-700";
+      return "border-zinc-500 text-zinc-700";
     default:
       return "border-gray-500 text-gray-700";
   }
