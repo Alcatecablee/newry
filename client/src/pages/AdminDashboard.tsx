@@ -475,7 +475,17 @@ const AdminDashboard = () => {
                         onClick={() => setShowServiceKey(!showServiceKey)}
                         className="text-zinc-400 hover:text-white"
                       >
-                        {showServiceKey ? "Hide" : "Show"}
+                        {showServiceKey ? (
+                          <>
+                            <EyeOff className="w-4 h-4 mr-1" />
+                            Hide
+                          </>
+                        ) : (
+                          <>
+                            <Eye className="w-4 h-4 mr-1" />
+                            Show
+                          </>
+                        )}
                       </Button>
                     </div>
                     <Input
