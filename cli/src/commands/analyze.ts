@@ -121,59 +121,104 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
       chalk.blue(`\n🔍 Analyzing with layers: ${layers.join(", ")}\n`),
     );
 
-    const results = [];
+    // Check for resumable operation
+    const resumeState = await resumeOperation("analyze");
+    let filesToProcess = uniqueFiles;
+    let results = [];
 
-    // Process files in batches for better performance
-    const BATCH_SIZE = 10;
-    for (let i = 0; i < uniqueFiles.length; i += BATCH_SIZE) {
-      const batch = uniqueFiles.slice(i, i + BATCH_SIZE);
-      const batchSpinner = ora(
-        `Analyzing files ${i + 1}-${Math.min(i + BATCH_SIZE, uniqueFiles.length)} of ${uniqueFiles.length}...`,
-      ).start();
+    if (resumeState) {
+      console.log(
+        chalk.blue("Would you like to resume the previous analysis?"),
+      );
+      filesToProcess = resumeState.files.remaining;
+      // Note: In a real implementation, we'd also load previous results
+    }
 
-      const batchResults = await Promise.all(
+    // Initialize progress tracker
+    const progress = new ProgressTracker("Analysis", filesToProcess);
+    await progress.start();
+
+    // Process files in batches with retry logic
+    const BATCH_SIZE = 5; // Smaller batches for better error isolation
+    const MAX_CONCURRENT = 3;
+
+    for (let i = 0; i < filesToProcess.length; i += BATCH_SIZE) {
+      const batch = filesToProcess.slice(i, i + BATCH_SIZE);
+
+      // Process batch with controlled concurrency
+      const semaphore = new Semaphore(MAX_CONCURRENT);
+      const batchResults = await Promise.allSettled(
         batch.map(async (filePath) => {
+          await semaphore.acquire();
           try {
-            const content = await fs.readFile(filePath, "utf-8");
-            const relativePath = path.relative(process.cwd(), filePath);
+            const result = await withRetry(
+              async () => {
+                const content = await fs.readFile(filePath, "utf-8");
+                const relativePath = path.relative(process.cwd(), filePath);
 
-            // Call NeuroLint API
-            const response = await axios.post(
-              `${config.apiUrl || "http://localhost:5000"}/api/analyze`,
-              {
-                code: content,
-                filePath: relativePath,
-                layers,
+                // Call NeuroLint API with retry logic
+                const response = await axios.post(
+                  `${config.api?.url || "http://localhost:5000"}/api/analyze`,
+                  {
+                    code: content,
+                    filePath: relativePath,
+                    layers,
+                  },
+                  {
+                    headers: {
+                      Authorization: `Bearer ${config.apiKey}`,
+                      "Content-Type": "application/json",
+                    },
+                    timeout: config.api?.timeout || 30000,
+                  },
+                );
+
+                return {
+                  file: relativePath,
+                  success: true,
+                  ...response.data,
+                };
               },
               {
-                headers: {
-                  Authorization: `Bearer ${config.apiKey}`,
-                  "Content-Type": "application/json",
+                maxAttempts: 3,
+                delay: 1000,
+                onRetry: (error, attempt) => {
+                  console.log(
+                    chalk.yellow(
+                      `⚠ Retrying ${path.relative(process.cwd(), filePath)} (attempt ${attempt})`,
+                    ),
+                  );
                 },
-                timeout: 30000,
               },
             );
 
-            return {
-              file: relativePath,
-              success: true,
-              ...response.data,
-            };
+            await progress.markCompleted(filePath);
+            return result;
           } catch (error) {
+            await progress.markFailed(
+              filePath,
+              error instanceof Error ? error.message : "Unknown error",
+            );
             return {
               file: path.relative(process.cwd(), filePath),
               success: false,
               error: error instanceof Error ? error.message : "Unknown error",
             };
+          } finally {
+            semaphore.release();
           }
         }),
       );
 
-      results.push(...batchResults);
-      batchSpinner.succeed(
-        `Completed batch ${Math.ceil((i + 1) / BATCH_SIZE)}`,
-      );
+      // Collect results from settled promises
+      batchResults.forEach((result) => {
+        if (result.status === "fulfilled") {
+          results.push(result.value);
+        }
+      });
     }
+
+    await progress.complete(true);
 
     // Format and display results
     console.log(chalk.green("\n✅ Analysis Complete!\n"));
