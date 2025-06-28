@@ -62,6 +62,16 @@ const LiveCodeSessions = () => {
   const [selectedTeamId, setSelectedTeamId] = useState<string>("demo-team");
   const [activeSessions, setActiveSessions] = useState<LiveSession[]>([]);
   const [selectedSession, setSelectedSession] = useState<string | null>(null);
+  const [currentCode, setCurrentCode] = useState<string>("");
+  const [layerAnalysis, setLayerAnalysis] = useState<LayerStatus[]>([
+    { layerId: 1, name: "Configuration", status: "pending" },
+    { layerId: 2, name: "Entity Cleanup", status: "pending" },
+    { layerId: 3, name: "Component Structure", status: "pending" },
+    { layerId: 4, name: "Hydration Patterns", status: "pending" },
+    { layerId: 5, name: "Next.js Optimization", status: "pending" },
+    { layerId: 6, name: "Testing & Quality", status: "pending" },
+  ]);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   // Fetch teams data
   const { data: teams, isLoading: teamsLoading } = useTeams();
