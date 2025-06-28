@@ -1,10 +1,15 @@
 import { Request, Response, Router } from "express";
 import { storage } from "../storage";
+import { db } from "../db";
+import { eq } from "drizzle-orm";
+import * as schema from "@shared/schema";
 import {
   insertTeamSchema,
   insertTeamMemberSchema,
   insertTeamProjectSchema,
 } from "@shared/schema";
+
+const { transformations, users, teamMembers } = schema;
 
 const router = Router();
 
@@ -96,12 +101,10 @@ router.post(
       });
 
       if (!validation.success) {
-        return res
-          .status(400)
-          .json({
-            error: "Invalid member data",
-            details: validation.error.errors,
-          });
+        return res.status(400).json({
+          error: "Invalid member data",
+          details: validation.error.errors,
+        });
       }
 
       const member = await storage.addTeamMember(validation.data);
@@ -135,12 +138,10 @@ router.post(
         teamId,
       });
       if (!validation.success) {
-        return res
-          .status(400)
-          .json({
-            error: "Invalid project data",
-            details: validation.error.errors,
-          });
+        return res.status(400).json({
+          error: "Invalid project data",
+          details: validation.error.errors,
+        });
       }
 
       const project = await storage.createTeamProject(validation.data);
