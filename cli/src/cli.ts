@@ -9,6 +9,7 @@ import { fixCommand } from "./commands/fix";
 import { configCommand } from "./commands/config";
 import { initCommand } from "./commands/init";
 import { statusCommand } from "./commands/status";
+import { loginCommand, logoutCommand } from "./commands/login";
 
 const program = new Command();
 
