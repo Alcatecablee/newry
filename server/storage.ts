@@ -123,7 +123,7 @@ export class DatabaseStorage implements IStorage {
           monthlyTransformationsUsed: currentUsage + 1,
           updatedAt: isPostgres ? new Date() : Math.floor(Date.now() / 1000),
         })
-        .where(eq(users.supabaseId, supabaseId));
+        .where(eq(users.clerkId, supabaseId)); // Using clerkId column temporarily for Supabase IDs
 
       return true;
     } catch (error) {
