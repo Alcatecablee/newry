@@ -335,8 +335,8 @@ const MarketPositioning = () => {
                       Core Message
                     </h4>
                     <p className="text-zinc-300">
-                      "AI-powered code transformation that reduces technical
-                      debt by 80% while maintaining 99.9% accuracy"
+                      "Advanced code transformation that reduces technical debt
+                      by 80% while maintaining 99.9% accuracy"
                     </p>
                   </div>
 
