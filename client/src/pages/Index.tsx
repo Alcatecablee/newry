@@ -288,7 +288,7 @@ function UserProfile({ userId }: { userId: string }) {
                   <span className="text-zinc-300 font-semibold">
                     Performance:
                   </span>
-                  <span className="text-blue-400 font-black text-lg">+45%</span>
+                  <span className="text-white font-black text-lg">+45%</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-zinc-300 font-semibold">
