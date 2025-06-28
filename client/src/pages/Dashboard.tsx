@@ -72,7 +72,9 @@ export default function Dashboard() {
 
   const getUsagePercentage = () => {
     if (!user) return 0;
-    return (user.monthlyTransformationsUsed / user.monthlyLimit) * 100;
+    const used = user.app_metadata.monthly_transformations_used || 0;
+    const limit = user.app_metadata.monthly_limit || 25;
+    return (used / limit) * 100;
   };
 
   const formatExecutionTime = (ms: number) => {
