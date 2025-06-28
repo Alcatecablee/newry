@@ -89,7 +89,7 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
     if (!fileValidation.valid) {
       spinner.fail("File validation failed");
       fileValidation.errors.forEach((error) =>
-        console.log(chalk.red(`❌ ${error}`)),
+        console.log(chalk.white(`ERROR: ${error}`)),
       );
       return;
     }
@@ -115,9 +115,7 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
       ?.split(",")
       .map((l) => parseInt(l.trim())) || [1, 2, 3, 4];
 
-    console.log(
-      chalk.blue(`\n🔍 Analyzing with layers: ${layers.join(", ")}\n`),
-    );
+    console.log(chalk.white(`\nAnalyzing with layers: ${layers.join(", ")}\n`));
 
     // Check for resumable operation
     const resumeState = await resumeOperation("analyze");
