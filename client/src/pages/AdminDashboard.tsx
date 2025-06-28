@@ -110,7 +110,7 @@ const AdminDashboard = () => {
     switch (status) {
       case "connected":
       case "running":
-        return <CheckCircle className="w-4 h-4 text-green-500" />;
+        return <CheckCircle className="w-4 h-4 text-white" />;
       case "error":
         return <XCircle className="w-4 h-4 text-red-500" />;
       case "memory":
