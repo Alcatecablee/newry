@@ -48,15 +48,14 @@ interface SystemStatus {
 
 const AdminDashboard = () => {
   const [envConfig, setEnvConfig] = useState<EnvConfig>({
-    VITE_SUPABASE_URL: "https://jetwhffgmohdqkuegtjh.supabase.co",
-    VITE_SUPABASE_ANON_KEY:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpldHdoZmZnbW9oZHFrdWVndGpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU2NzEwMjEsImV4cCI6MjA1MTI0NzAyMX0.k2YmPrFDvBnSe_5mH96VlnGhVgP8QOPkjX-Bwdg9-Y8",
+    VITE_SUPABASE_URL: "",
+    VITE_SUPABASE_ANON_KEY: "",
     SUPABASE_SERVICE_ROLE_KEY: "",
     DATABASE_URL: "",
     PAYPAL_CLIENT_ID: "",
     PAYPAL_CLIENT_SECRET: "",
     PAYPAL_ENVIRONMENT: "sandbox",
-    API_URL: import.meta.env.VITE_API_URL || "http://localhost:5000",
+    API_URL: "",
   });
 
   const [systemStatus, setSystemStatus] = useState<SystemStatus>({
@@ -68,10 +67,35 @@ const AdminDashboard = () => {
 
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState<keyof SystemStatus | null>(null);
+  const [showServiceKey, setShowServiceKey] = useState(false);
 
   useEffect(() => {
+    loadEnvironmentVariables();
     checkSystemStatus();
   }, []);
+
+  const loadEnvironmentVariables = async () => {
+    try {
+      // Load from environment variables
+      setEnvConfig({
+        VITE_SUPABASE_URL:
+          import.meta.env.VITE_SUPABASE_URL ||
+          "https://jetwhffgmohdqkuegtjh.supabase.co",
+        VITE_SUPABASE_ANON_KEY:
+          import.meta.env.VITE_SUPABASE_ANON_KEY ||
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpldHdoZmZnbW9oZHFrdWVndGpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkwNzI0MjcsImV4cCI6MjA2NDY0ODQyN30.qdzOYox4XJQIadJlkg52bWjM1BGJd848ru0kobNmxiA",
+        SUPABASE_SERVICE_ROLE_KEY:
+          import.meta.env.SUPABASE_SERVICE_ROLE_KEY || "",
+        DATABASE_URL: import.meta.env.DATABASE_URL || "",
+        PAYPAL_CLIENT_ID: import.meta.env.PAYPAL_CLIENT_ID || "",
+        PAYPAL_CLIENT_SECRET: import.meta.env.PAYPAL_CLIENT_SECRET || "",
+        PAYPAL_ENVIRONMENT: import.meta.env.PAYPAL_ENVIRONMENT || "sandbox",
+        API_URL: import.meta.env.VITE_API_URL || "http://localhost:5000",
+      });
+    } catch (error) {
+      console.error("Failed to load environment variables:", error);
+    }
+  };
 
   const checkSystemStatus = async () => {
     // Check Supabase status
