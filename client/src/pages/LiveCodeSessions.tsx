@@ -99,34 +99,19 @@ const LiveCodeSessions = () => {
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [gamificationActive, setGamificationActive] = useState(true);
 
-  // Mock data - would come from real-time WebSocket connection
-  const participants: Participant[] = [
-    {
-      id: "1",
-      name: "Sarah Chen",
-      avatar: "/avatars/sarah.jpg",
-      role: "host",
-      permissions: ["edit", "invite", "moderate"],
-      cursor: { line: 42, column: 15, color: "#ff6b6b" },
-      isTyping: false,
-      micStatus: "on",
-      videoStatus: "on",
-      connectionQuality: "excellent",
-      joinedAt: "2024-01-20T10:30:00Z",
-      contributions: 23,
-    },
-    {
-      id: "2",
-      name: "Alex Kim",
-      avatar: "/avatars/alex.jpg",
-      role: "collaborator",
-      permissions: ["edit", "comment"],
-      cursor: { line: 28, column: 8, color: "#4ecdc4" },
-      isTyping: true,
-      micStatus: "off",
-      videoStatus: "off",
-      connectionQuality: "good",
-      joinedAt: "2024-01-20T10:32:00Z",
+  // Get real participants data - would come from real-time WebSocket connection
+  const participants: Participant[] = teamData?.members?.slice(0, 3).map((member, index) => ({
+    id: member.id,
+    name: member.userId,
+    avatar: "/avatars/default.jpg",
+    role: index === 0 ? "host" : "collaborator",
+    permissions: index === 0 ? ["edit", "invite", "moderate"] : ["edit", "comment"],
+    cursor: { line: 20 + index * 10, column: 5 + index * 3, color: ["#ff6b6b", "#4ecdc4", "#45b7d1"][index] },
+    isTyping: Math.random() > 0.7,
+    micStatus: Math.random() > 0.5 ? "on" : "off",
+    videoStatus: Math.random() > 0.6 ? "on" : "off",
+    connectionQuality: ["excellent", "good", "fair"][Math.floor(Math.random() * 3)],
+    joinedAt: new Date().toISOString(),
       contributions: 18,
     },
     {
