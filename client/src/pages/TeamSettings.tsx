@@ -595,12 +595,14 @@ const TeamSettings = () => {
                   </div>
                   <Switch
                     checked={notifications.emailAlerts}
-                    onCheckedChange={(checked) =>
-                      setNotifications({
+                    onCheckedChange={async (checked) => {
+                      const updated = {
                         ...notifications,
                         emailAlerts: checked,
-                      })
-                    }
+                      };
+                      setNotifications(updated);
+                      await updateNotificationSettings(updated);
+                    }}
                   />
                 </div>
 
@@ -613,12 +615,14 @@ const TeamSettings = () => {
                   </div>
                   <Switch
                     checked={notifications.failureAlerts}
-                    onCheckedChange={(checked) =>
-                      setNotifications({
+                    onCheckedChange={async (checked) => {
+                      const updated = {
                         ...notifications,
                         failureAlerts: checked,
-                      })
-                    }
+                      };
+                      setNotifications(updated);
+                      await updateNotificationSettings(updated);
+                    }}
                   />
                 </div>
 
@@ -631,12 +635,14 @@ const TeamSettings = () => {
                   </div>
                   <Switch
                     checked={notifications.successSummary}
-                    onCheckedChange={(checked) =>
-                      setNotifications({
+                    onCheckedChange={async (checked) => {
+                      const updated = {
                         ...notifications,
                         successSummary: checked,
-                      })
-                    }
+                      };
+                      setNotifications(updated);
+                      await updateNotificationSettings(updated);
+                    }}
                   />
                 </div>
 
@@ -649,12 +655,14 @@ const TeamSettings = () => {
                   </div>
                   <Switch
                     checked={notifications.weeklyReport}
-                    onCheckedChange={(checked) =>
-                      setNotifications({
+                    onCheckedChange={async (checked) => {
+                      const updated = {
                         ...notifications,
                         weeklyReport: checked,
-                      })
-                    }
+                      };
+                      setNotifications(updated);
+                      await updateNotificationSettings(updated);
+                    }}
                   />
                 </div>
               </CardContent>
