@@ -99,6 +99,20 @@ const LiveCodeSessions = () => {
   const [aiAssistantActive, setAiAssistantActive] = useState(true);
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [gamificationActive, setGamificationActive] = useState(true);
+  const [selectedTeamId, setSelectedTeamId] = useState<string>("demo-team");
+
+  // Fetch teams data
+  const { data: teams, isLoading: teamsLoading } = useTeams();
+  const { data: teamData, isLoading: teamLoading } = useTeam(selectedTeamId);
+
+  // Show loading state
+  if (teamsLoading || teamLoading) {
+    return (
+      <div className="min-h-screen bg-black p-6 flex items-center justify-center">
+        <div className="text-white text-lg">Loading live sessions...</div>
+      </div>
+    );
+  }
 
   // Get real participants data - would come from real-time WebSocket connection
   const participants: Participant[] =
