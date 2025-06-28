@@ -159,37 +159,6 @@ const EnhancedTeamDashboard = () => {
       achievements: [],
     })) || [];
 
-  // Mock live sessions data
-  const liveSessions: LiveSession[] = [
-    {
-      id: "session-1",
-      type: "pair-programming",
-      participants: teamMembers.slice(0, 2).map((m) => m.id),
-      repository: "frontend-app",
-      file: "components/Dashboard.tsx",
-      startedAt: "2 min ago",
-      status: "active",
-    },
-    {
-      id: "session-2",
-      type: "code-review",
-      participants: teamMembers.slice(1, 3).map((m) => m.id),
-      repository: "api-service",
-      file: "routes/auth.ts",
-      startedAt: "15 min ago",
-      status: "active",
-    },
-    {
-      id: "session-3",
-      type: "mentoring",
-      participants: teamMembers.slice(0, 1).map((m) => m.id),
-      repository: "mobile-app",
-      file: "screens/Profile.tsx",
-      startedAt: "5 min ago",
-      status: "paused",
-    },
-  ];
-
   const getActivityIcon = (status: string) => {
     switch (status) {
       case "coding":
