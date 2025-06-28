@@ -551,6 +551,7 @@ ${suggestions.join("\n")}`);
   const loadDemoRepository = async (
     onRepoUpload: (files: { path: string; content: string }[]) => void,
   ) => {
+    console.log("loadDemoRepository called");
     setUploading(true);
     setDemoMode(true);
     setUploadStatus({
@@ -559,6 +560,7 @@ ${suggestions.join("\n")}`);
       files: [],
     });
 
+    console.log("Demo status set, showing toast");
     toast({
       title: "Loading Demo Repository",
       description: "Simulating repository import with demo files...",
