@@ -329,12 +329,12 @@ const SupabaseTest = () => {
             <AlertTriangle className="h-4 w-4" />
             <AlertDescription>
               {testResult?.status === "connected" && clientTest?.success ? (
-                <span className="text-green-400">
+                <span className="text-zinc-400">
                   ✅ Supabase is properly connected and ready to use! You can
                   now sign up and use authentication.
                 </span>
               ) : (
-                <span className="text-orange-400">
+                <span className="text-zinc-400">
                   ⚠️ There may be issues with the Supabase connection. Check the
                   details above and verify your configuration.
                 </span>
