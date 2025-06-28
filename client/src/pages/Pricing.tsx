@@ -175,7 +175,7 @@ const Pricing = () => {
           <div className="text-center mb-16">
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="p-6 bg-zinc-900/40 border border-zinc-800/50 rounded-2xl backdrop-blur-sm">
-                <Shield className="w-8 h-8 text-green-400 mx-auto mb-4" />
+                <Shield className="w-8 h-8 text-white mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-white mb-2">
                   Secure & Private
                 </h3>
