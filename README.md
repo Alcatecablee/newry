@@ -1,6 +1,6 @@
 # NeuroLint
 
-Advanced code analysis and transformation platform with intelligent multi-layer analysis. Currently in beta with smart architecture.
+Advanced code analysis and transformation platform with rule-based multi-layer analysis. Currently in beta with AI-ready architecture. AI integration planned for future releases.
 
 ## Quick Start
 
