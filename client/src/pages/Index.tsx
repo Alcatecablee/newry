@@ -233,7 +233,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
-              Intelligent Analysis Layers
+              Multi-Layer Analysis System
             </h2>
             <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto font-medium">
               Our six-layer analysis system catches issues other tools miss
@@ -320,9 +320,9 @@ export default function Index() {
               },
               {
                 step: "02",
-                title: "AI Analysis",
+                title: "Code Analysis",
                 description:
-                  "Our advanced AI analyzes your code across all six layers, identifying issues and opportunities.",
+                  "Our six-layer analysis system examines your code for issues and improvement opportunities. Currently in beta with AI-ready architecture.",
               },
               {
                 step: "03",
@@ -461,8 +461,8 @@ export default function Index() {
               VS Code Extension
             </h2>
             <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
-              Get real-time code analysis and intelligent suggestions directly
-              in your favorite editor. Never leave your development environment.
+              Get real-time code analysis and automated suggestions directly in
+              your favorite editor. Never leave your development environment.
             </p>
           </div>
 
