@@ -20,12 +20,11 @@ router.post("/api/analyze", async (req: Request, res: Response) => {
         changes: 0,
         insights: [],
         executionTime: 0,
-        error: "Analysis not yet implemented"
+        error: "Analysis not yet implemented",
       })),
       performance: {
         totalTime: 0,
       },
-    };
       errors: [],
     };
 
