@@ -237,7 +237,7 @@ export default function Dashboard() {
                 <div className="flex items-center justify-between p-3 bg-zinc-800/50 rounded-lg hover:bg-zinc-800 transition-colors">
                   <div className="flex items-center gap-3">
                     <Crown className="w-5 h-5 text-yellow-400" />
-                    <span className="text-white">Manage Billing</span>
+                    <span className="text-white">Manage Pricing</span>
                   </div>
                   <ArrowUpRight className="w-4 h-4 text-zinc-400" />
                 </div>
