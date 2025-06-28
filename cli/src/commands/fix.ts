@@ -114,80 +114,140 @@ export async function fixCommand(files: string[], options: FixOptions) {
 
     console.log(chalk.blue(`\n🔧 Fixing with layers: ${layers.join(", ")}\n`));
 
+    // Check for resumable operation
+    const resumeState = await resumeOperation("fix");
+    let filesToProcess = uniqueFiles;
+
+    if (resumeState && !options.dryRun) {
+      const { resume } = await inquirer.prompt([
+        {
+          type: "confirm",
+          name: "resume",
+          message: "Resume previous fix operation?",
+          default: true,
+        },
+      ]);
+
+      if (resume) {
+        filesToProcess = resumeState.files.remaining;
+        console.log(
+          chalk.blue(
+            `\n🔄 Resuming fix operation with ${filesToProcess.length} remaining files\n`,
+          ),
+        );
+      }
+    }
+
+    // Initialize progress tracker
+    const progress = new ProgressTracker("Fix", filesToProcess);
+    await progress.start();
+
     const results = [];
     const fixedFiles = [];
 
-    // Process files in batches
-    const BATCH_SIZE = 5; // Smaller batch for fixes
-    for (let i = 0; i < uniqueFiles.length; i += BATCH_SIZE) {
-      const batch = uniqueFiles.slice(i, i + BATCH_SIZE);
-      const batchSpinner = ora(
-        `Processing files ${i + 1}-${Math.min(i + BATCH_SIZE, uniqueFiles.length)} of ${uniqueFiles.length}...`,
-      ).start();
+    // Process files with controlled concurrency and robust error handling
+    const BATCH_SIZE = 3; // Even smaller for fixes due to file I/O
+    const MAX_CONCURRENT = 2;
 
-      const batchResults = await Promise.all(
+    for (let i = 0; i < filesToProcess.length; i += BATCH_SIZE) {
+      const batch = filesToProcess.slice(i, i + BATCH_SIZE);
+
+      // Process batch with controlled concurrency
+      const semaphore = new Semaphore(MAX_CONCURRENT);
+      const batchResults = await Promise.allSettled(
         batch.map(async (filePath) => {
+          await semaphore.acquire();
           try {
-            const content = await fs.readFile(filePath, "utf-8");
-            const relativePath = path.relative(process.cwd(), filePath);
+            const result = await withRetry(
+              async () => {
+                const content = await fs.readFile(filePath, "utf-8");
+                const relativePath = path.relative(process.cwd(), filePath);
 
-            // Call NeuroLint transformation API
-            const response = await axios.post(
-              `${config.apiUrl || "http://localhost:5000"}/api/transform`,
-              {
-                code: content,
-                filePath: relativePath,
-                layers,
+                // Call NeuroLint transformation API with retry logic
+                const response = await axios.post(
+                  `${config.api?.url || "http://localhost:5000"}/api/transform`,
+                  {
+                    code: content,
+                    filePath: relativePath,
+                    layers,
+                  },
+                  {
+                    headers: {
+                      Authorization: `Bearer ${config.apiKey}`,
+                      "Content-Type": "application/json",
+                    },
+                    timeout: config.api?.timeout || 60000,
+                  },
+                );
+
+                const { transformed, layers: layerResults } = response.data;
+
+                // Check if any changes were made
+                const hasChanges = transformed !== content;
+
+                if (hasChanges && !options.dryRun) {
+                  // Create backup if requested
+                  if (options.backup) {
+                    await createBackup(filePath, { maxBackups: 5 });
+                  }
+
+                  // Write fixed content atomically
+                  const tempFile = `${filePath}.neurolint.tmp`;
+                  await fs.writeFile(tempFile, transformed, "utf-8");
+                  await fs.move(tempFile, filePath);
+                  fixedFiles.push(relativePath);
+                }
+
+                return {
+                  file: relativePath,
+                  success: true,
+                  hasChanges,
+                  layers: layerResults,
+                  originalSize: content.length,
+                  transformedSize: transformed.length,
+                };
               },
               {
-                headers: {
-                  Authorization: `Bearer ${config.apiKey}`,
-                  "Content-Type": "application/json",
+                maxAttempts: 2, // Fewer retries for fixes due to potential file conflicts
+                delay: 2000,
+                onRetry: (error, attempt) => {
+                  console.log(
+                    chalk.yellow(
+                      `⚠ Retrying fix for ${path.relative(process.cwd(), filePath)} (attempt ${attempt})`,
+                    ),
+                  );
                 },
-                timeout: 60000, // Longer timeout for transformations
               },
             );
 
-            const { transformed, layers: layerResults } = response.data;
-
-            // Check if any changes were made
-            const hasChanges = transformed !== content;
-
-            if (hasChanges && !options.dryRun) {
-              // Create backup if requested
-              if (options.backup) {
-                await createBackup(filePath);
-              }
-
-              // Write fixed content
-              await fs.writeFile(filePath, transformed, "utf-8");
-              fixedFiles.push(relativePath);
-            }
-
-            return {
-              file: relativePath,
-              success: true,
-              hasChanges,
-              layers: layerResults,
-              originalSize: content.length,
-              transformedSize: transformed.length,
-            };
+            await progress.markCompleted(filePath);
+            return result;
           } catch (error) {
+            await progress.markFailed(
+              filePath,
+              error instanceof Error ? error.message : "Unknown error",
+            );
             return {
               file: path.relative(process.cwd(), filePath),
               success: false,
               hasChanges: false,
               error: error instanceof Error ? error.message : "Unknown error",
             };
+          } finally {
+            semaphore.release();
           }
         }),
       );
 
-      results.push(...batchResults);
-      batchSpinner.succeed(
-        `Completed batch ${Math.ceil((i + 1) / BATCH_SIZE)}`,
-      );
+      // Collect results from settled promises
+      batchResults.forEach((result) => {
+        if (result.status === "fulfilled") {
+          results.push(result.value);
+        }
+      });
     }
+
+    await progress.complete(true);
 
     // Display results
     console.log(chalk.green("\n✅ Fix Operation Complete!\n"));
