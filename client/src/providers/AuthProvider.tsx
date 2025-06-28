@@ -58,9 +58,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (session?.user) {
-        await updateUserProfile(session.user);
-      } else {
+      try {
+        if (session?.user) {
+          await updateUserProfile(session.user);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Error handling auth state change:", error);
+        // Set loading to false even if there's an error
         setUser(null);
       }
       setLoading(false);
