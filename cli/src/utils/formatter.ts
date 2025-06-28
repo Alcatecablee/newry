@@ -19,32 +19,27 @@ function formatTable(results: any[]) {
   console.log(chalk.white("\nAnalysis Results:\n"));
 
   results.forEach((result, index) => {
-    const status = result.success ? chalk.green("✓") : chalk.red("✗");
+    const status = result.success ? chalk.white("PASS") : chalk.white("FAIL");
     console.log(`${status} ${result.file}`);
 
     if (result.success && result.layers) {
       result.layers.forEach((layer) => {
         const layerStatus =
-          layer.status === "success" ? chalk.green("✓") : chalk.yellow("~");
+          layer.status === "success" ? chalk.white("PASS") : chalk.gray("SKIP");
         const changes = layer.changes || 0;
         console.log(
-          `   ${layerStatus} Layer ${layer.id}: ${layer.name} ${changes > 0 ? chalk.cyan(`(${changes} changes)`) : ""}`,
+          `   ${layerStatus} Layer ${layer.id}: ${layer.name} ${changes > 0 ? chalk.gray(`(${changes} changes)`) : ""}`,
         );
 
         if (layer.insights && layer.insights.length > 0) {
           layer.insights.forEach((insight) => {
-            const severity =
-              insight.severity === "error"
-                ? chalk.red("●")
-                : insight.severity === "warning"
-                  ? chalk.yellow("●")
-                  : chalk.blue("●");
+            const severity = chalk.gray("•");
             console.log(`     ${severity} ${insight.message}`);
           });
         }
       });
     } else if (!result.success) {
-      console.log(`     ${chalk.red("Error:")} ${result.error}`);
+      console.log(`     ${chalk.white("ERROR:")} ${result.error}`);
     }
 
     if (index < results.length - 1) {
