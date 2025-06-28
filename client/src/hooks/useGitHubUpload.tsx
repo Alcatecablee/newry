@@ -94,14 +94,25 @@ export function useGitHubUpload() {
     repo: string,
   ): Promise<boolean> => {
     try {
-      // First check if the repository exists by accessing the repository info endpoint
+      // Check rate limit before making request
+      await GitHubRateLimit.checkRateLimit();
+
+      console.log(`Validating repository: ${owner}/${repo}`);
+
       const response = await fetch(
         `https://api.github.com/repos/${owner}/${repo}`,
         {
           headers: {
             Accept: "application/vnd.github.v3+json",
+            "User-Agent": "NeuroLint-App/1.0",
           },
         },
+      );
+
+      // Check rate limit headers
+      const remainingRequests = response.headers.get("x-ratelimit-remaining");
+      console.log(
+        `GitHub API requests remaining: ${remainingRequests || "unknown"}`,
       );
 
       if (response.ok) {
@@ -111,6 +122,7 @@ export function useGitHubUpload() {
             `Repository "${owner}/${repo}" is private. Please make it public or use a public repository.`,
           );
         }
+        console.log(`✓ Repository validated: ${owner}/${repo}`);
         return true;
       }
 
@@ -127,8 +139,16 @@ ${suggestions.join("\n")}`);
       }
 
       if (response.status === 403) {
+        const rateLimitReset = response.headers.get("x-ratelimit-reset");
+        const resetTime = rateLimitReset
+          ? new Date(parseInt(rateLimitReset) * 1000)
+          : null;
+        const waitTime = resetTime
+          ? Math.ceil((resetTime.getTime() - Date.now()) / 60000)
+          : 60;
+
         throw new Error(
-          "GitHub API rate limit exceeded. Please try again later.",
+          `GitHub API rate limit exceeded. Please wait ${waitTime} minutes before trying again, or use the demo mode below.`,
         );
       }
 
