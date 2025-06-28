@@ -124,12 +124,12 @@ export function TransformationInsights({
       </div>
 
       {allImprovements.length > 0 && (
-        <div className="rounded-lg bg-green-500/20 border border-green-400/30 p-4">
-          <h4 className="font-semibold text-green-400 mb-2 flex items-center gap-2">
+        <div className="rounded-lg bg-zinc-500/20 border border-zinc-400/30 p-4">
+          <h4 className="font-semibold text-zinc-400 mb-2 flex items-center gap-2">
             <Zap className="w-4 h-4" />
             Key Improvements Applied
           </h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-1 text-sm text-green-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-1 text-sm text-zinc-300">
             {[...new Set(allImprovements)].slice(0, 6).map((improvement, i) => (
               <div key={i} className="flex items-center gap-2">
                 <CheckCircle className="w-3 h-3 flex-shrink-0" />
