@@ -1,5 +1,14 @@
 import React from "react";
-import { Terminal, Code, Zap, GitBranch, CheckCircle2 } from "lucide-react";
+import {
+  Terminal,
+  Code,
+  Zap,
+  GitBranch,
+  CheckCircle2,
+  Download,
+  Settings,
+  Play,
+} from "lucide-react";
 
 export function CLISection() {
   return (
