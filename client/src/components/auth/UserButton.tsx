@@ -3,205 +3,182 @@ import { useAuth } from "@/providers/AuthProvider";
 import {
   User,
   Settings,
-  Crown,
-  BarChart,
-  LogOut,
   CreditCard,
+  LogOut,
+  ChevronDown,
+  Zap,
+  Crown,
+  Users,
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 export function UserButton() {
-  const [showMenu, setShowMenu] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [usage, setUsage] = useState<any>(null);
-  const { user, signOut, updateUser } = useAuth();
+  const { user, signOut } = useAuth();
   const menuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (showMenu && user) {
-      fetchUsage();
-    }
-  }, [showMenu, user]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setShowMenu(false);
+        setIsOpen(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
-  const fetchUsage = async () => {
-    try {
-      const token = localStorage.getItem("auth_token");
-      const response = await fetch("/api/auth/usage", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+  useEffect(() => {
+    const fetchUsage = async () => {
+      if (!user) return;
+
+      // For Supabase, we get usage data from user metadata
+      setUsage({
+        monthlyTransformationsUsed:
+          user.app_metadata?.monthly_transformations_used || 0,
+        monthlyLimit: user.app_metadata?.monthly_limit || 25,
       });
+    };
 
-      if (response.ok) {
-        const usageData = await response.json();
-        setUsage(usageData);
-      }
-    } catch (error) {
-      console.error("Failed to fetch usage:", error);
-    }
-  };
+    fetchUsage();
+  }, [user]);
 
-  const getPlanBadgeColor = (planType: string) => {
+  if (!user) return null;
+
+  const planType = user.app_metadata?.plan_type || "free";
+  const displayName =
+    user.user_metadata?.full_name || user.email?.split("@")[0] || "User";
+  const usagePercentage = usage
+    ? Math.round((usage.monthlyTransformationsUsed / usage.monthlyLimit) * 100)
+    : 0;
+
+  const getPlanIcon = () => {
     switch (planType) {
       case "pro":
-        return "bg-yellow-600";
+        return <Zap className="w-4 h-4 text-yellow-500" />;
       case "enterprise":
-        return "bg-zinc-600";
+        return <Crown className="w-4 h-4 text-purple-500" />;
       default:
-        return "bg-gray-600";
+        return <Users className="w-4 h-4 text-gray-400" />;
     }
   };
 
-  const getUsageColor = (used: number, limit: number) => {
-    const percentage = (used / limit) * 100;
-    if (percentage >= 90) return "text-zinc-300";
-    if (percentage >= 70) return "text-zinc-400";
-    return "text-white";
+  const getPlanColor = () => {
+    switch (planType) {
+      case "pro":
+        return "bg-yellow-500/20 text-yellow-300 border-yellow-500/30";
+      case "enterprise":
+        return "bg-purple-500/20 text-purple-300 border-purple-500/30";
+      default:
+        return "bg-gray-500/20 text-gray-300 border-gray-500/30";
+    }
   };
-
-  if (!user) {
-    return (
-      <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-xs text-gray-300">
-        <User className="w-4 h-4" />
-      </div>
-    );
-  }
 
   return (
     <div className="relative" ref={menuRef}>
       <button
-        onClick={() => setShowMenu(!showMenu)}
-        className="w-8 h-8 rounded-full bg-zinc-600 flex items-center justify-center text-xs text-white font-semibold hover:bg-zinc-700 transition-colors ring-2 ring-transparent hover:ring-zinc-400"
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-3 px-4 py-2.5 bg-zinc-900/80 border border-zinc-800/50 rounded-xl hover:bg-zinc-900 hover:border-zinc-700 transition-all duration-200 backdrop-blur-xl"
       >
-        {user.name?.charAt(0)?.toUpperCase() ||
-          user.email?.charAt(0)?.toUpperCase() ||
-          "U"}
+        <div className="w-8 h-8 bg-zinc-700 rounded-lg flex items-center justify-center">
+          <User className="w-4 h-4 text-zinc-300" />
+        </div>
+
+        <div className="hidden sm:block text-left">
+          <div className="text-sm font-medium text-white truncate max-w-32">
+            {displayName}
+          </div>
+          <div className="text-xs text-zinc-400 flex items-center gap-1">
+            {getPlanIcon()}
+            {planType.charAt(0).toUpperCase() + planType.slice(1)}
+          </div>
+        </div>
+
+        <ChevronDown className="w-4 h-4 text-zinc-400" />
       </button>
 
-      {showMenu && (
-        <div className="absolute right-0 top-10 bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl w-80 z-50 overflow-hidden">
-          {/* User Info Header */}
-          <div className="p-4 bg-zinc-800/50 border-b border-zinc-800">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-zinc-600 flex items-center justify-center text-lg font-bold text-white">
-                {user.name?.charAt(0)?.toUpperCase() ||
-                  user.email?.charAt(0)?.toUpperCase() ||
-                  "U"}
+      {isOpen && (
+        <div className="absolute right-0 top-full mt-2 w-80 bg-zinc-900/95 border border-zinc-800/50 rounded-2xl shadow-2xl backdrop-blur-xl z-50 overflow-hidden">
+          {/* User Info */}
+          <div className="p-4 border-b border-zinc-800/50">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-zinc-700 rounded-xl flex items-center justify-center">
+                <User className="w-5 h-5 text-zinc-300" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-white truncate">
-                  {user.name || user.email || "User"}
-                </p>
-                <p className="text-xs text-zinc-400 truncate">{user.email}</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <span
-                    className={`px-2 py-0.5 text-xs font-medium text-white rounded-full ${getPlanBadgeColor(user.planType)}`}
-                  >
-                    {user.planType.toUpperCase()}
-                  </span>
-                  {user.planType !== "free" && (
-                    <Crown className="w-3 h-3 text-white" />
-                  )}
+                <div className="text-sm font-medium text-white truncate">
+                  {displayName}
+                </div>
+                <div className="text-xs text-zinc-400 truncate">
+                  {user.email}
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Usage Stats */}
-          <div className="p-4 border-b border-zinc-800">
-            <h4 className="text-xs font-medium text-zinc-400 uppercase tracking-wider mb-2">
-              Usage This Month
-            </h4>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-zinc-300">Transformations</span>
-                <span
-                  className={`text-sm font-medium ${getUsageColor(user.monthlyTransformationsUsed, user.monthlyLimit)}`}
-                >
-                  {user.monthlyTransformationsUsed} / {user.monthlyLimit}
+            <div className="flex items-center justify-between mb-2">
+              <Badge variant="outline" className={`text-xs ${getPlanColor()}`}>
+                {getPlanIcon()}
+                <span className="ml-1">
+                  {planType.charAt(0).toUpperCase() + planType.slice(1)} Plan
                 </span>
-              </div>
-              <div className="w-full bg-zinc-800 rounded-full h-2">
-                <div
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    user.monthlyTransformationsUsed / user.monthlyLimit >= 0.9
-                      ? "bg-red-500"
-                      : user.monthlyTransformationsUsed / user.monthlyLimit >=
-                          0.7
-                        ? "bg-yellow-500"
-                        : "bg-green-500"
-                  }`}
-                  style={{
-                    width: `${Math.min((user.monthlyTransformationsUsed / user.monthlyLimit) * 100, 100)}%`,
-                  }}
-                />
-              </div>
-              {usage && (
-                <div className="grid grid-cols-2 gap-3 mt-3 text-xs">
-                  <div className="text-center p-2 bg-zinc-800/50 rounded-lg">
-                    <div className="text-white font-medium">
-                      {usage.totalTransformations}
-                    </div>
-                    <div className="text-zinc-500">Total</div>
-                  </div>
-                  <div className="text-center p-2 bg-zinc-800/50 rounded-lg">
-                    <div className="text-white font-medium">
-                      {usage.successRate.toFixed(1)}%
-                    </div>
-                    <div className="text-zinc-500">Success</div>
-                  </div>
-                </div>
-              )}
+              </Badge>
             </div>
+
+            {usage && (
+              <div className="space-y-2">
+                <div className="flex justify-between text-xs">
+                  <span className="text-zinc-400">Transformations</span>
+                  <span className="text-zinc-300">
+                    {usage.monthlyTransformationsUsed} / {usage.monthlyLimit}
+                  </span>
+                </div>
+                <div className="w-full bg-zinc-800 rounded-full h-1.5">
+                  <div
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      usagePercentage > 90
+                        ? "bg-red-500"
+                        : usagePercentage > 70
+                          ? "bg-yellow-500"
+                          : "bg-green-500"
+                    }`}
+                    style={{ width: `${Math.min(usagePercentage, 100)}%` }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Menu Items */}
           <div className="p-2">
             <Link
               to="/dashboard"
-              onClick={() => setShowMenu(false)}
-              className="flex items-center gap-3 px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 rounded-lg transition-colors"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 px-3 py-2.5 text-sm text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-xl transition-all duration-200"
             >
-              <BarChart className="w-4 h-4" />
+              <Settings className="w-4 h-4" />
               Dashboard
             </Link>
 
             <Link
               to="/pricing"
-              onClick={() => setShowMenu(false)}
-              className="flex items-center gap-3 px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 rounded-lg transition-colors"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 px-3 py-2.5 text-sm text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-xl transition-all duration-200"
             >
               <CreditCard className="w-4 h-4" />
-              Pricing & Plans
+              Billing & Plans
             </Link>
-
-            <Link
-              to="/settings"
-              onClick={() => setShowMenu(false)}
-              className="flex items-center gap-3 px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 rounded-lg transition-colors"
-            >
-              <Settings className="w-4 h-4" />
-              Settings
-            </Link>
-
-            <div className="border-t border-zinc-800 my-2"></div>
 
             <button
               onClick={() => {
                 signOut();
-                setShowMenu(false);
+                setIsOpen(false);
               }}
-              className="w-full flex items-center gap-3 px-3 py-2 text-sm text-red-400 hover:bg-red-900/20 rounded-lg transition-colors"
+              className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-xl transition-all duration-200"
             >
               <LogOut className="w-4 h-4" />
               Sign Out
