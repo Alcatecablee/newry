@@ -11,20 +11,21 @@ router.post("/api/analyze", async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Code content is required" });
     }
 
-    // Temporary mock response until orchestrator is fixed for server-side
+    // TODO: Implement real code analysis using orchestrator
     const result = {
       layers: layers.map((layerId: number) => ({
         id: layerId,
         name: `Layer ${layerId}`,
-        status: "success",
+        status: "not_implemented",
         changes: 0,
         insights: [],
-        executionTime: 100,
+        executionTime: 0,
+        error: "Analysis not yet implemented"
       })),
       performance: {
-        totalTime: 500,
-        layerTimes: {},
+        totalTime: 0,
       },
+    };
       errors: [],
     };
 
