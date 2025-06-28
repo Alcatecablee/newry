@@ -110,7 +110,6 @@ const TeamDashboard = () => {
       });
     }
   };
-  }
 
   // Get real team members from API
   const teamMembers =
