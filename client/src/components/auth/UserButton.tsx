@@ -110,7 +110,7 @@ export function UserButton() {
                     {user.planType.toUpperCase()}
                   </span>
                   {user.planType !== "free" && (
-                    <Crown className="w-3 h-3 text-yellow-400" />
+                    <Crown className="w-3 h-3 text-white" />
                   )}
                 </div>
               </div>
