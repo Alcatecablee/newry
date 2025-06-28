@@ -90,7 +90,7 @@ export async function statusCommand(options: StatusOptions) {
       console.log(chalk.white("\nDetailed Analysis:"));
 
       // Analyze file extensions
-      const extensions = {};
+      const extensions: Record<string, number> = {};
       [...jsFiles, ...tsFiles].forEach((file) => {
         const ext = path.extname(file);
         extensions[ext] = (extensions[ext] || 0) + 1;
