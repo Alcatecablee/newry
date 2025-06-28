@@ -57,14 +57,28 @@ export function SignInButton() {
   if (showModal) {
     return (
       <div
-        className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
+        className="fixed inset-0 bg-black/60 z-50 p-4"
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          minHeight: "100vh",
+          minWidth: "100vw",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
         }}
       >
-        <div className="bg-zinc-900 rounded-xl border border-zinc-800 w-full max-w-md shadow-2xl">
+        <div
+          className="bg-zinc-900 rounded-xl border border-zinc-800 w-full max-w-md shadow-2xl mx-auto"
+          style={{
+            maxHeight: "90vh",
+            overflow: "auto",
+            margin: "auto",
+          }}
+        >
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-zinc-800">
             <h2 className="text-xl font-semibold text-white">
