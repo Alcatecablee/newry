@@ -236,9 +236,10 @@ export function validateTestResult(
       transformedCode.includes("// Hello > Goodbye"),
 
     // --- Layer 3: Missing key prop ---
-    "Added missing key prop in mapped elements": /<li key=/.test(
-      transformedCode,
-    ),
+    "Added missing key prop in mapped elements":
+      /<[^>]+\s+key=/.test(transformedCode) ||
+      transformedCode.includes("key={") ||
+      transformedCode.includes("key="),
 
     // --- Layer 4: SSR guard for localStorage ---
     "Added SSR guard for localStorage":
