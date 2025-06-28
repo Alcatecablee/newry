@@ -85,8 +85,26 @@ const SSOIntegration = () => {
   const [showSecrets, setShowSecrets] = useState(false);
   const [testingConnection, setTestingConnection] = useState(false);
 
-  // Mock data - would come from enterprise API
-  const ssoProviders: SSOProvider[] = [
+  const [ssoProviders, setSsoProviders] = useState<SSOProvider[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchSsoProviders();
+  }, []);
+
+  const fetchSsoProviders = async () => {
+    try {
+      const response = await fetch('/api/enterprise/sso-providers');
+      if (response.ok) {
+        const data = await response.json();
+        setSsoProviders(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch SSO providers:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
     {
       id: "1",
       name: "Okta",
