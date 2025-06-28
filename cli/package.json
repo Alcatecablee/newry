@@ -1,7 +1,7 @@
 {
   "name": "@neurolint/cli",
   "version": "1.0.0",
-  "description": "NeuroLint CLI - Advanced code analysis and transformation tool",
+  "description": "NeuroLint CLI - Advanced rule-based code analysis and transformation tool with AI-ready architecture",
   "main": "dist/index.js",
   "bin": {
     "neurolint": "dist/cli.js",
