@@ -231,7 +231,7 @@ const AppPage = () => {
                     </div>
                     <div className="text-center">
                       <div className="text-white font-semibold text-lg mb-1">
-                        AI Analysis in Progress
+                        Code Analysis in Progress
                       </div>
                       <span className="text-zinc-400 font-medium">
                         Running {enabledLayers.length} intelligent layer
