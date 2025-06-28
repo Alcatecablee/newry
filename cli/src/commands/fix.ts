@@ -32,7 +32,7 @@ export async function fixCommand(files: string[], options: FixOptions) {
     if (!configValidation.valid) {
       spinner.fail("Configuration validation failed");
       configValidation.errors.forEach((error) =>
-        console.log(chalk.red(`❌ ${error}`)),
+        console.log(chalk.white(`ERROR: ${error}`)),
       );
       return;
     }
@@ -40,9 +40,7 @@ export async function fixCommand(files: string[], options: FixOptions) {
     // Check authentication
     if (!config.apiKey) {
       spinner.fail("Authentication required");
-      console.log(
-        chalk.yellow('💡 Run "neurolint login" to authenticate first'),
-      );
+      console.log(chalk.white('Run "neurolint login" to authenticate first'));
       return;
     }
 
@@ -51,7 +49,7 @@ export async function fixCommand(files: string[], options: FixOptions) {
     if (!layersValidation.valid) {
       spinner.fail("Invalid layer specification");
       layersValidation.errors.forEach((error) =>
-        console.log(chalk.red(`❌ ${error}`)),
+        console.log(chalk.white(`ERROR: ${error}`)),
       );
       return;
     }
