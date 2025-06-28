@@ -32,6 +32,54 @@ export function useGitHubUpload() {
     };
   };
 
+  const validateRepository = async (
+    owner: string,
+    repo: string,
+  ): Promise<boolean> => {
+    try {
+      // First check if the repository exists by accessing the repository info endpoint
+      const response = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}`,
+        {
+          headers: {
+            Accept: "application/vnd.github.v3+json",
+          },
+        },
+      );
+
+      if (response.ok) {
+        const repoData = await response.json();
+        if (repoData.private) {
+          throw new Error(
+            `Repository "${owner}/${repo}" is private. Please make it public or use a public repository.`,
+          );
+        }
+        return true;
+      }
+
+      if (response.status === 404) {
+        throw new Error(`Repository "${owner}/${repo}" not found. Please check:
+• Repository name spelling is correct
+• Repository exists on GitHub
+• You have the correct owner/username
+• Try visiting: https://github.com/${owner}/${repo}`);
+      }
+
+      if (response.status === 403) {
+        throw new Error(
+          "GitHub API rate limit exceeded. Please try again later.",
+        );
+      }
+
+      throw new Error(
+        `GitHub API error ${response.status}: Unable to access repository`,
+      );
+    } catch (error) {
+      console.error("Error validating repository:", error);
+      throw error;
+    }
+  };
+
   const fetchRepoContents = async (
     owner: string,
     repo: string,
@@ -49,18 +97,23 @@ export function useGitHubUpload() {
 
       if (!response.ok) {
         if (response.status === 404) {
-          throw new Error(`Repository not found. Please check:
-• Repository name spelling (current: ${owner}/${repo})
-• Repository is public (not private)
-• URL is correct format: https://github.com/username/repository`);
+          if (path === "") {
+            throw new Error(
+              `Repository "${owner}/${repo}" not found or is empty.`,
+            );
+          } else {
+            throw new Error(
+              `Path "${path}" not found in repository "${owner}/${repo}".`,
+            );
+          }
         }
         if (response.status === 403) {
           throw new Error(
-            "GitHub API rate limit exceeded. Please try again later or use 'test' for demo.",
+            "GitHub API rate limit exceeded. Please try again later.",
           );
         }
         throw new Error(
-          `GitHub API error: ${response.status}. Please verify the repository exists and is public.`,
+          `GitHub API error ${response.status}: Unable to fetch repository contents`,
         );
       }
 
