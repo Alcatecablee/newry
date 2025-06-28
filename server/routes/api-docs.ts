@@ -27,7 +27,7 @@ router.get("/api/docs", (req: Request, res: Response) => {
         post: {
           summary: "Analyze code for issues and improvements",
           description:
-            "Submit code for AI-powered analysis across multiple layers",
+            "Submit code for advanced analysis across multiple layers",
           tags: ["Analysis"],
           requestBody: {
             required: true,
