@@ -64,9 +64,9 @@ export function UserButton() {
 
   const getUsageColor = (used: number, limit: number) => {
     const percentage = (used / limit) * 100;
-    if (percentage >= 90) return "text-red-400";
-    if (percentage >= 70) return "text-yellow-400";
-    return "text-green-400";
+    if (percentage >= 90) return "text-zinc-300";
+    if (percentage >= 70) return "text-zinc-400";
+    return "text-white";
   };
 
   if (!user) {
