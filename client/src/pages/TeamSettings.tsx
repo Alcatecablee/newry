@@ -72,38 +72,38 @@ const TeamSettings = () => {
 
   const fetchTeamData = async () => {
     try {
-      const response = await fetch('/api/teams/current');
+      const response = await fetch("/api/teams/current");
       if (response.ok) {
         const data = await response.json();
         setTeamData(data);
         setTeamName(data.name || "");
       }
     } catch (error) {
-      console.error('Failed to fetch team data:', error);
+      console.error("Failed to fetch team data:", error);
     }
   };
 
   const fetchTeamMembers = async () => {
     try {
-      const response = await fetch('/api/teams/members');
+      const response = await fetch("/api/teams/members");
       if (response.ok) {
         const data = await response.json();
         setMembers(data);
       }
     } catch (error) {
-      console.error('Failed to fetch team members:', error);
+      console.error("Failed to fetch team members:", error);
     }
   };
 
   const fetchCustomRules = async () => {
     try {
-      const response = await fetch('/api/teams/rules');
+      const response = await fetch("/api/teams/rules");
       if (response.ok) {
         const data = await response.json();
         setCustomRules(data);
       }
     } catch (error) {
-      console.error('Failed to fetch custom rules:', error);
+      console.error("Failed to fetch custom rules:", error);
     } finally {
       setLoading(false);
     }
@@ -111,17 +111,19 @@ const TeamSettings = () => {
 
   const fetchNotificationSettings = async () => {
     try {
-      const response = await fetch('/api/teams/notifications');
+      const response = await fetch("/api/teams/notifications");
       if (response.ok) {
         const data = await response.json();
         setNotifications(data);
       }
     } catch (error) {
-      console.error('Failed to fetch notification settings:', error);
+      console.error("Failed to fetch notification settings:", error);
     }
   };
 
-  const [rolePermissions, setRolePermissions] = useState<Record<string, string[]>>({});
+  const [rolePermissions, setRolePermissions] = useState<
+    Record<string, string[]>
+  >({});
 
   const getRoleColor = (role: string) => {
     switch (role) {
@@ -141,21 +143,21 @@ const TeamSettings = () => {
   const handleSaveSettings = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/teams/settings', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/teams/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: teamName,
           notifications,
-          defaultLayers: teamData?.defaultLayers || []
-        })
+          defaultLayers: teamData?.defaultLayers || [],
+        }),
       });
 
       if (response.ok) {
         await fetchTeamData();
       }
     } catch (error) {
-      console.error('Failed to save settings:', error);
+      console.error("Failed to save settings:", error);
     } finally {
       setLoading(false);
     }
@@ -163,12 +165,12 @@ const TeamSettings = () => {
 
   const handleInviteMember = async () => {
     try {
-      const email = prompt('Enter email address to invite:');
+      const email = prompt("Enter email address to invite:");
       if (email) {
-        const response = await fetch('/api/teams/invite', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
+        const response = await fetch("/api/teams/invite", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
         });
 
         if (response.ok) {
@@ -176,33 +178,33 @@ const TeamSettings = () => {
         }
       }
     } catch (error) {
-      console.error('Failed to invite member:', error);
+      console.error("Failed to invite member:", error);
     }
   };
 
   const handleRemoveMember = async (memberId: string) => {
     try {
       const response = await fetch(`/api/teams/members/${memberId}`, {
-        method: 'DELETE'
+        method: "DELETE",
       });
 
       if (response.ok) {
         setMembers(members.filter((m) => m.id !== memberId));
       }
     } catch (error) {
-      console.error('Failed to remove member:', error);
+      console.error("Failed to remove member:", error);
     }
   };
 
   const handleToggleRule = async (ruleId: string) => {
     try {
-      const rule = customRules.find(r => r.id === ruleId);
+      const rule = customRules.find((r) => r.id === ruleId);
       if (!rule) return;
 
       const response = await fetch(`/api/teams/rules/${ruleId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...rule, active: !rule.active })
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...rule, active: !rule.active }),
       });
 
       if (response.ok) {
@@ -213,7 +215,7 @@ const TeamSettings = () => {
         );
       }
     } catch (error) {
-      console.error('Failed to toggle rule:', error);
+      console.error("Failed to toggle rule:", error);
     }
   };
 
@@ -295,20 +297,24 @@ const TeamSettings = () => {
                   <div>
                     <Label>Plan</Label>
                     <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg mt-1">
-                      <span className="text-white">{teamData?.plan || "Loading..."}</span>
-                      <Badge className="bg-zinc-800 text-white">
-                        Active
-                      </Badge>
+                      <span className="text-white">
+                        {teamData?.plan || "Loading..."}
+                      </span>
+                      <Badge className="bg-zinc-800 text-white">Active</Badge>
                     </div>
                   </div>
                   <div>
                     <Label>Usage This Month</Label>
                     <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg mt-1">
                       <span className="text-white">
-                        {teamData?.usage ? `${teamData.usage.current} / ${teamData.usage.limit} fixes` : "Loading..."}
+                        {teamData?.usage
+                          ? `${teamData.usage.current} / ${teamData.usage.limit} fixes`
+                          : "Loading..."}
                       </span>
                       <span className="text-zinc-400">
-                        {teamData?.usage ? `${Math.round((teamData.usage.current / teamData.usage.limit) * 100)}%` : ""}
+                        {teamData?.usage
+                          ? `${Math.round((teamData.usage.current / teamData.usage.limit) * 100)}%`
+                          : ""}
                       </span>
                     </div>
                   </div>
@@ -318,15 +324,15 @@ const TeamSettings = () => {
                   <Label>Default Layers</Label>
                   <div className="flex items-center gap-2 mt-2">
                     {(teamData?.defaultLayers || []).map((layer) => (
-                      <Badge
-                        key={layer}
-                        className="bg-zinc-900 text-white"
-                      >
+                      <Badge key={layer} className="bg-zinc-900 text-white">
                         Layer {layer}
                       </Badge>
                     ))}
-                    {(!teamData?.defaultLayers || teamData.defaultLayers.length === 0) && (
-                      <span className="text-zinc-400">No default layers configured</span>
+                    {(!teamData?.defaultLayers ||
+                      teamData.defaultLayers.length === 0) && (
+                      <span className="text-zinc-400">
+                        No default layers configured
+                      </span>
                     )}
                   </div>
                 </div>
@@ -352,62 +358,61 @@ const TeamSettings = () => {
                 ) : (
                   <div className="space-y-0">
                     {members.map((member, index) => (
-                    <div
-                      key={member.id}
-                      className={`flex items-center justify-between p-4 ${index !== members.length - 1 ? "border-b border-zinc-800" : ""}`}
-                    >
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center text-white font-medium">
-                            {member.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </div>
-                          <div>
-                            <p className="text-white font-medium">
-                              {member.name}
-                            </p>
-                            <p className="text-zinc-400 text-sm">
-                              {member.email}
-                            </p>
+                      <div
+                        key={member.id}
+                        className={`flex items-center justify-between p-4 ${index !== members.length - 1 ? "border-b border-zinc-800" : ""}`}
+                      >
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center text-white font-medium">
+                              {member.name
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")}
+                            </div>
+                            <div>
+                              <p className="text-white font-medium">
+                                {member.name}
+                              </p>
+                              <p className="text-zinc-400 text-sm">
+                                {member.email}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="flex items-center gap-4">
-                        <Badge className={getRoleColor(member.role)}>
-                          {member.role}
-                        </Badge>
+                        <div className="flex items-center gap-4">
+                          <Badge className={getRoleColor(member.role)}>
+                            {member.role}
+                          </Badge>
 
-                        <div className="text-right">
-                          <p className="text-zinc-400 text-sm">
-                            Last active
-                          </p>
-                          <p className="text-white text-sm">
-                            {member.lastActive}
-                          </p>
-                        </div>
+                          <div className="text-right">
+                            <p className="text-zinc-400 text-sm">Last active</p>
+                            <p className="text-white text-sm">
+                              {member.lastActive}
+                            </p>
+                          </div>
 
-                        <div className="flex items-center gap-2">
-                          <Button variant="ghost" size="sm">
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          {member.role !== "Owner" && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleRemoveMember(member.id)}
-                              className="text-red-400 hover:text-red-300"
-                            >
-                              <Trash2 className="w-4 h-4" />
+                          <div className="flex items-center gap-2">
+                            <Button variant="ghost" size="sm">
+                              <Edit className="w-4 h-4" />
                             </Button>
-                          )}
+                            {member.role !== "Owner" && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => handleRemoveMember(member.id)}
+                                className="text-red-400 hover:text-red-300"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -421,33 +426,37 @@ const TeamSettings = () => {
                   <div className="text-zinc-400">Loading permissions...</div>
                 ) : (
                   <div className="space-y-4">
-                    {Object.entries(rolePermissions).length > 0 ? Object.entries(rolePermissions).map(
-                      ([role, permissions]) => (
-                        <div
-                          key={role}
-                          className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
-                        >
-                          <Badge className={getRoleColor(role)}>{role}</Badge>
-                          <div className="flex items-center gap-2">
-                            {permissions.includes("all") ? (
-                              <Badge className="bg-zinc-800 text-white">
-                                All Permissions
-                              </Badge>
-                            ) : (
-                              permissions.map((perm) => (
-                                <Badge
-                                  key={perm}
-                                  className="bg-zinc-900 text-zinc-400"
-                                >
-                                  {perm.replace("-", " ")}
+                    {Object.entries(rolePermissions).length > 0 ? (
+                      Object.entries(rolePermissions).map(
+                        ([role, permissions]) => (
+                          <div
+                            key={role}
+                            className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg"
+                          >
+                            <Badge className={getRoleColor(role)}>{role}</Badge>
+                            <div className="flex items-center gap-2">
+                              {permissions.includes("all") ? (
+                                <Badge className="bg-zinc-800 text-white">
+                                  All Permissions
                                 </Badge>
-                              ))
-                            )}
+                              ) : (
+                                permissions.map((perm) => (
+                                  <Badge
+                                    key={perm}
+                                    className="bg-zinc-900 text-zinc-400"
+                                  >
+                                    {perm.replace("-", " ")}
+                                  </Badge>
+                                ))
+                              )}
+                            </div>
                           </div>
-                        </div>
+                        ),
                       )
                     ) : (
-                      <div className="text-zinc-400">No role permissions configured</div>
+                      <div className="text-zinc-400">
+                        No role permissions configured
+                      </div>
                     )}
                   </div>
                 )}
