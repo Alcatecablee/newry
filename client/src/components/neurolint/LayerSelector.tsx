@@ -120,8 +120,8 @@ export function LayerSelector({
                     {getLayerDescription(layer.id)}
                   </p>
                   <div
-                    className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-zinc-900 ${
-                      isOn ? "bg-zinc-400" : "bg-zinc-600"
+                    className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-black ${
+                      isOn ? "bg-green-500" : "bg-red-500"
                     }`}
                   />
                 </Toggle>
@@ -178,8 +178,8 @@ export function LayerSelector({
                     {layer.name}
                   </span>
                   <div
-                    className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-zinc-900 ${
-                      isOn ? "bg-zinc-400" : "bg-zinc-600"
+                    className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-black ${
+                      isOn ? "bg-green-500" : "bg-red-500"
                     }`}
                   />
                 </Toggle>
