@@ -163,7 +163,7 @@ export class DatabaseStorage implements IStorage {
         ...transformation,
         id: this.generateId(),
         layersUsed: JSON.stringify(transformation.layersUsed),
-        createdAt: new Date(),
+        createdAt: Math.floor(Date.now() / 1000),
       };
       await db.insert(transformations).values(transformationWithId);
       const result = await db
