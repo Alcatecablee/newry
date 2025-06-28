@@ -568,9 +568,14 @@ const EnhancedTeamDashboard = () => {
                         <div className="text-2xl font-bold text-white">
                           {analytics.codeQuality.current}%
                         </div>
-                        <div className="text-sm text-zinc-400">Code Quality</div>
-                        <div className={`text-xs ${analytics.codeQuality.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>
-                          {analytics.codeQuality.change > 0 ? '+' : ''}{analytics.codeQuality.change}%
+                        <div className="text-sm text-zinc-400">
+                          Code Quality
+                        </div>
+                        <div
+                          className={`text-xs ${analytics.codeQuality.trend === "up" ? "text-green-400" : "text-red-400"}`}
+                        >
+                          {analytics.codeQuality.change > 0 ? "+" : ""}
+                          {analytics.codeQuality.change}%
                         </div>
                       </div>
                       <div className="p-4 bg-zinc-900 rounded-lg">
@@ -578,95 +583,35 @@ const EnhancedTeamDashboard = () => {
                           {analytics.velocity.current}
                         </div>
                         <div className="text-sm text-zinc-400">Velocity</div>
-                        <div className={`text-xs ${analytics.velocity.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>
-                          {analytics.velocity.change > 0 ? '+' : ''}{analytics.velocity.change}
+                        <div
+                          className={`text-xs ${analytics.velocity.trend === "up" ? "text-green-400" : "text-red-400"}`}
+                        >
+                          {analytics.velocity.change > 0 ? "+" : ""}
+                          {analytics.velocity.change}
                         </div>
                       </div>
                       <div className="p-4 bg-zinc-900 rounded-lg">
                         <div className="text-2xl font-bold text-white">
                           {analytics.collaboration.current}%
                         </div>
-                        <div className="text-sm text-zinc-400">Collaboration</div>
-                        <div className={`text-xs ${analytics.collaboration.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>
-                          {analytics.collaboration.change > 0 ? '+' : ''}{analytics.collaboration.change}%
+                        <div className="text-sm text-zinc-400">
+                          Collaboration
+                        </div>
+                        <div
+                          className={`text-xs ${analytics.collaboration.trend === "up" ? "text-green-400" : "text-red-400"}`}
+                        >
+                          {analytics.collaboration.change > 0 ? "+" : ""}
+                          {analytics.collaboration.change}%
                         </div>
                       </div>
                     </div>
                   ) : (
                     <div className="text-center py-8">
-                      <p className="text-zinc-400">No analytics data available</p>
+                      <p className="text-zinc-400">
+                        No analytics data available
+                      </p>
                     </div>
                   )}
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-                      <div
-                        key={insight.id}
-                        className={`p-4 rounded-lg border ${getInsightColor(insight.type)}`}
-                      >
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-2">
-                              <Badge className="bg-zinc-900 text-white">
-                                {insight.type}
-                              </Badge>
-                              <div className="flex items-center gap-1">
-                                <span className="text-xs text-zinc-400">
-                                  Confidence:
-                                </span>
-                                <span className="text-xs text-white">
-                                  {insight.confidence}%
-                                </span>
-                              </div>
-                              <Badge
-                                className={`text-xs ${
-                                  insight.impact === "critical"
-                                    ? "bg-red-900 text-red-200"
-                                    : insight.impact === "high"
-                                      ? "bg-orange-900 text-orange-200"
-                                      : insight.impact === "medium"
-                                        ? "bg-yellow-900 text-yellow-200"
-                                        : "bg-green-900 text-green-200"
-                                }`}
-                              >
-                                {insight.impact}
-                              </Badge>
-                            </div>
-                            <h3 className="text-white font-medium mb-2">
-                              {insight.title}
-                            </h3>
-                            <p className="text-zinc-400 text-sm mb-3">
-                              {insight.description}
-                            </p>
-
-                            <div className="flex items-center gap-4 text-xs text-zinc-400">
-                              <span>
-                                Time to fix: {insight.estimatedTimeToFix}
-                              </span>
-                              <span>Impact: {insight.potentialSavings}</span>
-                              <span>
-                                Projects: {insight.relatedProjects.join(", ")}
-                              </span>
-                            </div>
-                          </div>
-
-                          {insight.actionable && (
-                            <div className="flex items-center gap-2 ml-4">
-                              <Button size="sm" variant="outline">
-                                <Lightbulb className="w-3 h-3 mr-1" />
-                                Suggest Fix
-                              </Button>
-                              <Button size="sm" variant="primary">
-                                <Rocket className="w-3 h-3 mr-1" />
-                                Auto-Fix
-                              </Button>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
                 </CardContent>
               </Card>
             </div>
