@@ -36,12 +36,13 @@ import { InfoWidget } from "./components/InfoWidget";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <AuthProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
+  <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
           <ScrollToTop />
           <div className="min-h-screen bg-black text-white">
             <SiteHeader />
