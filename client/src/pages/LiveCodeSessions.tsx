@@ -3,103 +3,48 @@ import { useTeams, useTeam } from "@/hooks/useTeams";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Users,
   MessageCircle,
-  Check,
-  X,
-  Eye,
   Code,
-  GitBranch,
   Clock,
   Play,
   Pause,
   Send,
-  ThumbsUp,
-  ThumbsDown,
   Mic,
   MicOff,
   Video,
   VideoOff,
   Share,
-  Sparkles,
-  Zap,
-  Target,
-  Wand2,
-  MousePointer,
-  Cursor,
-  Timer,
-  Coffee,
-  Award,
-  Lightbulb,
-  Rocket,
   Bot,
-  Gamepad2,
-  Crown,
-  Star,
+  ArrowLeft,
+  Settings,
 } from "lucide-react";
 
 interface Participant {
   id: string;
   name: string;
-  avatar: string;
   role: "host" | "collaborator" | "observer";
-  permissions: string[];
-  cursor: { line: number; column: number; color: string };
-  isTyping: boolean;
-  micStatus: "on" | "off" | "muted";
+  isOnline: boolean;
+  micStatus: "on" | "off";
   videoStatus: "on" | "off";
-  connectionQuality: "excellent" | "good" | "poor";
-  joinedAt: string;
-  contributions: number;
 }
 
-interface AIAssistant {
+interface LiveSession {
   id: string;
   name: string;
-  personality: "helpful" | "expert" | "creative" | "strict";
-  active: boolean;
-  suggestions: AISuggestion[];
-  currentTask?: string;
-}
-
-interface AISuggestion {
-  id: string;
-  type: "optimization" | "bug-fix" | "pattern" | "refactor" | "test";
-  title: string;
-  description: string;
-  codeChange: {
-    before: string;
-    after: string;
-    lineStart: number;
-    lineEnd: number;
-  };
-  confidence: number;
-  impact: "low" | "medium" | "high";
-  reasoning: string;
-  votes: { userId: string; vote: "accept" | "reject" | "modify" }[];
-  status: "pending" | "accepted" | "rejected" | "modified" | "implemented";
-}
-
-interface GameElement {
-  type: "challenge" | "achievement" | "powerup" | "streak";
-  title: string;
-  description: string;
-  points: number;
-  timeLimit?: number;
-  participants?: string[];
-  status: "active" | "completed" | "failed";
+  repository: string;
+  branch: string;
+  participants: Participant[];
+  isActive: boolean;
+  startedAt: string;
 }
 
 const LiveCodeSessions = () => {
-  const [sessionMode, setSessionMode] = useState<
-    "collaborate" | "compete" | "learn" | "review"
-  >("collaborate");
-  const [aiAssistantActive, setAiAssistantActive] = useState(true);
-  const [voiceEnabled, setVoiceEnabled] = useState(false);
-  const [gamificationActive, setGamificationActive] = useState(true);
   const [selectedTeamId, setSelectedTeamId] = useState<string>("demo-team");
+  const [activeSessions, setActiveSessions] = useState<LiveSession[]>([]);
+  const [selectedSession, setSelectedSession] = useState<string | null>(null);
 
   // Fetch teams data
   const { data: teams, isLoading: teamsLoading } = useTeams();
@@ -114,574 +59,280 @@ const LiveCodeSessions = () => {
     );
   }
 
-  // Get real participants data - would come from real-time WebSocket connection
-  const participants: Participant[] =
-    teamData?.members?.slice(0, 3).map((member, index) => ({
+  // Convert team members to participants (only if they have active sessions)
+  const teamParticipants: Participant[] =
+    teamData?.members?.map((member) => ({
       id: member.id,
       name: member.userId,
-      avatar: "/avatars/default.jpg",
-      role: index === 0 ? "host" : "collaborator",
-      permissions:
-        index === 0 ? ["edit", "invite", "moderate"] : ["edit", "comment"],
-      cursor: {
-        line: 20 + index * 10,
-        column: 5 + index * 3,
-        color: ["#ff6b6b", "#4ecdc4", "#45b7d1"][index],
-      },
-      isTyping: false,
+      role: member.role === "owner" ? "host" : "collaborator",
+      isOnline: false, // Would come from WebSocket in real implementation
       micStatus: "off",
       videoStatus: "off",
-      connectionQuality: "excellent",
-      joinedAt: new Date().toISOString(),
-      contributions: 0,
     })) || [];
 
-  const aiAssistants: AIAssistant[] = [
-    {
-      id: "ai-1",
-      name: "CodeSage",
-      personality: "expert",
-      active: true,
-      currentTask: "Analyzing performance patterns",
-      suggestions: [
-        {
-          id: "ai-suggestion-1",
-          type: "optimization",
-          title: "Memoization Opportunity",
-          description:
-            "This component could benefit from React.memo to prevent unnecessary re-renders",
-          codeChange: {
-            before: "const UserCard = ({ user, onClick }) => {",
-            after: "const UserCard = React.memo(({ user, onClick }) => {",
-            lineStart: 15,
-            lineEnd: 15,
-          },
-          confidence: 94,
-          impact: "medium",
-          reasoning:
-            "Props appear stable and component is rendered frequently in lists",
-          votes: [],
-          status: "pending",
-        },
-      ],
-    },
-  ];
-
-  const gameElements: GameElement[] = [
-    {
-      type: "challenge",
-      title: "Speed Refactor",
-      description: "Refactor this function in under 5 minutes",
-      points: 100,
-      timeLimit: 300,
-      participants: ["1", "2"],
-      status: "active",
-    },
-    {
-      type: "achievement",
-      title: "Bug Hunter",
-      description: "Found and fixed 3 bugs in this session",
-      points: 250,
-      status: "completed",
-    },
-  ];
-
-  const getConnectionQualityColor = (quality: string) => {
-    switch (quality) {
-      case "excellent":
-        return "text-green-400";
-      case "good":
-        return "text-yellow-400";
-      case "poor":
-        return "text-red-400";
-      default:
-        return "text-gray-400";
-    }
-  };
-
-  const getCursorStyle = (participant: Participant) => ({
-    background: participant.cursor.color,
-    boxShadow: `0 0 10px ${participant.cursor.color}40`,
-  });
-
   return (
-    <div className="min-h-screen bg-black">
-      <div className="flex h-screen">
-        {/* Main Code Editor Area */}
-        <div className="flex-1 flex flex-col">
-          {/* Session Header */}
-          <div className="bg-zinc-900 border-b border-zinc-800 p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-red-400 rounded-full animate-pulse" />
-                  <span className="text-white font-semibold">Live Session</span>
-                  <Badge className="bg-green-900 text-green-200">Active</Badge>
-                </div>
-                <div className="flex items-center gap-2 text-zinc-400">
-                  <GitBranch className="w-4 h-4" />
-                  <span>frontend-app/components/UserProfile.tsx</span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                {/* Session Mode Selector */}
-                <div className="flex items-center gap-1">
-                  {(["collaborate", "compete", "learn", "review"] as const).map(
-                    (mode) => (
-                      <Button
-                        key={mode}
-                        size="sm"
-                        variant={sessionMode === mode ? "primary" : "ghost"}
-                        onClick={() => setSessionMode(mode)}
-                        className="capitalize"
-                      >
-                        {mode === "collaborate" && (
-                          <Users className="w-3 h-3 mr-1" />
-                        )}
-                        {mode === "compete" && (
-                          <Gamepad2 className="w-3 h-3 mr-1" />
-                        )}
-                        {mode === "learn" && (
-                          <Lightbulb className="w-3 h-3 mr-1" />
-                        )}
-                        {mode === "review" && <Eye className="w-3 h-3 mr-1" />}
-                        {mode}
-                      </Button>
-                    ),
-                  )}
-                </div>
-
-                {/* AI Assistant Toggle */}
-                <Button
-                  size="sm"
-                  variant={aiAssistantActive ? "primary" : "ghost"}
-                  onClick={() => setAiAssistantActive(!aiAssistantActive)}
-                >
-                  <Bot className="w-3 h-3 mr-1" />
-                  AI Assistant
-                </Button>
-
-                {/* Voice/Video Controls */}
-                <div className="flex items-center gap-1">
-                  <Button size="sm" variant="ghost">
-                    {voiceEnabled ? (
-                      <Mic className="w-3 h-3" />
-                    ) : (
-                      <MicOff className="w-3 h-3" />
-                    )}
-                  </Button>
-                  <Button size="sm" variant="ghost">
-                    <Video className="w-3 h-3" />
-                  </Button>
-                  <Button size="sm" variant="ghost">
-                    <Share className="w-3 h-3" />
-                  </Button>
-                </div>
-              </div>
+    <div className="min-h-screen bg-black text-white">
+      {/* Header */}
+      <div className="bg-zinc-900 border-b border-zinc-800 p-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => window.history.back()}
+              className="text-zinc-400 hover:text-white"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Dashboard
+            </Button>
+            <div>
+              <h1 className="text-2xl font-bold text-white">
+                Live Code Sessions
+              </h1>
+              <p className="text-zinc-400 text-sm">
+                Collaborate in real-time with your team
+              </p>
             </div>
           </div>
-
-          {/* Code Editor with Real-time Cursors */}
-          <div className="flex-1 bg-blacker relative">
-            <div className="absolute top-4 right-4 z-10">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-purple-400" />
-                <span className="text-purple-400 text-sm">
-                  AI actively analyzing
-                </span>
-              </div>
-            </div>
-
-            <div className="p-6 font-mono text-sm h-full overflow-auto">
-              <div className="space-y-1 relative">
-                {/* Live cursors */}
-                {participants.map((participant) => (
-                  <div
-                    key={participant.id}
-                    className="absolute pointer-events-none"
-                    style={{
-                      top: `${participant.cursor.line * 24}px`,
-                      left: `${participant.cursor.column * 8}px`,
-                    }}
-                  >
-                    <div
-                      className="w-0.5 h-6 animate-pulse"
-                      style={{ backgroundColor: participant.cursor.color }}
-                    />
-                    <div
-                      className="absolute -top-6 left-0 px-2 py-1 rounded text-xs text-white whitespace-nowrap"
-                      style={{ backgroundColor: participant.cursor.color }}
-                    >
-                      {participant.name}
-                      {participant.isTyping && (
-                        <span className="ml-1 animate-pulse">typing...</span>
-                      )}
-                    </div>
-                  </div>
+          <div className="flex items-center gap-3">
+            {teams && teams.length > 0 && (
+              <select
+                value={selectedTeamId}
+                onChange={(e) => setSelectedTeamId(e.target.value)}
+                className="bg-zinc-800 text-white px-3 py-1 rounded border border-zinc-600 text-sm"
+              >
+                {teams.map((team) => (
+                  <option key={team.id} value={team.id}>
+                    {team.name}
+                  </option>
                 ))}
-
-                {/* Code content with live editing visualization */}
-                {[
-                  {
-                    line: 1,
-                    content:
-                      'import React, { useState, useEffect } from "react";',
-                  },
-                  {
-                    line: 2,
-                    content: 'import { UserCard } from "./UserCard";',
-                  },
-                  { line: 3, content: "" },
-                  { line: 4, content: "interface User {" },
-                  { line: 5, content: "  id: string;" },
-                  { line: 6, content: "  name: string;" },
-                  { line: 7, content: "  email: string;" },
-                  { line: 8, content: "}" },
-                  { line: 9, content: "" },
-                  { line: 10, content: "export function UserProfile() {" },
-                  {
-                    line: 11,
-                    content:
-                      "  const [users, setUsers] = useState<User[]>([]);",
-                  },
-                  {
-                    line: 12,
-                    content: "  const [loading, setLoading] = useState(true);",
-                  },
-                  { line: 13, content: "" },
-                  {
-                    line: 14,
-                    content: "  // AI Suggestion: Add React.memo here",
-                  },
-                  {
-                    line: 15,
-                    content: "  const UserCard = ({ user, onClick }) => {",
-                    highlight: "suggestion",
-                  },
-                  { line: 16, content: "    return (" },
-                  {
-                    line: 17,
-                    content:
-                      '      <div className="user-card" onClick={() => onClick(user.id)}>',
-                  },
-                  { line: 18, content: "        <h3>{user.name}</h3>" },
-                  { line: 19, content: "        <p>{user.email}</p>" },
-                  { line: 20, content: "      </div>" },
-                  { line: 21, content: "    );" },
-                  { line: 22, content: "  };" },
-                  { line: 23, content: "" },
-                  { line: 24, content: "  return (" },
-                  { line: 25, content: '    <div className="user-profile">' },
-                  { line: 26, content: "      {loading ? (" },
-                  { line: 27, content: "        <div>Loading...</div>" },
-                  {
-                    line: 28,
-                    content: "      ) : (",
-                    highlight: "cursor-alex",
-                  },
-                  { line: 29, content: "        users.map(user => (" },
-                  {
-                    line: 30,
-                    content:
-                      "          <UserCard key={user.id} user={user} onClick={handleUserClick} />",
-                  },
-                  { line: 31, content: "        ))" },
-                  { line: 32, content: "      )}" },
-                  { line: 33, content: "    </div>" },
-                  { line: 34, content: "  );" },
-                  { line: 35, content: "}" },
-                ].map((line) => (
-                  <div
-                    key={line.line}
-                    className={`flex items-center min-h-[24px] ${
-                      line.highlight === "suggestion"
-                        ? "bg-blue-900/30 border-l-4 border-blue-400"
-                        : line.highlight === "cursor-alex"
-                          ? "bg-teal-900/20"
-                          : ""
-                    }`}
-                  >
-                    <span className="text-zinc-400 w-12 select-none text-right pr-4">
-                      {line.line}
-                    </span>
-                    <span className="text-white flex-1">{line.content}</span>
-                    {line.highlight === "suggestion" && (
-                      <div className="flex items-center gap-2 pr-4">
-                        <Badge className="bg-blue-900 text-blue-200 text-xs">
-                          AI Suggestion
-                        </Badge>
-                        <Button size="sm" variant="ghost" className="h-6 px-2">
-                          <Check className="w-3 h-3" />
-                        </Button>
-                        <Button size="sm" variant="ghost" className="h-6 px-2">
-                          <X className="w-3 h-3" />
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+              </select>
+            )}
+            <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+              <Play className="w-4 h-4 mr-2" />
+              Start Session
+            </Button>
           </div>
         </div>
+      </div>
 
-        {/* Right Sidebar - Collaboration Tools */}
-        <div className="w-96 bg-zinc-900 border-l border-zinc-800 flex flex-col">
-          {/* Participants Panel */}
-          <div className="p-4 border-b border-zinc-800">
-            <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
-              <Users className="w-4 h-4" />
-              Participants ({participants.length})
-            </h3>
-            <div className="space-y-2">
-              {participants.map((participant) => (
-                <div
-                  key={participant.id}
-                  className="flex items-center gap-3 p-2 bg-zinc-900 rounded-lg"
-                >
-                  <div className="relative">
-                    <Avatar className="w-8 h-8">
-                      <AvatarFallback>
-                        {participant.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div
-                      className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-zinc-800-dark"
-                      style={{ backgroundColor: participant.cursor.color }}
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-white text-sm font-medium">
-                        {participant.name}
-                      </span>
-                      <Badge className="text-xs bg-zinc-900 text-white">
-                        {participant.role}
-                      </Badge>
+      <div className="max-w-7xl mx-auto p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Active Sessions Panel */}
+          <div className="lg:col-span-1">
+            <Card className="bg-zinc-900 border-zinc-800">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <Users className="w-5 h-5" />
+                  Active Sessions
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {activeSessions.length === 0 ? (
+                  <div className="text-center py-8">
+                    <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Code className="w-8 h-8 text-zinc-600" />
                     </div>
-                    <div className="flex items-center gap-2 text-xs">
-                      <span
-                        className={getConnectionQualityColor(
-                          participant.connectionQuality,
-                        )}
+                    <p className="text-zinc-400 text-sm">No active sessions</p>
+                    <p className="text-zinc-500 text-xs mt-1">
+                      Start a new session to collaborate with your team
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {activeSessions.map((session) => (
+                      <div
+                        key={session.id}
+                        className="p-3 bg-zinc-800 rounded-lg hover:bg-zinc-750 cursor-pointer"
+                        onClick={() => setSelectedSession(session.id)}
                       >
-                        ●
-                      </span>
-                      <span className="text-zinc-400">
-                        {participant.contributions} contributions
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    {participant.micStatus === "on" && (
-                      <Mic className="w-3 h-3 text-green-400" />
-                    )}
-                    {participant.micStatus === "muted" && (
-                      <MicOff className="w-3 h-3 text-red-400" />
-                    )}
-                    {participant.videoStatus === "on" && (
-                      <Video className="w-3 h-3 text-blue-400" />
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* AI Assistant Panel */}
-          {aiAssistantActive && (
-            <div className="p-4 border-b border-zinc-800">
-              <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
-                <Bot className="w-4 h-4 text-blue-400" />
-                AI Assistant
-              </h3>
-              <div className="space-y-3">
-                {aiAssistants.map((ai) => (
-                  <div
-                    key={ai.id}
-                    className="p-3 bg-blue-900/20 border border-blue-400/30 rounded-lg"
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-                      <span className="text-blue-300 font-medium">
-                        {ai.name}
-                      </span>
-                      <Badge className="bg-blue-900 text-blue-200 text-xs">
-                        {ai.personality}
-                      </Badge>
-                    </div>
-                    {ai.currentTask && (
-                      <p className="text-blue-200 text-xs mb-2">
-                        {ai.currentTask}
-                      </p>
-                    )}
-                    <div className="space-y-2">
-                      {ai.suggestions.map((suggestion) => (
-                        <div
-                          key={suggestion.id}
-                          className="p-2 bg-zinc-900 rounded border border-blue-400/20"
-                        >
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="text-white text-xs font-medium">
-                              {suggestion.title}
-                            </span>
-                            <Badge className="text-xs bg-blue-900 text-blue-200">
-                              {suggestion.confidence}%
-                            </Badge>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-white font-medium text-sm">
+                            {session.name}
+                          </span>
+                          <Badge className="bg-green-900 text-green-200">
+                            Live
+                          </Badge>
+                        </div>
+                        <p className="text-zinc-400 text-xs">
+                          {session.repository}/{session.branch}
+                        </p>
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="flex -space-x-1">
+                            {session.participants
+                              .slice(0, 3)
+                              .map((participant) => (
+                                <Avatar
+                                  key={participant.id}
+                                  className="w-6 h-6 border-2 border-zinc-800"
+                                >
+                                  <AvatarFallback className="text-xs bg-zinc-700">
+                                    {participant.name
+                                      .substring(0, 2)
+                                      .toUpperCase()}
+                                  </AvatarFallback>
+                                </Avatar>
+                              ))}
                           </div>
-                          <p className="text-zinc-400 text-xs mb-2">
-                            {suggestion.description}
-                          </p>
-                          <div className="flex items-center gap-1">
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="h-6 px-2 text-green-400"
-                            >
-                              <ThumbsUp className="w-3 h-3" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="h-6 px-2 text-red-400"
-                            >
-                              <ThumbsDown className="w-3 h-3" />
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="h-6 px-2 text-blue-400"
-                            >
-                              <Wand2 className="w-3 h-3" />
-                            </Button>
+                          <span className="text-zinc-500 text-xs">
+                            {session.participants.length} participants
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Team Members */}
+            <Card className="bg-zinc-900 border-zinc-800 mt-6">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <Users className="w-5 h-5" />
+                  Team Members
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {teamParticipants.length === 0 ? (
+                  <div className="text-center py-4">
+                    <p className="text-zinc-400 text-sm">No team members</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {teamParticipants.map((participant) => (
+                      <div
+                        key={participant.id}
+                        className="flex items-center justify-between p-2 rounded-lg hover:bg-zinc-800"
+                      >
+                        <div className="flex items-center gap-3">
+                          <Avatar className="w-8 h-8">
+                            <AvatarFallback className="bg-zinc-700">
+                              {participant.name.substring(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="text-white text-sm font-medium">
+                              {participant.name}
+                            </p>
+                            <p className="text-zinc-400 text-xs">
+                              {participant.role}
+                            </p>
                           </div>
                         </div>
-                      ))}
+                        <div className="flex items-center gap-1">
+                          <div
+                            className={`w-2 h-2 rounded-full ${
+                              participant.isOnline
+                                ? "bg-green-400"
+                                : "bg-zinc-600"
+                            }`}
+                          />
+                          <span className="text-xs text-zinc-500">
+                            {participant.isOnline ? "Online" : "Offline"}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Main Session Area */}
+          <div className="lg:col-span-2">
+            {selectedSession ? (
+              <Card className="bg-zinc-900 border-zinc-800 h-full">
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between text-white">
+                    <div className="flex items-center gap-2">
+                      <Code className="w-5 h-5" />
+                      Session Workspace
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button size="sm" variant="outline">
+                        <Share className="w-4 h-4 mr-2" />
+                        Share
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <Settings className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="bg-zinc-950 rounded-lg p-4 min-h-[400px]">
+                    <div className="text-center py-20">
+                      <Code className="w-16 h-16 text-zinc-600 mx-auto mb-4" />
+                      <p className="text-zinc-400">
+                        Code editor would load here
+                      </p>
+                      <p className="text-zinc-500 text-sm mt-2">
+                        Real-time collaborative code editing with live cursors
+                      </p>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Gamification Panel */}
-          {gamificationActive && sessionMode === "compete" && (
-            <div className="p-4 border-b border-zinc-800">
-              <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
-                <Gamepad2 className="w-4 h-4 text-purple-400" />
-                Live Challenges
-              </h3>
-              <div className="space-y-3">
-                {gameElements.map((element) => (
-                  <div
-                    key={element.title}
-                    className="p-3 bg-purple-900/20 border border-purple-400/30 rounded-lg"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-purple-300 font-medium">
-                        {element.title}
-                      </span>
-                      <div className="flex items-center gap-1">
-                        <Star className="w-3 h-3 text-yellow-400" />
-                        <span className="text-yellow-400 text-xs">
-                          {element.points}
-                        </span>
-                      </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card className="bg-zinc-900 border-zinc-800 h-full">
+                <CardContent className="flex items-center justify-center min-h-[500px]">
+                  <div className="text-center">
+                    <div className="w-20 h-20 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Play className="w-10 h-10 text-zinc-600" />
                     </div>
-                    <p className="text-purple-200 text-xs mb-2">
-                      {element.description}
+                    <h3 className="text-xl font-semibold text-white mb-2">
+                      Start Your First Live Session
+                    </h3>
+                    <p className="text-zinc-400 mb-6 max-w-md">
+                      Collaborate with your team in real-time. Share code, debug
+                      together, and boost productivity with live coding
+                      sessions.
                     </p>
-                    {element.timeLimit && element.status === "active" && (
-                      <div className="flex items-center gap-2">
-                        <Timer className="w-3 h-3 text-orange-400" />
-                        <span className="text-orange-400 text-xs">
-                          4:32 remaining
-                        </span>
-                      </div>
-                    )}
-                    <Badge
-                      className={`text-xs mt-1 ${
-                        element.status === "active"
-                          ? "bg-green-900 text-green-200"
-                          : element.status === "completed"
-                            ? "bg-blue-900 text-blue-200"
-                            : "bg-red-900 text-red-200"
-                      }`}
-                    >
-                      {element.status}
-                    </Badge>
+                    <Button className="bg-blue-600 hover:bg-blue-700">
+                      <Play className="w-4 h-4 mr-2" />
+                      Create New Session
+                    </Button>
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Chat/Comments Panel */}
-          <div className="flex-1 flex flex-col">
-            <div className="p-4 border-b border-zinc-800">
-              <h3 className="text-white font-semibold flex items-center gap-2">
-                <MessageCircle className="w-4 h-4" />
-                Live Chat
-              </h3>
-            </div>
-            <div className="flex-1 p-4 overflow-y-auto">
-              <div className="space-y-3">
-                <div className="flex items-start gap-2">
-                  <Avatar className="w-6 h-6">
-                    <AvatarFallback className="text-xs">SC</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="text-white text-sm">
-                      <span className="font-medium">Sarah:</span> What do you
-                      think about the AI suggestion for memoization?
-                    </p>
-                    <p className="text-zinc-400 text-xs">2 min ago</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Avatar className="w-6 h-6">
-                    <AvatarFallback className="text-xs">AK</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="text-white text-sm">
-                      <span className="font-medium">Alex:</span> Looks good! The
-                      props are stable here.
-                    </p>
-                    <p className="text-zinc-400 text-xs">1 min ago</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                    <Bot className="w-3 h-3 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-blue-300 text-sm">
-                      <span className="font-medium">CodeSage:</span> I've
-                      analyzed the render frequency - this optimization could
-                      save 23% render time.
-                    </p>
-                    <p className="text-zinc-400 text-xs">30 sec ago</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="p-4 border-t border-zinc-800">
-              <div className="flex items-center gap-2">
-                <input
-                  placeholder="Type a message..."
-                  className="flex-1 bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-white text-sm"
-                />
-                <Button size="sm">
-                  <Send className="w-3 h-3" />
-                </Button>
-              </div>
-            </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
+
+        {/* Session Controls */}
+        {selectedSession && (
+          <Card className="bg-zinc-900 border-zinc-800 mt-6">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <Button size="sm" variant="outline">
+                    <Mic className="w-4 h-4 mr-2" />
+                    Mic
+                  </Button>
+                  <Button size="sm" variant="outline">
+                    <Video className="w-4 h-4 mr-2" />
+                    Video
+                  </Button>
+                  <Button size="sm" variant="outline">
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Chat
+                  </Button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button size="sm" variant="outline">
+                    <Pause className="w-4 h-4 mr-2" />
+                    Pause Session
+                  </Button>
+                  <Button size="sm" variant="destructive">
+                    End Session
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
