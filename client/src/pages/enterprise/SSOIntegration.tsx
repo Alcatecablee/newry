@@ -94,83 +94,17 @@ const SSOIntegration = () => {
 
   const fetchSsoProviders = async () => {
     try {
-      const response = await fetch('/api/enterprise/sso-providers');
+      const response = await fetch("/api/enterprise/sso-providers");
       if (response.ok) {
         const data = await response.json();
         setSsoProviders(data);
       }
     } catch (error) {
-      console.error('Failed to fetch SSO providers:', error);
+      console.error("Failed to fetch SSO providers:", error);
     } finally {
       setLoading(false);
     }
   };
-    {
-      id: "1",
-      name: "Okta",
-      type: "saml",
-      logo: "/logos/okta.svg",
-      status: "active",
-      userCount: 147,
-      lastSync: "2 minutes ago",
-      configuration: {
-        entityId: "urn:amazon:cognito:sp:us-east-1_example",
-        ssoUrl: "https://dev-12345.okta.com/app/amazon_aws/exampleId/sso/saml",
-        certificateFingerprint: "AA:BB:CC:DD:EE:FF...",
-        mappings: {
-          email: "user.email",
-          firstName: "user.firstName",
-          lastName: "user.lastName",
-          groups: "user.groups",
-          role: "user.role",
-        },
-      },
-    },
-    {
-      id: "2",
-      name: "Azure AD",
-      type: "oidc",
-      logo: "/logos/azure.svg",
-      status: "active",
-      userCount: 89,
-      lastSync: "5 minutes ago",
-      configuration: {
-        clientId: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-        clientSecret: "***********",
-        issuer: "https://login.microsoftonline.com/tenant-id/v2.0",
-        scope: ["openid", "profile", "email"],
-        mappings: {
-          email: "email",
-          firstName: "given_name",
-          lastName: "family_name",
-          groups: "groups",
-          role: "roles",
-        },
-      },
-    },
-    {
-      id: "3",
-      name: "Google Workspace",
-      type: "oauth2",
-      logo: "/logos/google.svg",
-      status: "testing",
-      userCount: 0,
-      lastSync: "Never",
-      configuration: {
-        clientId: "123456789-abc123.apps.googleusercontent.com",
-        clientSecret: "***********",
-        scope: ["openid", "email", "profile"],
-        mappings: {
-          email: "email",
-          firstName: "given_name",
-          lastName: "family_name",
-          groups: "hd",
-          role: "role",
-        },
-      },
-    },
-  ];
-
   const complianceReports: ComplianceReport[] = [
     {
       id: "1",
