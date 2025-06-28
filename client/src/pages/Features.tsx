@@ -243,7 +243,7 @@ const Features = () => {
               </div>
 
               <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight text-white">
-                AI-Powered Code Analysis
+                Multi-Layer Code Analysis
               </h1>
 
               <p className="text-xl text-zinc-400 max-w-4xl mx-auto leading-relaxed">
