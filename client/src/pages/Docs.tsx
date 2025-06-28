@@ -165,7 +165,7 @@ npm run fix layer 3
           </div>
           {/* How does it work? */}
           <h3 className="font-semibold text-lg mt-6 mb-1">
-            💡 How NeuroLint Works (At a Glance)
+            How NeuroLint Works (At a Glance)
           </h3>
           <ol className="list-decimal ml-6 text-sm mb-2">
             <li>
