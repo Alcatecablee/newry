@@ -24,6 +24,7 @@ import EnterpriseAnalytics from "./pages/enterprise/EnterpriseAnalytics";
 import AdvancedAI from "./pages/enterprise/AdvancedAI";
 import MarketPositioning from "./pages/enterprise/MarketPositioning";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminTest from "./pages/AdminTest";
 import Dashboard from "./pages/Dashboard";
 import SupabaseTest from "./pages/SupabaseTest";
 import NotFound from "./pages/NotFound";
