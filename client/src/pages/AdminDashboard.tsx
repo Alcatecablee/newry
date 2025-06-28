@@ -402,7 +402,7 @@ const AdminDashboard = () => {
         setLastUpdated(new Date());
         setConfigImported(false);
         toast({
-          title: "✅ Configuration saved successfully!",
+          title: "Configuration saved successfully!",
           description:
             "Environment variables written to .env file successfully.",
         });
@@ -951,7 +951,7 @@ const AdminDashboard = () => {
                     />
                     <p className="text-xs text-zinc-500 mt-1">
                       {envConfig.SUPABASE_SERVICE_ROLE_KEY
-                        ? "✅ Service role key is configured"
+                        ? "Service role key is configured"
                         : "Only needed for admin operations. Keep this secret!"}
                     </p>
                   </div>
@@ -1032,7 +1032,7 @@ const AdminDashboard = () => {
                   />
                   <p className="text-xs text-zinc-500 mt-1">
                     {envConfig.DATABASE_URL
-                      ? "✅ PostgreSQL URL configured"
+                      ? "PostgreSQL URL configured"
                       : "Leave empty to use SQLite (default)"}
                   </p>
                 </div>
