@@ -162,20 +162,20 @@ export class DatabaseStorage implements IStorage {
   // Team methods implementation
   async createTeam(team: InsertTeam): Promise<Team> {
     if (db) {
-      const teamWithId = {
-        ...team,
-        id: this.generateId(),
-        planType: "team",
-        monthlyLimit: 1000,
-        createdAt: isPostgres ? new Date() : Math.floor(Date.now() / 1000),
-        updatedAt: isPostgres ? new Date() : Math.floor(Date.now() / 1000),
-      };
-
       if (isPostgres) {
-        const result = await db.insert(teams).values(teamWithId).returning();
+        // For Postgres, let the database generate UUID and timestamps
+        const result = await db.insert(teams).values(team).returning();
         return result[0];
       } else {
-        // For SQLite, insert and then select
+        // For SQLite, generate ID and handle timestamps
+        const teamWithId = {
+          ...team,
+          id: this.generateId(),
+          planType: "team",
+          monthlyLimit: 1000,
+          createdAt: Math.floor(Date.now() / 1000),
+          updatedAt: Math.floor(Date.now() / 1000),
+        };
         await db.insert(teams).values(teamWithId);
         const result = await db
           .select()
