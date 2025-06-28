@@ -147,78 +147,10 @@ const AppPage = () => {
 
           {/* Layer Selection */}
           <div className="mb-16">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-3 px-4 py-2 bg-zinc-900/50 border border-zinc-800/50 rounded-xl backdrop-blur-sm mb-4">
-                <Settings className="w-5 h-5 text-zinc-400" />
-                <h2 className="text-lg font-semibold text-white">
-                  Select Analysis Layers
-                </h2>
-              </div>
-              <p className="text-sm text-zinc-500 max-w-md mx-auto">
-                Choose which AI layers to run on your code. Each layer targets
-                specific improvements.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-              {LAYER_LIST.map((layer) => {
-                const isEnabled = enabledLayers.includes(layer.id);
-                return (
-                  <button
-                    key={layer.id}
-                    onClick={() => toggleLayer(layer.id)}
-                    className={`group relative p-4 rounded-xl border transition-all duration-200 text-left transform active:scale-[0.98] ${
-                      isEnabled
-                        ? "bg-[#292939] border-zinc-600 shadow-lg shadow-zinc-900/20"
-                        : "bg-[#1a1b21] border-[#292939] hover:border-[#3a3a45] hover:bg-[#232329]"
-                    }`}
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <div
-                        className={`flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold transition-all duration-200 ${
-                          isEnabled
-                            ? "bg-zinc-600 text-white border border-zinc-500"
-                            : "bg-[#292939] text-gray-400 border border-[#3a3a45] group-hover:bg-[#343445] group-hover:text-gray-300"
-                        }`}
-                      >
-                        {layer.id}
-                      </div>
-                      <div
-                        className={`transition-all duration-200 ${isEnabled ? "opacity-100" : "opacity-0 group-hover:opacity-50"}`}
-                      >
-                        <Check className="w-5 h-5 text-white" />
-                      </div>
-                    </div>
-
-                    <h3
-                      className={`font-semibold mb-2 transition-colors ${
-                        isEnabled
-                          ? "text-white"
-                          : "text-gray-300 group-hover:text-white"
-                      }`}
-                    >
-                      {layer.name}
-                    </h3>
-
-                    <p
-                      className={`text-sm leading-relaxed transition-colors ${
-                        isEnabled
-                          ? "text-gray-300"
-                          : "text-gray-400 group-hover:text-gray-300"
-                      }`}
-                    >
-                      {layer.description}
-                    </p>
-
-                    <div
-                      className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-black ${
-                        isEnabled ? "bg-green-500" : "bg-red-500"
-                      }`}
-                    />
-                  </button>
-                );
-              })}
-            </div>
+            <LayerSelector
+              enabledLayers={enabledLayers}
+              setEnabledLayers={setEnabledLayers}
+            />
           </div>
 
           {/* Upload Method Selection */}
