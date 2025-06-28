@@ -140,11 +140,9 @@ export const TechnologySection: React.FC = () => {
               Built for Transparency
             </h3>
             <p className="text-zinc-400 max-w-3xl mx-auto leading-relaxed">
-              NeuroLint currently uses sophisticated rule-based transformations
-              and AST parsing to deliver reliable code improvements. Our
-              architecture is designed from the ground up to integrate machine
-              learning models as they become available, ensuring a smooth
-              transition to true AI-powered analysis.
+              NeuroLint uses sophisticated rule-based transformations and AST
+              parsing to deliver reliable code improvements. Currently in beta
+              with advanced architecture ready for future enhancements.
             </p>
           </div>
         </div>
