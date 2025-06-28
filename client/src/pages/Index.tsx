@@ -963,6 +963,9 @@ export default function Index() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <FAQSection />
+
       {/* CTA Section */}
       <section className="py-24 px-4">
         <div className="max-w-6xl mx-auto relative">
