@@ -162,6 +162,9 @@ function initializeTables(sqlite: Database.Database) {
     `);
 
     console.log("✅ SQLite database tables initialized");
+
+    // Create sample data for testing
+    createSampleData(sqlite);
   } catch (error) {
     console.error("❌ Error initializing SQLite tables:", error);
   }
