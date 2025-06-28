@@ -315,7 +315,15 @@ const EnhancedTeamDashboard = () => {
                 Team Command Center
               </h1>
               <div className="flex items-center gap-4 text-zinc-400">
-                <div className="flex items-center gap-2">
+                <div
+                  className="flex items-center gap-2 cursor-pointer hover:text-white transition-colors"
+                  onClick={() => {
+                    setLiveMode(!liveMode);
+                    console.log(
+                      `Live Mode ${!liveMode ? "enabled" : "disabled"}`,
+                    );
+                  }}
+                >
                   <div
                     className={`w-2 h-2 rounded-full ${liveMode ? "bg-white animate-pulse" : "bg-gray-400"}`}
                   />
