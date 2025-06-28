@@ -247,7 +247,7 @@ const Features = () => {
               </h1>
 
               <p className="text-xl text-zinc-400 max-w-4xl mx-auto leading-relaxed">
-                Discover how NeuroLint's six intelligent layers work together to
+                Discover how NeuroLint's six advanced layers work together to
                 transform your code.
                 <br />
                 <span className="text-white font-semibold">
