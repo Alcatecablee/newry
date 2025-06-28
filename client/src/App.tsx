@@ -27,6 +27,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminTest from "./pages/AdminTest";
 import Dashboard from "./pages/Dashboard";
 import SupabaseTest from "./pages/SupabaseTest";
+import APIDocumentation from "./pages/APIDocumentation";
 import NotFound from "./pages/NotFound";
 import { SiteHeader } from "./components/SiteHeader";
 import { SiteFooter } from "./components/SiteFooter";
@@ -52,6 +53,7 @@ const App = () => (
                 <Route path="/app" element={<AppPage />} />
                 <Route path="/test" element={<TestSuite />} />
                 <Route path="/docs" element={<Docs />} />
+                <Route path="/api-docs" element={<APIDocumentation />} />
                 <Route path="/features" element={<Features />} />
                 <Route path="/pricing" element={<Pricing />} />
 
