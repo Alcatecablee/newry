@@ -8,6 +8,9 @@ import {
   Download,
   Settings,
   Play,
+  Shield,
+  Clock,
+  RefreshCw,
 } from "lucide-react";
 
 export function CLISection() {
