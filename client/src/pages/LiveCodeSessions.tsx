@@ -115,17 +115,17 @@ const LiveCodeSessions = () => {
               result: result,
             };
           }),
-        );
+        });
       }
+    } catch (error) {
+      console.error("Layer analysis failed:", error);
+      setLayerAnalysis((prev) =>
+        prev.map((layer) => ({ ...layer, status: "error" })),
+      );
+    } finally {
       setIsAnalyzing(false);
     }
   };
-
-  // Convert team members to participants (only if they have active sessions)
-  const teamParticipants: Participant[] = teamData?.members?.map((member) => ({
-    id: member.id,
-    name: member.userId,
-    role: member.role === "owner" ? "host" : "collaborator",
     isOnline: false, // Would come from WebSocket in real implementation
     micStatus: "off",
     videoStatus: "off",
