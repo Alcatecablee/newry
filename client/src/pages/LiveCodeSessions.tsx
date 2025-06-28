@@ -100,35 +100,28 @@ const LiveCodeSessions = () => {
   const [gamificationActive, setGamificationActive] = useState(true);
 
   // Get real participants data - would come from real-time WebSocket connection
-  const participants: Participant[] = teamData?.members?.slice(0, 3).map((member, index) => ({
-    id: member.id,
-    name: member.userId,
-    avatar: "/avatars/default.jpg",
-    role: index === 0 ? "host" : "collaborator",
-    permissions: index === 0 ? ["edit", "invite", "moderate"] : ["edit", "comment"],
-    cursor: { line: 20 + index * 10, column: 5 + index * 3, color: ["#ff6b6b", "#4ecdc4", "#45b7d1"][index] },
-    isTyping: Math.random() > 0.7,
-    micStatus: Math.random() > 0.5 ? "on" : "off",
-    videoStatus: Math.random() > 0.6 ? "on" : "off",
-    connectionQuality: ["excellent", "good", "fair"][Math.floor(Math.random() * 3)],
-    joinedAt: new Date().toISOString(),
-      contributions: 18,
-    },
-    {
-      id: "3",
-      name: "Mike Rodriguez",
-      avatar: "/avatars/mike.jpg",
-      role: "observer",
-      permissions: ["comment"],
-      cursor: { line: 15, column: 12, color: "#45b7d1" },
-      isTyping: false,
-      micStatus: "muted",
-      videoStatus: "off",
-      connectionQuality: "excellent",
-      joinedAt: "2024-01-20T10:35:00Z",
-      contributions: 5,
-    },
-  ];
+  const participants: Participant[] =
+    teamData?.members?.slice(0, 3).map((member, index) => ({
+      id: member.id,
+      name: member.userId,
+      avatar: "/avatars/default.jpg",
+      role: index === 0 ? "host" : "collaborator",
+      permissions:
+        index === 0 ? ["edit", "invite", "moderate"] : ["edit", "comment"],
+      cursor: {
+        line: 20 + index * 10,
+        column: 5 + index * 3,
+        color: ["#ff6b6b", "#4ecdc4", "#45b7d1"][index],
+      },
+      isTyping: Math.random() > 0.7,
+      micStatus: Math.random() > 0.5 ? "on" : "off",
+      videoStatus: Math.random() > 0.6 ? "on" : "off",
+      connectionQuality: ["excellent", "good", "fair"][
+        Math.floor(Math.random() * 3)
+      ],
+      joinedAt: new Date().toISOString(),
+      contributions: Math.floor(Math.random() * 30),
+    })) || [];
 
   const aiAssistants: AIAssistant[] = [
     {
