@@ -76,7 +76,7 @@ export const Button: React.FC<ButtonProps> = ({
       {children}
     </button>
   );
-};`
+};`,
   },
   {
     path: "src/components/Modal.tsx",
@@ -105,7 +105,7 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
       </div>
     </div>
   );
-}`
+}`,
   },
   {
     path: "src/hooks/useAuth.ts",
@@ -155,7 +155,7 @@ export function useAuth() {
   };
 
   return { user, loading, login, logout };
-}`
+}`,
   },
   {
     path: "src/utils/api.ts",
@@ -191,7 +191,7 @@ export class ApiClient {
   }
 }
 
-export const apiClient = new ApiClient();`
+export const apiClient = new ApiClient();`,
   },
   {
     path: "package.json",
@@ -210,13 +210,13 @@ export const apiClient = new ApiClient();`
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   }
-}`
-  }
+}`,
+  },
 ];
 
 export function useGitHubUpload() {
   const [uploading, setUploading] = useState(false);
-  const [uploadStatus, setUploadStatus] = useState<UploadStatus | null>(null>();
+  const [uploadStatus, setUploadStatus] = useState<UploadStatus | null>(null);
   const [demoMode, setDemoMode] = useState(false);
 
   const isValidGitHubUrl = (url: string) => {
@@ -277,8 +277,10 @@ export function useGitHubUpload() {
       );
 
       // Check rate limit headers
-      const remainingRequests = response.headers.get('x-ratelimit-remaining');
-      console.log(`GitHub API requests remaining: ${remainingRequests || 'unknown'}`);
+      const remainingRequests = response.headers.get("x-ratelimit-remaining");
+      console.log(
+        `GitHub API requests remaining: ${remainingRequests || "unknown"}`,
+      );
 
       if (response.ok) {
         const repoData = await response.json();
@@ -304,9 +306,13 @@ ${suggestions.join("\n")}`);
       }
 
       if (response.status === 403) {
-        const rateLimitReset = response.headers.get('x-ratelimit-reset');
-        const resetTime = rateLimitReset ? new Date(parseInt(rateLimitReset) * 1000) : null;
-        const waitTime = resetTime ? Math.ceil((resetTime.getTime() - Date.now()) / 60000) : 60;
+        const rateLimitReset = response.headers.get("x-ratelimit-reset");
+        const resetTime = rateLimitReset
+          ? new Date(parseInt(rateLimitReset) * 1000)
+          : null;
+        const waitTime = resetTime
+          ? Math.ceil((resetTime.getTime() - Date.now()) / 60000)
+          : 60;
 
         throw new Error(
           `GitHub API rate limit exceeded. Please wait ${waitTime} minutes before trying again, or use the demo mode below.`,
