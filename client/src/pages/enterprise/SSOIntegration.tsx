@@ -217,28 +217,29 @@ const SSOIntegration = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <Shield className="w-8 h-8 text-blue-400" />
-              <div>
-                <h1 className="text-3xl font-bold text-white">
-                  Enterprise SSO & Security
-                </h1>
-                <p className="text-zinc-400">
-                  Single Sign-On integration and compliance management
-                </p>
-              </div>
-            </div>
-            <Badge className="bg-purple-900 text-purple-200 flex items-center gap-1">
-              <Crown className="w-3 h-3" />
-              Enterprise
-            </Badge>
-          </div>
-          <div className="flex items-center gap-4">
+    <div className="min-h-screen bg-black text-white">
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-zinc-900/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-zinc-800/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 h-1/3 bg-zinc-900/15 rounded-full blur-3xl"></div>
+      </div>
+
+      <PageHeader
+        title="Enterprise SSO & Security"
+        description="Single Sign-On integration and compliance management for enterprise-grade security."
+        icon={<Shield className="w-4 h-4" />}
+        badge="Enterprise Feature"
+        actionButton={{
+          label: "Try NeuroLint",
+          href: "/app"
+        }}
+      />
+
+      <div className="relative z-10 p-6">
+        <div className="max-w-7xl mx-auto">
+          {/* Action buttons */}
+          <div className="flex justify-end gap-4 mb-8">
             <Button variant="outline" size="sm">
               <Download className="w-4 h-4 mr-2" />
               Export Config
@@ -248,7 +249,6 @@ const SSOIntegration = () => {
               Security Settings
             </Button>
           </div>
-        </div>
 
         {/* Security Overview */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
