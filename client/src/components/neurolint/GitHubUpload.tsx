@@ -96,19 +96,28 @@ export function GitHubUpload({ onRepoUpload, processing }: GitHubUploadProps) {
             )}
           </Button>
 
-          <div className="text-center">
-            <div className="text-sm text-zinc-500 mb-3">
-              Hit the GitHub rate limit? Try our demo instead:
+          <div className="relative">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="flex-1 h-px bg-zinc-800"></div>
+              <span className="text-sm text-zinc-500">OR</span>
+              <div className="flex-1 h-px bg-zinc-800"></div>
             </div>
+
             <Button
               onClick={() => loadDemoRepository(onRepoUpload)}
               disabled={uploading || processing}
-              variant="outline"
-              className="h-12 px-6 bg-zinc-900/50 border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white font-medium"
+              className="w-full h-12 bg-zinc-900 border border-zinc-700 text-white hover:bg-zinc-800 font-medium"
             >
               <Github className="w-4 h-4 mr-2" />
-              Load Demo Repository
+              Try Demo Repository
+              <span className="ml-2 text-xs bg-zinc-700 px-2 py-1 rounded">
+                No API limits
+              </span>
             </Button>
+
+            <div className="text-center text-xs text-zinc-500 mt-2">
+              Perfect for testing • 5 realistic React/TypeScript files
+            </div>
           </div>
         </div>
 
