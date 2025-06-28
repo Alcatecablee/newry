@@ -85,14 +85,23 @@ const TeamAnalytics = () => {
   const [predictiveMode, setPredictiveMode] = useState(true);
 
   // Get real analytics data from API
-  const teamMetrics: TeamMetrics = analyticsData ? {
-    codeQuality: analyticsData.codeQuality,
-    velocity: analyticsData.velocity,
-    collaboration: analyticsData.collaboration,
-    bugRate: analyticsData.bugRate,
-    techDebt: analyticsData.techDebt,
-    innovation: analyticsData.innovation,
-  };
+  const teamMetrics: TeamMetrics = analyticsData
+    ? {
+        codeQuality: analyticsData.codeQuality,
+        velocity: analyticsData.velocity,
+        collaboration: analyticsData.collaboration,
+        bugRate: analyticsData.bugRate,
+        techDebt: analyticsData.techDebt,
+        innovation: analyticsData.innovation,
+      }
+    : {
+        codeQuality: { current: 0, previous: 0, change: 0, trend: "flat" },
+        velocity: { current: 0, previous: 0, change: 0, trend: "flat" },
+        collaboration: { current: 0, previous: 0, change: 0, trend: "flat" },
+        bugRate: { current: 0, previous: 0, change: 0, trend: "flat" },
+        techDebt: { current: 0, previous: 0, change: 0, trend: "flat" },
+        innovation: { current: 0, previous: 0, change: 0, trend: "flat" },
+      };
 
   const teamHealthScore: TeamHealthScore = {
     overall: 91,
