@@ -81,7 +81,7 @@ export default function Docs() {
           </div>
 
           {/* Quick Start */}
-          <h3 className="font-semibold text-lg mt-6 mb-1">🚀 Quick Start</h3>
+          <h3 className="font-semibold text-lg mt-6 mb-1">Quick Start</h3>
           <ol className="list-decimal ml-6 text-sm mb-2">
             <li>Install dependencies.</li>
             <li>
