@@ -46,7 +46,7 @@ interface LayerMetrics {
 
 const TeamAnalytics = () => {
   const [selectedTimeframe, setSelectedTimeframe] = useState<string>("week");
-  const [selectedTeamId, setSelectedTeamId] = useState<string>("demo-team");
+  const [selectedTeamId, setSelectedTeamId] = useState<string>("");
   const [layerMetrics, setLayerMetrics] = useState<LayerMetrics>({});
 
   // Fetch real team data
@@ -54,6 +54,13 @@ const TeamAnalytics = () => {
   const { data: teamData, isLoading: teamLoading } = useTeam(selectedTeamId);
   const { data: analytics, isLoading: analyticsLoading } =
     useTeamAnalytics(selectedTeamId);
+
+  // Auto-select first team when teams are loaded
+  useEffect(() => {
+    if (teams && teams.length > 0 && !selectedTeamId) {
+      setSelectedTeamId(teams[0].id);
+    }
+  }, [teams, selectedTeamId]);
 
   // Calculate layer performance metrics from real analytics
   useEffect(() => {

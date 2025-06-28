@@ -61,7 +61,7 @@ interface ActivityItem {
 const TeamDashboard = () => {
   const [selectedProject, setSelectedProject] = useState<string>("all");
   const [timeRange, setTimeRange] = useState<string>("7d");
-  const [selectedTeamId, setSelectedTeamId] = useState<string>("demo-team");
+  const [selectedTeamId, setSelectedTeamId] = useState<string>("");
   const [layerAnalysis, setLayerAnalysis] = useState<{
     [projectId: string]: NeuroLintLayerResult[];
   }>({});
@@ -69,28 +69,39 @@ const TeamDashboard = () => {
     new Set(),
   );
 
-  // Run NeuroLint analysis on project code
-  const analyzeProject = async (projectId: string, code: string) => {
-    if (!code.trim()) return;
+  // Fetch real team data
+  const { data: teams, isLoading: teamsLoading } = useTeams();
+  const { data: teamData, isLoading: teamLoading } = useTeam(selectedTeamId);
+  const { data: analytics, isLoading: analyticsLoading } =
+    useTeamAnalytics(selectedTeamId);
 
-    setAnalyzingProjects((prev) => new Set(prev).add(projectId));
+  // Auto-select first team when teams are loaded
+  useEffect(() => {
+    if (teams && teams.length > 0 && !selectedTeamId) {
+      setSelectedTeamId(teams[0].id);
+    }
+  }, [teams, selectedTeamId]);
+
+  // Analysis state handlers
+  const handleAnalyzeProject = async (projectId: string) => {
+    setAnalyzingProjects((prev) => new Set([...prev, projectId]));
 
     try {
-      const { transformed, layers } = await NeuroLintOrchestrator(
-        code,
-        "team-project",
-        true,
-        [1, 2, 3, 4, 5, 6],
+      const result = await orchestrator.analyzeCode(
+        `// Simulated code for project ${projectId}`,
+        {
+          layers: [1, 2, 3, 4, 5, 6],
+          enableCaching: true,
+          maxRetries: 3,
+        },
       );
 
-      if (layers) {
-        setLayerAnalysis((prev) => ({
-          ...prev,
-          [projectId]: layers,
-        }));
-      }
+      setLayerAnalysis((prev) => ({
+        ...prev,
+        [projectId]: result.layerResults,
+      }));
     } catch (error) {
-      console.error(`Layer analysis failed for project ${projectId}:`, error);
+      console.error("Failed to analyze project:", error);
     } finally {
       setAnalyzingProjects((prev) => {
         const newSet = new Set(prev);
@@ -99,19 +110,6 @@ const TeamDashboard = () => {
       });
     }
   };
-
-  // Fetch real team data
-  const { data: teams, isLoading: teamsLoading } = useTeams();
-  const { data: teamData, isLoading: teamLoading } = useTeam(selectedTeamId);
-  const { data: analytics, isLoading: analyticsLoading } =
-    useTeamAnalytics(selectedTeamId);
-
-  if (teamsLoading || teamLoading || analyticsLoading) {
-    return (
-      <div className="min-h-screen bg-black p-6 flex items-center justify-center">
-        <div className="text-white text-lg">Loading team dashboard...</div>
-      </div>
-    );
   }
 
   // Get real team members from API

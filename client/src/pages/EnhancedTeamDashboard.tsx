@@ -107,11 +107,18 @@ const EnhancedTeamDashboard = () => {
   const [selectedTimeframe, setSelectedTimeframe] = useState<string>("week");
   const [selectedMember, setSelectedMember] = useState<string | null>(null);
   const [liveMode, setLiveMode] = useState(true);
-  const [selectedTeamId, setSelectedTeamId] = useState<string>("demo-team");
+  const [selectedTeamId, setSelectedTeamId] = useState<string>("");
 
   // Fetch teams data
   const { data: teams, isLoading: teamsLoading } = useTeams();
   const { data: teamData, isLoading: teamLoading } = useTeam(selectedTeamId);
+
+  // Auto-select first team when teams are loaded
+  useEffect(() => {
+    if (teams && teams.length > 0 && !selectedTeamId) {
+      setSelectedTeamId(teams[0].id);
+    }
+  }, [teams, selectedTeamId]);
   const { data: analytics, isLoading: analyticsLoading } =
     useTeamAnalytics(selectedTeamId);
   const createTeam = useCreateTeam();
