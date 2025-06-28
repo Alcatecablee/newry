@@ -81,9 +81,9 @@ export const teamProjects = sqliteTable("team_projects", {
   healthScore: integer("health_score").default(0),
   totalIssues: integer("total_issues").default(0),
   fixedIssues: integer("fixed_issues").default(0),
-  lastScan: integer("last_scan", { mode: "timestamp" }),
-  createdAt: integer("created_at", { mode: "timestamp" }),
-  updatedAt: integer("updated_at", { mode: "timestamp" }),
+  lastScan: integer("last_scan"),
+  createdAt: integer("created_at"),
+  updatedAt: integer("updated_at"),
 });
 
 export const teamActivities = sqliteTable("team_activities", {
