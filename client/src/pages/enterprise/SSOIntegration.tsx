@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PageHeader } from "@/components/PageHeader";
 import {
   Shield,
   Key,
@@ -255,9 +256,7 @@ const SSOIntegration = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Connected Users
-                  </p>
+                  <p className="text-zinc-400 text-sm">Connected Users</p>
                   <p className="text-3xl font-bold text-white">
                     {ssoProviders.reduce((acc, p) => acc + p.userCount, 0)}
                   </p>
@@ -272,9 +271,7 @@ const SSOIntegration = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Active Providers
-                  </p>
+                  <p className="text-zinc-400 text-sm">Active Providers</p>
                   <p className="text-3xl font-bold text-white">
                     {ssoProviders.filter((p) => p.status === "active").length}
                   </p>
@@ -289,9 +286,7 @@ const SSOIntegration = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Security Score
-                  </p>
+                  <p className="text-zinc-400 text-sm">Security Score</p>
                   <p className="text-3xl font-bold text-green-400">96%</p>
                 </div>
                 <Shield className="w-8 h-8 text-green-400" />
@@ -729,9 +724,7 @@ const SSOIntegration = () => {
                       <div className="flex items-center gap-4">
                         <span className="text-zinc-400">{log.time}</span>
                         <span className="text-white">{log.event}</span>
-                        <span className="text-zinc-400">
-                          {log.user}
-                        </span>
+                        <span className="text-zinc-400">{log.user}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-zinc-400">{log.ip}</span>
@@ -839,9 +832,7 @@ const SSOIntegration = () => {
                       >
                         <div>
                           <p className="text-white">{activity.action}</p>
-                          <p className="text-zinc-400">
-                            {activity.user}
-                          </p>
+                          <p className="text-zinc-400">{activity.user}</p>
                         </div>
                         <div className="text-right">
                           <p className="text-white">{activity.role}</p>
