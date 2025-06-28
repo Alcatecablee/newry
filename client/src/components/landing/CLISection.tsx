@@ -92,7 +92,7 @@ export function CLISection() {
                 </h3>
                 <p className="text-gray-400">
                   Process thousands of files in seconds with parallel analysis
-                  and intelligent caching.
+                  and advanced caching.
                 </p>
               </div>
             </div>
