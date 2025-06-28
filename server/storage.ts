@@ -174,14 +174,12 @@ export class DatabaseStorage implements IStorage {
         const result = await db.insert(teams).values(team).returning();
         return result[0];
       } else {
-        // For SQLite, generate ID and handle timestamps
+        // For SQLite, generate ID but let schema defaults handle timestamps
         const teamWithId = {
           ...team,
           id: this.generateId(),
           planType: "team",
           monthlyLimit: 1000,
-          createdAt: Math.floor(Date.now() / 1000),
-          updatedAt: Math.floor(Date.now() / 1000),
         };
         await db.insert(teams).values(teamWithId);
         const result = await db
