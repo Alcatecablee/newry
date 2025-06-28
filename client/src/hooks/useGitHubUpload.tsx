@@ -2,17 +2,51 @@ import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 
 interface RepoFile {
-  name: string;
   path: string;
-  download_url: string;
-  type: string;
+  content: string;
 }
 
-interface UploadStatus {
-  total: number;
-  processed: number;
-  files: string[];
+interface GitHubContent {
+  name: string;
+  path: string;
+  type: "file" | "dir";
+  download_url: string | null;
+  url: string;
 }
+
+// Rate limiting utility
+class GitHubRateLimit {
+  private static requestCount = 0;
+  private static resetTime = Date.now() + 60 * 60 * 1000; // 1 hour from now
+  private static readonly MAX_REQUESTS = 55; // Leave buffer for other requests
+
+  static async checkRateLimit(): Promise<void> {
+    const now = Date.now();
+
+    // Reset counter if hour has passed
+    if (now > this.resetTime) {
+      this.requestCount = 0;
+      this.resetTime = now + 60 * 60 * 1000;
+    }
+
+    // Check if we're approaching limit
+    if (this.requestCount >= this.MAX_REQUESTS) {
+      const waitTime = Math.ceil((this.resetTime - now) / 60000);
+      throw new Error(
+        `Rate limit exceeded. Please wait ${waitTime} minutes before trying again.`,
+      );
+    }
+
+    this.requestCount++;
+  }
+
+  static async delay(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+}
+
+// Request cache to avoid duplicate API calls
+const requestCache = new Map<string, any>();
 
 export function useGitHubUpload() {
   const [uploading, setUploading] = useState(false);
@@ -111,22 +145,55 @@ ${suggestions.join("\n")}`);
     owner: string,
     repo: string,
     path = "",
+    retryCount = 0,
   ): Promise<RepoFile[]> => {
+    const cacheKey = `${owner}/${repo}/${path}`;
+
+    // Check cache first
+    if (requestCache.has(cacheKey)) {
+      console.log(`Cache hit for ${cacheKey}`);
+      return requestCache.get(cacheKey);
+    }
+
     try {
+      // Check rate limit before making request
+      await GitHubRateLimit.checkRateLimit();
+
+      // Add delay between requests to be respectful
+      if (retryCount > 0) {
+        await GitHubRateLimit.delay(1000 * retryCount); // Exponential backoff
+      }
+
+      console.log(
+        `Fetching GitHub API: ${cacheKey} (attempt ${retryCount + 1})`,
+      );
+
       const response = await fetch(
         `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
         {
           headers: {
             Accept: "application/vnd.github.v3+json",
+            "User-Agent": "NeuroLint-App/1.0",
           },
         },
       );
+
+      // Check rate limit headers
+      const remainingRequests = response.headers.get("x-ratelimit-remaining");
+      const resetTime = response.headers.get("x-ratelimit-reset");
+
+      if (remainingRequests) {
+        console.log(`GitHub API requests remaining: ${remainingRequests}`);
+        if (parseInt(remainingRequests) < 5) {
+          console.warn("Approaching GitHub API rate limit!");
+        }
+      }
 
       if (!response.ok) {
         if (response.status === 404) {
           if (path === "") {
             throw new Error(
-              `Repository "${owner}/${repo}" not found or is empty.`,
+              `Repository "${owner}/${repo}" not found or is private.`,
             );
           } else {
             throw new Error(
@@ -134,17 +201,37 @@ ${suggestions.join("\n")}`);
             );
           }
         }
+
         if (response.status === 403) {
+          const rateLimitReset = resetTime
+            ? new Date(parseInt(resetTime) * 1000)
+            : null;
+          const waitTime = rateLimitReset
+            ? Math.ceil((rateLimitReset.getTime() - Date.now()) / 60000)
+            : 60;
           throw new Error(
-            "GitHub API rate limit exceeded. Please try again later.",
+            `GitHub API rate limit exceeded. Please wait ${waitTime} minutes and try again.`,
           );
         }
+
+        if (response.status === 500 && retryCount < 2) {
+          console.warn(`Server error, retrying... (attempt ${retryCount + 1})`);
+          await GitHubRateLimit.delay(2000);
+          return fetchRepoContents(owner, repo, path, retryCount + 1);
+        }
+
         throw new Error(
           `GitHub API error ${response.status}: Unable to fetch repository contents`,
         );
       }
 
-      return await response.json();
+      const data = await response.json();
+
+      // Cache the result for 5 minutes
+      requestCache.set(cacheKey, data);
+      setTimeout(() => requestCache.delete(cacheKey), 5 * 60 * 1000);
+
+      return data;
     } catch (error) {
       console.error("Error fetching repo contents:", error);
       throw error;
