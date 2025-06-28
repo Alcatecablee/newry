@@ -6,25 +6,23 @@ interface EnvironmentConfig {
   // App configuration
   NODE_ENV: 'development' | 'production' | 'test';
   VITE_APP_ENV: 'development' | 'production' | 'staging';
-  
+
   // Database
   DATABASE_URL?: string;
-  
-  // Authentication
-  VITE_CLERK_PUBLISHABLE_KEY: string;
-  CLERK_SECRET_KEY?: string;
-  
+
+
+
   // Database (server-side only)
   DATABASE_URL?: string;
-  
+
   // PayPal
   VITE_PAYPAL_CLIENT_ID: string;
   PAYPAL_CLIENT_SECRET?: string;
-  
+
   // Security
   JWT_SECRET?: string;
   ENCRYPTION_KEY?: string;
-  
+
   // Features
   VITE_ENABLE_ANALYTICS?: string;
   VITE_ENABLE_MONITORING?: string;
@@ -49,7 +47,7 @@ class EnvironmentManager {
 
   validate(): { isValid: boolean; errors: string[] } {
     const errors: string[] = [];
-    
+
     // Required environment variables
     const required: (keyof EnvironmentConfig)[] = [
       'VITE_CLERK_PUBLISHABLE_KEY',
@@ -156,15 +154,15 @@ class EnvironmentManager {
   // Generate secure defaults for missing keys
   generateSecrets(): { [key: string]: string } {
     const secrets: { [key: string]: string } = {};
-    
+
     if (!this.config.JWT_SECRET) {
       secrets.JWT_SECRET = this.generateRandomString(64);
     }
-    
+
     if (!this.config.ENCRYPTION_KEY) {
       secrets.ENCRYPTION_KEY = this.generateRandomString(32);
     }
-    
+
     return secrets;
   }
 
