@@ -235,8 +235,8 @@ const SupabaseTest = () => {
                     variant="outline"
                     className={
                       clientTest.success
-                        ? "border-green-500 text-green-400"
-                        : "border-red-500 text-red-400"
+                        ? "border-zinc-500 text-zinc-400"
+                        : "border-zinc-500 text-zinc-400"
                     }
                   >
                     {clientTest.success ? "success" : "error"}
