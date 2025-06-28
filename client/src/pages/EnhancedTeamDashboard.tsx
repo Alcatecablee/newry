@@ -547,8 +547,8 @@ const EnhancedTeamDashboard = () => {
                           </div>
                           <div className="text-right">
                             <div className="flex items-center gap-1">
-                              <Flame className="w-3 h-3 text-orange-400" />
-                              <span className="text-orange-400 text-sm">
+                              <Flame className="w-3 h-3 text-zinc-400" />
+                              <span className="text-zinc-300 text-sm">
                                 {member.stats.streak}
                               </span>
                             </div>
