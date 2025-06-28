@@ -263,7 +263,7 @@ const LiveCodeSessions = () => {
             )}
             <Button
               size="sm"
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-white text-black hover:bg-zinc-200"
               onClick={() =>
                 createSession({
                   name: `Team Session - ${new Date().toLocaleTimeString()}`,
@@ -306,7 +306,7 @@ const LiveCodeSessions = () => {
                         key={session.id}
                         className={`p-3 rounded-lg border cursor-pointer transition-all ${
                           selectedSession === session.id
-                            ? "bg-zinc-700 border-blue-600"
+                            ? "bg-zinc-700 border-white"
                             : "bg-zinc-800 border-zinc-700 hover:bg-zinc-750"
                         }`}
                         onClick={() => setSelectedSession(session.id)}
@@ -412,10 +412,10 @@ const LiveCodeSessions = () => {
             <Card className="bg-zinc-900 border-zinc-800">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-white">
-                  <Layers className="w-5 h-5 text-blue-400" />
+                  <Layers className="w-5 h-5 text-white" />
                   NeuroLint Analysis
                   {isAnalyzing && (
-                    <Badge className="bg-blue-900 text-blue-200 animate-pulse">
+                    <Badge className="bg-zinc-800 text-white animate-pulse">
                       Running
                     </Badge>
                   )}
@@ -434,7 +434,7 @@ const LiveCodeSessions = () => {
                             : layer.status === "error"
                               ? "#ef4444"
                               : layer.status === "running"
-                                ? "#3b82f6"
+                                ? "#ffffff"
                                 : "#6b7280",
                       }}
                     >
@@ -450,7 +450,7 @@ const LiveCodeSessions = () => {
                             <AlertCircle className="w-4 h-4 text-red-400" />
                           )}
                           {layer.status === "running" && (
-                            <div className="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" />
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                           )}
                         </div>
                       </div>
@@ -480,7 +480,7 @@ const LiveCodeSessions = () => {
                     size="sm"
                     onClick={() => runLayerAnalysis(currentCode)}
                     disabled={isAnalyzing || !currentCode.trim()}
-                    className="w-full bg-blue-600 hover:bg-blue-700"
+                    className="w-full bg-white text-black hover:bg-zinc-200"
                   >
                     <Zap className="w-4 h-4 mr-2" />
                     {isAnalyzing ? "Analyzing..." : "Run Analysis"}
@@ -536,7 +536,7 @@ const LiveCodeSessions = () => {
                   <div className="bg-zinc-950 rounded-lg p-4 min-h-[400px]">
                     <div className="flex items-center justify-between mb-4 p-2 bg-zinc-900 rounded">
                       <div className="flex items-center gap-2">
-                        <Code className="w-4 h-4 text-blue-400" />
+                        <Code className="w-4 h-4 text-white" />
                         <span className="text-white text-sm font-medium">
                           Live Code Editor
                         </span>
@@ -562,7 +562,7 @@ const LiveCodeSessions = () => {
                       placeholder="// Start typing your code here...
 // NeuroLint will analyze in real-time with 6 layers:
 // 1. Configuration validation
-// 2. Entity cleanup  
+// 2. Entity cleanup
 // 3. Component structure
 // 4. Hydration patterns
 // 5. Next.js optimization
@@ -571,7 +571,7 @@ const LiveCodeSessions = () => {
 export default function Component() {
   return <div>Hello World</div>;
 }"
-                      className="w-full h-80 bg-zinc-950 text-white p-4 rounded border border-zinc-700 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full h-80 bg-zinc-950 text-white p-4 rounded border border-zinc-700 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-white"
                     />
                     <div className="mt-4 flex items-center justify-between text-xs text-zinc-500">
                       <span>
@@ -608,7 +608,7 @@ export default function Component() {
                       sessions.
                     </p>
                     <Button
-                      className="bg-blue-600 hover:bg-blue-700"
+                      className="bg-white text-black hover:bg-zinc-200"
                       onClick={() =>
                         createSession({
                           name: `New Session - ${new Date().toLocaleTimeString()}`,
@@ -665,7 +665,7 @@ export default function Component() {
                     size="sm"
                     variant="outline"
                     onClick={() => setChatOpen(!chatOpen)}
-                    className={chatOpen ? "bg-blue-900 border-blue-700" : ""}
+                    className={chatOpen ? "bg-zinc-700 border-zinc-600" : ""}
                   >
                     <MessageCircle className="w-4 h-4 mr-2" />
                     {chatOpen ? "Hide Chat" : "Show Chat"}
