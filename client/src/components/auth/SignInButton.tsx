@@ -150,70 +150,136 @@ export function SignInButton() {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <form onSubmit={handleSubmit} className="p-6 space-y-5">
+            <p id="modal-description" className="sr-only">
+              {mode === "signin"
+                ? "Sign in to your NeuroLint account using your email and password"
+                : "Create a new NeuroLint account by providing your name, email, and password"}
+            </p>
+
             {error && (
-              <div className="p-3 bg-red-900/20 border border-red-800 rounded-lg flex items-center gap-2 text-red-300">
-                <AlertCircle className="w-4 h-4" />
+              <div
+                className="p-3 bg-red-900/20 border border-red-800 rounded-lg flex items-center gap-2 text-red-300 animate-in slide-in-from-top-2 duration-300"
+                role="alert"
+                aria-live="polite"
+              >
+                <AlertCircle className="w-4 h-4 flex-shrink-0" />
                 <span className="text-sm">{error}</span>
               </div>
             )}
 
             {mode === "signup" && (
-              <div>
-                <label className="block text-sm font-medium text-zinc-300 mb-2">
-                  Full Name
+              <div className="animate-in slide-in-from-top-2 duration-300">
+                <label
+                  htmlFor="fullName"
+                  className="block text-sm font-medium text-zinc-300 mb-2"
+                >
+                  Full Name *
                 </label>
                 <input
+                  id="fullName"
+                  ref={mode === "signup" ? firstInputRef : undefined}
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-colors"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-all duration-300 ease-out hover:border-zinc-600"
                   placeholder="Enter your full name"
                   required
+                  disabled={loading}
+                  aria-describedby={
+                    mode === "signup" ? "fullName-help" : undefined
+                  }
                 />
+                <p id="fullName-help" className="sr-only">
+                  Enter your full name for account registration
+                </p>
               </div>
             )}
 
-            <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-2">
-                Email Address
+            <div
+              className="animate-in slide-in-from-top-2 duration-300"
+              style={{ animationDelay: mode === "signup" ? "50ms" : "0ms" }}
+            >
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-zinc-300 mb-2"
+              >
+                Email Address *
               </label>
               <input
+                id="email"
+                ref={mode === "signin" ? firstInputRef : undefined}
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-colors"
+                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-all duration-300 ease-out hover:border-zinc-600"
                 placeholder="Enter your email"
                 required
+                disabled={loading}
+                autoComplete="email"
+                aria-describedby="email-help"
               />
+              <p id="email-help" className="sr-only">
+                Enter a valid email address
+              </p>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-2">
-                Password
+            <div
+              className="animate-in slide-in-from-top-2 duration-300"
+              style={{ animationDelay: mode === "signup" ? "100ms" : "50ms" }}
+            >
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-zinc-300 mb-2"
+              >
+                Password *
               </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-colors"
-                placeholder="Enter your password"
-                required
-                minLength={6}
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 pr-12 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-all duration-300 ease-out hover:border-zinc-600"
+                  placeholder="Enter your password"
+                  required
+                  minLength={6}
+                  disabled={loading}
+                  autoComplete={
+                    mode === "signin" ? "current-password" : "new-password"
+                  }
+                  aria-describedby="password-help"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-zinc-400 hover:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-zinc-800 rounded p-1 transition-all duration-200"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  disabled={loading}
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+              <p id="password-help" className="text-xs text-zinc-500 mt-1">
+                {mode === "signup"
+                  ? "Password must be at least 6 characters long"
+                  : "Enter your account password"}
+              </p>
             </div>
 
             <Button
               type="submit"
-              className="w-full bg-zinc-700 hover:bg-zinc-600 text-white py-3 font-medium"
+              className="w-full bg-zinc-700 hover:bg-zinc-600 text-white py-3 font-medium animate-in slide-in-from-top-2 duration-300"
+              style={{ animationDelay: mode === "signup" ? "150ms" : "100ms" }}
+              loading={loading}
+              loadingText="Processing..."
               disabled={loading}
             >
-              {loading ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                  Processing...
-                </div>
-              ) : (
+              {!loading && (
                 <>
                   {mode === "signin" ? (
                     <LogIn className="w-4 h-4 mr-2" />
