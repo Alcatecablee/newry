@@ -112,8 +112,26 @@ const EnterpriseAnalytics = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<string>("all");
   const [executiveView, setExecutiveView] = useState(true);
 
-  // Mock data - would come from enterprise analytics API
-  const executiveMetrics: ExecutiveMetric[] = [
+  const [executiveMetrics, setExecutiveMetrics] = useState<ExecutiveMetric[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchExecutiveMetrics();
+  }, []);
+
+  const fetchExecutiveMetrics = async () => {
+    try {
+      const response = await fetch('/api/enterprise/analytics/executive');
+      if (response.ok) {
+        const data = await response.json();
+        setExecutiveMetrics(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch executive metrics:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
     {
       name: "Code Quality Score",
       current: 94.2,
