@@ -77,46 +77,28 @@ const TeamDashboard = () => {
     fixesThisWeek: Math.floor(Math.random() * 30), // Would come from real analytics
     lastActive: "Recently",
   })) || [];
-      fixedIssues: 42,
-      contributors: ["1", "2", "3"],
-    },
-    {
-      id: "2",
-      name: "API Service",
-      repository: "company/api-service",
-      healthScore: 87,
-      lastScan: "6 hours ago",
-      totalIssues: 23,
-      fixedIssues: 20,
-      contributors: ["2", "3"],
-    },
-  ];
 
-  const recentActivity: ActivityItem[] = [
-    {
-      id: "1",
-      user: "Alex Kim",
-      action: "Fixed 8 missing key props",
-      project: "Frontend App",
-      timestamp: "2 hours ago",
-      type: "fix",
-    },
-    {
-      id: "2",
-      user: "Sarah Chen",
-      action: "Updated team lint rules",
-      project: "All Projects",
-      timestamp: "4 hours ago",
-      type: "config",
-    },
-    {
-      id: "3",
-      user: "Mike Rodriguez",
-      action: "Scanned codebase",
-      project: "API Service",
-      timestamp: "6 hours ago",
-      type: "scan",
-    },
+  // Get real projects from API
+  const teamProjects = teamData?.projects?.map(project => ({
+    id: project.id,
+    name: project.name,
+    repository: project.repository || "No repository",
+    healthScore: project.healthScore,
+    lastScan: project.lastScan ? new Date(project.lastScan).toLocaleString() : "Never",
+    totalIssues: project.totalIssues,
+    fixedIssues: project.fixedIssues,
+    contributors: ["1", "2"], // Would come from real project contributors
+  })) || [];
+
+  // Get real activities from API
+  const recentActivity = teamData?.activities?.map(activity => ({
+    id: activity.id,
+    user: activity.userId,
+    action: activity.action,
+    project: activity.project || "Unknown",
+    timestamp: new Date(activity.createdAt).toLocaleString(),
+    type: activity.type,
+  })) || [];
   ];
 
   const getHealthScoreColor = (score: number) => {
