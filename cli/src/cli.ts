@@ -29,7 +29,18 @@ program
   .option("-f, --force", "Overwrite existing configuration")
   .action(initCommand);
 
-// Authentication handled via web interface
+// Authentication commands
+program
+  .command("login")
+  .description("Authenticate with NeuroLint service")
+  .option("--api-key <key>", "API key for authentication")
+  .option("--url <url>", "API server URL")
+  .action(loginCommand);
+
+program
+  .command("logout")
+  .description("Clear authentication credentials")
+  .action(logoutCommand);
 
 // Analysis command
 program
