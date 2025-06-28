@@ -106,7 +106,7 @@ npm run db:push
 
 ## Features
 
-- **Multi-layer Analysis**: 6 intelligent layers for comprehensive code analysis
+- **Multi-layer Analysis**: 6 advanced layers for comprehensive code analysis
 - **Real-time Feedback**: Instant code quality assessment
 - **CLI Tool**: Command-line interface for CI/CD integration
 - **VS Code Extension**: Real-time analysis in your editor
