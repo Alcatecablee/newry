@@ -19,7 +19,7 @@ program
   .version("1.0.0");
 
 // Welcome message
-console.log(chalk.blue.bold("🧠 NeuroLint CLI"));
+console.log(chalk.white.bold("NeuroLint CLI"));
 console.log(chalk.gray("Advanced code analysis and transformation\n"));
 
 // Initialize project command
