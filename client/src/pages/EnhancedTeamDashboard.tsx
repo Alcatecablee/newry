@@ -749,7 +749,7 @@ const EnhancedTeamDashboard = () => {
                   <Card className="lg:col-span-2">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
-                        <Trophy className="w-5 h-5 text-yellow-400" />
+                        <Trophy className="w-5 h-5 text-zinc-400" />
                         Team Members
                       </CardTitle>
                     </CardHeader>
