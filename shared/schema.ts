@@ -106,7 +106,7 @@ export const teamActivities = pgTable("team_activities", {
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
-  supabaseId: true,
+  clerkId: true,
   email: true,
   fullName: true,
 });
