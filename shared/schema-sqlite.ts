@@ -13,8 +13,8 @@ export const users = sqliteTable("users", {
     0,
   ),
   monthlyLimit: integer("monthly_limit").default(25),
-  createdAt: integer("created_at", { mode: "timestamp" }),
-  updatedAt: integer("updated_at", { mode: "timestamp" }),
+  createdAt: integer("created_at"),
+  updatedAt: integer("updated_at"),
 });
 
 export const transformations = sqliteTable("transformations", {
