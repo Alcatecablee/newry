@@ -27,17 +27,54 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
   const spinner = ora("Initializing NeuroLint analysis...").start();
 
   try {
-    // Load configuration
+    // Load and validate configuration
     const config = await loadConfig(options.config);
+    const configValidation = await validateConfig(config);
+
+    if (!configValidation.valid) {
+      spinner.fail("Configuration validation failed");
+      configValidation.errors.forEach((error) =>
+        console.log(chalk.red(`❌ ${error}`)),
+      );
+      return;
+    }
+
+    // Check authentication
+    if (!config.apiKey) {
+      spinner.fail("Authentication required");
+      console.log(
+        chalk.yellow('💡 Run "neurolint login" to authenticate first'),
+      );
+      return;
+    }
+
+    // Validate input parameters
+    const layersValidation = validateLayerNumbers(options.layers || "1,2,3,4");
+    if (!layersValidation.valid) {
+      spinner.fail("Invalid layer specification");
+      layersValidation.errors.forEach((error) =>
+        console.log(chalk.red(`❌ ${error}`)),
+      );
+      return;
+    }
+
+    const outputValidation = validateOutputFormat(options.output || "table");
+    if (!outputValidation.valid) {
+      spinner.fail("Invalid output format");
+      outputValidation.errors.forEach((error) =>
+        console.log(chalk.red(`❌ ${error}`)),
+      );
+      return;
+    }
 
     // Resolve file patterns
-    const filePatterns = files.length > 0 ? files : ["**/*.{ts,tsx,js,jsx}"];
+    const filePatterns =
+      files.length > 0
+        ? files
+        : config.files?.include || ["**/*.{ts,tsx,js,jsx}"];
     const includePatterns = options.include?.split(",") || [];
-    const excludePatterns = options.exclude?.split(",") || [
-      "node_modules/**",
-      "dist/**",
-      "build/**",
-    ];
+    const excludePatterns = options.exclude?.split(",") ||
+      config.files?.exclude || ["node_modules/**", "dist/**", "build/**"];
 
     spinner.text = "Discovering files...";
 
