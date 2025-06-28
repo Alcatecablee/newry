@@ -81,7 +81,9 @@ export function TransformationInsights({
                 {result.executionTime !== undefined && (
                   <span className="flex items-center gap-1">
                     <Clock className="w-3 h-3" />
-                    {result.executionTime}ms
+                    {result.executionTime % 1 === 0
+                      ? `${Math.round(result.executionTime)}ms`
+                      : `${Math.round(result.executionTime * 10) / 10}ms`}
                   </span>
                 )}
               </div>
