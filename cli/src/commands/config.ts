@@ -1,5 +1,6 @@
 import chalk from "chalk";
-import { loadConfig, saveConfig } from "../utils/config";
+import { loadConfig, saveConfig, validateConfig } from "../utils/config";
+import { validateApiUrl } from "../utils/validation";
 
 interface ConfigOptions {
   set?: string;
