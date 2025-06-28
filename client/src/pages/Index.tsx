@@ -479,23 +479,23 @@ export default function Index() {
               </div>
               <div className="p-6">
                 <div className="font-mono text-sm space-y-2">
-                  <div className="text-zinc-400">
-                    1 import React from 'react';
-                  </div>
-                  <div className="text-zinc-400">2 </div>
-                  <div className="text-zinc-400">
-                    3 export function Header() &#123;
-                  </div>
-                  <div className="text-zinc-400">
-                    4 const items = ['Home', 'About', 'Contact'];
-                  </div>
-                  <div className="text-zinc-400">5 </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-zinc-400">6</span>
-                    <span className="text-white"> return (</span>
-                    <div className="bg-zinc-900 border border-zinc-800er rounded px-2 py-1 text-xs text-white ml-4">
-                      Missing key prop
-                    </div>
+                <div className="text-white">$ neurolint login</div>
+                <div className="text-zinc-400">NeuroLint Authentication</div>
+                <div className="text-zinc-400">Authentication successful</div>
+                <div className="text-white">$ neurolint analyze src/</div>
+                <div className="text-zinc-400">Discovering and validating files...</div>
+                <div className="text-zinc-400">Found 24 valid files to analyze</div>
+                <div className="text-zinc-400">Analysis (18/24) 75.0% - ETA: 8s</div>
+                <div className="text-white">PASS Layer 1: Configuration Validation</div>
+                <div className="text-white">PASS Layer 2: Pattern & Entity Fixes</div>
+                <div className="text-white">PASS Layer 3: Component Best Practices</div>
+                <div className="text-white">Analysis Complete</div>
+                <div className="text-white">Successfully analyzed: 22</div>
+                <div className="text-white">Failed: 2</div>
+                <div className="text-white">$ neurolint fix --backup --dry-run</div>
+                <div className="text-zinc-400">DRY RUN MODE - Preview changes:</div>
+                <div className="text-zinc-400">src/components/Header.tsx - Would be modified</div>
+                <div className="text-white animate-pulse">█</div>
                   </div>
                   <div className="text-zinc-400">7 &lt;nav&gt;</div>
                   <div className="flex items-center">
