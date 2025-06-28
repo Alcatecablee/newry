@@ -689,7 +689,7 @@ export default function Index() {
                 <div className="text-zinc-400">DRY RUN MODE - Preview changes:</div>
                 <div className="text-zinc-400">src/components/Header.tsx - Would be modified</div>
                 <div className="text-white animate-pulse">█</div>
-                  <div className="text-zinc-400 ml-4">
+              </div>
                     "performance": &#123; "totalTime": 0.85 &#125;
                   </div>
                   <div className="text-white">&#125;</div>
