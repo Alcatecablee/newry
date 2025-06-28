@@ -1,7 +1,7 @@
 import { db, isPostgres } from "./db";
 import { eq, desc, and } from "drizzle-orm";
 
-// Import schemas - use SQLite by default since that's our local setup
+// Import schemas
 import * as pgSchema from "../shared/schema.js";
 import * as sqliteSchema from "../shared/schema-sqlite.js";
 
@@ -18,16 +18,16 @@ const {
 } = schema;
 
 // Export types from the appropriate schema
-export type User = typeof schema.User;
-export type InsertUser = typeof schema.InsertUser;
-export type Transformation = typeof schema.Transformation;
-export type Team = typeof schema.Team;
-export type TeamMember = typeof schema.TeamMember;
-export type TeamProject = typeof schema.TeamProject;
-export type TeamActivity = typeof schema.TeamActivity;
-export type InsertTeam = typeof schema.InsertTeam;
-export type InsertTeamMember = typeof schema.InsertTeamMember;
-export type InsertTeamProject = typeof schema.InsertTeamProject;
+export type User = typeof users.$inferSelect;
+export type InsertUser = typeof users.$inferInsert;
+export type Transformation = typeof transformations.$inferSelect;
+export type Team = typeof teams.$inferSelect;
+export type TeamMember = typeof teamMembers.$inferSelect;
+export type TeamProject = typeof teamProjects.$inferSelect;
+export type TeamActivity = typeof teamActivities.$inferSelect;
+export type InsertTeam = typeof teams.$inferInsert;
+export type InsertTeamMember = typeof teamMembers.$inferInsert;
+export type InsertTeamProject = typeof teamProjects.$inferInsert;
 
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
