@@ -121,7 +121,7 @@ export function LayerSelector({
                   </p>
                   <div
                     className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-black ${
-                      isOn ? "bg-white" : "bg-zinc-600"
+                      isOn ? "bg-green-500" : "bg-red-500"
                     }`}
                   />
                 </Toggle>
