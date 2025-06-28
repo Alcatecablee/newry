@@ -61,8 +61,9 @@ export const TechnologySection: React.FC = () => {
             How NeuroLint Works
           </h2>
           <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
-            Built on proven technologies with an architecture designed for
-            future AI integration
+            Currently in beta with AI-ready architecture. Built on proven
+            rule-based technologies with comprehensive patterns designed for
+            future AI integration.
           </p>
         </div>
 
