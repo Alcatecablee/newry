@@ -147,17 +147,43 @@ export class ConfigurationManager {
     this.configuration = this.loadConfiguration();
   }
 
-  public validateConfiguration(): { valid: boolean; errors: string[] } {
+  public validateConfiguration(): {
+    valid: boolean;
+    errors: string[];
+    warnings: string[];
+  } {
     const errors: string[] = [];
+    const warnings: string[] = [];
 
     // Validate API URL
     if (!this.configuration.apiUrl) {
       errors.push("API URL is required");
     } else {
       try {
-        new URL(this.configuration.apiUrl);
+        const url = new URL(this.configuration.apiUrl);
+        if (url.protocol !== "http:" && url.protocol !== "https:") {
+          errors.push("API URL must use http:// or https:// protocol");
+        }
+        if (url.hostname === "localhost" || url.hostname === "127.0.0.1") {
+          warnings.push(
+            "Using localhost API URL - ensure NeuroLint server is running locally",
+          );
+        }
       } catch {
         errors.push("API URL is not a valid URL");
+      }
+    }
+
+    // Validate API Key format
+    if (this.configuration.apiKey) {
+      if (this.configuration.apiKey.length < 8) {
+        errors.push("API Key must be at least 8 characters long");
+      }
+      if (
+        this.configuration.apiKey.includes(" ") ||
+        this.configuration.apiKey.includes("\n")
+      ) {
+        errors.push("API Key contains invalid characters (spaces or newlines)");
       }
     }
 
@@ -174,35 +200,97 @@ export class ConfigurationManager {
       errors.push("At least one layer must be enabled");
     } else {
       const invalidLayers = this.configuration.enabledLayers.filter(
-        (layer) => layer < 1 || layer > 6,
+        (layer) => !Number.isInteger(layer) || layer < 1 || layer > 6,
       );
       if (invalidLayers.length > 0) {
         errors.push(
-          `Invalid layer numbers: ${invalidLayers.join(", ")}. Must be between 1-6`,
+          `Invalid layer numbers: ${invalidLayers.join(", ")}. Must be integers between 1-6`,
+        );
+      }
+
+      // Warn about experimental layers
+      const experimentalLayers = this.configuration.enabledLayers.filter(
+        (layer) => layer > 4,
+      );
+      if (experimentalLayers.length > 0) {
+        warnings.push(
+          `Layers ${experimentalLayers.join(", ")} are experimental and may not be fully implemented`,
         );
       }
     }
 
-    // Validate timeout
+    // Validate timeout with more reasonable ranges
+    if (this.configuration.timeout < 5000) {
+      warnings.push(
+        "Timeout is very short (< 5s) - may cause frequent timeouts",
+      );
+    } else if (this.configuration.timeout > 120000) {
+      warnings.push(
+        "Timeout is very long (> 2min) - may cause poor user experience",
+      );
+    }
+
     if (
       this.configuration.timeout < 1000 ||
-      this.configuration.timeout > 300000
+      this.configuration.timeout > 600000
     ) {
-      errors.push("Timeout must be between 1000ms and 300000ms (5 minutes)");
+      errors.push("Timeout must be between 1000ms and 600000ms (10 minutes)");
     }
 
     // Validate workspace settings
-    if (this.configuration.workspace.maxFileSize < 1024) {
+    const maxFileSize = this.configuration.workspace.maxFileSize;
+    if (maxFileSize < 1024) {
       errors.push("Maximum file size must be at least 1KB");
+    } else if (maxFileSize > 50 * 1024 * 1024) {
+      warnings.push(
+        "Maximum file size is very large (> 50MB) - may cause performance issues",
+      );
     }
 
-    if (this.configuration.workspace.maxFiles < 1) {
+    const maxFiles = this.configuration.workspace.maxFiles;
+    if (maxFiles < 1) {
       errors.push("Maximum files must be at least 1");
+    } else if (maxFiles > 5000) {
+      warnings.push(
+        "Maximum files is very large (> 5000) - may cause performance issues",
+      );
+    }
+
+    // Validate patterns
+    const includePatterns = this.configuration.workspace.includePatterns;
+    const excludePatterns = this.configuration.workspace.excludePatterns;
+
+    if (!Array.isArray(includePatterns) || includePatterns.length === 0) {
+      errors.push("At least one include pattern must be specified");
+    }
+
+    if (!Array.isArray(excludePatterns)) {
+      errors.push("Exclude patterns must be an array");
+    } else if (excludePatterns.length === 0) {
+      warnings.push(
+        "No exclude patterns specified - may analyze unnecessary files",
+      );
+    }
+
+    // Validate enterprise settings
+    if (this.isEnterpriseMode()) {
+      const teamId = this.configuration.enterpriseFeatures.teamId;
+      if (!teamId || teamId.trim().length === 0) {
+        warnings.push("Enterprise mode enabled but no team ID specified");
+      }
+
+      if (
+        this.configuration.enterpriseFeatures.complianceMode &&
+        !this.configuration.enterpriseFeatures.auditLogging
+      ) {
+        warnings.push("Compliance mode enabled but audit logging is disabled");
+      }
     }
 
     return {
       valid: errors.length === 0,
       errors,
+      warnings,
     };
   }
 

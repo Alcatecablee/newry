@@ -18,98 +18,227 @@ let configManager: ConfigurationManager;
 let apiClient: ApiClient;
 
 export function activate(context: vscode.ExtensionContext) {
-  // Initialize output channel
-  outputChannel = vscode.window.createOutputChannel("NeuroLint");
-  outputChannel.appendLine("NeuroLint extension activated");
+  try {
+    // Initialize output channel
+    outputChannel = vscode.window.createOutputChannel("NeuroLint");
+    outputChannel.appendLine("NeuroLint extension activating...");
 
-  // Initialize configuration manager
-  configManager = new ConfigurationManager();
+    // Initialize configuration manager
+    configManager = new ConfigurationManager();
+    outputChannel.appendLine("Configuration manager initialized");
 
-  // Initialize API client
-  apiClient = new ApiClient(configManager);
+    // Validate configuration on startup
+    const configValidation = configManager.validateConfiguration();
+    if (!configValidation.valid) {
+      outputChannel.appendLine(
+        `Configuration issues found: ${configValidation.errors.join(", ")}`,
+      );
+      statusBar?.updateStatus("Configuration Error");
+    }
+    if (configValidation.warnings.length > 0) {
+      outputChannel.appendLine(
+        `Configuration warnings: ${configValidation.warnings.join(", ")}`,
+      );
+    }
 
-  // Initialize main provider
-  neurolintProvider = new NeuroLintProvider(
-    apiClient,
-    configManager,
-    outputChannel,
-  );
-  context.subscriptions.push(neurolintProvider);
+    // Initialize API client
+    apiClient = new ApiClient(configManager);
+    outputChannel.appendLine("API client initialized");
 
-  // Initialize status bar
-  statusBar = new NeuroLintStatusBar();
-  context.subscriptions.push(statusBar.statusBarItem);
+    // Initialize status bar early
+    statusBar = new NeuroLintStatusBar();
+    context.subscriptions.push(statusBar.statusBarItem);
+    statusBar.updateStatus("Initializing...", true);
 
-  // Initialize diagnostic provider
-  diagnosticProvider = new NeuroLintDiagnosticProvider(
-    apiClient,
-    outputChannel,
-  );
-  context.subscriptions.push(diagnosticProvider);
+    // Initialize main provider
+    neurolintProvider = new NeuroLintProvider(
+      apiClient,
+      configManager,
+      outputChannel,
+    );
+    context.subscriptions.push(neurolintProvider);
+    outputChannel.appendLine("Main provider initialized");
 
-  // Initialize webview
-  webview = new NeuroLintWebview();
-  context.subscriptions.push(webview);
+    // Initialize diagnostic provider
+    diagnosticProvider = new NeuroLintDiagnosticProvider(
+      apiClient,
+      outputChannel,
+    );
+    context.subscriptions.push(diagnosticProvider);
+    outputChannel.appendLine("Diagnostic provider initialized");
 
-  // Register providers
-  const selector = [
-    { scheme: "file", language: "typescript" },
-    { scheme: "file", language: "javascript" },
-    { scheme: "file", language: "typescriptreact" },
-    { scheme: "file", language: "javascriptreact" },
-  ];
+    // Initialize webview
+    webview = new NeuroLintWebview();
+    context.subscriptions.push(webview);
+    outputChannel.appendLine("Webview initialized");
 
-  // Code action provider (quick fixes)
-  context.subscriptions.push(
-    vscode.languages.registerCodeActionsProvider(
-      selector,
-      new NeuroLintCodeActionProvider(apiClient, outputChannel),
-    ),
-  );
+    // Register providers
+    const selector = [
+      { scheme: "file", language: "typescript" },
+      { scheme: "file", language: "javascript" },
+      { scheme: "file", language: "typescriptreact" },
+      { scheme: "file", language: "javascriptreact" },
+    ];
 
-  // Hover provider (documentation)
-  context.subscriptions.push(
-    vscode.languages.registerHoverProvider(
-      selector,
-      new NeuroLintHoverProvider(apiClient),
-    ),
-  );
+    // Code action provider (quick fixes)
+    try {
+      context.subscriptions.push(
+        vscode.languages.registerCodeActionsProvider(
+          selector,
+          new NeuroLintCodeActionProvider(apiClient, outputChannel),
+        ),
+      );
+      outputChannel.appendLine("Code action provider registered");
+    } catch (error) {
+      outputChannel.appendLine(
+        `Failed to register code action provider: ${error}`,
+      );
+    }
 
-  // Tree data provider (explorer view)
-  const treeDataProvider = new NeuroLintTreeDataProvider(apiClient);
-  context.subscriptions.push(
-    vscode.window.createTreeView("neurolintExplorer", {
-      treeDataProvider,
-      showCollapseAll: true,
-    }),
-  );
+    // Hover provider (documentation)
+    try {
+      context.subscriptions.push(
+        vscode.languages.registerHoverProvider(
+          selector,
+          new NeuroLintHoverProvider(apiClient),
+        ),
+      );
+      outputChannel.appendLine("Hover provider registered");
+    } catch (error) {
+      outputChannel.appendLine(`Failed to register hover provider: ${error}`);
+    }
 
-  // Register core commands
-  registerCoreCommands(context);
+    // Tree data provider (explorer view)
+    try {
+      const treeDataProvider = new NeuroLintTreeDataProvider(apiClient);
+      context.subscriptions.push(
+        vscode.window.createTreeView("neurolintExplorer", {
+          treeDataProvider,
+          showCollapseAll: true,
+        }),
+      );
+      outputChannel.appendLine("Tree data provider registered");
+    } catch (error) {
+      outputChannel.appendLine(
+        `Failed to register tree data provider: ${error}`,
+      );
+    }
 
-  // Register enterprise commands if enabled
-  if (configManager.isEnterpriseMode()) {
-    registerEnterpriseCommands(context);
+    // Register core commands
+    try {
+      registerCoreCommands(context);
+      outputChannel.appendLine("Core commands registered");
+    } catch (error) {
+      outputChannel.appendLine(`Failed to register core commands: ${error}`);
+    }
+
+    // Register enterprise commands if enabled
+    if (configManager.isEnterpriseMode()) {
+      try {
+        registerEnterpriseCommands(context);
+        outputChannel.appendLine("Enterprise commands registered");
+      } catch (error) {
+        outputChannel.appendLine(
+          `Failed to register enterprise commands: ${error}`,
+        );
+      }
+    }
+
+    // Register event listeners
+    try {
+      registerEventListeners(context);
+      outputChannel.appendLine("Event listeners registered");
+    } catch (error) {
+      outputChannel.appendLine(`Failed to register event listeners: ${error}`);
+    }
+
+    // Set context for when extension is enabled
+    vscode.commands.executeCommand("setContext", "neurolint.enabled", true);
+
+    // Perform async initialization
+    initializeAsync(context).catch((error) => {
+      outputChannel.appendLine(`Async initialization failed: ${error}`);
+      statusBar.showError("Initialization failed");
+    });
+
+    outputChannel.appendLine("NeuroLint extension activated successfully");
+    statusBar.updateStatus("Ready");
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const fullError = `NeuroLint extension activation failed: ${errorMessage}`;
+
+    outputChannel?.appendLine(fullError);
+    console.error(fullError, error);
+
+    // Show error to user with action buttons
+    vscode.window
+      .showErrorMessage(
+        "NeuroLint extension failed to activate. Check output for details.",
+        "View Output",
+        "Report Issue",
+      )
+      .then((action) => {
+        if (action === "View Output") {
+          outputChannel?.show();
+        } else if (action === "Report Issue") {
+          vscode.env.openExternal(
+            vscode.Uri.parse(
+              "https://github.com/neurolint/neurolint-vscode/issues",
+            ),
+          );
+        }
+      });
+
+    // Still try to initialize basic status bar for user feedback
+    if (!statusBar) {
+      try {
+        statusBar = new NeuroLintStatusBar();
+        context.subscriptions.push(statusBar.statusBarItem);
+        statusBar.showError("Activation failed");
+      } catch (statusBarError) {
+        console.error("Failed to initialize status bar:", statusBarError);
+      }
+    }
   }
+}
 
-  // Register event listeners
-  registerEventListeners(context);
+async function initializeAsync(
+  context: vscode.ExtensionContext,
+): Promise<void> {
+  try {
+    // Test API connection in background
+    const connectionTest = apiClient.healthCheck();
 
-  // Validate workspace on startup
-  neurolintProvider.validateWorkspace();
+    // Validate workspace configuration
+    if (neurolintProvider) {
+      await neurolintProvider.validateWorkspace();
+    }
 
-  // Set context for when extension is enabled
-  vscode.commands.executeCommand("setContext", "neurolint.enabled", true);
+    // Wait for connection test
+    const isConnected = await connectionTest;
+    if (!isConnected) {
+      outputChannel.appendLine(
+        "Warning: Cannot connect to NeuroLint API server",
+      );
+      statusBar.showWarning("API server not connected");
+    } else {
+      outputChannel.appendLine(
+        "Successfully connected to NeuroLint API server",
+      );
+    }
 
-  outputChannel.appendLine("NeuroLint extension ready");
-  statusBar.updateStatus("Ready");
-
-  // Show enterprise welcome message if first time
-  if (
-    configManager.isEnterpriseMode() &&
-    !context.globalState.get("neurolint.enterprise.welcomed")
-  ) {
-    showEnterpriseWelcome(context);
+    // Show enterprise welcome message if first time
+    if (
+      configManager.isEnterpriseMode() &&
+      !context.globalState.get("neurolint.enterprise.welcomed")
+    ) {
+      await showEnterpriseWelcome(context);
+    }
+  } catch (error) {
+    outputChannel.appendLine(
+      `Async initialization error: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    // Don't throw here to avoid breaking the extension
   }
 }
 
@@ -785,32 +914,103 @@ async function loginToNeuroLint(): Promise<void> {
     prompt: "Enter your NeuroLint API key",
     password: true,
     ignoreFocusOut: true,
+    validateInput: (value) => {
+      if (!value || value.trim().length === 0) {
+        return "API key cannot be empty";
+      }
+      if (value.length < 8) {
+        return "API key must be at least 8 characters long";
+      }
+      if (value.includes(" ") || value.includes("\n")) {
+        return "API key contains invalid characters";
+      }
+      return null;
+    },
   });
 
-  if (apiKey) {
+  if (!apiKey || apiKey.trim().length === 0) {
+    return;
+  }
+
+  const trimmedApiKey = apiKey.trim();
+
+  try {
+    statusBar.updateStatus("Validating API key...", true);
+
+    // Test the API key without saving it first
+    const testClient = new ApiClient(configManager);
+
+    // Temporarily set API key for testing
+    const originalKey = configManager.getApiKey();
+    await configManager.setApiKey(trimmedApiKey);
+
     try {
-      statusBar.updateStatus("Authenticating...", true);
+      // Test connection and authentication
+      const isHealthy = await testClient.healthCheck();
+      if (!isHealthy) {
+        throw new Error("Cannot connect to NeuroLint API server");
+      }
 
       // For enterprise users, try enterprise authentication
       if (configManager.isEnterpriseMode()) {
-        const userInfo = await apiClient.authenticateEnterprise(apiKey);
-        vscode.window.showInformationMessage(
-          `Welcome ${userInfo.name}! Enterprise features are now available.`,
-        );
+        statusBar.updateStatus("Authenticating enterprise user...", true);
+        const userInfo = await apiClient.authenticateEnterprise(trimmedApiKey);
+        vscode.window
+          .showInformationMessage(
+            `Welcome ${userInfo.name}! Enterprise features are now available.`,
+            "View Dashboard",
+          )
+          .then((action) => {
+            if (action === "View Dashboard") {
+              vscode.commands.executeCommand("neurolint.enterprise.dashboard");
+            }
+          });
       } else {
-        await configManager.setApiKey(apiKey);
-        vscode.window.showInformationMessage(
-          "Successfully logged in to NeuroLint",
-        );
+        // Test a simple API call to verify the key works
+        statusBar.updateStatus("Testing API access...", true);
+        await apiClient.getLayerInfo();
+
+        vscode.window
+          .showInformationMessage(
+            "Successfully logged in to NeuroLint",
+            "Analyze Current File",
+          )
+          .then((action) => {
+            if (action === "Analyze Current File") {
+              vscode.commands.executeCommand("neurolint.analyzeFile");
+            }
+          });
       }
 
       statusBar.showSuccess("Logged in");
-    } catch (error) {
-      statusBar.showError("Authentication failed");
-      vscode.window.showErrorMessage(
-        `Authentication failed: ${error instanceof Error ? error.message : "Unknown error"}`,
-      );
+      outputChannel.appendLine("API key validated and saved successfully");
+    } catch (testError) {
+      // Restore original API key on test failure
+      await configManager.setApiKey(originalKey);
+      throw testError;
     }
+  } catch (error) {
+    statusBar.showError("Authentication failed");
+
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    outputChannel.appendLine(`Authentication failed: ${errorMessage}`);
+
+    vscode.window
+      .showErrorMessage(
+        `Authentication failed: ${errorMessage}`,
+        "Check Configuration",
+        "View Documentation",
+      )
+      .then((action) => {
+        if (action === "Check Configuration") {
+          vscode.commands.executeCommand("neurolint.configure");
+        } else if (action === "View Documentation") {
+          vscode.env.openExternal(
+            vscode.Uri.parse("https://docs.neurolint.com/authentication"),
+          );
+        }
+      });
   }
 }
 
@@ -1048,19 +1248,57 @@ function isSupported(document: vscode.TextDocument): boolean {
 }
 
 export function deactivate() {
-  if (neurolintProvider) {
-    neurolintProvider.dispose();
-  }
-  if (diagnosticProvider) {
-    diagnosticProvider.dispose();
-  }
-  if (statusBar) {
-    statusBar.dispose();
-  }
-  if (webview) {
-    webview.dispose();
-  }
-  if (outputChannel) {
-    outputChannel.dispose();
+  try {
+    outputChannel?.appendLine("NeuroLint extension deactivating...");
+
+    // Cancel all pending API requests
+    if (apiClient) {
+      apiClient.cancelAllRequests();
+    }
+
+    // Dispose providers in order
+    if (neurolintProvider) {
+      neurolintProvider.dispose();
+      outputChannel?.appendLine("Main provider disposed");
+    }
+
+    if (diagnosticProvider) {
+      diagnosticProvider.dispose();
+      outputChannel?.appendLine("Diagnostic provider disposed");
+    }
+
+    if (statusBar) {
+      statusBar.dispose();
+      outputChannel?.appendLine("Status bar disposed");
+    }
+
+    if (webview) {
+      webview.dispose();
+      outputChannel?.appendLine("Webview disposed");
+    }
+
+    // Clear context
+    vscode.commands.executeCommand("setContext", "neurolint.enabled", false);
+
+    outputChannel?.appendLine("NeuroLint extension deactivated successfully");
+
+    // Dispose output channel last
+    if (outputChannel) {
+      outputChannel.dispose();
+    }
+  } catch (error) {
+    console.error("Error during NeuroLint extension deactivation:", error);
+
+    // Still try to dispose critical resources
+    try {
+      if (apiClient) {
+        apiClient.cancelAllRequests();
+      }
+      if (outputChannel) {
+        outputChannel.dispose();
+      }
+    } catch (cleanupError) {
+      console.error("Error during cleanup:", cleanupError);
+    }
   }
 }

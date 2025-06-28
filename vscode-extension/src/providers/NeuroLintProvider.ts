@@ -7,6 +7,10 @@ export class NeuroLintProvider {
   private documentAnalysisCache: Map<string, any> = new Map();
   private analysisQueue: Set<string> = new Set();
   private isAnalyzing: boolean = false;
+  private cacheCleanupTimer: NodeJS.Timeout | undefined;
+  private maxCacheSize: number = 100;
+  private cacheExpiryTime: number = 5 * 60 * 1000; // 5 minutes
+  private isDisposed: boolean = false;
 
   constructor(
     private apiClient: ApiClient,
@@ -15,10 +19,13 @@ export class NeuroLintProvider {
   ) {
     this.diagnosticCollection =
       vscode.languages.createDiagnosticCollection("neurolint");
+
+    // Start cache cleanup timer
+    this.startCacheCleanup();
   }
 
   public async analyzeDocument(document: vscode.TextDocument): Promise<void> {
-    if (!this.isSupported(document)) {
+    if (!this.isSupported(document) || this.isDisposed) {
       return;
     }
 
@@ -26,6 +33,16 @@ export class NeuroLintProvider {
 
     // Avoid duplicate analysis
     if (this.analysisQueue.has(uri)) {
+      return;
+    }
+
+    // Check file size limits
+    const fileSize = document.getText().length;
+    const maxFileSize = this.configManager.getWorkspaceSettings().maxFileSize;
+    if (fileSize > maxFileSize) {
+      this.outputChannel.appendLine(
+        `Skipping analysis for large file: ${document.fileName} (${Math.round(fileSize / 1024)}KB > ${Math.round(maxFileSize / 1024)}KB)`,
+      );
       return;
     }
 
@@ -39,8 +56,14 @@ export class NeuroLintProvider {
         document.fileName,
       );
 
-      // Cache the result
-      this.documentAnalysisCache.set(uri, result);
+      if (this.isDisposed) return;
+
+      // Cache the result with timestamp
+      this.setCachedResult(uri, {
+        ...result,
+        cachedAt: Date.now(),
+        fileVersion: document.version,
+      });
 
       // Update diagnostics
       this.updateDiagnostics(document, result);
@@ -51,16 +74,21 @@ export class NeuroLintProvider {
           file: document.fileName,
           layers: result.layers?.length || 0,
           issues: this.countIssues(result),
+          fileSize: fileSize,
           timestamp: new Date().toISOString(),
         });
       }
     } catch (error) {
+      if (this.isDisposed) return;
+
       this.outputChannel.appendLine(
         `Analysis failed: ${error instanceof Error ? error.message : String(error)}`,
       );
 
-      // Clear diagnostics on error
-      this.diagnosticCollection.set(document.uri, []);
+      // Only clear diagnostics for certain types of errors
+      if (this.shouldClearDiagnosticsOnError(error)) {
+        this.diagnosticCollection.set(document.uri, []);
+      }
 
       if (this.configManager.isAuditLoggingEnabled()) {
         this.logAuditEvent("document.analysis.failed", {
@@ -191,7 +219,7 @@ export class NeuroLintProvider {
   }
 
   public async analyzeWorkspace(): Promise<void> {
-    if (!vscode.workspace.workspaceFolders) {
+    if (!vscode.workspace.workspaceFolders || this.isDisposed) {
       vscode.window.showWarningMessage("No workspace folder open");
       return;
     }
@@ -201,11 +229,8 @@ export class NeuroLintProvider {
     try {
       this.isAnalyzing = true;
 
-      // Find files to analyze
-      const files = await vscode.workspace.findFiles(
-        `{${workspaceSettings.includePatterns.join(",")}}`,
-        `{${workspaceSettings.excludePatterns.join(",")}}`,
-      );
+      // Find files to analyze with better filtering
+      const files = await this.findFilesToAnalyze(workspaceSettings);
 
       if (files.length === 0) {
         vscode.window.showInformationMessage("No files found to analyze");
@@ -232,36 +257,56 @@ export class NeuroLintProvider {
           cancellable: true,
         },
         async (progress, token) => {
+          const batchSize = this.apiClient.isConnectionHealthy() ? 5 : 1;
           let completed = 0;
           const total = files.length;
+          const batches = this.createBatches(files, batchSize);
 
-          for (const file of files) {
-            if (token.isCancellationRequested) {
+          for (const batch of batches) {
+            if (token.isCancellationRequested || this.isDisposed) {
               break;
             }
 
-            try {
-              const document = await vscode.workspace.openTextDocument(file);
+            // Process batch in parallel
+            const batchPromises = batch.map(async (file) => {
+              try {
+                const document = await vscode.workspace.openTextDocument(file);
 
-              // Check file size
-              if (document.getText().length > workspaceSettings.maxFileSize) {
+                // Pre-filter by file size without reading full content
+                const stats = await vscode.workspace.fs.stat(file);
+                if (stats.size > workspaceSettings.maxFileSize) {
+                  this.outputChannel.appendLine(
+                    `Skipping large file: ${file.fsPath} (${Math.round(stats.size / 1024)}KB)`,
+                  );
+                  return false;
+                }
+
+                await this.analyzeDocument(document);
+                return true;
+              } catch (error) {
                 this.outputChannel.appendLine(
-                  `Skipping large file: ${file.fsPath}`,
+                  `Failed to analyze ${file.fsPath}: ${error instanceof Error ? error.message : String(error)}`,
                 );
-                continue;
+                return false;
               }
+            });
 
-              await this.analyzeDocument(document);
-              completed++;
+            const batchResults = await Promise.allSettled(batchPromises);
+            const batchCompleted = batchResults.filter(
+              (result) =>
+                result.status === "fulfilled" && result.value === true,
+            ).length;
 
-              progress.report({
-                increment: 100 / total,
-                message: `${completed}/${total} files analyzed`,
-              });
-            } catch (error) {
-              this.outputChannel.appendLine(
-                `Failed to analyze ${file.fsPath}: ${error}`,
-              );
+            completed += batchCompleted;
+
+            progress.report({
+              increment: (batchCompleted / total) * 100,
+              message: `${completed}/${total} files analyzed`,
+            });
+
+            // Add small delay between batches to avoid overwhelming API
+            if (batches.indexOf(batch) < batches.length - 1) {
+              await new Promise((resolve) => setTimeout(resolve, 100));
             }
           }
 
@@ -272,7 +317,7 @@ export class NeuroLintProvider {
       if (this.configManager.isAuditLoggingEnabled()) {
         this.logAuditEvent("workspace.analyzed", {
           totalFiles: files.length,
-          completedFiles: this.documentAnalysisCache.size,
+          completedFiles: Array.from(this.documentAnalysisCache.keys()).length,
           timestamp: new Date().toISOString(),
         });
       }
@@ -412,9 +457,108 @@ export class NeuroLintProvider {
     ].includes(document.languageId);
   }
 
+  private startCacheCleanup(): void {
+    this.cacheCleanupTimer = setInterval(() => {
+      this.cleanupCache();
+    }, 60000); // Clean up every minute
+  }
+
+  private cleanupCache(): void {
+    if (this.isDisposed) return;
+
+    const now = Date.now();
+    const keysToDelete: string[] = [];
+
+    // Remove expired entries
+    this.documentAnalysisCache.forEach((value, key) => {
+      if (value.cachedAt && now - value.cachedAt > this.cacheExpiryTime) {
+        keysToDelete.push(key);
+      }
+    });
+
+    // Remove oldest entries if cache is too large
+    if (this.documentAnalysisCache.size > this.maxCacheSize) {
+      const sortedEntries = Array.from(
+        this.documentAnalysisCache.entries(),
+      ).sort((a, b) => (a[1].cachedAt || 0) - (b[1].cachedAt || 0));
+
+      const excess = this.documentAnalysisCache.size - this.maxCacheSize;
+      for (let i = 0; i < excess; i++) {
+        keysToDelete.push(sortedEntries[i][0]);
+      }
+    }
+
+    keysToDelete.forEach((key) => this.documentAnalysisCache.delete(key));
+
+    if (keysToDelete.length > 0) {
+      this.outputChannel.appendLine(
+        `Cleaned up ${keysToDelete.length} cached analysis results`,
+      );
+    }
+  }
+
+  private setCachedResult(uri: string, result: any): void {
+    this.documentAnalysisCache.set(uri, result);
+
+    // Trigger cleanup if cache is getting large
+    if (this.documentAnalysisCache.size > this.maxCacheSize * 1.2) {
+      this.cleanupCache();
+    }
+  }
+
+  private shouldClearDiagnosticsOnError(error: any): boolean {
+    // Only clear diagnostics for connection errors, not for server errors
+    if (error && typeof error === "object" && "code" in error) {
+      const errorCode = error.code;
+      return errorCode === "ECONNREFUSED" || errorCode === "ENOTFOUND";
+    }
+    return false;
+  }
+
+  private async findFilesToAnalyze(
+    workspaceSettings: any,
+  ): Promise<vscode.Uri[]> {
+    const includePattern = `{${workspaceSettings.includePatterns.join(",")}}`;
+    const excludePattern = `{${workspaceSettings.excludePatterns.join(",")}}`;
+
+    const files = await vscode.workspace.findFiles(
+      includePattern,
+      excludePattern,
+    );
+
+    // Sort files by priority: smaller files first, then by extension
+    return files.sort((a, b) => {
+      const aExt = a.fsPath.split(".").pop() || "";
+      const bExt = b.fsPath.split(".").pop() || "";
+
+      // Prioritize TypeScript files over JavaScript
+      if (aExt === "ts" && bExt === "js") return -1;
+      if (aExt === "js" && bExt === "ts") return 1;
+      if (aExt === "tsx" && bExt === "jsx") return -1;
+      if (aExt === "jsx" && bExt === "tsx") return 1;
+
+      // Then by filename length (smaller files first)
+      return a.fsPath.length - b.fsPath.length;
+    });
+  }
+
+  private createBatches<T>(items: T[], batchSize: number): T[][] {
+    const batches: T[][] = [];
+    for (let i = 0; i < items.length; i += batchSize) {
+      batches.push(items.slice(i, i + batchSize));
+    }
+    return batches;
+  }
+
   public dispose(): void {
+    this.isDisposed = true;
     this.diagnosticCollection.dispose();
     this.documentAnalysisCache.clear();
     this.analysisQueue.clear();
+
+    if (this.cacheCleanupTimer) {
+      clearInterval(this.cacheCleanupTimer);
+      this.cacheCleanupTimer = undefined;
+    }
   }
 }
