@@ -286,6 +286,7 @@ const EnhancedTeamDashboard = () => {
               <Button
                 variant="outline"
                 size="sm"
+                className="bg-zinc-900 border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white"
                 onClick={() => {
                   console.log("AI Assistant clicked");
                 }}
@@ -296,6 +297,7 @@ const EnhancedTeamDashboard = () => {
               <Button
                 variant="outline"
                 size="sm"
+                className="bg-zinc-900 border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white"
                 onClick={() => {
                   window.location.href = "/team/live-sessions";
                 }}
@@ -304,8 +306,9 @@ const EnhancedTeamDashboard = () => {
                 Start Session
               </Button>
               <Button
-                variant="primary"
+                variant="outline"
                 size="sm"
+                className="bg-zinc-900 border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white"
                 onClick={() => {
                   window.location.href = "/team/settings";
                 }}
