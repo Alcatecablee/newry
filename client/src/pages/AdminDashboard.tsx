@@ -287,8 +287,7 @@ const AdminDashboard = () => {
 
       <div className="relative z-10 p-6">
         <div className="max-w-6xl mx-auto">
-
-        {/* System Status Overview */}
+          {/* System Status Overview */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card className="bg-zinc-900 border-zinc-800">
             <CardContent className="p-4">
