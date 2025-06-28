@@ -104,6 +104,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     // Try to sync with database in the background
     try {
+      // Create abort controller for timeout (browser compatibility)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
       const response = await fetch("/api/auth/sync-user", {
         method: "POST",
         headers: {
@@ -114,9 +118,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
           email: supabaseUser.email,
           user_metadata: supabaseUser.user_metadata,
         }),
-        // Add timeout to prevent hanging requests
-        signal: AbortSignal.timeout(10000), // 10 second timeout
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
