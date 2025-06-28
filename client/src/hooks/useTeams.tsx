@@ -162,23 +162,12 @@ export function useCreateTeam() {
 
   return useMutation({
     mutationFn: async (team: { name: string; description?: string }) => {
-      if (!isAuthenticated || !user) {
-        throw new Error("User not authenticated");
-      }
-
-      const response = await fetch("/api/teams", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-user-id": user.id,
-        },
-        body: JSON.stringify(team),
-      });
-      if (!response.ok) throw new Error("Failed to create team");
-      return await response.json();
+      // Temporarily disabled to prevent infinite loop
+      console.log("Team creation temporarily disabled");
+      return { success: false, message: "Team creation temporarily disabled" };
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/teams"] });
+      // queryClient.invalidateQueries({ queryKey: ["/api/teams"] });
     },
   });
 }
