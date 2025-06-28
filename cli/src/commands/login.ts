@@ -87,11 +87,11 @@ export async function loginCommand(options: LoginOptions) {
 
       spinner.succeed("Authentication successful!");
 
-      console.log(chalk.green("\n✅ Login Complete"));
-      console.log(chalk.blue(`🔗 API URL: ${apiUrl}`));
+      console.log(chalk.white("\nLogin Complete"));
+      console.log(chalk.white(`API URL: ${apiUrl}`));
       console.log(
-        chalk.blue(
-          `🔑 API Key: ${"*".repeat(apiKey.length - 4)}${apiKey.slice(-4)}`,
+        chalk.white(
+          `API Key: ${"*".repeat(apiKey.length - 4)}${apiKey.slice(-4)}`,
         ),
       );
 
@@ -104,19 +104,19 @@ export async function loginCommand(options: LoginOptions) {
 
         if (userResponse.data) {
           console.log(
-            chalk.blue(
-              `👤 User: ${userResponse.data.email || userResponse.data.username || "Unknown"}`,
+            chalk.white(
+              `User: ${userResponse.data.email || userResponse.data.username || "Unknown"}`,
             ),
           );
 
           if (userResponse.data.plan) {
-            console.log(chalk.blue(`📋 Plan: ${userResponse.data.plan}`));
+            console.log(chalk.white(`Plan: ${userResponse.data.plan}`));
           }
 
           if (userResponse.data.usage) {
             console.log(
-              chalk.blue(
-                `📊 Usage: ${userResponse.data.usage.current}/${userResponse.data.usage.limit} requests`,
+              chalk.white(
+                `Usage: ${userResponse.data.usage.current}/${userResponse.data.usage.limit} requests`,
               ),
             );
           }
@@ -125,15 +125,15 @@ export async function loginCommand(options: LoginOptions) {
         // Ignore user info errors
       }
 
-      console.log(chalk.gray("\n💡 You can now run analysis and fix commands"));
+      console.log(chalk.gray("\nYou can now run analysis and fix commands"));
     } catch (error) {
       spinner.fail("Authentication failed");
 
       if (error instanceof Error) {
         if (error.message.includes("ECONNREFUSED")) {
-          console.log(chalk.red("\n❌ Could not connect to NeuroLint API"));
+          console.log(chalk.white("\nCould not connect to NeuroLint API"));
           console.log(
-            chalk.yellow("💡 Make sure the NeuroLint server is running:"),
+            chalk.white("Make sure the NeuroLint server is running:"),
           );
           console.log(
             chalk.gray("   npm run dev (in the main project directory)"),
@@ -142,24 +142,24 @@ export async function loginCommand(options: LoginOptions) {
           error.message.includes("401") ||
           error.message.includes("403")
         ) {
-          console.log(chalk.red("\n❌ Invalid API key"));
+          console.log(chalk.white("\nInvalid API key"));
           console.log(
-            chalk.yellow(
-              "💡 Check your API key or get a new one from the NeuroLint dashboard",
+            chalk.white(
+              "Check your API key or get a new one from the NeuroLint dashboard",
             ),
           );
         } else if (error.message.includes("404")) {
-          console.log(chalk.red("\n❌ API endpoint not found"));
+          console.log(chalk.white("\nAPI endpoint not found"));
           console.log(
-            chalk.yellow(
-              "💡 Check the API URL or update NeuroLint to the latest version",
+            chalk.white(
+              "Check the API URL or update NeuroLint to the latest version",
             ),
           );
         } else {
-          console.log(chalk.red(`\n❌ Authentication error: ${error.message}`));
+          console.log(chalk.white(`\nAuthentication error: ${error.message}`));
         }
       } else {
-        console.log(chalk.red("\n❌ Unknown authentication error"));
+        console.log(chalk.white("\nUnknown authentication error"));
       }
 
       process.exit(1);
@@ -175,13 +175,13 @@ export async function loginCommand(options: LoginOptions) {
 }
 
 export async function logoutCommand() {
-  console.log(chalk.blue.bold("🔓 NeuroLint Logout\n"));
+  console.log(chalk.white.bold("NeuroLint Logout\n"));
 
   try {
     const config = await loadConfig();
 
     if (!config.apiKey) {
-      console.log(chalk.yellow("No active session found"));
+      console.log(chalk.white("No active session found"));
       return;
     }
 
@@ -195,7 +195,7 @@ export async function logoutCommand() {
     ]);
 
     if (!confirm) {
-      console.log(chalk.yellow("Logout cancelled"));
+      console.log(chalk.white("Logout cancelled"));
       return;
     }
 
@@ -203,8 +203,8 @@ export async function logoutCommand() {
     const { apiKey, ...configWithoutKey } = config;
     await saveConfig(configWithoutKey);
 
-    console.log(chalk.green("✅ Logged out successfully"));
-    console.log(chalk.gray('💡 Run "neurolint login" to authenticate again'));
+    console.log(chalk.white("Logged out successfully"));
+    console.log(chalk.gray('Run "neurolint login" to authenticate again'));
   } catch (error) {
     console.error(
       chalk.red(
