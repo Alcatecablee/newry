@@ -91,7 +91,9 @@ const LiveCodeSessions = () => {
     if (!code.trim()) return;
 
     setIsAnalyzing(true);
-    setLayerAnalysis(prev => prev.map(layer => ({ ...layer, status: "pending" })));
+    setLayerAnalysis((prev) =>
+      prev.map((layer) => ({ ...layer, status: "pending" })),
+    );
 
     try {
       // Run NeuroLint transformation with all layers
@@ -99,7 +101,7 @@ const LiveCodeSessions = () => {
         code,
         "live-session",
         true,
-        [1, 2, 3, 4, 5, 6]
+        [1, 2, 3, 4, 5, 6],
       );
 
       // Update layer status based on results
@@ -114,7 +116,7 @@ const LiveCodeSessions = () => {
               status: result?.success ? "success" : "error",
               result: result,
             };
-          })
+          }),
         );
       }
     } catch (error) {
@@ -126,10 +128,17 @@ const LiveCodeSessions = () => {
       setIsAnalyzing(false);
     }
   };
-    isOnline: false, // Would come from WebSocket in real implementation
-    micStatus: "off",
-    videoStatus: "off",
-  })) || [];
+
+  // Convert team members to participants (only if they have active sessions)
+  const teamParticipants: Participant[] =
+    teamData?.members?.map((member) => ({
+      id: member.id,
+      name: member.userId,
+      role: member.role === "owner" ? "host" : "collaborator",
+      isOnline: false, // Would come from WebSocket in real implementation
+      micStatus: "off",
+      videoStatus: "off",
+    })) || [];
 
   // Handle code changes and trigger analysis
   const handleCodeChange = (newCode: string) => {
@@ -157,7 +166,9 @@ const LiveCodeSessions = () => {
               Back to Dashboard
             </Button>
             <div>
-              <h1 className="text-2xl font-bold text-white">Live Code Sessions</h1>
+              <h1 className="text-2xl font-bold text-white">
+                Live Code Sessions
+              </h1>
               <p className="text-zinc-400 text-sm">
                 Collaborate in real-time with your team
               </p>
@@ -228,13 +239,20 @@ const LiveCodeSessions = () => {
                         </p>
                         <div className="flex items-center gap-2 mt-2">
                           <div className="flex -space-x-1">
-                            {session.participants.slice(0, 3).map((participant) => (
-                              <Avatar key={participant.id} className="w-6 h-6 border-2 border-zinc-800">
-                                <AvatarFallback className="text-xs bg-zinc-700">
-                                  {participant.name.substring(0, 2).toUpperCase()}
-                                </AvatarFallback>
-                              </Avatar>
-                            ))}
+                            {session.participants
+                              .slice(0, 3)
+                              .map((participant) => (
+                                <Avatar
+                                  key={participant.id}
+                                  className="w-6 h-6 border-2 border-zinc-800"
+                                >
+                                  <AvatarFallback className="text-xs bg-zinc-700">
+                                    {participant.name
+                                      .substring(0, 2)
+                                      .toUpperCase()}
+                                  </AvatarFallback>
+                                </Avatar>
+                              ))}
                           </div>
                           <span className="text-zinc-500 text-xs">
                             {session.participants.length} participants
@@ -285,7 +303,9 @@ const LiveCodeSessions = () => {
                         <div className="flex items-center gap-1">
                           <div
                             className={`w-2 h-2 rounded-full ${
-                              participant.isOnline ? "bg-green-400" : "bg-zinc-600"
+                              participant.isOnline
+                                ? "bg-green-400"
+                                : "bg-zinc-600"
                             }`}
                           />
                           <span className="text-xs text-zinc-500">
@@ -322,9 +342,13 @@ const LiveCodeSessions = () => {
                       className="p-3 bg-zinc-800 rounded-lg border-l-4 border-l-zinc-600"
                       style={{
                         borderLeftColor:
-                          layer.status === "success" ? "#10b981" :
-                          layer.status === "error" ? "#ef4444" :
-                          layer.status === "running" ? "#3b82f6" : "#6b7280"
+                          layer.status === "success"
+                            ? "#10b981"
+                            : layer.status === "error"
+                              ? "#ef4444"
+                              : layer.status === "running"
+                                ? "#3b82f6"
+                                : "#6b7280",
                       }}
                     >
                       <div className="flex items-center justify-between mb-2">
@@ -348,11 +372,12 @@ const LiveCodeSessions = () => {
                           <p className="text-zinc-400 text-xs">
                             {layer.result.description || layer.result.message}
                           </p>
-                          {layer.result.changeCount && layer.result.changeCount > 0 && (
-                            <Badge className="text-xs bg-green-900 text-green-200">
-                              {layer.result.changeCount} improvements
-                            </Badge>
-                          )}
+                          {layer.result.changeCount &&
+                            layer.result.changeCount > 0 && (
+                              <Badge className="text-xs bg-green-900 text-green-200">
+                                {layer.result.changeCount} improvements
+                              </Badge>
+                            )}
                           {layer.result.executionTime && (
                             <span className="text-zinc-500 text-xs">
                               {layer.result.executionTime}ms
@@ -412,7 +437,11 @@ const LiveCodeSessions = () => {
                         </Badge>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Button size="sm" variant="outline" onClick={() => handleCodeChange(currentCode)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleCodeChange(currentCode)}
+                        >
                           <Target className="w-3 h-3 mr-1" />
                           Analyze
                         </Button>
@@ -437,7 +466,8 @@ export default function Component() {
                     />
                     <div className="mt-4 flex items-center justify-between text-xs text-zinc-500">
                       <span>
-                        {currentCode.split('\n').length} lines • {currentCode.length} characters
+                        {currentCode.split("\n").length} lines •{" "}
+                        {currentCode.length} characters
                       </span>
                       <div className="flex items-center gap-4">
                         <span className="flex items-center gap-1">
@@ -464,8 +494,9 @@ export default function Component() {
                       Start Your First Live Session
                     </h3>
                     <p className="text-zinc-400 mb-6 max-w-md">
-                      Collaborate with your team in real-time. Share code, debug together,
-                      and boost productivity with live coding sessions.
+                      Collaborate with your team in real-time. Share code, debug
+                      together, and boost productivity with live coding
+                      sessions.
                     </p>
                     <Button className="bg-blue-600 hover:bg-blue-700">
                       <Play className="w-4 h-4 mr-2" />
