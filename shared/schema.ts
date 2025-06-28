@@ -1,14 +1,25 @@
-import { pgTable, text, serial, integer, boolean, uuid, timestamp, jsonb } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  serial,
+  integer,
+  boolean,
+  uuid,
+  timestamp,
+  jsonb,
+} from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
-  clerkId: text("clerk_id").unique().notNull(),
+  supabaseId: text("supabase_id").unique().notNull(),
   email: text("email").unique().notNull(),
   fullName: text("full_name"),
   planType: text("plan_type").default("free"),
-  monthlyTransformationsUsed: integer("monthly_transformations_used").default(0),
+  monthlyTransformationsUsed: integer("monthly_transformations_used").default(
+    0,
+  ),
   monthlyLimit: integer("monthly_limit").default(10),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
