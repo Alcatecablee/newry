@@ -378,31 +378,30 @@ const LiveCodeSessions = () => {
                               {participant.name.substring(0, 2).toUpperCase()}
                             </AvatarFallback>
                           </Avatar>
-                          <div>
-                            <p className="text-white text-sm font-medium">
-                              {participant.name}
-                            </p>
-                            <p className="text-zinc-400 text-xs">
-                              {participant.role}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <div
-                            className={`w-2 h-2 rounded-full ${
-                              participant.isOnline
-                                ? "bg-green-400"
-                                : "bg-zinc-600"
-                            }`}
-                          />
-                          <span className="text-xs text-zinc-500">
-                            {participant.isOnline ? "Online" : "Offline"}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                        setActiveSessions((prev) =>
+                          prev.filter(
+                            (session) => session.id !== selectedSession,
+                          ),
+                        );
+                        setSelectedSession(null);
+                        setCurrentCode("");
+                        setLayerAnalysis((prev) =>
+                          prev.map((layer) => ({
+                            ...layer,
+                            status: "pending",
+                            result: undefined,
+                          })),
+                        );
+                      }
+                    }}
+                  >
+                    End Session
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
               </CardContent>
             </Card>
           </div>
