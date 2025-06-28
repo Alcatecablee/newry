@@ -326,7 +326,7 @@ export async function fixCommand(files: string[], options: FixOptions) {
     if (error instanceof Error) {
       if (error.message.includes("ECONNREFUSED")) {
         console.log(
-          chalk.yellow("\n💡 Tip: Make sure the NeuroLint server is running:"),
+          chalk.white("\nMake sure the NeuroLint server is running:"),
         );
         console.log(
           chalk.gray("   npm run dev (in the main project directory)"),
@@ -336,35 +336,31 @@ export async function fixCommand(files: string[], options: FixOptions) {
         error.message.includes("403")
       ) {
         console.log(
-          chalk.yellow(
-            '\n💡 Authentication failed. Run "neurolint login" to re-authenticate',
+          chalk.white(
+            '\nAuthentication failed. Run "neurolint login" to re-authenticate',
           ),
         );
       } else if (error.message.includes("429")) {
         console.log(
-          chalk.yellow(
-            "\n💡 Rate limit exceeded. Please wait before trying again",
-          ),
+          chalk.white("\nRate limit exceeded. Please wait before trying again"),
         );
       } else if (
         error.message.includes("EMFILE") ||
         error.message.includes("ENFILE")
       ) {
         console.log(
-          chalk.yellow(
-            "\n💡 Too many open files. Try reducing batch size or increasing system limits",
+          chalk.white(
+            "\nToo many open files. Try reducing batch size or increasing system limits",
           ),
         );
       } else if (error.message.includes("ENOSPC")) {
         console.log(
-          chalk.yellow(
-            "\n💡 No space left on device. Free up disk space and try again",
+          chalk.white(
+            "\nNo space left on device. Free up disk space and try again",
           ),
         );
       } else if (error.message.includes("EACCES")) {
-        console.log(
-          chalk.yellow("\n💡 Permission denied. Check file permissions"),
-        );
+        console.log(chalk.white("\nPermission denied. Check file permissions"));
       }
     }
 
