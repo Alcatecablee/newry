@@ -106,7 +106,7 @@ export class DatabaseStorage implements IStorage {
           createdAt: now,
           updatedAt: now,
         };
-        console.log("Inserting user data:", JSON.stringify(userData, null, 2));
+
         await db.insert(users).values(userData);
         const result = await db
           .select()
