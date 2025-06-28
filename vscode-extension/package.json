@@ -1,7 +1,7 @@
 {
   "name": "neurolint-vscode",
   "displayName": "NeuroLint",
-  "description": "AI-powered code analysis and transformation for VS Code",
+  "description": "Advanced code analysis and transformation for VS Code",
   "version": "1.0.0",
   "publisher": "neurolint",
   "icon": "media/icon.png",
@@ -35,11 +35,17 @@
     "languages": [
       {
         "id": "typescript",
-        "extensions": [".ts", ".tsx"]
+        "extensions": [
+          ".ts",
+          ".tsx"
+        ]
       },
       {
-        "id": "javascript", 
-        "extensions": [".js", ".jsx"]
+        "id": "javascript",
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
       }
     ],
     "commands": [
@@ -140,7 +146,12 @@
             "minimum": 1,
             "maximum": 6
           },
-          "default": [1, 2, 3, 4],
+          "default": [
+            1,
+            2,
+            3,
+            4
+          ],
           "description": "Which NeuroLint layers to enable (1-6)"
         },
         "neurolint.autoFix": {
@@ -155,7 +166,11 @@
         },
         "neurolint.diagnosticsLevel": {
           "type": "string",
-          "enum": ["error", "warning", "info"],
+          "enum": [
+            "error",
+            "warning",
+            "info"
+          ],
           "default": "warning",
           "description": "Diagnostic severity level"
         },
