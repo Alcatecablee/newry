@@ -11,7 +11,7 @@ interface LoginOptions {
 }
 
 export async function loginCommand(options: LoginOptions) {
-  console.log(chalk.blue.bold("🔐 NeuroLint Authentication\n"));
+  console.log(chalk.white.bold("NeuroLint Authentication\n"));
 
   try {
     const config = await loadConfig();
