@@ -310,15 +310,7 @@ export function TestRunner() {
             const IconComponent = layer.icon;
             return (
               <Card key={layer.layerId} className="relative overflow-hidden">
-                <div
-                  className={`absolute top-0 left-0 right-0 h-1 ${
-                    layer.passRate === 100
-                      ? "bg-green-500"
-                      : layer.passRate >= 50
-                        ? "bg-yellow-500"
-                        : "bg-red-500"
-                  }`}
-                />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-white" />
                 <CardHeader className="pb-2">
                   <CardTitle className="flex items-center gap-2 text-sm">
                     <IconComponent className="w-4 h-4" />
