@@ -20,10 +20,10 @@ export function LandingHero() {
         <span className="text-white">Transformation Platform</span>
       </h1>
       <div className="text-base sm:text-xl text-gray-300 font-medium mb-8 max-w-md text-center px-2">
-        Sophisticated code analysis and transformation tool with AI-ready
-        architecture. CLI, VS Code extension, and REST API.
+        Currently in beta with AI-ready architecture. Advanced code analysis and
+        transformation using proven rule-based techniques.
         <br />
-        Transform your development workflow with intelligent automation.
+        AI integration planned for future releases.
       </div>
       <Button
         className="w-full max-w-xs py-4 text-lg rounded-xl bg-[#292939] hover:bg-[#434455] mb-8 shadow-cursor-glass active:scale-98 transition-all touch-manipulation text-white border border-[#342d66]"
