@@ -139,7 +139,7 @@ async function createSampleData(sqlite: Database.Database) {
   }
 }
 
-function initializeTables(sqlite: Database.Database) {
+async function initializeTables(sqlite: Database.Database) {
   try {
     // Drop and recreate users table with password field
     sqlite.exec(`DROP TABLE IF EXISTS users;`);
