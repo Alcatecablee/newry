@@ -107,7 +107,7 @@ export function SignInButton() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
+                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-colors"
                 placeholder="Enter your email"
                 required
               />
@@ -121,7 +121,7 @@ export function SignInButton() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-colors"
+                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-colors"
                 placeholder="Enter your password"
                 required
                 minLength={6}
@@ -130,7 +130,7 @@ export function SignInButton() {
 
             <Button
               type="submit"
-              className="w-full bg-violet-600 hover:bg-violet-700 text-white py-3 font-medium"
+              className="w-full bg-zinc-700 hover:bg-zinc-600 text-white py-3 font-medium"
               disabled={loading}
             >
               {loading ? (
