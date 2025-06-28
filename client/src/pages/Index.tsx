@@ -489,6 +489,12 @@ export default function Index() {
                 <div className="text-white">PASS Layer 1: Configuration Validation</div>
                 <div className="text-white">PASS Layer 2: Pattern & Entity Fixes</div>
                 <div className="text-white">PASS Layer 3: Component Best Practices</div>
+                <div className="text-zinc-400">Discovering and validating files...</div>
+                <div className="text-zinc-400">Found 24 valid files to analyze</div>
+                <div className="text-zinc-400">Analysis (18/24) 75.0% - ETA: 8s</div>
+                <div className="text-white">PASS Layer 1: Configuration Validation</div>
+                <div className="text-white">PASS Layer 2: Pattern & Entity Fixes</div>
+                <div className="text-white">PASS Layer 3: Component Best Practices</div>
                 <div className="text-white">Analysis Complete</div>
                 <div className="text-white">Successfully analyzed: 22</div>
                 <div className="text-white">Failed: 2</div>
@@ -496,14 +502,6 @@ export default function Index() {
                 <div className="text-zinc-400">DRY RUN MODE - Preview changes:</div>
                 <div className="text-zinc-400">src/components/Header.tsx - Would be modified</div>
                 <div className="text-white animate-pulse">█</div>
-                  </div>
-                  <div className="text-zinc-400">7 &lt;nav&gt;</div>
-                  <div className="flex items-center">
-                    <span className="text-zinc-400">8</span>
-                    <span className="text-white ml-4">
-                      &#123;items.map(item =&gt;
-                    </span>
-                    <span className="bg-zinc-900 border-l-2 border-white pl-2 text-white">
                       &lt;li&gt;&#123;item&#125;&lt;/li&gt;
                     </span>
                   </div>
