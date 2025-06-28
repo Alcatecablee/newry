@@ -115,40 +115,44 @@ export function SignInButton() {
   if (showModal) {
     return (
       <div
-        className={`transition-all duration-300 ease-out ${
-          isModalVisible ? "opacity-100" : "opacity-0"
-        }`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
         style={{
           position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
+          top: "0px",
+          left: "0px",
+          width: "100vw",
+          height: "100vh",
           backgroundColor: "rgba(0, 0, 0, 0.6)",
           backdropFilter: "blur(4px)",
-          zIndex: 50,
+          zIndex: 9999,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           padding: "20px",
+          boxSizing: "border-box",
+          opacity: isModalVisible ? 1 : 0,
+          transition: "opacity 300ms ease-out",
         }}
       >
         <div
           ref={modalRef}
-          className={`bg-zinc-900 rounded-xl border border-zinc-800 shadow-2xl transition-all duration-300 ease-out ${
-            isModalVisible ? "opacity-100" : "opacity-0"
-          }`}
           style={{
+            backgroundColor: "rgb(24, 24, 27)",
+            borderRadius: "12px",
+            border: "1px solid rgb(39, 39, 42)",
+            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
             width: "100%",
             maxWidth: "400px",
             maxHeight: "90vh",
             overflow: "auto",
+            margin: "auto",
             transform: isModalVisible ? "scale(1)" : "scale(0.95)",
             transformOrigin: "center center",
+            transition: "transform 300ms ease-out",
+            position: "relative",
           }}
         >
           {/* Header */}
