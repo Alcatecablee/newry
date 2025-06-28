@@ -45,6 +45,8 @@ interface Project {
   totalIssues: number;
   fixedIssues: number;
   contributors: string[];
+  layerResults?: NeuroLintLayerResult[];
+  isAnalyzing?: boolean;
 }
 
 interface ActivityItem {
