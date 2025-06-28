@@ -121,48 +121,102 @@ const TeamSettings = () => {
     }
   };
 
-  const rolePermissions = {
-    Owner: ["all"],
-    Admin: ["run-fixes", "view-reports", "manage-rules", "manage-members"],
-    Developer: ["run-fixes", "view-reports"],
-    Auditor: ["view-reports"],
-  };
+  const [rolePermissions, setRolePermissions] = useState<
+    Record<string, string[]>
+  >({});
 
   const getRoleColor = (role: string) => {
     switch (role) {
       case "Owner":
-        return "bg-purple-900 text-purple-200";
+        return "bg-zinc-800 text-white";
       case "Admin":
-        return "bg-blue-900 text-blue-200";
+        return "bg-zinc-800 text-white";
       case "Developer":
-        return "bg-green-900 text-green-200";
+        return "bg-zinc-800 text-white";
       case "Auditor":
-        return "bg-gray-700 text-gray-200";
+        return "bg-zinc-800 text-white";
       default:
         return "bg-zinc-900 text-white";
     }
   };
 
-  const handleSaveSettings = () => {
-    // Save team settings
-    console.log("Saving team settings...");
+  const handleSaveSettings = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/teams/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: teamName,
+          notifications,
+          defaultLayers: teamData?.defaultLayers || [],
+        }),
+      });
+
+      if (response.ok) {
+        await fetchTeamData();
+      }
+    } catch (error) {
+      console.error("Failed to save settings:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleInviteMember = () => {
-    // Open invite member modal
-    console.log("Invite new member...");
+  const handleInviteMember = async () => {
+    try {
+      const email = prompt("Enter email address to invite:");
+      if (email) {
+        const response = await fetch("/api/teams/invite", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+
+        if (response.ok) {
+          await fetchTeamMembers();
+        }
+      }
+    } catch (error) {
+      console.error("Failed to invite member:", error);
+    }
   };
 
-  const handleRemoveMember = (memberId: string) => {
-    setMembers(members.filter((m) => m.id !== memberId));
+  const handleRemoveMember = async (memberId: string) => {
+    try {
+      const response = await fetch(`/api/teams/members/${memberId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setMembers(members.filter((m) => m.id !== memberId));
+      }
+    } catch (error) {
+      console.error("Failed to remove member:", error);
+    }
   };
 
-  const handleToggleRule = (ruleId: string) => {
-    setCustomRules((rules) =>
-      rules.map((rule) =>
-        rule.id === ruleId ? { ...rule, active: !rule.active } : rule,
-      ),
-    );
+  const handleToggleRule = async (ruleId: string) => {
+    try {
+      const rule = customRules.find((r) => r.id === ruleId);
+      if (!rule) return;
+
+      const response = await fetch(`/api/teams/rules/${ruleId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...rule, active: !rule.active }),
+      });
+
+      if (response.ok) {
+        setCustomRules((rules) =>
+          rules.map((rule) =>
+            rule.id === ruleId ? { ...rule, active: !rule.active } : rule,
+          ),
+        );
+      }
+    } catch (error) {
+      console.error("Failed to toggle rule:", error);
+    }
   };
 
   return (
