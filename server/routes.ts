@@ -324,6 +324,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get user usage statistics
+  app.get("/api/auth/usage", async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res
+          .status(401)
+          .json({ error: "No authorization token provided" });
+      }
+
+      // For now, return mock data since we don't have user authentication fully set up
+      // In a real implementation, you would decode the token and get user-specific data
+      const mockUsageStats = {
+        totalTransformations: 42,
+        successfulTransformations: 40,
+        totalExecutionTime: 2400, // in milliseconds
+        successRate: 95.2,
+      };
+
+      res.json(mockUsageStats);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch usage statistics" });
+    }
+  });
+
   // Transformation usage tracking
   app.post("/api/increment-usage", async (req, res) => {
     try {
