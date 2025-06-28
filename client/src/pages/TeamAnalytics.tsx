@@ -3,6 +3,9 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { useTeams, useTeam, useTeamAnalytics } from "@/hooks/useTeams";
+import { orchestrateTransformation } from "@/lib/neurolint/orchestrator";
+import { NeuroLintLayerResult } from "@/lib/neurolint/types";
 import {
   TrendingUp,
   TrendingDown,
@@ -30,6 +33,8 @@ import {
   ArrowUp,
   ArrowDown,
   Minus,
+  Layers,
+  Bot,
 } from "lucide-react";
 
 interface MetricTrend {
