@@ -355,7 +355,7 @@ export function TestRunner() {
 
       {/* Performance Insights */}
       {performanceInsights.length > 0 && (
-        <Alert className="border-yellow-200 bg-yellow-50">
+        <Alert className="border-zinc-200 bg-zinc-50">
           <Lightbulb className="h-4 w-4" />
           <AlertDescription>
             <div className="space-y-1">
