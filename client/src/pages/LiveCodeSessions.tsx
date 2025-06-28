@@ -75,6 +75,14 @@ const LiveCodeSessions = () => {
   const [micEnabled, setMicEnabled] = useState(false);
   const [videoEnabled, setVideoEnabled] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [autoAnalysis, setAutoAnalysis] = useState(true);
+  const [sessionSettings, setSessionSettings] = useState({
+    maxParticipants: 10,
+    allowGuestAccess: false,
+    analysisDelay: 1000,
+    autoSave: true,
+  });
 
   // Fetch teams data
   const { data: teams, isLoading: teamsLoading } = useTeams();
@@ -446,7 +454,11 @@ const LiveCodeSessions = () => {
                         <Share className="w-4 h-4 mr-2" />
                         Share
                       </Button>
-                      <Button size="sm" variant="outline">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => setSettingsOpen(true)}
+                      >
                         <Settings className="w-4 h-4" />
                       </Button>
                     </div>
