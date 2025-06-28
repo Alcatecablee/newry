@@ -311,9 +311,24 @@ const EnhancedTeamDashboard = () => {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-white mb-2">
-                Team Command Center
-              </h1>
+              <div className="flex items-center gap-4 mb-2">
+                <h1 className="text-3xl font-bold text-white">
+                  Team Command Center
+                </h1>
+                {teams && teams.length > 0 && (
+                  <select
+                    value={selectedTeamId}
+                    onChange={(e) => setSelectedTeamId(e.target.value)}
+                    className="bg-zinc-800 text-white px-3 py-1 rounded border border-zinc-600 text-sm"
+                  >
+                    {teams.map((team) => (
+                      <option key={team.id} value={team.id}>
+                        {team.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
               <div className="flex items-center gap-4 text-zinc-400">
                 <div
                   className="flex items-center gap-2 cursor-pointer hover:text-white transition-colors"
