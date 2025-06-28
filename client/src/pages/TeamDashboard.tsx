@@ -62,6 +62,42 @@ const TeamDashboard = () => {
   const [selectedProject, setSelectedProject] = useState<string>("all");
   const [timeRange, setTimeRange] = useState<string>("7d");
   const [selectedTeamId, setSelectedTeamId] = useState<string>("demo-team");
+  const [layerAnalysis, setLayerAnalysis] = useState<{
+    [projectId: string]: NeuroLintLayerResult[];
+  }>({});
+  const [analyzingProjects, setAnalyzingProjects] = useState<Set<string>>(
+    new Set(),
+  );
+
+  // Run NeuroLint analysis on project code
+  const analyzeProject = async (projectId: string, code: string) => {
+    if (!code.trim()) return;
+
+    setAnalyzingProjects((prev) => new Set(prev).add(projectId));
+
+    try {
+      const results = await orchestrateTransformation(code, {
+        dryRun: false,
+        verbose: true,
+        skipLayers: [],
+      });
+
+      if (results.layerResults) {
+        setLayerAnalysis((prev) => ({
+          ...prev,
+          [projectId]: results.layerResults!,
+        }));
+      }
+    } catch (error) {
+      console.error(`Layer analysis failed for project ${projectId}:`, error);
+    } finally {
+      setAnalyzingProjects((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(projectId);
+        return newSet;
+      });
+    }
+  };
 
   // Fetch real team data
   const { data: teams, isLoading: teamsLoading } = useTeams();
