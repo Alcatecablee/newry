@@ -462,7 +462,7 @@ const EnhancedTeamDashboard = () => {
                   <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
-                        <Activity className="w-5 h-5 text-blue-400" />
+                        <Activity className="w-5 h-5 text-zinc-400" />
                         Recent Team Activity
                       </CardTitle>
                     </CardHeader>
