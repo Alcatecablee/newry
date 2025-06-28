@@ -119,7 +119,8 @@ const LAYER_LIST = [
     id: 1,
     fn: layer1.transform,
     name: "Configuration Validation",
-    description: "Optimizes TypeScript, Next.js config, and package.json with modern settings.",
+    description:
+      "Optimizes TypeScript, Next.js config, and package.json with modern settings.",
     astSupported: false,
     retryable: true,
     timeout: 30000,
@@ -129,7 +130,8 @@ const LAYER_LIST = [
     id: 2,
     fn: layer2.transform,
     name: "Pattern & Entity Fixes",
-    description: "Cleans up HTML entities, old patterns, and modernizes JS/TS code.",
+    description:
+      "Cleans up HTML entities, old patterns, and modernizes JS/TS code.",
     astSupported: false,
     retryable: true,
     timeout: 45000,
@@ -139,7 +141,8 @@ const LAYER_LIST = [
     id: 3,
     fn: layer3.transform,
     name: "Component Best Practices",
-    description: "Solves missing key props, accessibility, prop types, and missing imports.",
+    description:
+      "Solves missing key props, accessibility, prop types, and missing imports.",
     astSupported: true,
     retryable: true,
     timeout: 60000,
@@ -218,9 +221,19 @@ export async function NeuroLintOrchestrator(
     }
   }
 
-  // Initial validation
+  // Initial validation - be more lenient for React/JSX files
   const initialValidation = CodeValidator.validate(code);
-  if (!initialValidation.isValid && initialValidation.corruptionDetected) {
+
+  // Only block if there are truly critical errors, not just validation warnings
+  const hasCriticalErrors = initialValidation.errors.some(
+    (error) =>
+      error.includes("import import") ||
+      error.includes("export export") ||
+      error.includes("function function") ||
+      error.includes("nested imports"),
+  );
+
+  if (hasCriticalErrors && initialValidation.corruptionDetected) {
     throw new Error(
       `Input code has critical issues: ${initialValidation.errors.join(", ")}`,
     );
@@ -479,7 +492,10 @@ async function applyStandardTransform(
         return await layer.fn(code, filePath);
       }
     } catch (astError) {
-      console.warn(`AST failed for ${layer.name}, using regex fallback:`, astError.message);
+      console.warn(
+        `AST failed for ${layer.name}, using regex fallback:`,
+        astError.message,
+      );
       return await layer.fn(code, filePath);
     }
   }
