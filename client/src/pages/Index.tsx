@@ -300,9 +300,7 @@ function UserProfile({ userId }: { userId: string }) {
                   <span className="text-zinc-300 font-semibold">
                     Lines Added:
                   </span>
-                  <span className="text-yellow-400 font-black text-lg">
-                    +12
-                  </span>
+                  <span className="text-white font-black text-lg">+12</span>
                 </div>
               </div>
             </div>
