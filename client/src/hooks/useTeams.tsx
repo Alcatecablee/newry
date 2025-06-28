@@ -105,9 +105,20 @@ export function useTeams() {
     enabled: isAuthenticated && !!user,
   });
 }
+
+export function useTeam(teamId: string) {
+  const { user, isAuthenticated } = useAuth();
+
+  return useQuery({
+    queryKey: ["/api/teams", teamId],
+    queryFn: async () => {
+      if (!isAuthenticated || !user) {
+        throw new Error("User not authenticated");
+      }
+
       const response = await fetch(`/api/teams/${teamId}`, {
         headers: {
-          "x-user-id": MOCK_USER_ID,
+          "x-user-id": user.id,
         },
       });
       if (!response.ok) throw new Error("Failed to fetch team");
@@ -118,37 +129,48 @@ export function useTeams() {
         activities: TeamActivity[];
       };
     },
-    enabled: !!teamId,
+    enabled: !!teamId && isAuthenticated && !!user,
   });
 }
 
 export function useTeamAnalytics(teamId: string) {
+  const { user, isAuthenticated } = useAuth();
+
   return useQuery({
     queryKey: ["/api/teams", teamId, "analytics"],
     queryFn: async () => {
+      if (!isAuthenticated || !user) {
+        throw new Error("User not authenticated");
+      }
+
       const response = await fetch(`/api/teams/${teamId}/analytics`, {
         headers: {
-          "x-user-id": MOCK_USER_ID,
+          "x-user-id": user.id,
         },
       });
       if (!response.ok) throw new Error("Failed to fetch analytics");
       const data = await response.json();
       return data.analytics as TeamAnalytics;
     },
-    enabled: !!teamId,
+    enabled: !!teamId && isAuthenticated && !!user,
   });
 }
 
 export function useCreateTeam() {
   const queryClient = useQueryClient();
+  const { user, isAuthenticated } = useAuth();
 
   return useMutation({
     mutationFn: async (team: { name: string; description?: string }) => {
+      if (!isAuthenticated || !user) {
+        throw new Error("User not authenticated");
+      }
+
       const response = await fetch("/api/teams", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-user-id": MOCK_USER_ID,
+          "x-user-id": user.id,
         },
         body: JSON.stringify(team),
       });
@@ -163,6 +185,7 @@ export function useCreateTeam() {
 
 export function useCreateProject() {
   const queryClient = useQueryClient();
+  const { user, isAuthenticated } = useAuth();
 
   return useMutation({
     mutationFn: async ({
@@ -172,11 +195,15 @@ export function useCreateProject() {
       teamId: string;
       project: { name: string; repository?: string };
     }) => {
+      if (!isAuthenticated || !user) {
+        throw new Error("User not authenticated");
+      }
+
       const response = await fetch(`/api/teams/${teamId}/projects`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-user-id": MOCK_USER_ID,
+          "x-user-id": user.id,
         },
         body: JSON.stringify(project),
       });
