@@ -341,6 +341,9 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      {/* Status Banner */}
+      <StatusBanner />
+
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center text-center px-4 py-16 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
