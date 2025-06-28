@@ -141,7 +141,7 @@ router.get("/api/docs", (req: Request, res: Response) => {
         post: {
           summary: "Transform and fix code automatically",
           description:
-            "Apply AI-powered transformations to fix issues and improve code quality",
+            "Apply advanced transformations to fix issues and improve code quality",
           tags: ["Transformation"],
           requestBody: {
             required: true,
