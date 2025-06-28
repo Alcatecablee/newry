@@ -74,8 +74,8 @@ export function CLISection() {
           {/* Features */}
           <div className="order-1 lg:order-2 space-y-8">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-green-600/20 border border-green-500/30 rounded-lg flex items-center justify-center">
-                <Zap className="w-6 h-6 text-green-400" />
+              <div className="w-12 h-12 bg-zinc-800 border border-zinc-700 rounded-lg flex items-center justify-center">
+                <Zap className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">
