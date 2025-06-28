@@ -592,7 +592,29 @@ ${suggestions.join("\n")}`);
       });
 
       // First validate the repository exists and is accessible
-      await validateRepository(repoInfo.owner, repoInfo.repo);
+      try {
+        await validateRepository(repoInfo.owner, repoInfo.repo);
+      } catch (validationError) {
+        // If validation fails due to rate limit, immediately switch to demo mode
+        if (
+          validationError instanceof Error &&
+          validationError.message.toLowerCase().includes("rate limit")
+        ) {
+          console.log(
+            "Rate limit detected during validation, switching to demo mode",
+          );
+
+          toast({
+            title: "Rate Limit Detected",
+            description: "Switching to demo repository automatically...",
+          });
+
+          await loadDemoRepository(onRepoUpload);
+          return; // Exit early with demo mode
+        } else {
+          throw validationError; // Re-throw non-rate-limit errors
+        }
+      }
 
       const initialContents = await fetchRepoContents(
         repoInfo.owner,
