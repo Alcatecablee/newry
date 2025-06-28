@@ -14,7 +14,7 @@ export async function configCommand(options: ConfigOptions) {
     const config = await loadConfig();
 
     if (options.list) {
-      console.log(chalk.blue.bold("\n📋 NeuroLint Configuration:\n"));
+      console.log(chalk.white.bold("\nNeuroLint Configuration:\n"));
       console.log(
         chalk.white("API URL:"),
         chalk.gray(config.apiUrl || "Not set"),
@@ -33,9 +33,11 @@ export async function configCommand(options: ConfigOptions) {
     if (options.get) {
       const value = (config as any)[options.get];
       if (value) {
-        console.log(chalk.green(value));
+        console.log(chalk.white(value));
       } else {
-        console.log(chalk.red(`Configuration key "${options.get}" not found`));
+        console.log(
+          chalk.white(`Configuration key "${options.get}" not found`),
+        );
       }
       return;
     }
@@ -43,7 +45,7 @@ export async function configCommand(options: ConfigOptions) {
     if (options.set) {
       const [key, value] = options.set.split("=");
       if (!key || !value) {
-        console.log(chalk.red("Invalid format. Use: --set key=value"));
+        console.log(chalk.white("Invalid format. Use: --set key=value"));
         return;
       }
 
@@ -51,7 +53,7 @@ export async function configCommand(options: ConfigOptions) {
       if (key === "apiUrl" || key === "api.url") {
         const urlValidation = validateApiUrl(value);
         if (!urlValidation.valid) {
-          console.log(chalk.red(`❌ ${urlValidation.errors[0]}`));
+          console.log(chalk.white(`ERROR: ${urlValidation.errors[0]}`));
           return;
         }
       }
@@ -73,20 +75,20 @@ export async function configCommand(options: ConfigOptions) {
       // Validate the entire configuration
       const configValidation = await validateConfig(newConfig);
       if (!configValidation.valid) {
-        console.log(chalk.red("❌ Configuration validation failed:"));
+        console.log(chalk.white("Configuration validation failed:"));
         configValidation.errors.forEach((error) =>
-          console.log(chalk.red(`  ${error}`)),
+          console.log(chalk.white(`  ${error}`)),
         );
         return;
       }
 
       await saveConfig(newConfig);
-      console.log(chalk.green(`✅ Set ${key} = ${value}`));
+      console.log(chalk.white(`Set ${key} = ${value}`));
 
       if (configValidation.errors.length > 0) {
-        console.log(chalk.yellow("⚠ Configuration warnings:"));
+        console.log(chalk.white("Configuration warnings:"));
         configValidation.errors.forEach((warning) =>
-          console.log(chalk.yellow(`  ${warning}`)),
+          console.log(chalk.white(`  ${warning}`)),
         );
       }
 
@@ -99,12 +101,12 @@ export async function configCommand(options: ConfigOptions) {
         apiKey: "",
         defaultLayers: [1, 2, 3, 4],
       });
-      console.log(chalk.green("✅ Configuration reset to defaults"));
+      console.log(chalk.white("Configuration reset to defaults"));
       return;
     }
 
     // Default: show help
-    console.log(chalk.blue.bold("\n⚙️  Configuration Management:\n"));
+    console.log(chalk.white.bold("\nConfiguration Management:\n"));
     console.log(
       chalk.white("neurolint config --list"),
       chalk.gray("# Show all configuration"),
@@ -122,7 +124,7 @@ export async function configCommand(options: ConfigOptions) {
       chalk.gray("# Reset to defaults"),
     );
   } catch (error) {
-    console.error(chalk.red("Configuration error:"), error.message);
+    console.error(chalk.white("Configuration error:"), error.message);
     process.exit(1);
   }
 }
