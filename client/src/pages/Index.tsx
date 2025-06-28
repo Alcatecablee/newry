@@ -618,7 +618,7 @@ export default function Index() {
               </div>
               <div className="p-6 font-mono text-sm space-y-2">
                 <div className="text-white">$ neurolint analyze src/</div>
-                <div className="text-zinc-400">🔍 Analyzing 24 files...</div>
+                <div className="text-zinc-400">Analyzing 24 files...</div>
                 <div className="text-white">
                   ✓ Layer 1: Configuration (0.2s)
                 </div>
