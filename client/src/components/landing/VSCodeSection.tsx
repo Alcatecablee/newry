@@ -100,8 +100,8 @@ export function VSCodeSection() {
                   Real-time Diagnostics
                 </h3>
                 <p className="text-gray-400">
-                  See issues highlighted instantly as you type with intelligent
-                  error detection and warnings.
+                  See issues highlighted instantly as you type with advanced
+                  rule-based error detection and warnings.
                 </p>
               </div>
             </div>
