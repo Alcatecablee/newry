@@ -610,7 +610,7 @@ const EnhancedTeamDashboard = () => {
                             Collaboration
                           </div>
                           <div
-                            className={`text-xs ${analytics.collaboration.trend === "up" ? "text-green-400" : "text-red-400"}`}
+                            className={`text-xs ${analytics.collaboration.trend === "up" ? "text-zinc-300" : "text-zinc-500"}`}
                           >
                             {analytics.collaboration.change > 0 ? "+" : ""}
                             {analytics.collaboration.change}%
