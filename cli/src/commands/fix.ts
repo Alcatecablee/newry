@@ -138,8 +138,8 @@ export async function fixCommand(files: string[], options: FixOptions) {
     const progress = new ProgressTracker("Fix", filesToProcess);
     await progress.start();
 
-    const results = [];
-    const fixedFiles = [];
+    const results: any[] = [];
+    const fixedFiles: string[] = [];
 
     // Process files with controlled concurrency and robust error handling
     const BATCH_SIZE = 3; // Even smaller for fixes due to file I/O
@@ -274,10 +274,10 @@ export async function fixCommand(files: string[], options: FixOptions) {
 
     // Show layer performance
     if (successful.length > 0) {
-      const layerStats = {};
-      successful.forEach((result) => {
+      const layerStats: Record<string, { applied: number; total: number }> = {};
+      successful.forEach((result: any) => {
         if (result.layers) {
-          result.layers.forEach((layer) => {
+          result.layers.forEach((layer: any) => {
             if (!layerStats[layer.id]) {
               layerStats[layer.id] = { applied: 0, total: 0 };
             }
