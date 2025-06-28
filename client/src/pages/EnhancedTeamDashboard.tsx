@@ -143,12 +143,12 @@ const EnhancedTeamDashboard = () => {
             : "Mid",
       specialties: ["React", "TypeScript"], // Would come from user profile
       stats: {
-        fixesThisWeek: Math.floor(Math.random() * 30), // Would come from real analytics
-        codeQualityScore: 75 + Math.floor(Math.random() * 25),
-        collaborationScore: 70 + Math.floor(Math.random() * 30),
-        innovationPoints: 50 + Math.floor(Math.random() * 150),
-        mentorshipHours: Math.floor(Math.random() * 15),
-        streak: Math.floor(Math.random() * 30),
+        fixesThisWeek: 0,
+        codeQualityScore: 0,
+        collaborationScore: 0,
+        innovationPoints: 0,
+        mentorshipHours: 0,
+        streak: 0,
       },
       currentActivity: {
         status: "idle",
