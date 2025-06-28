@@ -10,6 +10,11 @@ import { configCommand } from "./commands/config";
 import { initCommand } from "./commands/init";
 import { statusCommand } from "./commands/status";
 import { loginCommand, logoutCommand } from "./commands/login";
+import { teamCommand } from "./commands/team";
+import { analyticsCommand } from "./commands/analytics";
+import { webhookCommand } from "./commands/webhook";
+import { ssoCommand } from "./commands/sso";
+import { auditCommand } from "./commands/audit";
 
 const program = new Command();
 
@@ -133,6 +138,100 @@ program
     }
   });
 
+// Enterprise team management
+program
+  .command("team")
+  .description("Manage teams and team members")
+  .option("--list", "List all teams")
+  .option("--members <team-id>", "List team members")
+  .option("--invite <email>", "Invite team member")
+  .option("--remove <email>", "Remove team member")
+  .option("--create <name>", "Create new team")
+  .option("--team <team-id>", "Specify team ID")
+  .option("--role <role>", "Specify role (admin|member|viewer)", "member")
+  .action(teamCommand);
+
+// Enterprise analytics
+program
+  .command("analytics")
+  .description("Enterprise analytics and reporting")
+  .option("--export", "Export analytics data")
+  .option("--dashboard", "Show analytics dashboard")
+  .option("--compliance", "Show compliance report")
+  .option("--teams", "Show team analytics")
+  .option("--format <format>", "Export format (json|csv|txt)", "json")
+  .option("--output <file>", "Output file path")
+  .action(analyticsCommand);
+
+// Enterprise webhooks
+program
+  .command("webhook")
+  .description("Manage enterprise webhooks")
+  .option("--list", "List configured webhooks")
+  .option("--create", "Create new webhook")
+  .option("--delete <id>", "Delete webhook")
+  .option("--test <id>", "Test webhook")
+  .option("--logs <id>", "Show webhook logs")
+  .option("--url <url>", "Webhook URL")
+  .option("--events <events>", "Webhook events (comma-separated)")
+  .option("--secret <secret>", "Webhook secret")
+  .action(webhookCommand);
+
+// Enterprise SSO
+program
+  .command("sso")
+  .description("Manage Single Sign-On (SSO)")
+  .option("--list", "List SSO providers")
+  .option("--setup <type>", "Setup SSO provider (saml|oidc|oauth2)")
+  .option("--test <id>", "Test SSO configuration")
+  .option("--sync <id>", "Sync users from SSO")
+  .option("--disable <id>", "Disable SSO provider")
+  .option("--domain <domain>", "Organization domain")
+  .action(ssoCommand);
+
+// Enterprise audit
+program
+  .command("audit")
+  .description("Audit trail and compliance reporting")
+  .option("--trail", "Show audit trail")
+  .option("--report", "Generate audit report")
+  .option("--search <query>", "Search audit events")
+  .option("--compliance [framework]", "Generate compliance report")
+  .option("--alerts", "Show security alerts")
+  .option("--user <user-id>", "Filter by user")
+  .option("--action <action>", "Filter by action")
+  .option("--days <days>", "Number of days to look back", "30")
+  .option(
+    "--period <period>",
+    "Report period (week|month|quarter|year)",
+    "month",
+  )
+  .option("--format <format>", "Output format (json|csv|txt)", "json")
+  .action(auditCommand);
+
+// Enterprise command group
+program
+  .command("enterprise")
+  .description("Enterprise features and management")
+  .action(async () => {
+    console.log(chalk.white.bold("NeuroLint Enterprise Features\n"));
+
+    console.log(chalk.white("Available enterprise commands:"));
+    console.log(chalk.gray("  neurolint team        - Team management"));
+    console.log(
+      chalk.gray("  neurolint analytics   - Analytics and reporting"),
+    );
+    console.log(chalk.gray("  neurolint webhook     - Webhook management"));
+    console.log(chalk.gray("  neurolint sso         - Single Sign-On"));
+    console.log(
+      chalk.gray("  neurolint audit       - Audit trail and compliance"),
+    );
+    console.log();
+
+    console.log(chalk.white("For help with any command, use:"));
+    console.log(chalk.gray("  neurolint <command> --help"));
+  });
+
 // Help command
 program
   .command("help")
@@ -159,6 +258,13 @@ program
 
     console.log(chalk.white("Interactive mode:"));
     console.log(chalk.gray("  neurolint interactive\n"));
+
+    console.log(chalk.white("Enterprise features:"));
+    console.log(chalk.gray("  neurolint team --list"));
+    console.log(chalk.gray("  neurolint analytics --dashboard"));
+    console.log(chalk.gray("  neurolint audit --trail"));
+    console.log(chalk.gray("  neurolint webhook --list"));
+    console.log(chalk.gray("  neurolint sso --list\n"));
   });
 
 program.parse();
