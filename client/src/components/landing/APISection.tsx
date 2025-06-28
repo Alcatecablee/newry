@@ -189,8 +189,8 @@ export function APISection() {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-orange-600/20 border border-orange-500/30 rounded-lg flex items-center justify-center">
-                <Code className="w-6 h-6 text-orange-400" />
+              <div className="w-12 h-12 bg-zinc-600/20 border border-zinc-500/30 rounded-lg flex items-center justify-center">
+                <Code className="w-6 h-6 text-zinc-400" />
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">
