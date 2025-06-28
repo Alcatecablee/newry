@@ -6,6 +6,7 @@ import { db, isPostgres } from "./db";
 import { cliRoutes } from "./routes/cli";
 import { apiDocsRoutes } from "./routes/api-docs";
 import teamRoutes from "./routes/teams";
+import supabaseTestRoutes from "./routes/supabase-test";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
@@ -210,6 +211,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Register team routes
   app.use(teamRoutes);
+
+  // Register Supabase test routes
+  app.use(supabaseTestRoutes);
 
   // Register CLI routes
   app.use(cliRoutes);
