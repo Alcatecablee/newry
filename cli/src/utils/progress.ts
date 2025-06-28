@@ -213,7 +213,7 @@ export async function resumeOperation(
         state.files.remaining.length > 0
       ) {
         console.log(
-          chalk.blue(`\n🔄 Found incomplete ${operationName} operation`),
+          chalk.white(`\nFound incomplete ${operationName} operation`),
         );
         console.log(
           chalk.gray(
