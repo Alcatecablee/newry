@@ -80,6 +80,18 @@ const AppPage = () => {
     setRepoFiles(processedFiles);
   };
 
+  // Format processing time for clean display
+  const formatProcessingTime = (ms: number): string => {
+    if (ms < 1000) {
+      // For milliseconds, round to 1 decimal place or whole number
+      return ms % 1 === 0
+        ? `${Math.round(ms)}ms`
+        : `${Math.round(ms * 10) / 10}ms`;
+    }
+    // For seconds, show 1 decimal place
+    return `${(ms / 1000).toFixed(1)}s`;
+  };
+
   const stats =
     insights.length > 0
       ? {
@@ -273,7 +285,7 @@ const AppPage = () => {
                         </span>
                       </div>
                       <div className="text-3xl font-bold text-white mb-1">
-                        {stats.totalTime}ms
+                        {formatProcessingTime(stats.totalTime)}
                       </div>
                       <div className="text-sm text-zinc-500">
                         analysis duration
