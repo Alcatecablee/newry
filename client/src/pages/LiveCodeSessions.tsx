@@ -292,12 +292,8 @@ const LiveCodeSessions = () => {
                       <div
                         key={session.id}
                         className="p-3 bg-zinc-800 rounded-lg hover:bg-zinc-750 cursor-pointer"
-                    <Button
-                      className="bg-blue-600 hover:bg-blue-700"
-                      onClick={() => createSession({
-                        name: `New Session - ${new Date().toLocaleTimeString()}`
-                      })}
-                    >
+                        onClick={() => setSelectedSession(session.id)}
+                      >
                         </div>
                       </div>
                     ))}
