@@ -7,11 +7,6 @@ interface EnvironmentConfig {
   NODE_ENV: 'development' | 'production' | 'test';
   VITE_APP_ENV: 'development' | 'production' | 'staging';
 
-  // Database
-  DATABASE_URL?: string;
-
-
-
   // Database (server-side only)
   DATABASE_URL?: string;
 
@@ -50,7 +45,6 @@ class EnvironmentManager {
 
     // Required environment variables
     const required: (keyof EnvironmentConfig)[] = [
-      'VITE_CLERK_PUBLISHABLE_KEY',
       'VITE_PAYPAL_CLIENT_ID',
     ];
 
@@ -74,7 +68,6 @@ class EnvironmentManager {
     // Production-specific validations
     if (this.isProd()) {
       const prodRequired: (keyof EnvironmentConfig)[] = [
-        'CLERK_SECRET_KEY',
         'PAYPAL_CLIENT_SECRET',
         'JWT_SECRET',
         'ENCRYPTION_KEY',
@@ -88,9 +81,6 @@ class EnvironmentManager {
       }
 
       // Check for default/example values in production
-      if (this.config.VITE_CLERK_PUBLISHABLE_KEY?.includes('pk_test_')) {
-        errors.push('Using test Clerk key in production');
-      }
 
       if (this.config.JWT_SECRET && this.config.JWT_SECRET.length < 32) {
         errors.push('JWT_SECRET must be at least 32 characters in production');
@@ -142,7 +132,7 @@ class EnvironmentManager {
     return {
       NODE_ENV: this.config.NODE_ENV,
       VITE_APP_ENV: this.config.VITE_APP_ENV,
-      VITE_CLERK_PUBLISHABLE_KEY: this.config.VITE_CLERK_PUBLISHABLE_KEY,
+
       VITE_PAYPAL_CLIENT_ID: this.config.VITE_PAYPAL_CLIENT_ID,
       VITE_ENABLE_ANALYTICS: this.config.VITE_ENABLE_ANALYTICS,
       VITE_ENABLE_MONITORING: this.config.VITE_ENABLE_MONITORING,
