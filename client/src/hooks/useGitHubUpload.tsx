@@ -14,6 +14,12 @@ interface GitHubContent {
   url: string;
 }
 
+interface UploadStatus {
+  total: number;
+  processed: number;
+  files: string[];
+}
+
 // Rate limiting utility
 class GitHubRateLimit {
   private static requestCount = 0;
