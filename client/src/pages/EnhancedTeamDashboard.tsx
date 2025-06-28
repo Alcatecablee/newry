@@ -749,54 +749,7 @@ const EnhancedTeamDashboard = () => {
               </Card>
 
               {/* Skill Distribution */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Team Skill Matrix</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {[
-                      "React",
-                      "TypeScript",
-                      "Node.js",
-                      "Architecture",
-                      "APIs",
-                      "Performance",
-                    ].map((skill) => (
-                      <div key={skill} className="p-3 bg-zinc-900 rounded-lg">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-white font-medium">
-                            {skill}
-                          </span>
-                          <div className="flex -space-x-1">
-                            {teamMembers
-                              .filter((m) => m.specialties.includes(skill))
-                              .map((member) => (
-                                <Avatar
-                                  key={member.id}
-                                  className="w-6 h-6 border-2 border-zinc-800-dark"
-                                >
-                                  <AvatarFallback className="text-xs">
-                                    {member.name
-                                      .split(" ")
-                                      .map((n) => n[0])
-                                      .join("")}
-                                  </AvatarFallback>
-                                </Avatar>
-                              ))}
-                          </div>
-                        </div>
-                        <div className="w-full bg-zinc-900 h-2 rounded-full">
-                          <div
-                            className="bg-zinc-600 h-2 rounded-full"
-                            style={{ width: "0%" }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+              {/* Skills section removed - no real skills data available */}
             </div>
           </TabsContent>
 
