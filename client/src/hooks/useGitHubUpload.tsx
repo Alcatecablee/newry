@@ -656,14 +656,17 @@ ${suggestions.join("\n")}`);
 
       if (error instanceof Error) {
         errorMessage = error.message;
+        // More comprehensive rate limit detection
         isRateLimit =
-          errorMessage.includes("rate limit") ||
-          errorMessage.includes("Rate limit");
+          errorMessage.toLowerCase().includes("rate limit") ||
+          errorMessage.includes("403") ||
+          errorMessage.includes("API rate limit exceeded") ||
+          (errorMessage.includes("wait") && errorMessage.includes("minutes"));
+        console.log("Rate limit check:", { errorMessage, isRateLimit });
       } else if (typeof error === "object" && error !== null) {
         errorMessage =
           "Network error or repository access issue. Please check your connection and try again.";
       }
-
       // If it's a rate limit error, offer demo mode
       if (isRateLimit) {
         toast({
