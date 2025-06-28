@@ -100,7 +100,9 @@ const WebhookSystem = () => {
   const [showSecrets, setShowSecrets] = useState(false);
   const [testingWebhook, setTestingWebhook] = useState(false);
 
-  const [webhookEndpoints, setWebhookEndpoints] = useState<WebhookEndpoint[]>([]);
+  const [webhookEndpoints, setWebhookEndpoints] = useState<WebhookEndpoint[]>(
+    [],
+  );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -109,18 +111,17 @@ const WebhookSystem = () => {
 
   const fetchWebhookEndpoints = async () => {
     try {
-      const response = await fetch('/api/enterprise/webhooks');
+      const response = await fetch("/api/enterprise/webhooks");
       if (response.ok) {
         const data = await response.json();
         setWebhookEndpoints(data);
       }
     } catch (error) {
-      console.error('Failed to fetch webhook endpoints:', error);
+      console.error("Failed to fetch webhook endpoints:", error);
     } finally {
       setLoading(false);
     }
   };
-  ];
 
   const recentEvents: WebhookEvent[] = [
     {
@@ -356,9 +357,7 @@ const WebhookSystem = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Active Webhooks
-                  </p>
+                  <p className="text-zinc-400 text-sm">Active Webhooks</p>
                   <p className="text-3xl font-bold text-white">
                     {
                       webhookEndpoints.filter((w) => w.status === "active")
@@ -376,9 +375,7 @@ const WebhookSystem = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-zinc-400 text-sm">
-                    Total Deliveries
-                  </p>
+                  <p className="text-zinc-400 text-sm">Total Deliveries</p>
                   <p className="text-3xl font-bold text-white">2.8K</p>
                 </div>
                 <Send className="w-8 h-8 text-green-400" />
