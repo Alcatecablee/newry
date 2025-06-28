@@ -100,71 +100,26 @@ const WebhookSystem = () => {
   const [showSecrets, setShowSecrets] = useState(false);
   const [testingWebhook, setTestingWebhook] = useState(false);
 
-  // Mock data - would come from webhook API
-  const webhookEndpoints: WebhookEndpoint[] = [
-    {
-      id: "1",
-      name: "Slack Notifications",
-      url: "https://hooks.slack.com/services/T1234/B5678/xyz123",
-      events: ["fix.completed", "scan.failed", "team.achievement"],
-      status: "active",
-      secret: "sk_live_abc123def456",
-      retryPolicy: {
-        maxRetries: 3,
-        backoffStrategy: "exponential",
-        timeout: 30,
-      },
-      headers: {
-        "Content-Type": "application/json",
-        "User-Agent": "NeuroLint-Webhook/1.0",
-      },
-      lastDelivery: "2 minutes ago",
-      successRate: 98.5,
-      totalDeliveries: 1247,
-      createdAt: "2024-01-15",
-    },
-    {
-      id: "2",
-      name: "Jira Integration",
-      url: "https://company.atlassian.net/rest/api/3/webhook",
-      events: ["fix.completed", "vulnerability.detected"],
-      status: "active",
-      secret: "sk_live_jira789",
-      retryPolicy: {
-        maxRetries: 5,
-        backoffStrategy: "linear",
-        timeout: 45,
-      },
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer ***",
-      },
-      lastDelivery: "15 minutes ago",
-      successRate: 95.2,
-      totalDeliveries: 892,
-      createdAt: "2024-01-10",
-    },
-    {
-      id: "3",
-      name: "GitHub Actions",
-      url: "https://api.github.com/repos/company/project/dispatches",
-      events: ["scan.completed"],
-      status: "error",
-      secret: "sk_live_github456",
-      retryPolicy: {
-        maxRetries: 2,
-        backoffStrategy: "linear",
-        timeout: 20,
-      },
-      headers: {
-        Accept: "application/vnd.github+json",
-        Authorization: "Bearer ***",
-      },
-      lastDelivery: "2 hours ago",
-      successRate: 87.3,
-      totalDeliveries: 654,
-      createdAt: "2024-01-08",
-    },
+  const [webhookEndpoints, setWebhookEndpoints] = useState<WebhookEndpoint[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchWebhookEndpoints();
+  }, []);
+
+  const fetchWebhookEndpoints = async () => {
+    try {
+      const response = await fetch('/api/enterprise/webhooks');
+      if (response.ok) {
+        const data = await response.json();
+        setWebhookEndpoints(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch webhook endpoints:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
   ];
 
   const recentEvents: WebhookEvent[] = [
