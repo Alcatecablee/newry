@@ -83,7 +83,9 @@ export function UserButton() {
         onClick={() => setShowMenu(!showMenu)}
         className="w-8 h-8 rounded-full bg-zinc-600 flex items-center justify-center text-xs text-white font-semibold hover:bg-zinc-700 transition-colors ring-2 ring-transparent hover:ring-zinc-400"
       >
-        {user.name.charAt(0).toUpperCase()}
+        {user.name?.charAt(0)?.toUpperCase() ||
+          user.email?.charAt(0)?.toUpperCase() ||
+          "U"}
       </button>
 
       {showMenu && (
@@ -92,11 +94,13 @@ export function UserButton() {
           <div className="p-4 bg-zinc-800/50 border-b border-zinc-800">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-zinc-600 flex items-center justify-center text-lg font-bold text-white">
-                {user.name.charAt(0).toUpperCase()}
+                {user.name?.charAt(0)?.toUpperCase() ||
+                  user.email?.charAt(0)?.toUpperCase() ||
+                  "U"}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-white truncate">
-                  {user.name}
+                  {user.name || user.email || "User"}
                 </p>
                 <p className="text-xs text-zinc-400 truncate">{user.email}</p>
                 <div className="flex items-center gap-2 mt-1">
