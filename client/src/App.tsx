@@ -24,6 +24,7 @@ import AdvancedAI from "./pages/enterprise/AdvancedAI";
 import MarketPositioning from "./pages/enterprise/MarketPositioning";
 import AdminDashboard from "./pages/AdminDashboard";
 import Dashboard from "./pages/Dashboard";
+import SupabaseTest from "./pages/SupabaseTest";
 import NotFound from "./pages/NotFound";
 import { SiteHeader } from "./components/SiteHeader";
 import { SiteFooter } from "./components/SiteFooter";
@@ -53,6 +54,7 @@ const App = () => (
 
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/supabase-test" element={<SupabaseTest />} />
 
               <Route path="/teams" element={<EnhancedTeamDashboard />} />
               <Route path="/team" element={<EnhancedTeamDashboard />} />
