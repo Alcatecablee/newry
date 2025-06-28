@@ -177,12 +177,12 @@ export function UserButton() {
             </Link>
 
             <Link
-              to="/billing"
+              to="/pricing"
               onClick={() => setShowMenu(false)}
               className="flex items-center gap-3 px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 rounded-lg transition-colors"
             >
               <CreditCard className="w-4 h-4" />
-              Billing & Plans
+              Pricing & Plans
             </Link>
 
             <Link
