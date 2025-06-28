@@ -210,7 +210,7 @@ export function LandingFeatures() {
               required.
             </li>
             <li>
-              Select the AI layer(s) you want to run, including full-stack
+              Select the analysis layer(s) you want to run, including full-stack
               config upgrades.
             </li>
             <li>
