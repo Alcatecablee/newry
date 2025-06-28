@@ -65,26 +65,41 @@ export async function fixCommand(files: string[], options: FixOptions) {
     const excludePatterns = options.exclude?.split(",") ||
       config.files?.exclude || ["node_modules/**", "dist/**", "build/**"];
 
-    spinner.text = "Discovering files...";
+    spinner.text = "Discovering and validating files...";
 
-    // Find all matching files
-    const allFiles = [];
-    for (const pattern of [...filePatterns, ...includePatterns]) {
-      const matches = await glob(pattern, {
-        ignore: excludePatterns,
-        absolute: true,
-      });
-      allFiles.push(...matches);
-    }
+    // Validate files with comprehensive checks
+    const fileValidation = await validateFiles(
+      [...filePatterns, ...includePatterns],
+      {
+        maxFileSize: 10 * 1024 * 1024, // 10MB
+        allowedExtensions: [".ts", ".tsx", ".js", ".jsx"],
+        maxFiles: 500, // Lower limit for fixes due to backup overhead
+      },
+    );
 
-    const uniqueFiles = [...new Set(allFiles)];
-
-    if (uniqueFiles.length === 0) {
-      spinner.fail("No files found matching the specified patterns");
+    if (!fileValidation.valid) {
+      spinner.fail("File validation failed");
+      fileValidation.errors.forEach((error) =>
+        console.log(chalk.red(`❌ ${error}`)),
+      );
       return;
     }
 
-    spinner.succeed(`Found ${uniqueFiles.length} files to fix`);
+    if (fileValidation.warnings.length > 0) {
+      spinner.warn("File validation warnings");
+      fileValidation.warnings.forEach((warning) =>
+        console.log(chalk.yellow(`⚠ ${warning}`)),
+      );
+    }
+
+    const uniqueFiles = fileValidation.files;
+
+    if (uniqueFiles.length === 0) {
+      spinner.fail("No valid files found matching the specified patterns");
+      return;
+    }
+
+    spinner.succeed(`Found ${uniqueFiles.length} valid files to fix`);
 
     // Parse layers
     const layers = options.layers
