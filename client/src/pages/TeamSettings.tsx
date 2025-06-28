@@ -297,17 +297,25 @@ const TeamSettings = () => {
                   <div>
                     <Label>Plan</Label>
                     <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg mt-1">
-                      <span className="text-white">Pro Team</span>
-                      <Badge className="bg-green-900 text-green-200">
-                        Active
-                      </Badge>
+                      <span className="text-white">
+                        {teamData?.plan || "Loading..."}
+                      </span>
+                      <Badge className="bg-zinc-800 text-white">Active</Badge>
                     </div>
                   </div>
                   <div>
                     <Label>Usage This Month</Label>
                     <div className="flex items-center justify-between p-3 bg-zinc-900 rounded-lg mt-1">
-                      <span className="text-white">72 / 100 fixes</span>
-                      <span className="text-zinc-400">72%</span>
+                      <span className="text-white">
+                        {teamData?.usage
+                          ? `${teamData.usage.current} / ${teamData.usage.limit} fixes`
+                          : "Loading..."}
+                      </span>
+                      <span className="text-zinc-400">
+                        {teamData?.usage
+                          ? `${Math.round((teamData.usage.current / teamData.usage.limit) * 100)}%`
+                          : ""}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -315,11 +323,17 @@ const TeamSettings = () => {
                 <div>
                   <Label>Default Layers</Label>
                   <div className="flex items-center gap-2 mt-2">
-                    {[1, 2, 3, 4].map((layer) => (
+                    {(teamData?.defaultLayers || []).map((layer) => (
                       <Badge key={layer} className="bg-zinc-900 text-white">
                         Layer {layer}
                       </Badge>
                     ))}
+                    {(!teamData?.defaultLayers ||
+                      teamData.defaultLayers.length === 0) && (
+                      <span className="text-zinc-400">
+                        No default layers configured
+                      </span>
+                    )}
                   </div>
                 </div>
               </CardContent>
