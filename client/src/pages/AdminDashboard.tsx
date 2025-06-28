@@ -99,7 +99,18 @@ const AdminDashboard = () => {
   // Define all functions before useEffect to avoid hoisting issues
   const loadEnvironmentVariables = async () => {
     try {
-      // Load from environment variables
+      // Load from server endpoint to get all environment variables including server-side only ones
+      const response = await fetch("/api/admin/load-env");
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.envVars) {
+          setEnvConfig(data.envVars);
+          setLastUpdated(new Date());
+          return;
+        }
+      }
+
+      // Fallback to client-side env vars if server endpoint fails
       setEnvConfig({
         VITE_SUPABASE_URL:
           import.meta.env.VITE_SUPABASE_URL ||
@@ -107,13 +118,12 @@ const AdminDashboard = () => {
         VITE_SUPABASE_ANON_KEY:
           import.meta.env.VITE_SUPABASE_ANON_KEY ||
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpldHdoZmZnbW9oZHFrdWVndGpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkwNzI0MjcsImV4cCI6MjA2NDY0ODQyN30.qdzOYox4XJQIadJlkg52bWjM1BGJd848ru0kobNmxiA",
-        SUPABASE_SERVICE_ROLE_KEY:
-          import.meta.env.SUPABASE_SERVICE_ROLE_KEY || "",
-        DATABASE_URL: import.meta.env.DATABASE_URL || "",
-        PAYPAL_CLIENT_ID: import.meta.env.PAYPAL_CLIENT_ID || "",
-        PAYPAL_CLIENT_SECRET: import.meta.env.PAYPAL_CLIENT_SECRET || "",
-        PAYPAL_ENVIRONMENT: import.meta.env.PAYPAL_ENVIRONMENT || "sandbox",
-        API_URL: import.meta.env.VITE_API_URL || "http://localhost:5000",
+        SUPABASE_SERVICE_ROLE_KEY: "",
+        DATABASE_URL: "",
+        PAYPAL_CLIENT_ID: "",
+        PAYPAL_CLIENT_SECRET: "",
+        PAYPAL_ENVIRONMENT: "sandbox",
+        API_URL: "http://localhost:5000",
       });
       setLastUpdated(new Date());
     } catch (error) {
