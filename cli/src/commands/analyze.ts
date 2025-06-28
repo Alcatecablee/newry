@@ -250,13 +250,13 @@ export async function analyzeCommand(files: string[], options: AnalyzeOptions) {
         }
       });
 
-      console.log(chalk.blue("\n🎯 Layer Performance:"));
+      console.log(chalk.white("\nLayer Performance:"));
       Object.entries(layerStats).forEach(([layerId, stats]: [string, any]) => {
         const percentage = Math.round((stats.passed / stats.total) * 100);
-        const color =
-          percentage >= 90 ? "green" : percentage >= 70 ? "yellow" : "red";
         console.log(
-          `Layer ${layerId}: ${chalk[color](`${stats.passed}/${stats.total} (${percentage}%)`)} `,
+          chalk.white(
+            `Layer ${layerId}: ${stats.passed}/${stats.total} (${percentage}%)`,
+          ),
         );
       });
     }
