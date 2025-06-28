@@ -666,8 +666,8 @@ const EnhancedTeamDashboard = () => {
                                     {member.skillLevel}
                                   </Badge>
                                   <div className="flex items-center gap-1">
-                                    <Flame className="w-3 h-3 text-orange-400" />
-                                    <span className="text-orange-400 text-xs">
+                                    <Flame className="w-3 h-3 text-zinc-400" />
+                                    <span className="text-zinc-300 text-xs">
                                       {member.stats.streak} days
                                     </span>
                                   </div>
