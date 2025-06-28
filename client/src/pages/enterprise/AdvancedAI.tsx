@@ -138,66 +138,17 @@ const AdvancedAI = () => {
 
   const fetchAiAssistants = async () => {
     try {
-      const response = await fetch('/api/enterprise/ai-assistants');
+      const response = await fetch("/api/enterprise/ai-assistants");
       if (response.ok) {
         const data = await response.json();
         setAiAssistants(data);
       }
     } catch (error) {
-      console.error('Failed to fetch AI assistants:', error);
+      console.error("Failed to fetch AI assistants:", error);
     } finally {
       setLoading(false);
     }
   };
-    {
-      id: "ai-expert",
-      name: "CodeSage",
-      personality: "expert",
-      specialization: ["Architecture", "Performance", "Best Practices"],
-      avatar: "🧙‍♂️",
-      status: "active",
-      confidence: 94,
-      successRate: 89,
-      totalSuggestions: 2847,
-      learningProgress: 87,
-    },
-    {
-      id: "ai-creative",
-      name: "InnovateAI",
-      personality: "creative",
-      specialization: ["UI/UX", "Creative Solutions", "Innovation"],
-      avatar: "🎨",
-      status: "active",
-      confidence: 87,
-      successRate: 82,
-      totalSuggestions: 1923,
-      learningProgress: 79,
-    },
-    {
-      id: "ai-security",
-      name: "SecureBot",
-      personality: "security",
-      specialization: ["Security", "Vulnerabilities", "Compliance"],
-      avatar: "🛡️",
-      status: "training",
-      confidence: 91,
-      successRate: 95,
-      totalSuggestions: 1456,
-      learningProgress: 92,
-    },
-    {
-      id: "ai-mentor",
-      name: "MentorAI",
-      personality: "mentor",
-      specialization: ["Teaching", "Code Review", "Team Development"],
-      avatar: "👨‍🏫",
-      status: "active",
-      confidence: 88,
-      successRate: 91,
-      totalSuggestions: 3201,
-      learningProgress: 85,
-    },
-  ];
 
   const aiCapabilities: AICapability[] = [
     {
