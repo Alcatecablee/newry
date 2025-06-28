@@ -77,7 +77,7 @@ export class DatabaseStorage implements IStorage {
     const result = await db
       .select()
       .from(users)
-      .where(eq(users.supabaseId, supabaseId))
+      .where(eq(users.clerkId, supabaseId)) // Using clerkId column temporarily for Supabase IDs
       .limit(1);
     return result[0];
   }
