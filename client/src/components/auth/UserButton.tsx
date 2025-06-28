@@ -71,11 +71,11 @@ export function UserButton() {
   const getPlanColor = () => {
     switch (planType) {
       case "pro":
-        return "bg-zinc-500/20 text-zinc-300 border-zinc-500/30";
+        return "bg-zinc-800/50 text-zinc-300 border-zinc-700/50";
       case "enterprise":
-        return "bg-zinc-500/20 text-zinc-300 border-zinc-500/30";
+        return "bg-zinc-800/50 text-zinc-300 border-zinc-700/50";
       default:
-        return "bg-gray-500/20 text-gray-300 border-gray-500/30";
+        return "bg-zinc-800/30 text-zinc-400 border-zinc-700/30";
     }
   };
 
@@ -139,7 +139,7 @@ export function UserButton() {
                 </div>
                 <div className="w-full bg-zinc-800 rounded-full h-1.5">
                   <div
-                    className="h-1.5 rounded-full transition-all duration-300 bg-white"
+                    className="h-1.5 rounded-full transition-all duration-300 bg-zinc-500"
                     style={{ width: `${Math.min(usagePercentage, 100)}%` }}
                   />
                 </div>
