@@ -293,7 +293,10 @@ export function SignInButton() {
           </form>
 
           {/* Footer */}
-          <div className="p-6 border-t border-zinc-800 text-center">
+          <div
+            className="p-6 border-t border-zinc-800 text-center animate-in slide-in-from-top-2 duration-300"
+            style={{ animationDelay: mode === "signup" ? "200ms" : "150ms" }}
+          >
             <p className="text-zinc-400 text-sm">
               {mode === "signin"
                 ? "Don't have an account? "
@@ -301,7 +304,8 @@ export function SignInButton() {
               <button
                 type="button"
                 onClick={switchMode}
-                className="text-zinc-400 hover:text-zinc-300 font-medium transition-colors"
+                className="text-zinc-300 hover:text-white font-medium transition-all duration-200 ease-out hover:underline focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-zinc-900 rounded px-1"
+                disabled={loading}
               >
                 {mode === "signin" ? "Sign up" : "Sign in"}
               </button>
@@ -314,11 +318,14 @@ export function SignInButton() {
 
   return (
     <Button
+      ref={triggerRef}
       variant="default"
-      className="font-semibold"
-      onClick={() => setShowModal(true)}
+      className="font-semibold group"
+      onClick={openModal}
+      aria-haspopup="dialog"
+      aria-expanded={showModal}
     >
-      <LogIn className="w-4 h-4 mr-2" />
+      <LogIn className="w-4 h-4 mr-2 transition-transform duration-300 group-hover:translate-x-0.5" />
       Sign In
     </Button>
   );
