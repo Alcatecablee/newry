@@ -114,8 +114,8 @@ const LiveCodeSessions = () => {
               status: result?.success ? "success" : "error",
               result: result,
             };
-          }),
-        });
+          })
+        );
       }
     } catch (error) {
       console.error("Layer analysis failed:", error);
