@@ -58,8 +58,8 @@ const Pricing = () => {
               </h1>
 
               <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
-                Transform your code with AI-powered precision. Choose the plan
-                that fits your needs.
+                Transform your code with advanced analysis and rule-based
+                precision. Choose the plan that fits your needs.
                 <br />
                 <span className="text-white font-semibold">
                   Start free, upgrade anytime.
