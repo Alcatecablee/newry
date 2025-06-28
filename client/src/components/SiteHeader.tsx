@@ -75,65 +75,71 @@ export const SiteHeader = () => {
   }, [isMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-800/50 bg-black/95 backdrop-blur-xl">
+    <header
+      className={`sticky top-0 z-50 w-full border-b border-zinc-800/50 backdrop-blur-xl transition-all duration-300 ease-out ${
+        isScrolled ? "bg-black/98 shadow-2xl shadow-black/50" : "bg-black/95"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             {!isAppPage && (
-              <Link to="/" className="flex items-center group">
+              <Link
+                to="/"
+                className="flex items-center group"
+                aria-label="NeuroLint home"
+              >
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
                   alt="NeuroLint Logo"
-                  className="h-8 w-auto transition-transform duration-200 group-hover:scale-105"
+                  className="h-8 w-auto transition-all duration-300 ease-out group-hover:scale-110 group-focus:scale-110 group-focus:outline-none group-focus:ring-2 group-focus:ring-zinc-500 group-focus:ring-offset-2 group-focus:ring-offset-black rounded"
                 />
               </Link>
             )}
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
-            <Link
-              to="/features"
-              className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
-            >
-              Features
-            </Link>
-            <Link
-              to="/pricing"
-              className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
-            >
-              Pricing
-            </Link>
-            <Link
-              to="/app"
-              className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
-            >
-              App
-            </Link>
-            <Link
-              to="/teams"
-              className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
-            >
-              Teams
-            </Link>
-            <Link
-              to="/test"
-              className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
-            >
-              Test Suite
-            </Link>
-            <Link
-              to="/admin"
-              className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-200"
-            >
-              Admin
-            </Link>
+          <nav
+            className="hidden md:flex items-center space-x-1"
+            role="navigation"
+            aria-label="Main navigation"
+          >
+            {[
+              { to: "/features", label: "Features" },
+              { to: "/pricing", label: "Pricing" },
+              { to: "/app", label: "App" },
+              { to: "/teams", label: "Teams" },
+              { to: "/test", label: "Test Suite" },
+              { to: "/admin", label: "Admin" },
+            ].map((item, index) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={`px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-lg transition-all duration-300 ease-out transform hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-black relative ${
+                  location.pathname === item.to
+                    ? "text-white bg-zinc-800/50"
+                    : ""
+                }`}
+                style={{
+                  animationDelay: `${index * 50}ms`,
+                  animation: isScrolled
+                    ? "slideInDown 0.3s ease-out forwards"
+                    : "none",
+                }}
+              >
+                {item.label}
+              </Link>
+            ))}
           </nav>
 
           {/* Auth Section */}
           <div className="flex items-center space-x-3">
             {loading ? (
-              <div className="w-8 h-8 rounded-full bg-zinc-800/50 animate-pulse" />
+              <div
+                className="w-8 h-8 rounded-full bg-zinc-800/50 animate-pulse"
+                role="status"
+                aria-label="Loading user authentication status"
+              />
             ) : isAuthenticated ? (
               <UserButton />
             ) : (
@@ -144,16 +150,33 @@ export const SiteHeader = () => {
           {/* Mobile menu button */}
           <div className="md:hidden">
             <Button
+              ref={menuButtonRef}
               variant="ghost"
               size="sm"
               onClick={toggleMenu}
-              className="text-zinc-300 hover:text-white hover:bg-zinc-800/50 h-9 w-9 p-0"
+              className="text-zinc-300 hover:text-white hover:bg-zinc-800/50 h-10 w-10 p-0 transition-all duration-200 ease-out hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-black"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
+              aria-label={
+                isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+              }
             >
-              {isMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
+              <div className="relative w-5 h-5">
+                <Menu
+                  className={`absolute inset-0 h-5 w-5 transition-all duration-300 ease-out ${
+                    isMenuOpen
+                      ? "opacity-0 rotate-90 scale-75"
+                      : "opacity-100 rotate-0 scale-100"
+                  }`}
+                />
+                <X
+                  className={`absolute inset-0 h-5 w-5 transition-all duration-300 ease-out ${
+                    isMenuOpen
+                      ? "opacity-100 rotate-0 scale-100"
+                      : "opacity-0 rotate-90 scale-75"
+                  }`}
+                />
+              </div>
             </Button>
           </div>
         </div>
