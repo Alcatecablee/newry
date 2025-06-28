@@ -142,7 +142,7 @@ export default function Dashboard() {
               </div>
             </div>
             {getNextPlan(user.planType) && (
-              <Link to="/billing">
+              <Link to="/pricing">
                 <Button
                   variant="secondary"
                   className="bg-white text-black hover:bg-gray-100"
@@ -233,7 +233,7 @@ export default function Dashboard() {
                 </div>
               </Link>
 
-              <Link to="/billing" className="block">
+              <Link to="/pricing" className="block">
                 <div className="flex items-center justify-between p-3 bg-zinc-800/50 rounded-lg hover:bg-zinc-800 transition-colors">
                   <div className="flex items-center gap-3">
                     <Crown className="w-5 h-5 text-yellow-400" />
