@@ -242,7 +242,7 @@ jobs:
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
+                  <div className="w-2 h-2 bg-zinc-400 rounded-full mt-2"></div>
                   <div>
                     <h4 className="font-medium text-white mb-1">
                       Reduced Technical Debt
