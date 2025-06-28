@@ -512,7 +512,21 @@ export default function Index() {
         </div>
       </section>
 
+      {/* VS Code Extension Section */}
+      <section id="vscode" className="py-20 bg-black border-t border-zinc-800">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
+              VS Code Extension
+            </h2>
+            <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
+              Get real-time code analysis and automated suggestions directly in
+              your favorite editor. Never leave your development environment.
+            </p>
+          </div>
 
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
               <div className="space-y-6">
                 <h3 className="text-2xl font-semibold text-white">
                   Install from Marketplace
