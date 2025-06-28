@@ -1,197 +1,303 @@
-# NeuroLint for Visual Studio Code
+# NeuroLint VS Code Extension
 
-Advanced code analysis and transformation directly in your editor.
+Advanced rule-based code analysis and transformation for VS Code with enterprise-grade features.
 
 ## Features
 
-- **Real-time Analysis**: Instant code quality feedback as you type
-- **Smart Diagnostics**: Contextual error and warning detection
-- **One-click Fixes**: Apply transformations with code actions
-- **Multi-layer Processing**: 6 specialized analysis layers
-- **Interactive Previews**: See changes before applying
-- **Workspace Integration**: Analyze entire projects
-- **Configurable**: Customize layers and behavior
+### Core Analysis
+
+- **Multi-layer analysis system** with 6 configurable layers
+- **Real-time diagnostics** with instant feedback
+- **Intelligent code fixes** with preview and auto-apply
+- **TypeScript and React optimization** with framework-specific rules
+- **Workspace-wide analysis** with progress tracking
+
+### Enterprise Features
+
+- **Team Management** - Collaborate with team members and manage permissions
+- **Analytics Dashboard** - Executive insights and team performance metrics
+- **Compliance Reporting** - SOC2, GDPR, and ISO27001 compliance tracking
+- **Audit Trail** - Complete logging for enterprise governance
+- **SSO Integration** - SAML, OIDC, and OAuth2 support
+- **Webhook Integration** - Real-time notifications and CI/CD integration
+
+### Developer Experience
+
+- **Status bar integration** with progress indicators
+- **Interactive webviews** for detailed analysis results
+- **Keyboard shortcuts** for quick actions
+- **Customizable diagnostics** with severity levels
+- **Export/import configuration** for team standardization
 
 ## Installation
 
-1. Install from VS Code Marketplace: Search for "NeuroLint"
-2. Or install via command line:
-   ```bash
-   code --install-extension neurolint.neurolint-vscode
-   ```
+### From VS Code Marketplace
+
+1. Open VS Code
+2. Go to Extensions (Ctrl+Shift+X)
+3. Search for "NeuroLint"
+4. Click Install
+
+### From VSIX
+
+1. Download the `.vsix` file
+2. Open VS Code
+3. Run `Extensions: Install from VSIX...` command
+4. Select the downloaded file
 
 ## Quick Start
 
-1. **Configure NeuroLint**:
-   - Open Command Palette (`Ctrl+Shift+P`)
-   - Run "NeuroLint: Configure"
-   - Set your API URL and authentication
+### Basic Setup
 
-2. **Analyze Current File**:
-   - Right-click in editor → "NeuroLint: Analyze Current File"
-   - Or use Command Palette: "NeuroLint: Analyze Current File"
+1. **Install the extension**
+2. **Configure API settings**:
+   ```
+   Ctrl+Shift+P → "NeuroLint: Configure"
+   ```
+3. **Set your API key**:
+   ```
+   Ctrl+Shift+P → "NeuroLint: Login"
+   ```
+4. **Analyze your first file**:
+   ```
+   Ctrl+Shift+L (or right-click → "NeuroLint: Analyze Current File")
+   ```
 
-3. **Fix Issues**:
-   - Click on lightbulb icons for quick fixes
-   - Or use "NeuroLint: Fix Current File"
+### Enterprise Setup
 
-## Commands
-
-| Command                               | Description                    | Shortcut |
-| ------------------------------------- | ------------------------------ | -------- |
-| `NeuroLint: Analyze Current File`     | Analyze the active file        |          |
-| `NeuroLint: Analyze Entire Workspace` | Analyze all files in workspace |          |
-| `NeuroLint: Fix Current File`         | Apply fixes to active file     |          |
-| `NeuroLint: Fix Entire Workspace`     | Apply fixes to all files       |          |
-| `NeuroLint: Configure`                | Open configuration dialog      |          |
-| `NeuroLint: Show Output Panel`        | View detailed logs             |          |
-| `NeuroLint: Login`                    | Authenticate with NeuroLint    |          |
+1. **Enable enterprise features**:
+   ```json
+   {
+     "neurolint.enterpriseFeatures.enabled": true,
+     "neurolint.enterpriseFeatures.teamId": "your-team-id"
+   }
+   ```
+2. **Configure compliance mode** (if required):
+   ```json
+   {
+     "neurolint.enterpriseFeatures.complianceMode": true,
+     "neurolint.enterpriseFeatures.auditLogging": true
+   }
+   ```
+3. **Access enterprise features**:
+   ```
+   Ctrl+Shift+P → "NeuroLint Enterprise: Dashboard"
+   ```
 
 ## Configuration
 
-Configure NeuroLint through VS Code settings:
+### Basic Settings
 
-```json
-{
-  "neurolint.apiUrl": "http://localhost:5000",
-  "neurolint.apiKey": "your-api-key",
-  "neurolint.enabledLayers": [1, 2, 3, 4],
-  "neurolint.autoFix": false,
-  "neurolint.showInlineHints": true,
-  "neurolint.diagnosticsLevel": "warning",
-  "neurolint.timeout": 30000
-}
-```
+| Setting                      | Description                     | Default                 |
+| ---------------------------- | ------------------------------- | ----------------------- |
+| `neurolint.apiUrl`           | NeuroLint API server URL        | `http://localhost:5000` |
+| `neurolint.apiKey`           | API key for authentication      | `""`                    |
+| `neurolint.enabledLayers`    | Analysis layers to enable (1-6) | `[1,2,3,4]`             |
+| `neurolint.autoFix`          | Auto-fix on save                | `false`                 |
+| `neurolint.diagnosticsLevel` | Diagnostic severity level       | `"warning"`             |
 
-### Settings
+### Enterprise Settings
 
-- **`neurolint.apiUrl`**: NeuroLint server URL
-- **`neurolint.apiKey`**: Authentication key
-- **`neurolint.enabledLayers`**: Which layers to run (1-6)
-- **`neurolint.autoFix`**: Automatically fix on save
-- **`neurolint.showInlineHints`**: Show inline suggestions
-- **`neurolint.diagnosticsLevel`**: Diagnostic severity level
-- **`neurolint.timeout`**: Request timeout (ms)
+| Setting                                       | Description                | Default |
+| --------------------------------------------- | -------------------------- | ------- |
+| `neurolint.enterpriseFeatures.enabled`        | Enable enterprise features | `false` |
+| `neurolint.enterpriseFeatures.teamId`         | Enterprise team ID         | `""`    |
+| `neurolint.enterpriseFeatures.ssoEnabled`     | Enable SSO authentication  | `false` |
+| `neurolint.enterpriseFeatures.auditLogging`   | Enable audit logging       | `false` |
+| `neurolint.enterpriseFeatures.complianceMode` | Enable compliance mode     | `false` |
 
-## Layers
+### Workspace Settings
 
-NeuroLint processes code through 6 specialized layers:
+| Setting                               | Description               | Default                        |
+| ------------------------------------- | ------------------------- | ------------------------------ |
+| `neurolint.workspace.maxFileSize`     | Maximum file size (bytes) | `10485760` (10MB)              |
+| `neurolint.workspace.maxFiles`        | Maximum files to analyze  | `1000`                         |
+| `neurolint.workspace.excludePatterns` | File patterns to exclude  | `["**/node_modules/**", ...]`  |
+| `neurolint.workspace.includePatterns` | File patterns to include  | `["**/*.ts", "**/*.tsx", ...]` |
 
-### Layer 1: Configuration Validation
+## Usage
 
-- TypeScript configuration optimization
-- Next.js config improvements
-- Package.json script enhancements
+### Commands
 
-### Layer 2: Pattern & Entity Fixes
+| Command                           | Keyboard Shortcut | Description                 |
+| --------------------------------- | ----------------- | --------------------------- |
+| `NeuroLint: Analyze Current File` | `Ctrl+Shift+L`    | Analyze the active file     |
+| `NeuroLint: Fix Current File`     | `Ctrl+Shift+F`    | Fix issues in active file   |
+| `NeuroLint: Analyze Workspace`    | `Ctrl+Shift+W`    | Analyze entire workspace    |
+| `NeuroLint: Configure`            | -                 | Open configuration dialog   |
+| `NeuroLint: Show Output`          | -                 | Show NeuroLint output panel |
 
-- HTML entity cleanup
-- Legacy pattern modernization
-- Code structure improvements
+### Enterprise Commands
 
-### Layer 3: Component Best Practices
+| Command                            | Description               |
+| ---------------------------------- | ------------------------- |
+| `NeuroLint Enterprise: Dashboard`  | Open enterprise dashboard |
+| `NeuroLint Enterprise: Analytics`  | View team analytics       |
+| `NeuroLint Enterprise: Team`       | Manage team members       |
+| `NeuroLint Enterprise: Compliance` | View compliance reports   |
+| `NeuroLint Enterprise: Audit`      | View audit trail          |
 
-- Missing React keys
-- Accessibility attributes
-- Import optimization
-- Prop type validation
+### Analysis Layers
 
-### Layer 4: Hydration & SSR Guard
+1. **Configuration Validation** - TypeScript config and project setup
+2. **Pattern & Entity Analysis** - Code patterns and relationships
+3. **Component Best Practices** - React component optimization
+4. **Hydration & SSR Guards** - Next.js SSR compatibility
+5. **Next.js Optimization** - Framework-specific enhancements
+6. **Testing Integration** - Test coverage and patterns
 
-- Server-side rendering protection
-- Hydration mismatch prevention
-- Client-side guards
+### File Support
 
-### Layer 5: Next.js Optimization
+- **TypeScript** (`.ts`, `.tsx`)
+- **JavaScript** (`.js`, `.jsx`)
+- **React components** with JSX/TSX
+- **Next.js applications**
+- **Node.js projects**
 
-- App Router patterns
-- 'use client' directives
-- Import order optimization
+## Enterprise Features
 
-### Layer 6: Quality & Performance
+### Team Management
 
-- Error handling improvements
-- Performance optimizations
-- Code quality enhancements
+- **User roles**: Admin, Member, Viewer
+- **Permission control** for analysis and fixes
+- **Team analytics** and performance tracking
+- **Centralized configuration** management
 
-## Usage Examples
+### Compliance & Auditing
 
-### Real-time Analysis
+- **SOC2 Type II** compliance tracking
+- **GDPR** data protection compliance
+- **ISO27001** security standards
+- **Audit trail** with detailed logging
+- **Compliance reports** with evidence
 
-The extension automatically analyzes TypeScript and JavaScript files as you edit them, showing diagnostics in the Problems panel.
+### Analytics & Reporting
 
-### Code Actions
+- **Executive dashboards** with KPIs
+- **Team performance** metrics
+- **Code quality trends** over time
+- **ROI analysis** and cost savings
+- **Export capabilities** (JSON, CSV, PDF)
 
-1. Place cursor on a highlighted issue
-2. Click the lightbulb icon or press `Ctrl+.`
-3. Select "NeuroLint: Fix this issue"
+### Integration & Automation
 
-### Workspace Analysis
-
-1. Open Command Palette (`Ctrl+Shift+P`)
-2. Run "NeuroLint: Analyze Entire Workspace"
-3. View results in the NeuroLint output panel
-
-### Configuration
-
-1. Open VS Code settings (`Ctrl+,`)
-2. Search for "neurolint"
-3. Configure your preferences
-
-## Supported Languages
-
-- TypeScript (`.ts`, `.tsx`)
-- JavaScript (`.js`, `.jsx`)
-- React components
-- Next.js applications
-
-## Requirements
-
-- VS Code 1.74.0 or higher
-- NeuroLint server running (local or remote)
-- Node.js 16+ (for local server)
+- **Webhook support** for CI/CD
+- **SSO integration** with enterprise identity
+- **API access** for custom integrations
+- **Bulk operations** for large codebases
 
 ## Troubleshooting
 
-### Connection Issues
+### Common Issues
 
-1. Verify NeuroLint server is running
-2. Check `neurolint.apiUrl` setting
-3. Verify network connectivity
+**Connection Problems**
 
-### Authentication Issues
+```
+Error: Cannot connect to NeuroLint API
+```
 
-1. Set valid `neurolint.apiKey`
-2. Use "NeuroLint: Login" command
-3. Check API key permissions
+- Check API URL in settings
+- Verify NeuroLint server is running
+- Check network connectivity
 
-### Performance Issues
+**Authentication Issues**
 
-1. Reduce `neurolint.enabledLayers`
-2. Increase `neurolint.timeout`
-3. Disable `neurolint.autoFix` for large projects
+```
+Error: Authentication failed
+```
 
-### View Logs
+- Verify API key is correct
+- Check if enterprise authentication is required
+- Ensure user has proper permissions
 
-1. Open Command Palette
-2. Run "NeuroLint: Show Output Panel"
-3. Check for error messages
+**Performance Issues**
 
-## Release Notes
+```
+Analysis is slow or timing out
+```
 
-### 1.0.0
+- Reduce `maxFiles` in workspace settings
+- Increase `timeout` setting
+- Exclude large directories (node_modules, dist)
 
-- Initial release
-- Real-time diagnostics
-- Code actions integration
-- Workspace analysis
-- Configurable layers
-- Authentication support
+### Enterprise Issues
+
+**Team Access Problems**
+
+```
+Error: Team not found or access denied
+```
+
+- Verify team ID is correct
+- Check user permissions in team
+- Contact team administrator
+
+**Compliance Mode Issues**
+
+```
+Compliance features not available
+```
+
+- Enable compliance mode in settings
+- Verify enterprise subscription
+- Check audit logging configuration
+
+### Log Analysis
+
+1. **Open output panel**: `NeuroLint: Show Output`
+2. **Check log entries** for error details
+3. **Enable audit logging** for enterprise debugging
+4. **Export logs** for support analysis
+
+## Support
+
+### Documentation
+
+- [Official Documentation](https://docs.neurolint.com)
+- [API Reference](https://api.neurolint.com/docs)
+- [Enterprise Guide](https://docs.neurolint.com/enterprise)
+
+### Community
+
+- [GitHub Issues](https://github.com/neurolint/neurolint-vscode/issues)
+- [Discussion Forum](https://github.com/neurolint/neurolint-vscode/discussions)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/neurolint)
+
+### Enterprise Support
+
+- **Email**: enterprise@neurolint.com
+- **Slack**: Enterprise customers get dedicated Slack channel
+- **Phone**: Available for Enterprise Pro customers
+- **SLA**: Response times based on subscription level
 
 ## Contributing
 
-Report issues and contribute at: https://github.com/neurolint/neurolint-vscode
+1. **Fork the repository**
+2. **Create feature branch**: `git checkout -b feature/amazing-feature`
+3. **Commit changes**: `git commit -m 'Add amazing feature'`
+4. **Push branch**: `git push origin feature/amazing-feature`
+5. **Open Pull Request**
+
+### Development Setup
+
+```bash
+# Clone repository
+git clone https://github.com/neurolint/neurolint-vscode.git
+
+# Install dependencies
+npm install
+
+# Start development
+npm run watch
+
+# Test extension
+F5 (Launch Extension Development Host)
+```
 
 ## License
 
-MIT License - see LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for release history and updates.

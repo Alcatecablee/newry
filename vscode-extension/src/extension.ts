@@ -1,428 +1,1066 @@
-import * as vscode from 'vscode';
-import { NeuroLintProvider } from './providers/NeuroLintProvider';
-import { NeuroLintCodeActionProvider } from './providers/CodeActionProvider';
-import { NeuroLintHoverProvider } from './providers/HoverProvider';
-import { NeuroLintDiagnosticProvider } from './providers/DiagnosticProvider';
-import { NeuroLintTreeDataProvider } from './providers/TreeDataProvider';
-import { NeuroLintStatusBar } from './ui/StatusBar';
-import { NeuroLintWebview } from './ui/Webview';
-import { ConfigurationManager } from './utils/ConfigurationManager';
-import { ApiClient } from './utils/ApiClient';
+import * as vscode from "vscode";
+import { NeuroLintProvider } from "./providers/NeuroLintProvider";
+import { NeuroLintCodeActionProvider } from "./providers/CodeActionProvider";
+import { NeuroLintHoverProvider } from "./providers/HoverProvider";
+import { NeuroLintDiagnosticProvider } from "./providers/DiagnosticProvider";
+import { NeuroLintTreeDataProvider } from "./providers/TreeDataProvider";
+import { NeuroLintStatusBar } from "./ui/StatusBar";
+import { NeuroLintWebview } from "./ui/Webview";
+import { ConfigurationManager } from "./utils/ConfigurationManager";
+import { ApiClient } from "./utils/ApiClient";
 
+let neurolintProvider: NeuroLintProvider;
 let diagnosticProvider: NeuroLintDiagnosticProvider;
 let statusBar: NeuroLintStatusBar;
 let outputChannel: vscode.OutputChannel;
+let webview: NeuroLintWebview;
+let configManager: ConfigurationManager;
+let apiClient: ApiClient;
 
 export function activate(context: vscode.ExtensionContext) {
-    // Initialize output channel
-    outputChannel = vscode.window.createOutputChannel('NeuroLint');
-    outputChannel.appendLine('🧠 NeuroLint extension activated');
+  // Initialize output channel
+  outputChannel = vscode.window.createOutputChannel("NeuroLint");
+  outputChannel.appendLine("NeuroLint extension activated");
 
-    // Initialize configuration manager
-    const configManager = new ConfigurationManager();
-    
-    // Initialize API client
-    const apiClient = new ApiClient(configManager);
+  // Initialize configuration manager
+  configManager = new ConfigurationManager();
 
-    // Initialize status bar
-    statusBar = new NeuroLintStatusBar();
-    context.subscriptions.push(statusBar.statusBarItem);
+  // Initialize API client
+  apiClient = new ApiClient(configManager);
 
-    // Initialize diagnostic provider
-    diagnosticProvider = new NeuroLintDiagnosticProvider(apiClient, outputChannel);
-    context.subscriptions.push(diagnosticProvider);
+  // Initialize main provider
+  neurolintProvider = new NeuroLintProvider(
+    apiClient,
+    configManager,
+    outputChannel,
+  );
+  context.subscriptions.push(neurolintProvider);
 
-    // Register providers
-    const selector = [
-        { scheme: 'file', language: 'typescript' },
-        { scheme: 'file', language: 'javascript' },
-        { scheme: 'file', language: 'typescriptreact' },
-        { scheme: 'file', language: 'javascriptreact' }
-    ];
+  // Initialize status bar
+  statusBar = new NeuroLintStatusBar();
+  context.subscriptions.push(statusBar.statusBarItem);
 
-    // Code action provider (quick fixes)
-    context.subscriptions.push(
-        vscode.languages.registerCodeActionsProvider(
-            selector,
-            new NeuroLintCodeActionProvider(apiClient, outputChannel)
-        )
-    );
+  // Initialize diagnostic provider
+  diagnosticProvider = new NeuroLintDiagnosticProvider(
+    apiClient,
+    outputChannel,
+  );
+  context.subscriptions.push(diagnosticProvider);
 
-    // Hover provider (documentation)
-    context.subscriptions.push(
-        vscode.languages.registerHoverProvider(
-            selector,
-            new NeuroLintHoverProvider(apiClient)
-        )
-    );
+  // Initialize webview
+  webview = new NeuroLintWebview();
+  context.subscriptions.push(webview);
 
-    // Tree data provider (explorer view)
-    const treeDataProvider = new NeuroLintTreeDataProvider(apiClient);
-    context.subscriptions.push(
-        vscode.window.createTreeView('neurolintExplorer', {
-            treeDataProvider,
-            showCollapseAll: true
-        })
-    );
+  // Register providers
+  const selector = [
+    { scheme: "file", language: "typescript" },
+    { scheme: "file", language: "javascript" },
+    { scheme: "file", language: "typescriptreact" },
+    { scheme: "file", language: "javascriptreact" },
+  ];
 
-    // Register commands
-    context.subscriptions.push(
-        vscode.commands.registerCommand('neurolint.analyzeFile', async (uri?: vscode.Uri) => {
-            await analyzeFile(uri, apiClient);
-        })
-    );
+  // Code action provider (quick fixes)
+  context.subscriptions.push(
+    vscode.languages.registerCodeActionsProvider(
+      selector,
+      new NeuroLintCodeActionProvider(apiClient, outputChannel),
+    ),
+  );
 
-    context.subscriptions.push(
-        vscode.commands.registerCommand('neurolint.analyzeWorkspace', async () => {
-            await analyzeWorkspace(apiClient);
-        })
-    );
+  // Hover provider (documentation)
+  context.subscriptions.push(
+    vscode.languages.registerHoverProvider(
+      selector,
+      new NeuroLintHoverProvider(apiClient),
+    ),
+  );
 
-    context.subscriptions.push(
-        vscode.commands.registerCommand('neurolint.fixFile', async (uri?: vscode.Uri) => {
-            await fixFile(uri, apiClient);
-        })
-    );
+  // Tree data provider (explorer view)
+  const treeDataProvider = new NeuroLintTreeDataProvider(apiClient);
+  context.subscriptions.push(
+    vscode.window.createTreeView("neurolintExplorer", {
+      treeDataProvider,
+      showCollapseAll: true,
+    }),
+  );
 
-    context.subscriptions.push(
-        vscode.commands.registerCommand('neurolint.fixWorkspace', async () => {
-            await fixWorkspace(apiClient);
-        })
-    );
+  // Register core commands
+  registerCoreCommands(context);
 
-    context.subscriptions.push(
-        vscode.commands.registerCommand('neurolint.configure', async () => {
-            await configureNeuroLint();
-        })
-    );
+  // Register enterprise commands if enabled
+  if (configManager.isEnterpriseMode()) {
+    registerEnterpriseCommands(context);
+  }
 
-    context.subscriptions.push(
-        vscode.commands.registerCommand('neurolint.login', async () => {
-            await loginToNeuroLint(configManager);
-        })
-    );
+  // Register event listeners
+  registerEventListeners(context);
 
-    context.subscriptions.push(
-        vscode.commands.registerCommand('neurolint.showOutput', () => {
-            outputChannel.show();
-        })
-    );
+  // Validate workspace on startup
+  neurolintProvider.validateWorkspace();
 
-    // Auto-fix on save if enabled
-    context.subscriptions.push(
-        vscode.workspace.onWillSaveTextDocument(async (event) => {
-            const config = vscode.workspace.getConfiguration('neurolint');
-            if (config.get('autoFix') && isSupported(event.document)) {
-                event.waitUntil(autoFixDocument(event.document, apiClient));
-            }
-        })
-    );
+  // Set context for when extension is enabled
+  vscode.commands.executeCommand("setContext", "neurolint.enabled", true);
 
-    // File change listeners
-    context.subscriptions.push(
-        vscode.workspace.onDidChangeTextDocument((event) => {
-            if (isSupported(event.document)) {
-                diagnosticProvider.updateDiagnostics(event.document);
-            }
-        })
-    );
+  outputChannel.appendLine("NeuroLint extension ready");
+  statusBar.updateStatus("Ready");
 
-    context.subscriptions.push(
-        vscode.workspace.onDidOpenTextDocument((document) => {
-            if (isSupported(document)) {
-                diagnosticProvider.updateDiagnostics(document);
-            }
-        })
-    );
-
-    // Configuration change listener
-    context.subscriptions.push(
-        vscode.workspace.onDidChangeConfiguration((event) => {
-            if (event.affectsConfiguration('neurolint')) {
-                configManager.reload();
-                statusBar.updateStatus('Configuration updated');
-            }
-        })
-    );
-
-    // Set context for when extension is enabled
-    vscode.commands.executeCommand('setContext', 'neurolint.enabled', true);
-
-    outputChannel.appendLine('✅ NeuroLint extension ready');
-    statusBar.updateStatus('Ready');
+  // Show enterprise welcome message if first time
+  if (
+    configManager.isEnterpriseMode() &&
+    !context.globalState.get("neurolint.enterprise.welcomed")
+  ) {
+    showEnterpriseWelcome(context);
+  }
 }
 
-export function deactivate() {
-    if (diagnosticProvider) {
-        diagnosticProvider.dispose();
-    }
-    if (statusBar) {
-        statusBar.dispose();
-    }
-    if (outputChannel) {
-        outputChannel.dispose();
-    }
+function registerCoreCommands(context: vscode.ExtensionContext): void {
+  // Analyze file command
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "neurolint.analyzeFile",
+      async (uri?: vscode.Uri) => {
+        await analyzeFile(uri);
+      },
+    ),
+  );
+
+  // Analyze workspace command
+  context.subscriptions.push(
+    vscode.commands.registerCommand("neurolint.analyzeWorkspace", async () => {
+      await analyzeWorkspace();
+    }),
+  );
+
+  // Fix file command
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "neurolint.fixFile",
+      async (uri?: vscode.Uri) => {
+        await fixFile(uri);
+      },
+    ),
+  );
+
+  // Fix workspace command
+  context.subscriptions.push(
+    vscode.commands.registerCommand("neurolint.fixWorkspace", async () => {
+      await fixWorkspace();
+    }),
+  );
+
+  // Configuration command
+  context.subscriptions.push(
+    vscode.commands.registerCommand("neurolint.configure", async () => {
+      await configureNeuroLint();
+    }),
+  );
+
+  // Login command
+  context.subscriptions.push(
+    vscode.commands.registerCommand("neurolint.login", async () => {
+      await loginToNeuroLint();
+    }),
+  );
+
+  // Show output command
+  context.subscriptions.push(
+    vscode.commands.registerCommand("neurolint.showOutput", () => {
+      outputChannel.show();
+    }),
+  );
+
+  // Apply refactor command
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "neurolint.applyRefactor",
+      async (uri: vscode.Uri, range: vscode.Range) => {
+        await applyRefactor(uri, range);
+      },
+    ),
+  );
+
+  // Optimize structure command
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "neurolint.optimizeStructure",
+      async (uri: vscode.Uri, range: vscode.Range) => {
+        await optimizeStructure(uri, range);
+      },
+    ),
+  );
 }
 
-async function analyzeFile(uri: vscode.Uri | undefined, apiClient: ApiClient) {
-    const document = uri ? await vscode.workspace.openTextDocument(uri) : vscode.window.activeTextEditor?.document;
-    
-    if (!document || !isSupported(document)) {
-        vscode.window.showWarningMessage('Please select a TypeScript or JavaScript file');
-        return;
-    }
+function registerEnterpriseCommands(context: vscode.ExtensionContext): void {
+  // Enterprise dashboard
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "neurolint.enterprise.dashboard",
+      async () => {
+        await openEnterpriseDashboard();
+      },
+    ),
+  );
 
-    statusBar.updateStatus('Analyzing...', true);
-    outputChannel.appendLine(`🔍 Analyzing: ${document.fileName}`);
+  // Enterprise analytics
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "neurolint.enterprise.analytics",
+      async () => {
+        await showEnterpriseAnalytics();
+      },
+    ),
+  );
 
-    try {
-        const result = await apiClient.analyzeCode(document.getText(), document.fileName);
-        
-        // Show results in webview
-        const webview = new NeuroLintWebview();
-        webview.showAnalysisResults(result);
-        
-        outputChannel.appendLine(`✅ Analysis complete: ${result.layers.length} layers processed`);
-        statusBar.updateStatus('Analysis complete');
-        
-    } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unknown error';
-        outputChannel.appendLine(`❌ Analysis failed: ${message}`);
-        vscode.window.showErrorMessage(`NeuroLint analysis failed: ${message}`);
-        statusBar.updateStatus('Analysis failed');
-    }
+  // Team management
+  context.subscriptions.push(
+    vscode.commands.registerCommand("neurolint.enterprise.team", async () => {
+      await manageTeam();
+    }),
+  );
+
+  // Compliance report
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "neurolint.enterprise.compliance",
+      async () => {
+        await showComplianceReport();
+      },
+    ),
+  );
+
+  // Audit trail
+  context.subscriptions.push(
+    vscode.commands.registerCommand("neurolint.enterprise.audit", async () => {
+      await showAuditTrail();
+    }),
+  );
 }
 
-async function analyzeWorkspace(apiClient: ApiClient) {
-    const files = await vscode.workspace.findFiles('**/*.{ts,tsx,js,jsx}', '**/node_modules/**');
-    
-    if (files.length === 0) {
-        vscode.window.showInformationMessage('No TypeScript/JavaScript files found in workspace');
-        return;
-    }
+function registerEventListeners(context: vscode.ExtensionContext): void {
+  // Auto-fix on save if enabled
+  context.subscriptions.push(
+    vscode.workspace.onWillSaveTextDocument(async (event) => {
+      const config = vscode.workspace.getConfiguration("neurolint");
+      if (config.get("autoFix") && isSupported(event.document)) {
+        event.waitUntil(autoFixDocument(event.document));
+      }
+    }),
+  );
 
-    const result = await vscode.window.withProgress({
-        location: vscode.ProgressLocation.Notification,
-        title: 'NeuroLint Workspace Analysis',
-        cancellable: true
-    }, async (progress, token) => {
-        const results = [];
-        
-        for (let i = 0; i < files.length; i++) {
-            if (token.isCancellationRequested) {
-                break;
-            }
-            
-            const file = files[i];
-            progress.report({ 
-                increment: (100 / files.length), 
-                message: `Analyzing ${file.fsPath}` 
-            });
-            
-            try {
-                const document = await vscode.workspace.openTextDocument(file);
-                const result = await apiClient.analyzeCode(document.getText(), document.fileName);
-                results.push({ file: file.fsPath, result });
-            } catch (error) {
-                outputChannel.appendLine(`❌ Failed to analyze ${file.fsPath}: ${error}`);
-            }
+  // File change listeners
+  context.subscriptions.push(
+    vscode.workspace.onDidChangeTextDocument((event) => {
+      if (isSupported(event.document)) {
+        diagnosticProvider.updateDiagnostics(event.document);
+      }
+    }),
+  );
+
+  context.subscriptions.push(
+    vscode.workspace.onDidOpenTextDocument((document) => {
+      if (isSupported(document)) {
+        diagnosticProvider.updateDiagnostics(document);
+      }
+    }),
+  );
+
+  // Configuration change listener
+  context.subscriptions.push(
+    vscode.workspace.onDidChangeConfiguration((event) => {
+      if (event.affectsConfiguration("neurolint")) {
+        configManager.reload();
+        statusBar.updateStatus("Configuration updated");
+
+        // Register enterprise commands if newly enabled
+        if (configManager.isEnterpriseMode()) {
+          registerEnterpriseCommands(context);
         }
-        
-        return results;
-    });
-
-    // Show workspace results
-    const webview = new NeuroLintWebview();
-    webview.showWorkspaceResults(result);
+      }
+    }),
+  );
 }
 
-async function fixFile(uri: vscode.Uri | undefined, apiClient: ApiClient) {
-    const document = uri ? await vscode.workspace.openTextDocument(uri) : vscode.window.activeTextEditor?.document;
-    
-    if (!document || !isSupported(document)) {
-        vscode.window.showWarningMessage('Please select a TypeScript or JavaScript file');
-        return;
-    }
+async function analyzeFile(uri?: vscode.Uri): Promise<void> {
+  const document = uri
+    ? await vscode.workspace.openTextDocument(uri)
+    : vscode.window.activeTextEditor?.document;
 
-    const choice = await vscode.window.showWarningMessage(
-        'This will modify your file. Do you want to continue?',
-        'Yes', 'Preview Changes', 'Cancel'
+  if (!document || !isSupported(document)) {
+    vscode.window.showWarningMessage(
+      "Please select a TypeScript or JavaScript file",
     );
+    return;
+  }
 
-    if (choice === 'Cancel') {
-        return;
+  statusBar.updateStatus("Analyzing...", true);
+  outputChannel.appendLine(`Analyzing: ${document.fileName}`);
+
+  try {
+    await neurolintProvider.analyzeDocument(document);
+    const result = neurolintProvider.getAnalysisResult(document);
+
+    if (result) {
+      webview.showAnalysisResults(result);
+      outputChannel.appendLine(
+        `Analysis complete: ${result.layers?.length || 0} layers processed`,
+      );
+      statusBar.showSuccess("Analysis complete");
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    outputChannel.appendLine(`Analysis failed: ${message}`);
+    vscode.window.showErrorMessage(`NeuroLint analysis failed: ${message}`);
+    statusBar.showError("Analysis failed");
+  }
+}
+
+async function analyzeWorkspace(): Promise<void> {
+  if (!vscode.workspace.workspaceFolders) {
+    vscode.window.showWarningMessage("No workspace folder open");
+    return;
+  }
+
+  try {
+    statusBar.updateStatus("Analyzing workspace...", true);
+    await neurolintProvider.analyzeWorkspace();
+    statusBar.showSuccess("Workspace analysis complete");
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    outputChannel.appendLine(`Workspace analysis failed: ${message}`);
+    statusBar.showError("Workspace analysis failed");
+  }
+}
+
+async function fixFile(uri?: vscode.Uri): Promise<void> {
+  const document = uri
+    ? await vscode.workspace.openTextDocument(uri)
+    : vscode.window.activeTextEditor?.document;
+
+  if (!document || !isSupported(document)) {
+    vscode.window.showWarningMessage(
+      "Please select a TypeScript or JavaScript file",
+    );
+    return;
+  }
+
+  const choice = await vscode.window.showWarningMessage(
+    "This will modify your file. Do you want to continue?",
+    "Yes",
+    "Preview Changes",
+    "Cancel",
+  );
+
+  if (choice === "Cancel") {
+    return;
+  }
+
+  statusBar.updateStatus("Fixing...", true);
+  outputChannel.appendLine(`Fixing: ${document.fileName}`);
+
+  try {
+    const transformedCode = await neurolintProvider.transformDocument(document);
+
+    if (!transformedCode) {
+      vscode.window.showInformationMessage("No changes needed");
+      statusBar.updateStatus("Ready");
+      return;
     }
 
-    statusBar.updateStatus('Fixing...', true);
-    outputChannel.appendLine(`🔧 Fixing: ${document.fileName}`);
+    if (choice === "Preview Changes") {
+      webview.showDiffView(
+        document.getText(),
+        transformedCode,
+        document.fileName,
+      );
+    } else {
+      const edit = new vscode.WorkspaceEdit();
+      const fullRange = new vscode.Range(
+        document.positionAt(0),
+        document.positionAt(document.getText().length),
+      );
+      edit.replace(document.uri, fullRange, transformedCode);
 
-    try {
-        const result = await apiClient.transformCode(document.getText(), document.fileName);
-        
-        if (choice === 'Preview Changes') {
-            // Show diff in editor
-            const originalUri = document.uri;
-            const modifiedUri = originalUri.with({ scheme: 'neurolint', query: 'modified' });
-            
-            await vscode.commands.executeCommand('vscode.diff', originalUri, modifiedUri, 'NeuroLint: Changes Preview');
-        } else {
-            // Apply changes directly
+      const success = await vscode.workspace.applyEdit(edit);
+      if (success) {
+        outputChannel.appendLine("File fixed successfully");
+        statusBar.showSuccess("Fix applied");
+        vscode.window.showInformationMessage(
+          "NeuroLint fixes applied successfully",
+        );
+      }
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    outputChannel.appendLine(`Fix failed: ${message}`);
+    vscode.window.showErrorMessage(`NeuroLint fix failed: ${message}`);
+    statusBar.showError("Fix failed");
+  }
+}
+
+async function fixWorkspace(): Promise<void> {
+  const workspaceSettings = configManager.getWorkspaceSettings();
+  const files = await vscode.workspace.findFiles(
+    `{${workspaceSettings.includePatterns.join(",")}}`,
+    `{${workspaceSettings.excludePatterns.join(",")}}`,
+  );
+
+  if (files.length === 0) {
+    vscode.window.showInformationMessage(
+      "No TypeScript/JavaScript files found in workspace",
+    );
+    return;
+  }
+
+  const choice = await vscode.window.showWarningMessage(
+    `This will modify ${files.length} files in your workspace. Do you want to continue?`,
+    "Yes",
+    "Cancel",
+  );
+
+  if (choice === "Cancel") {
+    return;
+  }
+
+  await vscode.window.withProgress(
+    {
+      location: vscode.ProgressLocation.Notification,
+      title: "NeuroLint Workspace Fix",
+      cancellable: true,
+    },
+    async (progress, token) => {
+      let fixed = 0;
+
+      for (let i = 0; i < files.length; i++) {
+        if (token.isCancellationRequested) {
+          break;
+        }
+
+        const file = files[i];
+        progress.report({
+          increment: 100 / files.length,
+          message: `Fixing ${file.fsPath}`,
+        });
+
+        try {
+          const document = await vscode.workspace.openTextDocument(file);
+          const transformedCode =
+            await neurolintProvider.transformDocument(document);
+
+          if (transformedCode && transformedCode !== document.getText()) {
             const edit = new vscode.WorkspaceEdit();
             const fullRange = new vscode.Range(
-                document.positionAt(0),
-                document.positionAt(document.getText().length)
+              document.positionAt(0),
+              document.positionAt(document.getText().length),
             );
-            edit.replace(document.uri, fullRange, result.transformed);
-            
-            const success = await vscode.workspace.applyEdit(edit);
-            if (success) {
-                outputChannel.appendLine(`✅ File fixed successfully`);
-                statusBar.updateStatus('Fix applied');
-                vscode.window.showInformationMessage('NeuroLint fixes applied successfully');
+            edit.replace(document.uri, fullRange, transformedCode);
+
+            if (await vscode.workspace.applyEdit(edit)) {
+              fixed++;
             }
+          }
+        } catch (error) {
+          outputChannel.appendLine(`Failed to fix ${file.fsPath}: ${error}`);
         }
-        
-    } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unknown error';
-        outputChannel.appendLine(`❌ Fix failed: ${message}`);
-        vscode.window.showErrorMessage(`NeuroLint fix failed: ${message}`);
-        statusBar.updateStatus('Fix failed');
-    }
+      }
+
+      vscode.window.showInformationMessage(`NeuroLint fixed ${fixed} files`);
+    },
+  );
 }
 
-async function fixWorkspace(apiClient: ApiClient) {
-    const files = await vscode.workspace.findFiles('**/*.{ts,tsx,js,jsx}', '**/node_modules/**');
-    
-    if (files.length === 0) {
-        vscode.window.showInformationMessage('No TypeScript/JavaScript files found in workspace');
-        return;
-    }
+async function configureNeuroLint(): Promise<void> {
+  const options = [
+    "API URL",
+    "API Key",
+    "Enabled Layers",
+    "Auto Fix on Save",
+    "Diagnostic Level",
+    "Enterprise Settings",
+    "Workspace Settings",
+    "Export Configuration",
+    "Import Configuration",
+    "Reset to Defaults",
+  ];
 
-    const choice = await vscode.window.showWarningMessage(
-        `This will modify ${files.length} files in your workspace. Do you want to continue?`,
-        'Yes', 'Cancel'
+  const choice = await vscode.window.showQuickPick(options, {
+    placeHolder: "Select configuration to modify",
+  });
+
+  switch (choice) {
+    case "API URL":
+      await configureApiUrl();
+      break;
+    case "API Key":
+      await configureApiKey();
+      break;
+    case "Enabled Layers":
+      await configureEnabledLayers();
+      break;
+    case "Auto Fix on Save":
+      await configureAutoFix();
+      break;
+    case "Diagnostic Level":
+      await configureDiagnosticLevel();
+      break;
+    case "Enterprise Settings":
+      await configureEnterpriseSettings();
+      break;
+    case "Workspace Settings":
+      await configureWorkspaceSettings();
+      break;
+    case "Export Configuration":
+      await exportConfiguration();
+      break;
+    case "Import Configuration":
+      await importConfiguration();
+      break;
+    case "Reset to Defaults":
+      await resetConfiguration();
+      break;
+  }
+}
+
+async function configureApiUrl(): Promise<void> {
+  const current = configManager.getApiUrl();
+  const apiUrl = await vscode.window.showInputBox({
+    prompt: "Enter NeuroLint API URL",
+    value: current,
+    validateInput: (value) => {
+      try {
+        new URL(value);
+        return null;
+      } catch {
+        return "Please enter a valid URL";
+      }
+    },
+  });
+
+  if (apiUrl) {
+    await configManager.setApiUrl(apiUrl);
+    vscode.window.showInformationMessage("API URL updated");
+  }
+}
+
+async function configureApiKey(): Promise<void> {
+  const apiKey = await vscode.window.showInputBox({
+    prompt: "Enter your NeuroLint API key",
+    password: true,
+    ignoreFocusOut: true,
+  });
+
+  if (apiKey) {
+    await configManager.setApiKey(apiKey);
+    vscode.window.showInformationMessage("API key updated");
+  }
+}
+
+async function configureEnabledLayers(): Promise<void> {
+  const allLayers = [
+    { label: "Layer 1: Configuration Validation", value: 1 },
+    { label: "Layer 2: Pattern & Entity Analysis", value: 2 },
+    { label: "Layer 3: Component Best Practices", value: 3 },
+    { label: "Layer 4: Hydration & SSR Guards", value: 4 },
+    { label: "Layer 5: Next.js Optimization", value: 5 },
+    { label: "Layer 6: Testing Integration", value: 6 },
+  ];
+
+  const current = configManager.getEnabledLayers();
+  const selected = await vscode.window.showQuickPick(allLayers, {
+    placeHolder: "Select layers to enable",
+    canPickMany: true,
+    selectedItems: allLayers.filter((layer) => current.includes(layer.value)),
+  });
+
+  if (selected) {
+    const layers = selected.map((item) => item.value);
+    await configManager.setEnabledLayers(layers);
+    vscode.window.showInformationMessage(
+      `Enabled layers: ${layers.join(", ")}`,
+    );
+  }
+}
+
+async function configureAutoFix(): Promise<void> {
+  const choice = await vscode.window.showQuickPick(["Enable", "Disable"], {
+    placeHolder: "Auto-fix on save setting",
+  });
+
+  if (choice) {
+    const config = vscode.workspace.getConfiguration("neurolint");
+    await config.update(
+      "autoFix",
+      choice === "Enable",
+      vscode.ConfigurationTarget.Workspace,
+    );
+    vscode.window.showInformationMessage(`Auto-fix ${choice.toLowerCase()}d`);
+  }
+}
+
+async function configureDiagnosticLevel(): Promise<void> {
+  const levels = ["error", "warning", "info"];
+  const choice = await vscode.window.showQuickPick(levels, {
+    placeHolder: "Select diagnostic level",
+  });
+
+  if (choice) {
+    const config = vscode.workspace.getConfiguration("neurolint");
+    await config.update(
+      "diagnosticsLevel",
+      choice,
+      vscode.ConfigurationTarget.Workspace,
+    );
+    vscode.window.showInformationMessage(`Diagnostic level set to ${choice}`);
+  }
+}
+
+async function configureEnterpriseSettings(): Promise<void> {
+  if (!configManager.isEnterpriseMode()) {
+    const enable = await vscode.window.showQuickPick(
+      ["Enable Enterprise Features", "Cancel"],
+      {
+        placeHolder: "Enterprise features are not enabled",
+      },
     );
 
-    if (choice === 'Cancel') {
-        return;
+    if (enable === "Enable Enterprise Features") {
+      const config = vscode.workspace.getConfiguration("neurolint");
+      await config.update(
+        "enterpriseFeatures.enabled",
+        true,
+        vscode.ConfigurationTarget.Workspace,
+      );
+      vscode.window.showInformationMessage("Enterprise features enabled");
     }
+    return;
+  }
 
-    await vscode.window.withProgress({
-        location: vscode.ProgressLocation.Notification,
-        title: 'NeuroLint Workspace Fix',
-        cancellable: true
-    }, async (progress, token) => {
-        let fixed = 0;
-        
-        for (let i = 0; i < files.length; i++) {
-            if (token.isCancellationRequested) {
-                break;
-            }
-            
-            const file = files[i];
-            progress.report({ 
-                increment: (100 / files.length), 
-                message: `Fixing ${file.fsPath}` 
-            });
-            
-            try {
-                const document = await vscode.workspace.openTextDocument(file);
-                const result = await apiClient.transformCode(document.getText(), document.fileName);
-                
-                if (result.transformed !== document.getText()) {
-                    const edit = new vscode.WorkspaceEdit();
-                    const fullRange = new vscode.Range(
-                        document.positionAt(0),
-                        document.positionAt(document.getText().length)
-                    );
-                    edit.replace(document.uri, fullRange, result.transformed);
-                    
-                    if (await vscode.workspace.applyEdit(edit)) {
-                        fixed++;
-                    }
-                }
-            } catch (error) {
-                outputChannel.appendLine(`❌ Failed to fix ${file.fsPath}: ${error}`);
-            }
-        }
-        
-        vscode.window.showInformationMessage(`NeuroLint fixed ${fixed} files`);
-    });
+  const options = [
+    "Team ID",
+    "Enable SSO",
+    "Enable Audit Logging",
+    "Enable Compliance Mode",
+    "Disable Enterprise Features",
+  ];
+
+  const choice = await vscode.window.showQuickPick(options, {
+    placeHolder: "Select enterprise setting",
+  });
+
+  switch (choice) {
+    case "Team ID":
+      const teamId = await vscode.window.showInputBox({
+        prompt: "Enter team ID",
+        value: configManager.getTeamId() || "",
+      });
+      if (teamId) {
+        await configManager.setTeamId(teamId);
+        vscode.window.showInformationMessage("Team ID updated");
+      }
+      break;
+    case "Enable Compliance Mode":
+      await configManager.enableComplianceMode(true);
+      vscode.window.showInformationMessage("Compliance mode enabled");
+      break;
+    case "Enable Audit Logging":
+      await configManager.enableAuditLogging(true);
+      vscode.window.showInformationMessage("Audit logging enabled");
+      break;
+  }
 }
 
-async function configureNeuroLint() {
-    const config = vscode.workspace.getConfiguration('neurolint');
-    
-    const items = [
-        'API URL',
-        'API Key', 
-        'Enabled Layers',
-        'Auto Fix on Save',
-        'Diagnostic Level'
-    ];
+async function configureWorkspaceSettings(): Promise<void> {
+  const options = [
+    "Include Patterns",
+    "Exclude Patterns",
+    "Max File Size",
+    "Max Files",
+  ];
 
-    const choice = await vscode.window.showQuickPick(items, {
-        placeHolder: 'Select configuration to modify'
-    });
+  const choice = await vscode.window.showQuickPick(options, {
+    placeHolder: "Select workspace setting",
+  });
 
-    switch (choice) {
-        case 'API URL':
-            const apiUrl = await vscode.window.showInputBox({
-                prompt: 'Enter NeuroLint API URL',
-                value: config.get('apiUrl')
-            });
-            if (apiUrl) {
-                await config.update('apiUrl', apiUrl, vscode.ConfigurationTarget.Workspace);
-            }
-            break;
-            
-        case 'API Key':
-            const apiKey = await vscode.window.showInputBox({
-                prompt: 'Enter NeuroLint API Key',
-                password: true
-            });
-            if (apiKey) {
-                await config.update('apiKey', apiKey, vscode.ConfigurationTarget.Workspace);
-            }
-            break;
-            
-        // Add other configuration options...
-    }
+  const config = vscode.workspace.getConfiguration("neurolint");
+
+  switch (choice) {
+    case "Max File Size":
+      const sizeInput = await vscode.window.showInputBox({
+        prompt: "Enter maximum file size in MB",
+        value: String(
+          configManager.getWorkspaceSettings().maxFileSize / (1024 * 1024),
+        ),
+        validateInput: (value) => {
+          const num = parseFloat(value);
+          return !isNaN(num) && num > 0
+            ? null
+            : "Please enter a positive number";
+        },
+      });
+      if (sizeInput) {
+        const sizeBytes = parseFloat(sizeInput) * 1024 * 1024;
+        await config.update(
+          "workspace.maxFileSize",
+          sizeBytes,
+          vscode.ConfigurationTarget.Workspace,
+        );
+        vscode.window.showInformationMessage(
+          `Max file size set to ${sizeInput}MB`,
+        );
+      }
+      break;
+    case "Max Files":
+      const filesInput = await vscode.window.showInputBox({
+        prompt: "Enter maximum number of files to analyze",
+        value: String(configManager.getWorkspaceSettings().maxFiles),
+        validateInput: (value) => {
+          const num = parseInt(value);
+          return !isNaN(num) && num > 0
+            ? null
+            : "Please enter a positive integer";
+        },
+      });
+      if (filesInput) {
+        await config.update(
+          "workspace.maxFiles",
+          parseInt(filesInput),
+          vscode.ConfigurationTarget.Workspace,
+        );
+        vscode.window.showInformationMessage(`Max files set to ${filesInput}`);
+      }
+      break;
+  }
 }
 
-async function loginToNeuroLint(configManager: ConfigurationManager) {
-    const apiKey = await vscode.window.showInputBox({
-        prompt: 'Enter your NeuroLint API key',
-        password: true,
-        ignoreFocusOut: true
-    });
+async function exportConfiguration(): Promise<void> {
+  const configJson = configManager.exportConfiguration();
+  const uri = await vscode.window.showSaveDialog({
+    defaultUri: vscode.Uri.file("neurolint-config.json"),
+    filters: { JSON: ["json"] },
+  });
 
-    if (apiKey) {
-        const config = vscode.workspace.getConfiguration('neurolint');
-        await config.update('apiKey', apiKey, vscode.ConfigurationTarget.Global);
-        vscode.window.showInformationMessage('Successfully logged in to NeuroLint');
-        statusBar.updateStatus('Logged in');
-    }
+  if (uri) {
+    await vscode.workspace.fs.writeFile(uri, Buffer.from(configJson, "utf8"));
+    vscode.window.showInformationMessage("Configuration exported successfully");
+  }
 }
 
-async function autoFixDocument(document: vscode.TextDocument, apiClient: ApiClient): Promise<vscode.TextEdit[]> {
+async function importConfiguration(): Promise<void> {
+  const uri = await vscode.window.showOpenDialog({
+    canSelectFiles: true,
+    canSelectMany: false,
+    filters: { JSON: ["json"] },
+  });
+
+  if (uri && uri[0]) {
     try {
-        const result = await apiClient.transformCode(document.getText(), document.fileName);
-        
-        if (result.transformed !== document.getText()) {
-            const fullRange = new vscode.Range(
-                document.positionAt(0),
-                document.positionAt(document.getText().length)
-            );
-            return [vscode.TextEdit.replace(fullRange, result.transformed)];
-        }
+      const content = await vscode.workspace.fs.readFile(uri[0]);
+      const configJson = Buffer.from(content).toString("utf8");
+      await configManager.importConfiguration(configJson);
+      vscode.window.showInformationMessage(
+        "Configuration imported successfully",
+      );
     } catch (error) {
-        outputChannel.appendLine(`Auto-fix failed: ${error}`);
+      vscode.window.showErrorMessage(
+        `Failed to import configuration: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
     }
-    
-    return [];
+  }
+}
+
+async function resetConfiguration(): Promise<void> {
+  const confirm = await vscode.window.showWarningMessage(
+    "This will reset all NeuroLint settings to defaults. Continue?",
+    "Yes",
+    "Cancel",
+  );
+
+  if (confirm === "Yes") {
+    await configManager.resetToDefaults();
+    vscode.window.showInformationMessage("Configuration reset to defaults");
+  }
+}
+
+async function loginToNeuroLint(): Promise<void> {
+  const apiKey = await vscode.window.showInputBox({
+    prompt: "Enter your NeuroLint API key",
+    password: true,
+    ignoreFocusOut: true,
+  });
+
+  if (apiKey) {
+    try {
+      statusBar.updateStatus("Authenticating...", true);
+
+      // For enterprise users, try enterprise authentication
+      if (configManager.isEnterpriseMode()) {
+        const userInfo = await apiClient.authenticateEnterprise(apiKey);
+        vscode.window.showInformationMessage(
+          `Welcome ${userInfo.name}! Enterprise features are now available.`,
+        );
+      } else {
+        await configManager.setApiKey(apiKey);
+        vscode.window.showInformationMessage(
+          "Successfully logged in to NeuroLint",
+        );
+      }
+
+      statusBar.showSuccess("Logged in");
+    } catch (error) {
+      statusBar.showError("Authentication failed");
+      vscode.window.showErrorMessage(
+        `Authentication failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
+    }
+  }
+}
+
+async function autoFixDocument(
+  document: vscode.TextDocument,
+): Promise<vscode.TextEdit[]> {
+  try {
+    const transformedCode = await neurolintProvider.transformDocument(document);
+
+    if (transformedCode && transformedCode !== document.getText()) {
+      const fullRange = new vscode.Range(
+        document.positionAt(0),
+        document.positionAt(document.getText().length),
+      );
+      return [vscode.TextEdit.replace(fullRange, transformedCode)];
+    }
+  } catch (error) {
+    outputChannel.appendLine(`Auto-fix failed: ${error}`);
+  }
+
+  return [];
+}
+
+async function applyRefactor(
+  uri: vscode.Uri,
+  range: vscode.Range,
+): Promise<void> {
+  const document = await vscode.workspace.openTextDocument(uri);
+  const selectedText = document.getText(range);
+
+  try {
+    const transformedCode = await neurolintProvider.transformDocument(document);
+    if (transformedCode) {
+      const edit = new vscode.WorkspaceEdit();
+      edit.replace(uri, range, transformedCode);
+      await vscode.workspace.applyEdit(edit);
+      vscode.window.showInformationMessage("Refactoring applied successfully");
+    }
+  } catch (error) {
+    vscode.window.showErrorMessage(
+      `Refactoring failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
+  }
+}
+
+async function optimizeStructure(
+  uri: vscode.Uri,
+  range: vscode.Range,
+): Promise<void> {
+  vscode.window.showInformationMessage(
+    "Structure optimization feature coming soon",
+  );
+}
+
+// Enterprise feature functions
+async function openEnterpriseDashboard(): Promise<void> {
+  if (!configManager.isEnterpriseMode()) {
+    vscode.window.showWarningMessage("Enterprise features are not enabled");
+    return;
+  }
+
+  try {
+    const teamInfo = await apiClient.getTeamInfo();
+    const analytics = await apiClient.getAnalyticsData();
+
+    // Show enterprise dashboard in webview
+    webview.showAnalysisResults({
+      teamInfo,
+      analytics,
+      type: "enterprise-dashboard",
+    });
+  } catch (error) {
+    vscode.window.showErrorMessage(
+      `Failed to load enterprise dashboard: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
+  }
+}
+
+async function showEnterpriseAnalytics(): Promise<void> {
+  if (!configManager.isEnterpriseMode()) {
+    vscode.window.showWarningMessage("Enterprise features are not enabled");
+    return;
+  }
+
+  const period = await vscode.window.showQuickPick(
+    ["week", "month", "quarter"],
+    {
+      placeHolder: "Select analytics period",
+    },
+  );
+
+  if (period) {
+    try {
+      const analytics = await apiClient.getAnalyticsData(period);
+      webview.showAnalysisResults({
+        analytics,
+        period,
+        type: "analytics",
+      });
+    } catch (error) {
+      vscode.window.showErrorMessage(
+        `Failed to load analytics: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
+    }
+  }
+}
+
+async function manageTeam(): Promise<void> {
+  if (!configManager.isEnterpriseMode()) {
+    vscode.window.showWarningMessage("Enterprise features are not enabled");
+    return;
+  }
+
+  const options = ["View Team Info", "View Team Members", "Analytics"];
+  const choice = await vscode.window.showQuickPick(options, {
+    placeHolder: "Select team management option",
+  });
+
+  switch (choice) {
+    case "View Team Info":
+      try {
+        const teamInfo = await apiClient.getTeamInfo();
+        if (teamInfo) {
+          vscode.window.showInformationMessage(
+            `Team: ${teamInfo.name}\nMembers: ${teamInfo.members}\nSubscription: ${teamInfo.subscription}`,
+          );
+        }
+      } catch (error) {
+        vscode.window.showErrorMessage(
+          `Failed to load team info: ${error instanceof Error ? error.message : "Unknown error"}`,
+        );
+      }
+      break;
+    case "View Team Members":
+      try {
+        const members = await apiClient.getTeamMembers();
+        webview.showAnalysisResults({
+          members,
+          type: "team-members",
+        });
+      } catch (error) {
+        vscode.window.showErrorMessage(
+          `Failed to load team members: ${error instanceof Error ? error.message : "Unknown error"}`,
+        );
+      }
+      break;
+  }
+}
+
+async function showComplianceReport(): Promise<void> {
+  if (!configManager.isComplianceModeEnabled()) {
+    vscode.window.showWarningMessage("Compliance mode is not enabled");
+    return;
+  }
+
+  const frameworks = ["All", "SOC2", "GDPR", "ISO27001"];
+  const choice = await vscode.window.showQuickPick(frameworks, {
+    placeHolder: "Select compliance framework",
+  });
+
+  if (choice) {
+    try {
+      const framework = choice === "All" ? undefined : choice.toLowerCase();
+      const report = await apiClient.getComplianceReport(framework);
+      webview.showAnalysisResults({
+        report,
+        framework,
+        type: "compliance",
+      });
+    } catch (error) {
+      vscode.window.showErrorMessage(
+        `Failed to load compliance report: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
+    }
+  }
+}
+
+async function showAuditTrail(): Promise<void> {
+  if (!configManager.isAuditLoggingEnabled()) {
+    vscode.window.showWarningMessage("Audit logging is not enabled");
+    return;
+  }
+
+  const daysInput = await vscode.window.showInputBox({
+    prompt: "Number of days to look back",
+    value: "30",
+    validateInput: (value) => {
+      const num = parseInt(value);
+      return !isNaN(num) && num > 0 && num <= 365
+        ? null
+        : "Please enter a number between 1-365";
+    },
+  });
+
+  if (daysInput) {
+    try {
+      const days = parseInt(daysInput);
+      const auditTrail = await apiClient.getAuditTrail(days);
+      webview.showAnalysisResults({
+        auditTrail,
+        days,
+        type: "audit-trail",
+      });
+    } catch (error) {
+      vscode.window.showErrorMessage(
+        `Failed to load audit trail: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
+    }
+  }
+}
+
+async function showEnterpriseWelcome(
+  context: vscode.ExtensionContext,
+): Promise<void> {
+  const choice = await vscode.window.showInformationMessage(
+    "Welcome to NeuroLint Enterprise! Would you like to configure your team settings?",
+    "Configure Now",
+    "Later",
+  );
+
+  if (choice === "Configure Now") {
+    await configureEnterpriseSettings();
+  }
+
+  context.globalState.update("neurolint.enterprise.welcomed", true);
 }
 
 function isSupported(document: vscode.TextDocument): boolean {
-    return ['typescript', 'javascript', 'typescriptreact', 'javascriptreact'].includes(document.languageId);
+  return [
+    "typescript",
+    "javascript",
+    "typescriptreact",
+    "javascriptreact",
+  ].includes(document.languageId);
+}
+
+export function deactivate() {
+  if (neurolintProvider) {
+    neurolintProvider.dispose();
+  }
+  if (diagnosticProvider) {
+    diagnosticProvider.dispose();
+  }
+  if (statusBar) {
+    statusBar.dispose();
+  }
+  if (webview) {
+    webview.dispose();
+  }
+  if (outputChannel) {
+    outputChannel.dispose();
+  }
 }
