@@ -81,11 +81,15 @@ export function useGitHubUpload() {
       }
 
       if (response.status === 404) {
+        const suggestions = suggestCorrections(owner, repo);
         throw new Error(`Repository "${owner}/${repo}" not found. Please check:
 • Repository name spelling is correct
 • Repository exists on GitHub
 • You have the correct owner/username
-• Try visiting: https://github.com/${owner}/${repo}`);
+• Try visiting: https://github.com/${owner}/${repo}
+
+Suggestions:
+${suggestions.join("\n")}`);
       }
 
       if (response.status === 403) {
