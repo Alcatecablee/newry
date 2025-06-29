@@ -107,7 +107,7 @@ export function LandingFeatures() {
                 variant={layer.status === "live" ? "default" : "secondary"}
                 className={
                   layer.status === "live"
-                    ? "bg-green-700 text-white"
+                    ? "bg-zinc-700 text-white"
                     : "bg-[#23233b] text-gray-300"
                 }
               >
