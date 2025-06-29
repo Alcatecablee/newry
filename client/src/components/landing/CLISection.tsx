@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Terminal,
   Users,
@@ -40,10 +41,13 @@ export function CLISection() {
                   <Download className="w-5 h-5" />
                   Install CLI
                 </button>
-                <button className="border border-zinc-800 text-white px-6 py-3 rounded-lg font-medium hover:border-white transition-colors flex items-center gap-2">
+                <Link
+                  to="/docs"
+                  className="border border-zinc-800 text-white px-6 py-3 rounded-lg font-medium hover:border-white transition-colors flex items-center gap-2"
+                >
                   <ExternalLink className="w-4 h-4" />
                   View Documentation
-                </button>
+                </Link>
               </div>
             </div>
 
