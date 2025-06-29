@@ -60,6 +60,33 @@ html {
 }
 
 /* Enhanced animations with easing curves */
+@keyframes accordion-down {
+  from {
+    height: "0";
+  }
+  to {
+    height: "var(--radix-accordion-content-height)";
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: "var(--radix-accordion-content-height)";
+  }
+  to {
+    height: "0";
+  }
+}
+
+@keyframes borderTrace {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes slideInDown {
   from {
     opacity: 0;
