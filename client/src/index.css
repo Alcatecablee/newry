@@ -262,13 +262,72 @@ html {
   animation-duration: 5s !important;
 }
 
-/* WORKING BORDER TRACE ANIMATION */
-@keyframes spinBorder {
-  0% {
-    transform: rotate(0deg);
-  }
+/* BORDER TRACING ANIMATION - Line travels around perimeter */
+@keyframes traceTop {
+  0%,
+  25%,
+  50%,
+  75%,
   100% {
-    transform: rotate(360deg);
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  0%,
+  24% {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@keyframes traceRight {
+  0%,
+  25%,
+  50%,
+  75%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  25%,
+  49% {
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+@keyframes traceBottom {
+  0%,
+  25%,
+  50%,
+  75%,
+  100% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  50%,
+  74% {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+}
+
+@keyframes traceLeft {
+  0%,
+  25%,
+  50%,
+  75%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  75%,
+  99% {
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: bottom;
   }
 }
 
@@ -277,44 +336,156 @@ html {
   position: relative;
 }
 
+/* Top border */
 .glow-border::before {
   content: "";
   position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    transparent 340deg,
-    rgba(255, 255, 255, 0.8) 360deg
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
   );
-  z-index: -1;
+  border-radius: 1px;
   opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 10;
+}
+
+/* Right border */
+.glow-border::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+  border-radius: 1px;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  z-index: 10;
+}
+
+/* We need additional pseudo elements for bottom and left, so we'll use a different approach */
+.glow-border {
+  position: relative;
+}
+
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.8) 20%,
+    transparent 20%,
+    transparent 100%
+  );
+  background-size: 500% 100%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  z-index: -1;
+}
+
+@keyframes borderTrace {
+  0% {
+    background-position: 0% 0%;
+    opacity: 1;
+  }
+  25% {
+    background-position: 100% 0%;
+    opacity: 1;
+  }
+  25.01% {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(255, 255, 255, 0.8) 20%,
+      transparent 20%,
+      transparent 100%
+    );
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+    opacity: 1;
+  }
+  50.01% {
+    background: linear-gradient(
+      270deg,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(255, 255, 255, 0.8) 20%,
+      transparent 20%,
+      transparent 100%
+    );
+    background-position: 0% 0%;
+  }
+  75% {
+    background-position: 100% 0%;
+    opacity: 1;
+  }
+  75.01% {
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(255, 255, 255, 0.8) 20%,
+      transparent 20%,
+      transparent 100%
+    );
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+    opacity: 1;
+  }
 }
 
 /* Always animated */
 .glow-border-always::before {
-  animation: spinBorder 3s linear infinite;
+  animation: borderTrace 4s linear infinite;
   opacity: 1;
 }
 
 /* Hover animated */
 .glow-border-hover:hover::before {
-  animation: spinBorder 2s linear infinite;
+  animation: borderTrace 3s linear infinite;
   opacity: 1;
 }
 
 /* Random delays */
 .glow-border-delay-1::before {
-  animation: spinBorder 4s linear infinite 1s;
+  animation: borderTrace 5s linear infinite 1s;
   opacity: 1;
 }
 
 .glow-border-delay-2::before {
-  animation: spinBorder 5s linear infinite 2s;
+  animation: borderTrace 6s linear infinite 2s;
   opacity: 1;
 }
 
 .glow-border-delay-3::before {
-  animation: spinBorder 3.5s linear infinite 3s;
+  animation: borderTrace 4s linear infinite 3s;
   opacity: 1;
 }
