@@ -568,133 +568,67 @@ html {
   }
 }
 
-/* SIMPLE FEATURE CARD GLOWING BORDERS */
-@keyframes borderTrace {
+/* GLOWING BORDER TRACE ANIMATION */
+@keyframes rotate {
   0% {
     transform: rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
   }
   100% {
     transform: rotate(360deg);
-    opacity: 0;
   }
 }
 
-/* Apply to feature cards directly */
-.feature-card {
+/* Base class for glowing border */
+.glow-border {
   position: relative;
-  overflow: hidden;
 }
 
-.feature-card::before {
+.glow-border::before {
   content: "";
   position: absolute;
-  inset: -2px;
-  border-radius: 24px; /* Match rounded-3xl */
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
   background: conic-gradient(
     from 0deg,
-    transparent 0deg,
-    rgba(255, 255, 255, 0.8) 90deg,
-    transparent 180deg,
-    rgba(255, 255, 255, 0.6) 270deg,
-    transparent 360deg
+    transparent 270deg,
+    rgba(255, 255, 255, 0.7) 360deg
   );
+  border-radius: inherit;
   z-index: -1;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-/* First card - always animated */
-.feature-card:nth-child(1)::before {
-  animation: borderTrace 4s linear infinite;
+/* Always animated */
+.glow-border-always::before {
+  animation: rotate 3s linear infinite;
   opacity: 1;
 }
 
-/* Second card - hover only */
-.feature-card:nth-child(2):hover::before {
-  animation: borderTrace 2s linear infinite;
-  opacity: 1;
-}
-
-/* Third card - random delay */
-.feature-card:nth-child(3)::before {
-  animation: borderTrace 5s linear infinite;
-  animation-delay: 2s;
-  opacity: 1;
-}
-
-/* Fourth card - hover only */
-.feature-card:nth-child(4):hover::before {
-  animation: borderTrace 3s linear infinite;
-  opacity: 1;
-}
-
-/* Fifth card - random delay */
-.feature-card:nth-child(5)::before {
-  animation: borderTrace 6s linear infinite;
-  animation-delay: 4s;
-  opacity: 1;
-}
-
-/* Sixth card - hover only */
-.feature-card:nth-child(6):hover::before {
-  animation: borderTrace 2.5s linear infinite;
-  opacity: 1;
-}
-
-/* Tailwind utilities for easy application elsewhere */
-.animate-glow-border-always {
-  position: relative;
-  overflow: hidden;
-}
-
-.animate-glow-border-always::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    rgba(255, 255, 255, 0.8) 90deg,
-    transparent 180deg,
-    rgba(255, 255, 255, 0.6) 270deg,
-    transparent 360deg
-  );
-  z-index: -1;
-  animation: borderTrace 4s linear infinite;
-}
-
-.animate-glow-border-hover {
-  position: relative;
-  overflow: hidden;
-}
-
-.animate-glow-border-hover::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    rgba(255, 255, 255, 0.8) 90deg,
-    transparent 180deg,
-    rgba(255, 255, 255, 0.6) 270deg,
-    transparent 360deg
-  );
-  z-index: -1;
-  opacity: 0;
+/* Hover animated */
+.glow-border-hover::before {
   transition: opacity 0.3s ease;
 }
 
-.animate-glow-border-hover:hover::before {
-  animation: borderTrace 2s linear infinite;
+.glow-border-hover:hover::before {
+  animation: rotate 2s linear infinite;
+  opacity: 1;
+}
+
+/* Random delays */
+.glow-border-delay-1::before {
+  animation: rotate 4s linear infinite 1s;
+  opacity: 1;
+}
+
+.glow-border-delay-2::before {
+  animation: rotate 5s linear infinite 2s;
+  opacity: 1;
+}
+
+.glow-border-delay-3::before {
+  animation: rotate 3.5s linear infinite 3s;
   opacity: 1;
 }
