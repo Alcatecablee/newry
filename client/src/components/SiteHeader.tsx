@@ -108,6 +108,7 @@ export const SiteHeader = () => {
               { to: "/features", label: "Features" },
               { to: "/pricing", label: "Pricing" },
               { to: "/app", label: "App" },
+              { to: "/docs", label: "Docs" },
               { to: "/api-docs", label: "API" },
               { to: "/teams", label: "Teams" },
               { to: "/test", label: "Test Suite" },
