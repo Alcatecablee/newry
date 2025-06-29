@@ -262,52 +262,20 @@ html {
   animation-duration: 5s !important;
 }
 
-/* SVG BORDER TRACING ANIMATION */
-.glow-border {
-  position: relative;
-}
-
-.glow-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3clinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3e%3cstop offset='0%25' style='stop-color:transparent;stop-opacity:0' /%3e%3cstop offset='50%25' style='stop-color:white;stop-opacity:0.8' /%3e%3cstop offset='100%25' style='stop-color:transparent;stop-opacity:0' /%3e%3c/linearGradient%3e%3c/defs%3e%3crect x='0' y='0' width='100%25' height='2' fill='url(%23grad)'%3e%3canimateTransform attributeName='transform' attributeType='XML' values='translate(0,0); translate(100%2c0); translate(100%2c100%25); translate(0,100%25); translate(0,0)' dur='4s' repeatCount='indefinite'/%3e%3c/rect%3e%3c/svg%3e");
-  opacity: 0;
-  pointer-events: none;
-  z-index: 10;
-}
-
-/* Simplified CSS animation approach */
-@keyframes dashTrace {
-  0% {
-    stroke-dashoffset: 1000;
-  }
+/* SIMPLE VISIBLE GLOWING BORDER ANIMATION */
+@keyframes glowPulse {
+  0%,
   100% {
-    stroke-dashoffset: 0;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(255, 255, 255, 0.8),
+      0 0 30px rgba(255, 255, 255, 0.4);
   }
 }
 
-.glow-border::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  border: 2px solid transparent;
-  background:
-    linear-gradient(#000, #000) padding-box,
-    conic-gradient(
-        from 0deg,
-        transparent 350deg,
-        rgba(255, 255, 255, 0.8) 360deg
-      )
-      border-box;
-  opacity: 0;
-  animation: none;
-}
-
-/* Simple rotating gradient approach */
-@keyframes rotateGlow {
+@keyframes borderSpin {
   0% {
     transform: rotate(0deg);
   }
@@ -316,47 +284,78 @@ html {
   }
 }
 
+/* Base glow border class */
+.glow-border {
+  position: relative;
+}
+
 .glow-border::before {
   content: "";
   position: absolute;
-  inset: -2px;
+  inset: -3px;
   border-radius: inherit;
   background: conic-gradient(
     from 0deg,
-    transparent 320deg,
-    rgba(255, 255, 255, 0.8) 340deg,
-    rgba(255, 255, 255, 0.9) 350deg,
-    rgba(255, 255, 255, 0.8) 360deg,
-    transparent 20deg
+    transparent 350deg,
+    rgba(255, 255, 255, 0.8) 360deg
   );
+  z-index: -1;
   opacity: 0;
+}
+
+.glow-border::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: inherit;
   z-index: -1;
 }
 
 /* Always animated */
+.glow-border-always {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
 .glow-border-always::before {
-  animation: rotateGlow 3s linear infinite;
+  animation: borderSpin 3s linear infinite;
   opacity: 1;
 }
 
 /* Hover animated */
+.glow-border-hover:hover {
+  animation: glowPulse 1.5s ease-in-out infinite;
+}
+
 .glow-border-hover:hover::before {
-  animation: rotateGlow 2s linear infinite;
+  animation: borderSpin 2s linear infinite;
   opacity: 1;
 }
 
 /* Random delays */
+.glow-border-delay-1 {
+  animation: glowPulse 2.5s ease-in-out infinite 1s;
+}
+
 .glow-border-delay-1::before {
-  animation: rotateGlow 4s linear infinite 1s;
+  animation: borderSpin 4s linear infinite 1s;
   opacity: 1;
+}
+
+.glow-border-delay-2 {
+  animation: glowPulse 3s ease-in-out infinite 2s;
 }
 
 .glow-border-delay-2::before {
-  animation: rotateGlow 5s linear infinite 2s;
+  animation: borderSpin 5s linear infinite 2s;
   opacity: 1;
 }
 
+.glow-border-delay-3 {
+  animation: glowPulse 2s ease-in-out infinite 3s;
+}
+
 .glow-border-delay-3::before {
-  animation: rotateGlow 3.5s linear infinite 3s;
+  animation: borderSpin 3.5s linear infinite 3s;
   opacity: 1;
 }
