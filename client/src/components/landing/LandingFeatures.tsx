@@ -64,11 +64,11 @@ export function LandingFeatures() {
   return (
     <section
       id="features"
-      className="w-full flex flex-col items-center section-padding container-padding bg-zinc-950"
+      className="w-full flex flex-col items-center py-24 px-4 bg-zinc-900/30 backdrop-blur-xl"
       role="region"
       aria-labelledby="features-heading"
     >
-      <div className="max-w-5xl w-full">
+      <div className="max-w-7xl w-full">
         {/* Features Title */}
         <h2
           id="features-heading"
