@@ -385,3 +385,185 @@ html {
 .random-duration-long {
   animation-duration: calc(random(4) + 4s) !important;
 }
+
+/* Glowing Border Animations */
+@keyframes glowing-border-trace {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glowing-border-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow:
+      0 0 20px rgba(255, 255, 255, 0.4),
+      0 0 30px rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Base glowing border class */
+.glow-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Always animated variant */
+.glow-border-always::before {
+  animation: glowing-border-trace 4s linear infinite;
+  opacity: 1;
+}
+
+/* Hover animated variant */
+.glow-border-hover::before {
+  transition: opacity 0.3s ease;
+}
+
+.glow-border-hover:hover::before {
+  animation: glowing-border-trace 2s linear infinite;
+  opacity: 1;
+}
+
+/* Random delay variants */
+.glow-border-random-1::before {
+  animation: glowing-border-trace 5s linear infinite;
+  animation-delay: 1s;
+  opacity: 1;
+}
+
+.glow-border-random-2::before {
+  animation: glowing-border-trace 6s linear infinite;
+  animation-delay: 3s;
+  opacity: 1;
+}
+
+.glow-border-random-3::before {
+  animation: glowing-border-trace 4.5s linear infinite;
+  animation-delay: 2s;
+  opacity: 1;
+}
+
+.glow-border-random-4::before {
+  animation: glowing-border-trace 5.5s linear infinite;
+  animation-delay: 4s;
+  opacity: 1;
+}
+
+.glow-border-random-5::before {
+  animation: glowing-border-trace 4s linear infinite;
+  animation-delay: 2.5s;
+  opacity: 1;
+}
+
+.glow-border-random-6::before {
+  animation: glowing-border-trace 6.5s linear infinite;
+  animation-delay: 1.5s;
+  opacity: 1;
+}
+
+/* Subtle pulse variant */
+.glow-border-pulse::before {
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1)
+  );
+  animation: glowing-border-pulse 3s ease-in-out infinite;
+  opacity: 1;
+}
+
+/* Neon color variants */
+.glow-border-blue::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(59, 130, 246, 0.8),
+    transparent,
+    transparent,
+    rgba(59, 130, 246, 0.4),
+    transparent
+  );
+}
+
+.glow-border-green::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(34, 197, 94, 0.8),
+    transparent,
+    transparent,
+    rgba(34, 197, 94, 0.4),
+    transparent
+  );
+}
+
+.glow-border-purple::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(168, 85, 247, 0.8),
+    transparent,
+    transparent,
+    rgba(168, 85, 247, 0.4),
+    transparent
+  );
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .glow-border::before,
+  .glow-border-always::before,
+  .glow-border-hover:hover::before,
+  .glow-border-random-1::before,
+  .glow-border-random-2::before,
+  .glow-border-random-3::before,
+  .glow-border-random-4::before,
+  .glow-border-random-5::before,
+  .glow-border-random-6::before,
+  .glow-border-pulse::before {
+    animation: none !important;
+    opacity: 0.5 !important;
+  }
+}
