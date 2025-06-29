@@ -1,3 +1,4 @@
+
 import React from "react";
 import { NeuroLintLayerResult } from "@/lib/neurolint/orchestrator";
 import { Badge } from "@/components/ui/badge";
@@ -132,7 +133,7 @@ export function TransformationInsights({
             Key Improvements Applied
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-1 text-sm text-zinc-300">
-            {[...new Set(allImprovements)].slice(0, 6).map((improvement, i) => (
+            {Array.from(new Set(allImprovements)).slice(0, 6).map((improvement, i) => (
               <div key={i} className="flex items-center gap-2">
                 <CheckCircle className="w-3 h-3 flex-shrink-0" />
                 {improvement}

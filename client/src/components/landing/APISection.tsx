@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Code, Zap, Shield, Globe, Copy, Check } from "lucide-react";
 
+type TabKey = "analyze" | "transform" | "response";
+
 export function APISection() {
-  const [activeTab, setActiveTab] = useState("analyze");
+  const [activeTab, setActiveTab] = useState<TabKey>("analyze");
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = (text: string) => {
@@ -11,7 +13,7 @@ export function APISection() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const codeExamples = {
+  const codeExamples: Record<TabKey, string> = {
     analyze: `curl -X POST https://api.neurolint.com/analyze \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\

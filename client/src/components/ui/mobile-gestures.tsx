@@ -55,7 +55,7 @@ export function SwipeToDismiss({
         y: direction === "vertical" ? y : 0,
         opacity,
       }}
-      drag={direction}
+      drag={direction === "horizontal" ? "x" : "y"}
       dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       dragElastic={0.2}
       onDragEnd={handleDragEnd}
@@ -283,21 +283,19 @@ export function TouchButton({
   };
 
   return (
-    <TouchRipple color={rippleColor}>
-      <motion.button
-        className={cn(
-          "rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black touch-manipulation active:scale-95",
-          sizeClasses[size],
-          variantClasses[variant],
-          className,
-        )}
-        whileTap={{ scale: 0.95 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        {...props}
-      >
-        {children}
-      </motion.button>
-    </TouchRipple>
+    <motion.button
+      className={cn(
+        "rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black touch-manipulation active:scale-95",
+        sizeClasses[size],
+        variantClasses[variant],
+        className,
+      )}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      {...props}
+    >
+      {children}
+    </motion.button>
   );
 }
 

@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -135,14 +136,14 @@ export function LoadingSpinner({
 interface LoadingOverlayProps {
   isVisible: boolean;
   message?: string;
-  variant?: "spinner" | "dots" | "pulse";
+  variant?: "default" | "dots" | "pulse";
   className?: string;
 }
 
 export function LoadingOverlay({
   isVisible,
   message = "Loading...",
-  variant = "spinner",
+  variant = "default",
   className,
 }: LoadingOverlayProps) {
   if (!isVisible) return null;
