@@ -146,7 +146,7 @@ export default function Docs() {
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-zinc-800 p-4 rounded-lg">
-                      <Zap className="w-8 h-8 text-yellow-400 mb-3" />
+                      <Zap className="w-8 h-8 text-white mb-3" />
                       <h4 className="font-medium text-white mb-2">
                         Instant Fixes
                       </h4>
@@ -156,7 +156,7 @@ export default function Docs() {
                       </p>
                     </div>
                     <div className="bg-zinc-800 p-4 rounded-lg">
-                      <Puzzle className="w-8 h-8 text-blue-400 mb-3" />
+                      <Puzzle className="w-8 h-8 text-white mb-3" />
                       <h4 className="font-medium text-white mb-2">
                         Layered Analysis
                       </h4>
@@ -166,7 +166,7 @@ export default function Docs() {
                       </p>
                     </div>
                     <div className="bg-zinc-800 p-4 rounded-lg">
-                      <Shield className="w-8 h-8 text-green-400 mb-3" />
+                      <Shield className="w-8 h-8 text-white mb-3" />
                       <h4 className="font-medium text-white mb-2">
                         Enterprise Ready
                       </h4>
@@ -325,7 +325,7 @@ neurolint fix src/ --backup`}
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-blue-900 text-blue-200 rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className="w-8 h-8 bg-zinc-800 text-white rounded-full flex items-center justify-center text-sm font-bold">
                         1
                       </div>
                       <div>
@@ -339,7 +339,7 @@ neurolint fix src/ --backup`}
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-green-900 text-green-200 rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className="w-8 h-8 bg-zinc-800 text-white rounded-full flex items-center justify-center text-sm font-bold">
                         2
                       </div>
                       <div>
@@ -393,7 +393,7 @@ neurolint fix src/ --backup`}
               <Card className="bg-zinc-900 border-zinc-800">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-4">
-                    <Terminal className="w-8 h-8 text-green-400" />
+                    <Terminal className="w-8 h-8 text-white" />
                     <h3 className="text-xl font-semibold text-white">
                       CLI Tool
                     </h3>
@@ -422,7 +422,7 @@ neurolint fix src/ --backup`}
               <Card className="bg-zinc-900 border-zinc-800">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-4">
-                    <Code className="w-8 h-8 text-blue-400" />
+                    <Code className="w-8 h-8 text-white" />
                     <h3 className="text-xl font-semibold text-white">
                       VS Code Extension
                     </h3>
@@ -649,7 +649,7 @@ jobs:
 
                   <div className="bg-zinc-800 p-6 rounded-lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-8 h-8 bg-red-900 text-red-200 rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className="w-8 h-8 bg-zinc-800 text-white rounded-full flex items-center justify-center text-sm font-bold">
                         5
                       </div>
                       <h3 className="text-lg font-semibold text-white">
@@ -670,7 +670,7 @@ jobs:
 
                   <div className="bg-zinc-800 p-6 rounded-lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-8 h-8 bg-yellow-900 text-yellow-200 rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className="w-8 h-8 bg-zinc-800 text-white rounded-full flex items-center justify-center text-sm font-bold">
                         6
                       </div>
                       <h3 className="text-lg font-semibold text-white">
@@ -803,7 +803,7 @@ npm run fix layer 1,3`}
                       Analytics & Reporting
                     </h3>
                     <div className="bg-zinc-800 p-4 rounded-lg">
-                      <BarChart3 className="w-8 h-8 text-blue-400 mb-3" />
+                      <BarChart3 className="w-8 h-8 text-white mb-3" />
                       <h4 className="font-medium text-white mb-2">
                         Executive Dashboards
                       </h4>
