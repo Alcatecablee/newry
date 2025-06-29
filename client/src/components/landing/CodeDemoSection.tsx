@@ -72,7 +72,7 @@ function UserProfile({ userId }: { userId: string }) {
     {
       icon: CheckCircle,
       text: "Added TypeScript types",
-      color: "text-blue-400",
+      color: "text-white",
     },
     {
       icon: CheckCircle,
@@ -147,7 +147,7 @@ function UserProfile({ userId }: { userId: string }) {
                     onClick={() => setActiveTab("after")}
                     className={`px-6 py-3 text-sm font-medium transition-colors ${
                       activeTab === "after"
-                        ? "text-green-400 border-b-2 border-green-400 bg-gray-750"
+                        ? "text-white border-b-2 border-zinc-600 bg-zinc-800"
                         : "text-gray-400 hover:text-white"
                     }`}
                   >
@@ -191,7 +191,7 @@ function UserProfile({ userId }: { userId: string }) {
 
             <div className="bg-zinc-900">
               <div className="flex items-center gap-2 mb-3">
-                <Play className="w-5 h-5 text-blue-400" />
+                <Play className="w-5 h-5 text-white" />
                 <h4 className="font-semibold text-white">
                   Layer Analysis Results
                 </h4>
@@ -199,23 +199,23 @@ function UserProfile({ userId }: { userId: string }) {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-300">Layer 1: Configuration</span>
-                  <span className="text-green-400">✓ Passed</span>
+                  <span className="text-white">✓ Passed</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-300">Layer 2: Pattern Fixes</span>
-                  <span className="text-green-400">✓ 2 fixes applied</span>
+                  <span className="text-white">✓ 2 fixes applied</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-300">
                     Layer 3: Component Best Practices
                   </span>
-                  <span className="text-green-400">✓ 3 fixes applied</span>
+                  <span className="text-white">✓ 3 fixes applied</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-300">
                     Layer 4: Hydration Guard
                   </span>
-                  <span className="text-green-400">✓ Passed</span>
+                  <span className="text-white">✓ Passed</span>
                 </div>
               </div>
             </div>
