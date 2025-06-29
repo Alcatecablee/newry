@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Border Trace</title>
+    <style>
+      body {
+        background: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .card {
+        width: 300px;
+        height: 200px;
+        background: rgba(0, 0, 0, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.9),
+          transparent
+        );
+        border-radius: 1px;
+        top: 0;
+        left: 0;
+        animation: trace 4s linear infinite;
+      }
+
+      @keyframes trace {
+        0% {
+          top: 0;
+          left: 0;
+          transform: translateX(0) rotate(0deg);
+          width: 60px;
+          height: 2px;
+        }
+        24% {
+          top: 0;
+          left: calc(100% - 60px);
+          transform: translateX(0) rotate(0deg);
+          width: 60px;
+          height: 2px;
+        }
+        25% {
+          top: 0;
+          left: calc(100% - 2px);
+          transform: translateY(0) rotate(90deg);
+          width: 60px;
+          height: 2px;
+        }
+        49% {
+          top: calc(100% - 60px);
+          left: calc(100% - 2px);
+          transform: translateY(0) rotate(90deg);
+          width: 60px;
+          height: 2px;
+        }
+        50% {
+          top: calc(100% - 2px);
+          left: calc(100% - 60px);
+          transform: translateX(0) rotate(180deg);
+          width: 60px;
+          height: 2px;
+        }
+        74% {
+          top: calc(100% - 2px);
+          left: 0;
+          transform: translateX(0) rotate(180deg);
+          width: 60px;
+          height: 2px;
+        }
+        75% {
+          top: calc(100% - 60px);
+          left: 0;
+          transform: translateY(0) rotate(270deg);
+          width: 60px;
+          height: 2px;
+        }
+        99% {
+          top: 0;
+          left: 0;
+          transform: translateY(0) rotate(270deg);
+          width: 60px;
+          height: 2px;
+        }
+        100% {
+          top: 0;
+          left: 0;
+          transform: translateX(0) rotate(0deg);
+          width: 60px;
+          height: 2px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>Border Tracing Test</h2>
+    </div>
+  </body>
+</html>
