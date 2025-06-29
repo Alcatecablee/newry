@@ -2,6 +2,10 @@ import { Zap, Users, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  GlowingBorder,
+  getRandomGlowVariant,
+} from "@/components/ui/glowing-border";
 
 const LAYERS = [
   {
