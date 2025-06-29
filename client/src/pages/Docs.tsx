@@ -39,16 +39,44 @@ export default function Docs() {
           <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
             NeuroLint Documentation
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl font-medium">Complete guide to NeuroLint - Advanced code cleanup and modernization toolkit</p>
+          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl font-medium">
+            Complete guide to NeuroLint - Advanced code cleanup and
+            modernization toolkit
+          </p>
         </div>
 
         <Tabs defaultValue="overview" className="space-y-8">
           <TabsList className="bg-[#111111] border-2 border-zinc-800 p-2 rounded-2xl">
-            <TabsTrigger value="overview" className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium">Overview</TabsTrigger>
-            <TabsTrigger value="getting-started" className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium">Getting Started</TabsTrigger>
-            <TabsTrigger value="tools" className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium">Tools & Integrations</TabsTrigger>
-            <TabsTrigger value="layers" className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium">Analysis Layers</TabsTrigger>
-            <TabsTrigger value="enterprise" className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium">Enterprise</TabsTrigger>
+            <TabsTrigger
+              value="overview"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
+            >
+              Overview
+            </TabsTrigger>
+            <TabsTrigger
+              value="getting-started"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
+            >
+              Getting Started
+            </TabsTrigger>
+            <TabsTrigger
+              value="tools"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
+            >
+              Tools & Integrations
+            </TabsTrigger>
+            <TabsTrigger
+              value="layers"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
+            >
+              Analysis Layers
+            </TabsTrigger>
+            <TabsTrigger
+              value="enterprise"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
+            >
+              Enterprise
+            </TabsTrigger>
           </TabsList>
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-6">
@@ -56,7 +84,6 @@ export default function Docs() {
               <CardHeader>
                 <CardTitle className="text-white">
                   Meet NeuroLint: Effortless Code Cleanup & Modernization
-                </CardTitle>
                 </CardTitle>
                 <CardDescription className="text-gray-300">
                   Advanced toolkit to bring React/TypeScript codebases into the
@@ -326,7 +353,9 @@ neurolint fix src/ --backup`}
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-zinc-800 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                      <div className="w-8 h-8 bg-zinc-800 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                        3
+                      </div>
                       <div>
                         <h4 className="font-medium text-white mb-1">
                           Validation
