@@ -262,122 +262,101 @@ html {
   animation-duration: 5s !important;
 }
 
-/* WORKING BORDER TRACE - GLOWING LINE TRAVELS AROUND PERIMETER */
-@keyframes borderTrace {
-  0% {
-    top: 0;
-    left: -30px;
-    width: 60px;
-    height: 2px;
-    transform: rotate(0deg);
-  }
-  24% {
-    top: 0;
-    left: calc(100% - 30px);
-    width: 60px;
-    height: 2px;
-    transform: rotate(0deg);
-  }
-  25% {
-    top: -30px;
-    left: calc(100% - 2px);
-    width: 2px;
-    height: 60px;
-    transform: rotate(0deg);
-  }
-  49% {
-    top: calc(100% - 30px);
-    left: calc(100% - 2px);
-    width: 2px;
-    height: 60px;
-    transform: rotate(0deg);
-  }
-  50% {
-    top: calc(100% - 2px);
-    left: calc(100% + 30px);
-    width: 60px;
-    height: 2px;
-    transform: rotate(180deg);
-  }
-  74% {
-    top: calc(100% - 2px);
-    left: 30px;
-    width: 60px;
-    height: 2px;
-    transform: rotate(180deg);
-  }
-  75% {
-    top: calc(100% + 30px);
-    left: 0;
-    width: 2px;
-    height: 60px;
-    transform: rotate(180deg);
-  }
-  99% {
-    top: 30px;
-    left: 0;
-    width: 2px;
-    height: 60px;
-    transform: rotate(180deg);
-  }
-  100% {
-    top: 0;
-    left: -30px;
-    width: 60px;
-    height: 2px;
-    transform: rotate(0deg);
-  }
-}
-
-/* Base glow border class */
+/* SVG BORDER TRACING ANIMATION */
 .glow-border {
   position: relative;
-  overflow: hidden;
 }
 
 .glow-border::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: -30px;
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.9),
-    transparent
-  );
-  border-radius: 1px;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3clinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3e%3cstop offset='0%25' style='stop-color:transparent;stop-opacity:0' /%3e%3cstop offset='50%25' style='stop-color:white;stop-opacity:0.8' /%3e%3cstop offset='100%25' style='stop-color:transparent;stop-opacity:0' /%3e%3c/linearGradient%3e%3c/defs%3e%3crect x='0' y='0' width='100%25' height='2' fill='url(%23grad)'%3e%3canimateTransform attributeName='transform' attributeType='XML' values='translate(0,0); translate(100%2c0); translate(100%2c100%25); translate(0,100%25); translate(0,0)' dur='4s' repeatCount='indefinite'/%3e%3c/rect%3e%3c/svg%3e");
   opacity: 0;
-  z-index: 1000;
   pointer-events: none;
+  z-index: 10;
+}
+
+/* Simplified CSS animation approach */
+@keyframes dashTrace {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.glow-border::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#000, #000) padding-box,
+    conic-gradient(
+        from 0deg,
+        transparent 350deg,
+        rgba(255, 255, 255, 0.8) 360deg
+      )
+      border-box;
+  opacity: 0;
+  animation: none;
+}
+
+/* Simple rotating gradient approach */
+@keyframes rotateGlow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    transparent 320deg,
+    rgba(255, 255, 255, 0.8) 340deg,
+    rgba(255, 255, 255, 0.9) 350deg,
+    rgba(255, 255, 255, 0.8) 360deg,
+    transparent 20deg
+  );
+  opacity: 0;
+  z-index: -1;
 }
 
 /* Always animated */
 .glow-border-always::before {
-  animation: borderTrace 4s linear infinite;
+  animation: rotateGlow 3s linear infinite;
   opacity: 1;
 }
 
 /* Hover animated */
 .glow-border-hover:hover::before {
-  animation: borderTrace 3s linear infinite;
+  animation: rotateGlow 2s linear infinite;
   opacity: 1;
 }
 
 /* Random delays */
 .glow-border-delay-1::before {
-  animation: borderTrace 5s linear infinite 1s;
+  animation: rotateGlow 4s linear infinite 1s;
   opacity: 1;
 }
 
 .glow-border-delay-2::before {
-  animation: borderTrace 6s linear infinite 2s;
+  animation: rotateGlow 5s linear infinite 2s;
   opacity: 1;
 }
 
 .glow-border-delay-3::before {
-  animation: borderTrace 4s linear infinite 3s;
+  animation: rotateGlow 3.5s linear infinite 3s;
   opacity: 1;
 }
