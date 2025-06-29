@@ -49,50 +49,52 @@ const App = () => (
             <ScrollToTop />
             <div className="min-h-screen bg-black text-white">
               <SiteHeader />
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/app" element={<AppPage />} />
-                <Route path="/test" element={<TestSuite />} />
-                <Route path="/docs" element={<Docs />} />
-                <Route path="/api-docs" element={<APIDocumentation />} />
-                <Route path="/cli-docs" element={<CLIDocumentation />} />
-                <Route path="/features" element={<Features />} />
-                <Route path="/pricing" element={<Pricing />} />
+              <main id="main-content" className="relative">
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/app" element={<AppPage />} />
+                  <Route path="/test" element={<TestSuite />} />
+                  <Route path="/docs" element={<Docs />} />
+                  <Route path="/api-docs" element={<APIDocumentation />} />
+                  <Route path="/cli-docs" element={<CLIDocumentation />} />
+                  <Route path="/features" element={<Features />} />
+                  <Route path="/pricing" element={<Pricing />} />
 
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/admin" element={<AdminDashboard />} />
-                <Route path="/admin-test" element={<AdminTest />} />
-                <Route path="/supabase-test" element={<SupabaseTest />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/admin" element={<AdminDashboard />} />
+                  <Route path="/admin-test" element={<AdminTest />} />
+                  <Route path="/supabase-test" element={<SupabaseTest />} />
 
-                <Route path="/teams" element={<EnhancedTeamDashboard />} />
-                <Route path="/team" element={<EnhancedTeamDashboard />} />
-                <Route path="/team/basic" element={<TeamDashboard />} />
-                <Route path="/team/settings" element={<TeamSettings />} />
-                <Route
-                  path="/team/collaborate"
-                  element={<LiveCollaboration />}
-                />
-                <Route
-                  path="/team/live-sessions"
-                  element={<LiveCodeSessions />}
-                />
-                <Route path="/team/analytics" element={<TeamAnalytics />} />
-                <Route path="/enterprise/sso" element={<SSOIntegration />} />
-                <Route
-                  path="/enterprise/webhooks"
-                  element={<WebhookSystem />}
-                />
-                <Route
-                  path="/enterprise/analytics"
-                  element={<EnterpriseAnalytics />}
-                />
-                <Route path="/enterprise/ai" element={<AdvancedAI />} />
-                <Route
-                  path="/enterprise/market"
-                  element={<MarketPositioning />}
-                />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+                  <Route path="/teams" element={<EnhancedTeamDashboard />} />
+                  <Route path="/team" element={<EnhancedTeamDashboard />} />
+                  <Route path="/team/basic" element={<TeamDashboard />} />
+                  <Route path="/team/settings" element={<TeamSettings />} />
+                  <Route
+                    path="/team/collaborate"
+                    element={<LiveCollaboration />}
+                  />
+                  <Route
+                    path="/team/live-sessions"
+                    element={<LiveCodeSessions />}
+                  />
+                  <Route path="/team/analytics" element={<TeamAnalytics />} />
+                  <Route path="/enterprise/sso" element={<SSOIntegration />} />
+                  <Route
+                    path="/enterprise/webhooks"
+                    element={<WebhookSystem />}
+                  />
+                  <Route
+                    path="/enterprise/analytics"
+                    element={<EnterpriseAnalytics />}
+                  />
+                  <Route path="/enterprise/ai" element={<AdvancedAI />} />
+                  <Route
+                    path="/enterprise/market"
+                    element={<MarketPositioning />}
+                  />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
               <SiteFooter />
               <InfoWidget />
             </div>
