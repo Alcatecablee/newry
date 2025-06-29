@@ -59,37 +59,70 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Enhanced animations */
+/* Enhanced animations with easing curves */
 @keyframes slideInDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-20px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-30px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes fadeInScale {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.92);
   }
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
   }
 }
 
@@ -105,21 +138,123 @@ html {
   }
 }
 
-/* Animation utilities */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes bounce-gentle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fade-in-blur {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes stagger-appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) rotateX(-20deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+/* Animation utilities with enhanced easing */
 .animate-slide-in-down {
-  animation: slideInDown 0.3s ease-out forwards;
+  animation: slideInDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-slide-in-left {
-  animation: slideInLeft 0.3s ease-out forwards;
+  animation: slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-fade-in-scale {
-  animation: fadeInScale 0.3s ease-out forwards;
+  animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-out {
+  animation: fadeOut 0.3s cubic-bezier(0.4, 0, 0.6, 1) forwards;
 }
 
 .animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 0.6s ease-in-out;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+.animate-fade-in-blur {
+  animation: fade-in-blur 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-stagger {
+  animation: stagger-appear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Stagger delay utilities */
+.animate-delay-75 {
+  animation-delay: 75ms;
+}
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+.animate-delay-150 {
+  animation-delay: 150ms;
+}
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+.animate-delay-500 {
+  animation-delay: 500ms;
 }
 
 /* Reduce motion for accessibility */
@@ -156,17 +291,56 @@ html {
   background: #444;
 }
 
-/* Enhanced focus indicators */
+/* Enhanced focus indicators with smooth transitions */
 *:focus-visible {
-  outline: 2px solid rgb(113 113 122);
+  outline: 2px solid rgb(59 130 246);
   outline-offset: 2px;
+  border-radius: 6px;
+  transition:
+    outline-color 0.2s ease-out,
+    outline-offset 0.2s ease-out;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Better keyboard navigation indicators */
+.focus-ring {
+  transition: all 0.2s ease-out;
+}
+
+.focus-ring:focus-visible {
+  ring: 2px;
+  ring-color: rgb(59 130 246);
+  ring-offset: 2px;
+  ring-offset-color: rgb(0 0 0);
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: rgb(59 130 246);
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
   border-radius: 4px;
+  z-index: 1000;
+  transition: top 0.2s ease-out;
+}
+
+.skip-link:focus {
+  top: 6px;
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .card {
+  .card,
+  .btn,
+  input,
+  textarea,
+  select {
     border-width: 2px;
+    border-color: currentColor;
   }
 
   button:focus,
@@ -176,25 +350,160 @@ html {
   select:focus {
     outline: 3px solid currentColor;
     outline-offset: 2px;
+    background-color: HighlightText;
+    color: Highlight;
+  }
+
+  /* Ensure sufficient contrast */
+  .text-muted {
+    color: inherit;
+    opacity: 0.9;
   }
 }
 
-/* Touch target sizing for mobile */
+/* Screen reader improvements */
+.sr-only-focusable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 4px 8px;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background: rgb(59 130 246);
+  color: white;
+  border-radius: 4px;
+}
+
+/* Improved ARIA live regions */
+.live-region {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Focus trap helper */
+.focus-trap {
+  isolation: isolate;
+}
+
+/* Enhanced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transform: none !important;
+  }
+
+  .parallax {
+    transform: none !important;
+  }
+}
+
+/* Enhanced mobile experience with better touch targets */
 @media (pointer: coarse) {
   button,
   .btn,
   [role="button"],
   input[type="submit"],
   input[type="button"] {
-    min-height: 44px;
-    min-width: 44px;
+    min-height: 48px;
+    min-width: 48px;
+    padding: 12px 16px;
   }
 
   a {
-    min-height: 44px;
+    min-height: 48px;
     display: inline-flex;
     align-items: center;
+    padding: 8px;
   }
+
+  /* Larger tap targets for interactive elements */
+  .interactive-element {
+    padding: 16px;
+    margin: 4px;
+  }
+
+  /* Enhanced mobile hover states using active states */
+  .mobile-hover:active {
+    transform: scale(0.98);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Prevent zoom on input focus */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  /* Better mobile spacing */
+  .mobile-padding {
+    padding: 16px;
+  }
+
+  .mobile-margin {
+    margin: 16px 0;
+  }
+
+  /* Mobile-friendly button sizing */
+  .mobile-button {
+    height: 48px;
+    font-size: 16px;
+    padding: 0 20px;
+  }
+
+  /* Touch-friendly card interactions */
+  .mobile-card {
+    transform: translateZ(0);
+    transition: transform 0.2s ease-out;
+  }
+
+  .mobile-card:active {
+    transform: scale(0.98) translateZ(0);
+  }
+}
+
+/* Enhanced gesture support */
+.swipe-container {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 /* Global button styles */
@@ -238,13 +547,111 @@ html {
   @apply border-2 border-current border-t-transparent rounded-full animate-spin;
 }
 
-/* Interactive elements */
+/* Enhanced interactive elements with better micro-interactions */
 .interactive {
-  @apply transition-all duration-300 ease-out transform hover:scale-105 active:scale-95 hover:shadow-lg;
+  @apply transition-all duration-300 cubic-bezier(0.4, 0, 0.2, 1) transform hover:scale-105 active:scale-95 hover:shadow-lg focus:scale-105;
+  transform-origin: center;
+  will-change: transform, box-shadow;
 }
 
 .interactive-subtle {
-  @apply transition-all duration-300 ease-out transform hover:scale-102 active:scale-98 hover:shadow-md;
+  @apply transition-all duration-200 cubic-bezier(0.4, 0, 0.2, 1) transform hover:scale-102 active:scale-98 hover:shadow-md focus:scale-102;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.interactive-lift {
+  @apply transition-all duration-300 cubic-bezier(0.4, 0, 0.2, 1) hover:-translate-y-1 hover:shadow-xl focus:-translate-y-1 focus:shadow-xl;
+}
+
+.interactive-slide {
+  @apply transition-all duration-200 ease-out hover:translate-x-1 focus:translate-x-1;
+}
+
+.interactive-glow {
+  @apply transition-all duration-300 ease-out hover:shadow-2xl hover:shadow-white/10 focus:shadow-2xl focus:shadow-white/10;
+}
+
+/* Button press feedback */
+.press-feedback {
+  @apply transition-all duration-150 ease-out active:scale-95 active:brightness-90;
+}
+
+/* Ripple effect for interactions */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.6s,
+    height 0.6s;
+}
+
+.ripple:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Smooth loading states */
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+.skeleton {
+  @apply bg-zinc-800/50 animate-pulse rounded;
+  background: linear-gradient(
+    90deg,
+    rgba(113, 113, 122, 0.3) 25%,
+    rgba(113, 113, 122, 0.5) 50%,
+    rgba(113, 113, 122, 0.3) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Smooth page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.6, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.6, 1);
 }
 
 /* Professional section styling */
