@@ -207,7 +207,7 @@ export const FAQSection: React.FC = () => {
       />
 
       <section className="py-20 bg-black border-t border-zinc-800" id="faq">
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900/50 border border-zinc-800/50 rounded-xl backdrop-blur-sm mb-6">
@@ -217,11 +217,14 @@ export const FAQSection: React.FC = () => {
               </span>
             </div>
 
-            <h2 className="text-2xl font-bold mb-6 text-white">
+            <h2
+              id="faq-heading"
+              className="text-2xl font-bold mb-6 text-white tracking-tight"
+            >
               Everything You Need to Know
             </h2>
 
-            <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg text-zinc-400 max-w-3xl mx-auto leading-relaxed">
               Get answers to common questions about NeuroLint's rule-based code
               analysis, integrations, pricing, and enterprise features.
               Currently in beta with AI integration planned for future releases.
