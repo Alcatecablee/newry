@@ -37,7 +37,17 @@ class EnvironmentManager {
     // Load from import.meta.env (Vite environment) - this is the primary source for client-side
     try {
       if (import.meta?.env) {
-        this.config = { ...import.meta.env };
+        // Extract only the environment variables we care about
+        const env = import.meta.env;
+        this.config = {
+          NODE_ENV: env.NODE_ENV as "development" | "production" | "test",
+          VITE_APP_ENV: env.VITE_APP_ENV as "development" | "production" | "staging",
+          VITE_PAYPAL_CLIENT_ID: env.VITE_PAYPAL_CLIENT_ID,
+          VITE_ENABLE_ANALYTICS: env.VITE_ENABLE_ANALYTICS,
+          VITE_ENABLE_MONITORING: env.VITE_ENABLE_MONITORING,
+          VITE_MAX_FILE_SIZE: env.VITE_MAX_FILE_SIZE,
+          VITE_MAX_TRANSFORMATIONS_FREE: env.VITE_MAX_TRANSFORMATIONS_FREE,
+        };
       }
     } catch (e) {
       // Fallback for environments without import.meta

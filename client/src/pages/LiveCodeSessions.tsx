@@ -171,6 +171,34 @@ const LiveCodeSessions = () => {
     }
   };
 
+  const processCodeWithNeuroLint = async (code: string) => {
+    try {
+      const { transformed, layers } = await NeuroLintOrchestrator.processCode(
+        code,
+        "session.tsx",
+        true,
+        [1, 2, 3, 4],
+      );
+
+      const results = layers.map((r: any) => ({
+        layer: r.name,
+        success: r.success,
+        changes: r.changeCount || 0,
+      }));
+
+      return {
+        transformedCode: transformed,
+        results,
+      };
+    } catch (error) {
+      console.error("NeuroLint processing failed:", error);
+      return {
+        transformedCode: code,
+        results: [],
+      };
+    }
+  };
+
   // Enhanced session creation with validation
   const createSession = (sessionData: Partial<LiveSession>) => {
     try {

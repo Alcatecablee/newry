@@ -102,7 +102,7 @@ export class ASTUtils {
             const callback = path.node.arguments[0];
             if (t.isArrowFunctionExpression(callback) || t.isFunctionExpression(callback)) {
               const body = callback.body;
-              if (t.isJSXElement(body) || (t.isBlockStatement(body) && this.returnsJSX(body))) {
+              if (t.isJSXElement(body) || (t.isBlockStatement(body) && ASTUtils.returnsJSX(body))) {
                 mapCalls.push(path.node);
               }
             }
