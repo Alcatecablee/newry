@@ -134,6 +134,15 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      {/* DEBUG: Simple test content */}
+      <div className="p-8 text-center">
+        <h1 className="text-4xl font-bold text-white mb-4">
+          Index Page Loading Test
+        </h1>
+        <p className="text-gray-300">
+          If you can see this, the Index page is rendering correctly.
+        </p>
+      </div>
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center text-center px-4 py-16 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
