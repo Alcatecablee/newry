@@ -90,9 +90,9 @@ export const SiteHeader = () => {
                 aria-label="NeuroLint home"
               >
                 <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2Faab978f39ff64270b6e29ab49582f574%2F38b5bfac1a6242ebb67f91834016d010?format=webp&width=800"
+                  src="https://cdn.builder.io/api/v1/image/assets%2Fff4a9c5485bd483f9de4955855068620%2F782095f7d5454085bbee2289a7106f2e?format=webp&width=800"
                   alt="NeuroLint Logo"
-                  className="h-8 w-auto transition-all duration-300 ease-out group-hover:scale-110 group-focus:scale-110 group-focus:outline-none group-focus:ring-2 group-focus:ring-zinc-500 group-focus:ring-offset-2 group-focus:ring-offset-black rounded"
+                  className="h-8 w-auto"
                 />
               </Link>
             )}
