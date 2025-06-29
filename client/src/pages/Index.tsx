@@ -111,6 +111,7 @@ export default function Index() {
 
   React.useEffect(() => {
     setMounted(true);
+    console.log("Index component mounted");
   }, []);
 
   useEffect(() => {
