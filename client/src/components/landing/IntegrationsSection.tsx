@@ -113,7 +113,7 @@ export function IntegrationsSection() {
                   <h3 className="text-lg font-semibold text-white">
                     {integration.name}
                   </h3>
-                  <span className="text-xs bg-blue-600/20 text-blue-400 px-2 py-1 rounded-full">
+                  <span className="text-xs bg-zinc-800 text-white px-2 py-1 rounded-full">
                     {integration.category}
                   </span>
                 </div>
@@ -145,7 +145,7 @@ export function IntegrationsSection() {
                 <div className="space-y-3">
                   {workflow.steps.map((step, stepIndex) => (
                     <div key={stepIndex} className="flex items-center gap-3">
-                      <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                      <div className="w-6 h-6 bg-zinc-700 text-white rounded-full flex items-center justify-center text-xs font-bold">
                         {stepIndex + 1}
                       </div>
                       <span className="text-gray-300 text-sm">{step}</span>
@@ -206,18 +206,18 @@ jobs:
               </h3>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full mt-2"></div>
+                  <div className="w-2 h-2 bg-zinc-600 rounded-full mt-2"></div>
                   <div>
-                    <h4 className="font-medium text-white mb-1">
-                      Shift Left Testing
+                    <h4 className="font-semibold text-white mb-1">
+                      Quality Gates
                     </h4>
-                    <p className="text-gray-400 text-sm">
-                      Catch issues early in the development cycle before they
-                      reach production.
+                    <p className="text-sm text-gray-400">
+                      Set quality thresholds for your codebase
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-zinc-600 rounded-full mt-2"></div>
                   <div className="w-2 h-2 bg-green-400 rounded-full mt-2"></div>
                   <div>
                     <h4 className="font-medium text-white mb-1">
@@ -264,7 +264,7 @@ jobs:
                 Our team can help you integrate NeuroLint with your specific
                 tools and workflows.
               </p>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+              <button className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                 Contact Sales
               </button>
             </div>
