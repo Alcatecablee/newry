@@ -262,191 +262,59 @@ html {
   animation-duration: 5s !important;
 }
 
-/* BORDER TRACING ANIMATION - Glowing line travels around border */
-@keyframes borderTrace {
+/* WORKING BORDER TRACE ANIMATION */
+@keyframes spinBorder {
   0% {
-    top: 0;
-    left: 0;
-    width: 30px;
-    height: 2px;
-    transform: translateX(0);
-    opacity: 0;
-  }
-  2% {
-    opacity: 1;
-  }
-  23% {
-    top: 0;
-    left: 0;
-    width: 30px;
-    height: 2px;
-    transform: translateX(calc(100vw - 30px));
-    opacity: 1;
-  }
-  25% {
-    top: 0;
-    left: calc(100% - 2px);
-    width: 2px;
-    height: 30px;
-    transform: translateY(0);
-    opacity: 1;
-  }
-  48% {
-    top: 0;
-    left: calc(100% - 2px);
-    width: 2px;
-    height: 30px;
-    transform: translateY(calc(100vh - 30px));
-    opacity: 1;
-  }
-  50% {
-    top: calc(100% - 2px);
-    left: calc(100% - 30px);
-    width: 30px;
-    height: 2px;
-    transform: translateX(0);
-    opacity: 1;
-  }
-  73% {
-    top: calc(100% - 2px);
-    left: calc(100% - 30px);
-    width: 30px;
-    height: 2px;
-    transform: translateX(calc(-100vw + 30px));
-    opacity: 1;
-  }
-  75% {
-    top: calc(100% - 30px);
-    left: 0;
-    width: 2px;
-    height: 30px;
-    transform: translateY(0);
-    opacity: 1;
-  }
-  98% {
-    top: calc(100% - 30px);
-    left: 0;
-    width: 2px;
-    height: 30px;
-    transform: translateY(calc(-100vh + 30px));
-    opacity: 1;
+    transform: rotate(0deg);
   }
   100% {
-    top: 0;
-    left: 0;
-    width: 30px;
-    height: 2px;
-    transform: translateX(0);
-    opacity: 0;
+    transform: rotate(360deg);
   }
 }
 
-/* Simpler version that actually works */
-@keyframes simpleTrace {
-  0% {
-    transform: translateX(-100%) translateY(-50%);
-    opacity: 0;
-  }
-  1% {
-    opacity: 1;
-  }
-  24% {
-    transform: translateX(calc(100vw + 100%)) translateY(-50%);
-  }
-  25% {
-    transform: translateX(calc(100% + 50%)) translateY(-100%) rotate(90deg);
-  }
-  49% {
-    transform: translateX(calc(100% + 50%)) translateY(calc(100vh + 100%))
-      rotate(90deg);
-  }
-  50% {
-    transform: translateX(calc(100vw + 100%)) translateY(calc(100% + 50%))
-      rotate(180deg);
-  }
-  74% {
-    transform: translateX(-100%) translateY(calc(100% + 50%)) rotate(180deg);
-  }
-  75% {
-    transform: translateX(-50%) translateY(calc(100vh + 100%)) rotate(270deg);
-  }
-  99% {
-    transform: translateX(-50%) translateY(-100%) rotate(270deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-100%) translateY(-50%) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* Base class for glowing border trace */
+/* Base glow border class */
 .glow-border {
   position: relative;
-  overflow: hidden;
 }
 
 .glow-border::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 50px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.9),
-    transparent
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    transparent 340deg,
+    rgba(255, 255, 255, 0.8) 360deg
   );
-  border-radius: 1px;
+  z-index: -1;
   opacity: 0;
-  z-index: 10;
-}
-
-.glow-border::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.5),
-    transparent
-  );
-  border-radius: 1px;
-  opacity: 0;
-  z-index: 9;
-  filter: blur(1px);
 }
 
 /* Always animated */
-.glow-border-always::before,
-.glow-border-always::after {
-  animation: simpleTrace 4s linear infinite;
+.glow-border-always::before {
+  animation: spinBorder 3s linear infinite;
+  opacity: 1;
 }
 
 /* Hover animated */
-.glow-border-hover:hover::before,
-.glow-border-hover:hover::after {
-  animation: simpleTrace 3s linear infinite;
+.glow-border-hover:hover::before {
+  animation: spinBorder 2s linear infinite;
+  opacity: 1;
 }
 
 /* Random delays */
-.glow-border-delay-1::before,
-.glow-border-delay-1::after {
-  animation: simpleTrace 5s linear infinite 1s;
+.glow-border-delay-1::before {
+  animation: spinBorder 4s linear infinite 1s;
+  opacity: 1;
 }
 
-.glow-border-delay-2::before,
-.glow-border-delay-2::after {
-  animation: simpleTrace 6s linear infinite 2.5s;
+.glow-border-delay-2::before {
+  animation: spinBorder 5s linear infinite 2s;
+  opacity: 1;
 }
 
-.glow-border-delay-3::before,
-.glow-border-delay-3::after {
-  animation: simpleTrace 4.5s linear infinite 3.5s;
+.glow-border-delay-3::before {
+  animation: spinBorder 3.5s linear infinite 3s;
+  opacity: 1;
 }
