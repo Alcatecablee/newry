@@ -262,100 +262,49 @@ html {
   animation-duration: 5s !important;
 }
 
-/* SIMPLE VISIBLE GLOWING BORDER ANIMATION */
-@keyframes glowPulse {
-  0%,
-  100% {
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+/* GUARANTEED VISIBLE BORDER ANIMATION */
+@keyframes borderGlow {
+  0% {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
   }
   50% {
+    border-color: rgba(255, 255, 255, 0.8);
     box-shadow:
-      0 0 20px rgba(255, 255, 255, 0.8),
-      0 0 30px rgba(255, 255, 255, 0.4);
-  }
-}
-
-@keyframes borderSpin {
-  0% {
-    transform: rotate(0deg);
+      0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 40px rgba(255, 255, 255, 0.3);
   }
   100% {
-    transform: rotate(360deg);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
   }
 }
 
 /* Base glow border class */
 .glow-border {
-  position: relative;
-}
-
-.glow-border::before {
-  content: "";
-  position: absolute;
-  inset: -3px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    transparent 350deg,
-    rgba(255, 255, 255, 0.8) 360deg
-  );
-  z-index: -1;
-  opacity: 0;
-}
-
-.glow-border::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: inherit;
-  z-index: -1;
+  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease;
 }
 
 /* Always animated */
 .glow-border-always {
-  animation: glowPulse 2s ease-in-out infinite;
-}
-
-.glow-border-always::before {
-  animation: borderSpin 3s linear infinite;
-  opacity: 1;
+  animation: borderGlow 3s ease-in-out infinite;
 }
 
 /* Hover animated */
 .glow-border-hover:hover {
-  animation: glowPulse 1.5s ease-in-out infinite;
-}
-
-.glow-border-hover:hover::before {
-  animation: borderSpin 2s linear infinite;
-  opacity: 1;
+  animation: borderGlow 2s ease-in-out infinite;
 }
 
 /* Random delays */
 .glow-border-delay-1 {
-  animation: glowPulse 2.5s ease-in-out infinite 1s;
-}
-
-.glow-border-delay-1::before {
-  animation: borderSpin 4s linear infinite 1s;
-  opacity: 1;
+  animation: borderGlow 4s ease-in-out infinite 1s;
 }
 
 .glow-border-delay-2 {
-  animation: glowPulse 3s ease-in-out infinite 2s;
-}
-
-.glow-border-delay-2::before {
-  animation: borderSpin 5s linear infinite 2s;
-  opacity: 1;
+  animation: borderGlow 5s ease-in-out infinite 2s;
 }
 
 .glow-border-delay-3 {
-  animation: glowPulse 2s ease-in-out infinite 3s;
-}
-
-.glow-border-delay-3::before {
-  animation: borderSpin 3.5s linear infinite 3s;
-  opacity: 1;
+  animation: borderGlow 3.5s ease-in-out infinite 3s;
 }
