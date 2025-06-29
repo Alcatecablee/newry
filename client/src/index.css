@@ -262,34 +262,75 @@ html {
   animation-duration: 5s !important;
 }
 
-/* GLOWING BORDER TRACE ANIMATION */
-@keyframes rotate {
+/* BORDER TRACING ANIMATION - Line travels around perimeter */
+@keyframes borderTrace {
   0% {
-    transform: rotate(0deg);
+    clip-path: inset(0 100% 100% 0);
+  }
+  25% {
+    clip-path: inset(0 0 100% 0);
+  }
+  50% {
+    clip-path: inset(0 0 0 0);
+  }
+  75% {
+    clip-path: inset(0 0 0 100%);
   }
   100% {
-    transform: rotate(360deg);
+    clip-path: inset(100% 0 0 100%);
   }
 }
 
-/* Base class for glowing border */
+@keyframes borderTraceSmooth {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Base class for glowing border trace */
 .glow-border {
   position: relative;
+  overflow: hidden;
 }
 
 .glow-border::before {
   content: "";
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: conic-gradient(
-    from 0deg,
-    transparent 270deg,
-    rgba(255, 255, 255, 0.7) 360deg
-  );
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    transparent
+  );
+  background-size: 200% 200%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
   z-index: -1;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -297,32 +338,28 @@ html {
 
 /* Always animated */
 .glow-border-always::before {
-  animation: rotate 3s linear infinite;
+  animation: borderTraceSmooth 3s linear infinite;
   opacity: 1;
 }
 
 /* Hover animated */
-.glow-border-hover::before {
-  transition: opacity 0.3s ease;
-}
-
 .glow-border-hover:hover::before {
-  animation: rotate 2s linear infinite;
+  animation: borderTraceSmooth 2s linear infinite;
   opacity: 1;
 }
 
 /* Random delays */
 .glow-border-delay-1::before {
-  animation: rotate 4s linear infinite 1s;
+  animation: borderTraceSmooth 4s linear infinite 1s;
   opacity: 1;
 }
 
 .glow-border-delay-2::before {
-  animation: rotate 5s linear infinite 2s;
+  animation: borderTraceSmooth 5s linear infinite 2s;
   opacity: 1;
 }
 
 .glow-border-delay-3::before {
-  animation: rotate 3.5s linear infinite 3s;
+  animation: borderTraceSmooth 3.5s linear infinite 3s;
   opacity: 1;
 }
