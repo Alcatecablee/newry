@@ -262,7 +262,7 @@ html {
   animation-duration: 5s !important;
 }
 
-/* BORDER TRACING ANIMATION - WORKING VERSION */
+/* BORDER TRACING ANIMATION - WORKING VERSION WITH DIFFERENT COLORS */
 @keyframes rotatingBorder {
   0% {
     transform: rotate(0deg);
@@ -295,7 +295,7 @@ html {
   background: conic-gradient(
     from 0deg,
     transparent 350deg,
-    rgba(255, 255, 255, 0.9) 360deg
+    rgba(255, 255, 255, 0.7) 360deg
   );
   z-index: -1;
   opacity: 0;
@@ -309,6 +309,55 @@ html {
   border-radius: inherit;
   background: linear-gradient(to right, #000, #000);
   z-index: -1;
+}
+
+/* Color variants - soft neon colors */
+.glow-border-blue::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent 350deg,
+    rgba(96, 165, 250, 0.7) 360deg
+  );
+}
+
+.glow-border-purple::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent 350deg,
+    rgba(168, 85, 247, 0.7) 360deg
+  );
+}
+
+.glow-border-green::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent 350deg,
+    rgba(52, 211, 153, 0.7) 360deg
+  );
+}
+
+.glow-border-pink::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent 350deg,
+    rgba(244, 114, 182, 0.7) 360deg
+  );
+}
+
+.glow-border-orange::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent 350deg,
+    rgba(251, 146, 60, 0.7) 360deg
+  );
+}
+
+.glow-border-cyan::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent 350deg,
+    rgba(34, 211, 238, 0.7) 360deg
+  );
 }
 
 /* Always animated */
