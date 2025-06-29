@@ -2,10 +2,7 @@ import { Zap, Users, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  GlowingBorder,
-  getRandomGlowVariant,
-} from "@/components/ui/glowing-border";
+import { GlowingBorder, getRandomGlowVariant } from "@/components/ui/glowing-border";
 
 const LAYERS = [
   {
@@ -106,11 +103,24 @@ export function LandingFeatures() {
 
         {/* Features Grid: LAYERS (with experimental toggles) */}
         <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4 mb-8">
-          {LAYERS.map((layer, idx) => (
-            <div
-              key={layer.name}
-              className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1b21] border border-[#292939] w-full relative"
-            >
+          {LAYERS.map((layer, idx) => {
+            // Mix of different glow effects - some always on, some hover, some random
+            const getGlowVariant = () => {
+              if (layer.status === "live") return "always"; // Live features always glow
+              if (idx % 3 === 0) return "hover"; // Every 3rd item only glows on hover
+              return getRandomGlowVariant(); // Others get random animations
+            };
+
+            return (
+              <GlowingBorder
+                key={layer.name}
+                variant={getGlowVariant()}
+                color={layer.status === "live" ? "green" : "white"}
+              >
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1b21] border border-[#292939] w-full relative">
+              </GlowingBorder>
+            );
+          })}
               <Badge
                 variant={layer.status === "live" ? "default" : "secondary"}
                 className={
