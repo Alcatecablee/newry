@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import { motion, useMotionValue, useTransform, PanInfo } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -254,12 +255,14 @@ export function useLongPress(
 }
 
 // Enhanced touch-friendly button
-interface TouchButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface TouchButtonProps {
   variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md" | "lg";
   rippleColor?: string;
   children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
 export function TouchButton({
@@ -268,7 +271,8 @@ export function TouchButton({
   rippleColor,
   children,
   className,
-  ...props
+  onClick,
+  disabled,
 }: TouchButtonProps) {
   const sizeClasses = {
     sm: "min-h-[44px] px-4 py-2 text-sm",
@@ -292,7 +296,8 @@ export function TouchButton({
       )}
       whileTap={{ scale: 0.95 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      {...props}
+      onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </motion.button>

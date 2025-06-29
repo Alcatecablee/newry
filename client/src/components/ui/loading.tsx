@@ -252,8 +252,7 @@ export function LoadingButton({
 }
 
 // Progressive loading component for images
-interface ProgressiveImageProps
-  extends React.ImgHTMLAttributes<HTMLImageElement> {
+interface ProgressiveImageProps {
   src: string;
   alt: string;
   placeholder?: string;
@@ -265,7 +264,6 @@ export function ProgressiveImage({
   alt,
   placeholder,
   className,
-  ...props
 }: ProgressiveImageProps) {
   const [loaded, setLoaded] = React.useState(false);
   const [error, setError] = React.useState(false);
@@ -287,20 +285,23 @@ export function ProgressiveImage({
         </div>
       )}
 
-      <motion.img
-        src={src}
-        alt={alt}
+      <motion.div
         className={cn(
-          "w-full h-full object-cover transition-opacity duration-300",
+          "w-full h-full transition-opacity duration-300",
           loaded ? "opacity-100" : "opacity-0",
         )}
-        onLoad={() => setLoaded(true)}
-        onError={() => setError(true)}
         initial={{ opacity: 0 }}
         animate={{ opacity: loaded ? 1 : 0 }}
         transition={{ duration: 0.3 }}
-        {...props}
-      />
+      >
+        <img
+          src={src}
+          alt={alt}
+          className="w-full h-full object-cover"
+          onLoad={() => setLoaded(true)}
+          onError={() => setError(true)}
+        />
+      </motion.div>
 
       {error && (
         <div className="absolute inset-0 flex items-center justify-center bg-zinc-800 text-zinc-400">

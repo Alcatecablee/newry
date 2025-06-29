@@ -1,642 +1,225 @@
-import * as layer1 from "./layers/layer-1-config";
-import * as layer2 from "./layers/layer-2-entities";
-import * as layer3 from "./layers/layer-3-components";
-import * as layer4 from "./layers/layer-4-hydration";
-import * as layer5 from "./layers/layer-5-nextjs";
-import * as layer6 from "./layers/layer-6-testing";
-import { transformWithAST } from "./ast/orchestrator";
-import { NeuroLintLayerResult } from "./types";
-import { CodeValidator } from "./validation/codeValidator";
+import { LayerOne } from "./layers/layer1";
+import { LayerTwo } from "./layers/layer2";
+import { LayerThree } from "./layers/layer3";
+import { LayerFour } from "./layers/layer4";
+import { LayerFive } from "./layers/layer5";
+import { LayerSix } from "./layers/layer6";
+import { ASTOrchestrator } from "./ast";
 
-// Layer dependency management based on documentation patterns
-const LAYER_DEPENDENCIES = {
-  1: [], // Configuration has no dependencies
-  2: [1], // Entity cleanup depends on config foundation
-  3: [1, 2], // Components depend on config + cleanup
-  4: [1, 2, 3], // Hydration depends on all previous layers
-  5: [1, 2, 3, 4], // Next.js depends on all previous
-  6: [1, 2, 3, 4, 5], // Quality depends on all previous
-};
-
-// Performance monitoring and error tracking
-interface PerformanceMetrics {
-  totalDuration: number;
-  memoryPeak: number;
-  layerPerformance: Array<{
-    layerId: number;
-    duration: number;
-    memoryUsed: number;
-    cacheHit: boolean;
-  }>;
+export interface NeuroLintLayer {
+  id: number;
+  name: string;
+  description: string;
+  process: (code: string, filePath?: string) => Promise<string>;
 }
 
-interface ErrorBoundary {
-  layerId: number;
-  error: Error;
-  recoveryAction: "skip" | "fallback" | "abort";
-  timestamp: number;
+export interface NeuroLintLayerResult {
+  id: number;
+  name: string;
+  description: string;
+  success: boolean;
+  message?: string;
+  changeCount?: number;
+  executionTime?: number;
+  improvements?: string[];
 }
 
-// Simple cache implementation
-class TransformationCache {
-  private cache = new Map<string, { result: string; timestamp: number }>();
-  private readonly TTL = 5 * 60 * 1000; // 5 minutes
-
-  get(key: string): string | null {
-    const entry = this.cache.get(key);
-    if (!entry) return null;
-
-    if (Date.now() - entry.timestamp > this.TTL) {
-      this.cache.delete(key);
-      return null;
-    }
-
-    return entry.result;
-  }
-
-  set(key: string, value: string): void {
-    this.cache.set(key, { result: value, timestamp: Date.now() });
-
-    // Cleanup old entries periodically
-    if (this.cache.size > 1000) {
-      const now = Date.now();
-      for (const [k, v] of this.cache.entries()) {
-        if (now - v.timestamp > this.TTL) {
-          this.cache.delete(k);
-        }
-      }
-    }
-  }
-
-  clear(): void {
-    this.cache.clear();
-  }
-}
-
-// Rate limiting for transformations
-class RateLimiter {
-  private requests = new Map<string, { count: number; resetTime: number }>();
-  private readonly windowMs = 60 * 60 * 1000; // 1 hour
-  private readonly maxRequests = 50; // 50 transformations per hour
-
-  checkLimit(identifier: string): {
-    allowed: boolean;
-    remaining: number;
-    resetTime: number;
-  } {
-    const now = Date.now();
-    const entry = this.requests.get(identifier);
-
-    if (!entry || now > entry.resetTime) {
-      this.requests.set(identifier, {
-        count: 1,
-        resetTime: now + this.windowMs,
-      });
-      return {
-        allowed: true,
-        remaining: this.maxRequests - 1,
-        resetTime: now + this.windowMs,
-      };
-    }
-
-    entry.count++;
-
-    if (entry.count > this.maxRequests) {
-      return { allowed: false, remaining: 0, resetTime: entry.resetTime };
-    }
-
-    return {
-      allowed: true,
-      remaining: this.maxRequests - entry.count,
-      resetTime: entry.resetTime,
-    };
-  }
-}
-
-// Enhanced layer configuration with proper dependency and fallback handling
-const LAYER_LIST = [
+export const LAYER_LIST: NeuroLintLayer[] = [
   {
     id: 1,
-    fn: layer1.transform,
-    name: "Configuration Validation",
-    description:
-      "Optimizes TypeScript, Next.js config, and package.json with modern settings.",
-    astSupported: false,
-    retryable: true,
-    timeout: 30000,
-    safeMode: true,
+    name: "Syntax and Formatting",
+    description: "Corrects syntax errors and formats code for readability.",
+    process: async (code: string) => LayerOne.process(code),
   },
   {
     id: 2,
-    fn: layer2.transform,
-    name: "Pattern & Entity Fixes",
-    description:
-      "Cleans up HTML entities, old patterns, and modernizes JS/TS code.",
-    astSupported: false,
-    retryable: true,
-    timeout: 45000,
-    safeMode: true,
+    name: "Error Detection",
+    description: "Identifies common errors and potential bugs.",
+    process: async (code: string) => LayerTwo.process(code),
   },
   {
     id: 3,
-    fn: layer3.transform,
     name: "Component Best Practices",
-    description:
-      "Solves missing key props, accessibility, prop types, and missing imports.",
-    astSupported: true,
-    retryable: true,
-    timeout: 60000,
-    safeMode: false,
+    description: "Enforces best practices for React component structure.",
+    process: async (code: string) => LayerThree.process(code),
   },
   {
     id: 4,
-    fn: layer4.transform,
-    name: "Hydration & SSR Guard",
-    description: "Fixes hydration bugs and adds SSR/localStorage protection.",
-    astSupported: true,
-    retryable: true,
-    timeout: 45000,
-    safeMode: false,
+    name: "Performance Optimization",
+    description: "Optimizes code for better performance and efficiency.",
+    process: async (code: string) => LayerFour.process(code),
   },
   {
     id: 5,
-    fn: layer5.transform,
-    name: "Next.js Optimization",
-    description:
-      "Optimizes Next.js App Router patterns, 'use client' directives, and import order.",
-    astSupported: false,
-    retryable: false, // More likely to cause conflicts
-    timeout: 30000, // 30 seconds
-    safeMode: true,
+    name: "Security Vulnerabilities",
+    description: "Detects potential security vulnerabilities in the code.",
+    process: async (code: string) => LayerFive.process(code),
   },
   {
     id: 6,
-    fn: layer6.transform,
-    name: "Quality & Performance",
-    description:
-      "Adds error handling, performance optimizations, and code quality improvements.",
-    astSupported: false,
-    retryable: false, // More likely to cause conflicts
-    timeout: 30000, // 30 seconds
-    safeMode: true,
+    name: "Code Modernization",
+    description: "Modernizes code by applying the latest language features.",
+    process: async (code: string) => LayerSix.process(code),
   },
 ];
 
-// Global instances
-const transformationCache = new TransformationCache();
-const rateLimiter = new RateLimiter();
+export class NeuroLintOrchestrator {
+  private static cache = new Map<string, { result: string; timestamp: number }>();
+  private static readonly CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
-// Enhanced orchestrator with comprehensive error handling and monitoring
-export async function NeuroLintOrchestrator(
-  code: string,
-  filePath?: string,
-  useAST: boolean = true,
-  layerIds: number[] = [1, 2, 3, 4],
-  userId?: string,
-): Promise<{
-  transformed: string;
-  layers: NeuroLintLayerResult[];
-  layerOutputs: string[];
-  performance: PerformanceMetrics;
-  errors: ErrorBoundary[];
-  cacheHits: number;
-}> {
-  const startTime = performance.now();
-  const startMemory = (performance as any).memory?.usedJSHeapSize || 0;
+  private astOrchestrator: ASTOrchestrator;
+  private enabledLayers: number[];
 
-  let current = code;
-  const results: NeuroLintLayerResult[] = [];
-  const layerOutputs: string[] = [code];
-  const errors: ErrorBoundary[] = [];
-  const layerPerformance: PerformanceMetrics["layerPerformance"] = [];
-  let cacheHits = 0;
+  constructor(enabledLayers: number[] = [1, 2, 3, 4]) {
+    this.astOrchestrator = new ASTOrchestrator();
+    this.enabledLayers = enabledLayers;
+  }
 
-  // Rate limiting check
-  if (userId) {
-    const rateLimit = rateLimiter.checkLimit(userId);
-    if (!rateLimit.allowed) {
-      throw new Error(
-        `Rate limit exceeded. Try again in ${Math.ceil((rateLimit.resetTime - Date.now()) / 60000)} minutes.`,
-      );
+  static async processCode(
+    code: string,
+    filePath?: string,
+    useCache: boolean = true,
+    enabledLayers: number[] = [1, 2, 3, 4],
+  ): Promise<{ transformed: string; layers: NeuroLintLayerResult[] }> {
+    const orchestrator = new NeuroLintOrchestrator(enabledLayers);
+    return orchestrator.process(code, filePath, useCache);
+  }
+
+  private static generateCacheKey(code: string, enabledLayers: number[]): string {
+    const layerKey = enabledLayers.sort((a, b) => a - b).join(',');
+    return `${code}-${layerKey}`;
+  }
+
+  private static getCachedResult(cacheKey: string): string | undefined {
+    const cached = this.cache.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp <= this.CACHE_DURATION) {
+      return cached.result;
+    }
+    return undefined;
+  }
+
+  private static setCachedResult(cacheKey: string, result: string): void {
+    this.cache.set(cacheKey, { result, timestamp: Date.now() });
+    this.clearExpiredCache();
+  }
+
+  private static clearExpiredCache(): void {
+    const now = Date.now();
+    const entries = Array.from(this.cache.entries());
+    
+    for (const [key, entry] of entries) {
+      if (now - entry.timestamp > this.CACHE_DURATION) {
+        this.cache.delete(key);
+      }
     }
   }
 
-  // Initial validation - be more lenient for React/JSX files
-  const initialValidation = CodeValidator.validate(code);
+  async process(
+    code: string,
+    filePath?: string,
+    useCache: boolean = true,
+    enabledLayers: number[] = [1, 2, 3, 4],
+  ): Promise<{ transformed: string; layers: NeuroLintLayerResult[] }> {
+    this.enabledLayers = enabledLayers;
+    const cacheKey = NeuroLintOrchestrator.generateCacheKey(code, enabledLayers);
 
-  // Only block if there are truly critical errors, not just validation warnings
-  const hasCriticalErrors = initialValidation.errors.some(
-    (error) =>
-      error.includes("import import") ||
-      error.includes("export export") ||
-      error.includes("function function") ||
-      error.includes("nested imports"),
-  );
-
-  if (hasCriticalErrors && initialValidation.corruptionDetected) {
-    throw new Error(
-      `Input code has critical issues: ${initialValidation.errors.join(", ")}`,
-    );
-  }
-
-  // Process layers with enhanced error handling
-  for (const layer of LAYER_LIST.filter((l) => layerIds.includes(l.id))) {
-    const layerStartTime = performance.now();
-    const layerStartMemory = (performance as any).memory?.usedJSHeapSize || 0;
-
-    try {
-      const previous = current;
-      let next = current;
-      let usedAST = false;
-      let wasReverted = false;
-      let cacheHit = false;
-
-      // Check cache first
-      const cacheKey = `${layer.id}_${hashCode(current)}`;
-      const cachedResult = transformationCache.get(cacheKey);
+    if (useCache) {
+      const cachedResult = NeuroLintOrchestrator.getCachedResult(cacheKey);
       if (cachedResult) {
-        next = cachedResult;
-        cacheHit = true;
-        cacheHits++;
-      } else {
-        // Apply transformation with timeout
-        const transformationPromise =
-          layer.id >= 5
-            ? applySafeTransform(layer, current, filePath)
-            : applyStandardTransform(layer, current, filePath, useAST);
+        return { transformed: cachedResult, layers: [] };
+      }
+    }
 
-        try {
-          next = await Promise.race([
-            transformationPromise,
-            new Promise<string>((_, reject) =>
-              setTimeout(
-                () => reject(new Error("Transformation timeout")),
-                layer.timeout,
-              ),
-            ),
-          ]);
+    let transformedCode = code;
+    const layerResults: NeuroLintLayerResult[] = [];
 
-          // Cache successful transformation
-          if (next !== current) {
-            transformationCache.set(cacheKey, next);
-          }
-        } catch (timeoutError) {
-          if (layer.retryable) {
-            console.warn(
-              `Layer ${layer.id} timed out, retrying with simplified mode...`,
-            );
-            // Retry with simpler transformation
-            next = await applyFallbackTransform(layer, current, filePath);
-          } else {
-            throw timeoutError;
-          }
-        }
+    for (const layer of LAYER_LIST) {
+      if (!this.enabledLayers.includes(layer.id)) {
+        continue;
       }
 
-      // Apply different validation strategies based on layer type
-      let validation;
-      if (layer.id >= 5) {
-        // Strict validation for advanced layers (5-6)
-        validation = CodeValidator.validateAdvancedTransform(previous, next);
-      } else if (layer.id >= 3) {
-        // Lenient validation for component and hydration layers (3-4)
-        console.log(`Using lenient validation for Layer ${layer.id}`);
-        validation = CodeValidator.lenientValidation(previous, next);
-      } else {
-        // Standard validation for basic layers (1-2)
-        validation = CodeValidator.compareBeforeAfter(previous, next);
-      }
-
-      if (validation.shouldRevert) {
-        console.warn(
-          `Reverting ${layer.name} transformation: ${validation.reason}`,
-        );
-        next = previous;
-        wasReverted = true;
-      }
-
-      // Performance monitoring
-      const layerEndTime = performance.now();
-      const layerEndMemory = (performance as any).memory?.usedJSHeapSize || 0;
-      const layerDuration = layerEndTime - layerStartTime;
-      const layerMemoryUsed = layerEndMemory - layerStartMemory;
-
-      layerPerformance.push({
-        layerId: layer.id,
-        duration: layerDuration,
-        memoryUsed: layerMemoryUsed,
-        cacheHit,
-      });
-
-      // Log performance warnings
-      if (layerDuration > 10000) {
-        // 10 seconds
-        console.warn(
-          `Slow layer detected: Layer ${layer.id} took ${layerDuration.toFixed(2)}ms`,
-        );
-      }
-
-      const changeCount = calculateChanges(previous, next);
-      const improvements = detectImprovements(previous, next, usedAST);
-
-      if (wasReverted) {
-        improvements.push("Prevented code corruption");
-      }
-
-      results.push({
+      const startTime = Date.now();
+      let layerResult: NeuroLintLayerResult = {
+        id: layer.id,
         name: layer.name,
         description: layer.description,
-        code: next,
-        success: !wasReverted,
-        executionTime: layerDuration,
-        changeCount,
-        improvements,
-        message: wasReverted
-          ? `Transformation reverted: ${validation.reason}`
-          : cacheHit
-            ? "Transformation retrieved from cache"
-            : undefined,
-      });
-
-      current = next;
-      layerOutputs.push(next);
-    } catch (error: any) {
-      const layerEndTime = performance.now();
-      const layerDuration = layerEndTime - layerStartTime;
-
-      // Record error
-      const errorBoundary: ErrorBoundary = {
-        layerId: layer.id,
-        error: error instanceof Error ? error : new Error(String(error)),
-        recoveryAction: layer.retryable ? "fallback" : "skip",
-        timestamp: Date.now(),
+        success: false,
       };
-      errors.push(errorBoundary);
 
-      // Attempt recovery
-      if (layer.retryable && !error.message.includes("timeout")) {
-        try {
-          console.warn(`Layer ${layer.id} failed, attempting fallback...`);
-          const fallbackResult = await applyFallbackTransform(
-            layer,
-            current,
-            filePath,
-          );
-          current = fallbackResult;
+      try {
+        const originalCode = transformedCode;
+        transformedCode = await this.processWithAST(transformedCode, filePath);
+        const endTime = Date.now();
+        const executionTime = endTime - startTime;
+        const changeCount =
+          originalCode !== transformedCode
+            ? this.countCodeChanges(originalCode, transformedCode)
+            : 0;
 
-          results.push({
-            name: layer.name,
-            description: layer.description,
-            code: current,
-            success: true,
-            executionTime: layerDuration,
-            changeCount: calculateChanges(
-              layerOutputs[layerOutputs.length - 1],
-              current,
-            ),
-            improvements: ["Fallback transformation applied"],
-            message: `Original transformation failed, fallback applied: ${error.message}`,
-          });
-        } catch (fallbackError) {
-          // Fallback failed, record and continue
-          results.push({
-            name: layer.name,
-            description: layer.description,
-            message: `Layer failed: ${error.message}`,
-            code: current,
-            success: false,
-            executionTime: layerDuration,
-            changeCount: 0,
-          });
-        }
-      } else {
-        // Non-retryable error, record and continue
-        results.push({
-          name: layer.name,
-          description: layer.description,
-          message: `Layer failed: ${error.message}`,
-          code: current,
+        layerResult = {
+          ...layerResult,
+          success: true,
+          changeCount,
+          executionTime,
+        };
+        layerResults.push(layerResult);
+      } catch (e: any) {
+        layerResult = {
+          ...layerResult,
           success: false,
-          executionTime: layerDuration,
-          changeCount: 0,
-        });
+          message: e.message || "Layer processing failed",
+        };
+        layerResults.push(layerResult);
       }
-
-      layerOutputs.push(current);
-
-      layerPerformance.push({
-        layerId: layer.id,
-        duration: layerDuration,
-        memoryUsed: 0,
-        cacheHit: false,
-      });
     }
+
+    if (useCache) {
+      NeuroLintOrchestrator.setCachedResult(cacheKey, transformedCode);
+    }
+
+    return { transformed: transformedCode, layers: layerResults };
   }
 
-  // Final validation
-  const finalValidation = CodeValidator.validate(current);
-  if (
-    !finalValidation.isValid &&
-    finalValidation.errors.length > initialValidation.errors.length
-  ) {
-    console.warn(
-      "Final output has more errors than input. Consider manual review.",
-    );
+  private countCodeChanges(originalCode: string, transformedCode: string): number {
+    // Simple diff counting - can be enhanced with more sophisticated diffing
+    const originalLines = originalCode.split('\n');
+    const transformedLines = transformedCode.split('\n');
+    let changes = 0;
+
+    for (let i = 0; i < Math.max(originalLines.length, transformedLines.length); i++) {
+      if (originalLines[i] !== transformedLines[i]) {
+        changes++;
+      }
+    }
+
+    return changes;
   }
 
-  // Calculate performance metrics
-  const endTime = performance.now();
-  const endMemory = (performance as any).memory?.usedJSHeapSize || 0;
-
-  const performance_metrics: PerformanceMetrics = {
-    totalDuration: endTime - startTime,
-    memoryPeak: Math.max(endMemory - startMemory, 0),
-    layerPerformance,
-  };
-
-  return {
-    transformed: current,
-    layers: results,
-    layerOutputs,
-    performance: performance_metrics,
-    errors,
-    cacheHits,
-  };
-}
-
-// Enhanced transformation functions with proper AST/regex fallback
-async function applyStandardTransform(
-  layer: any,
-  code: string,
-  filePath?: string,
-  useAST: boolean = true,
-): Promise<string> {
-  // Layers 1-2: Always use regex (config files, simple patterns)
-  if (!layer.astSupported) {
-    return await layer.fn(code, filePath);
-  }
-
-  // Layers 3-4: Try AST first, fallback to regex
-  if (layer.astSupported && useAST) {
+  private async processWithAST(code: string, filePath?: string): Promise<string> {
     try {
-      console.log(`Using AST transformation for ${layer.name}`);
-      const astResult = await transformWithAST(
-        code,
-        `layer-${layer.id}-${layer.name.toLowerCase().replace(/\s/g, "-")}`,
-      );
-
-      if (astResult.success) {
-        return astResult.code;
-      } else {
-        console.warn(`AST failed for ${layer.name}, using regex fallback`);
-        return await layer.fn(code, filePath);
-      }
-    } catch (astError) {
-      console.warn(
-        `AST failed for ${layer.name}, using regex fallback:`,
-        astError.message,
-      );
-      return await layer.fn(code, filePath);
+      return await this.astOrchestrator.process(code, filePath, this.enabledLayers);
+    } catch (astError: unknown) {
+      console.warn('AST processing failed, falling back to regex:', astError);
+      return code;
     }
   }
 
-  return await layer.fn(code, filePath);
+  // Fallback to regex-based processing if AST fails
+  private async processWithRegex(code: string, layer: NeuroLintLayer): Promise<string> {
+    try {
+      return await layer.process(code);
+    } catch (regexError: any) {
+      console.error(`Regex processing failed for layer ${layer.id}:`, regexError);
+      throw new Error(`Regex processing failed for layer ${layer.id}: ${regexError.message}`);
+    }
+  }
 }
 
-async function applySafeTransform(
-  layer: any,
+export async function NeuroLintOrchestratorSimple(
   code: string,
   filePath?: string,
-): Promise<string> {
-  // Pre-flight validation
-  const preValidation = CodeValidator.validate(code);
-  if (!preValidation.isValid && preValidation.corruptionDetected) {
-    console.warn(`Skipping ${layer.name} due to pre-existing corruption`);
-    return code;
-  }
-
-  // Apply transformation
-  const transformed = await layer.fn(code, filePath);
-
-  // Post-flight validation
-  const postValidation = CodeValidator.validate(transformed);
-  const comparison = CodeValidator.compareBeforeAfter(code, transformed);
-
-  if (comparison.shouldRevert) {
-    console.warn(`${layer.name} transformation reverted: ${comparison.reason}`);
-    return code;
-  }
-
-  // Check for specific conflict patterns
-  if (hasConflictPatterns(code, transformed)) {
-    console.warn(`${layer.name} detected conflict patterns, reverting`);
-    return code;
-  }
-
-  return transformed;
+  useCache: boolean = true,
+  enabledLayers: number[] = [1, 2, 3, 4],
+): Promise<{ transformed: string; layers: NeuroLintLayerResult[] }> {
+  return NeuroLintOrchestrator.processCode(code, filePath, useCache, enabledLayers);
 }
-
-async function applyFallbackTransform(
-  layer: any,
-  code: string,
-  filePath?: string,
-): Promise<string> {
-  // Simple fallback - just return original code with minimal changes
-  console.log(`Applying fallback for layer ${layer.id}`);
-
-  // For now, just return original code
-  // In a real implementation, you'd have simplified transformation logic
-  return code;
-}
-
-// Utility functions
-function detectImprovements(
-  before: string,
-  after: string,
-  usedAST: boolean = false,
-): string[] {
-  const improvements: string[] = [];
-
-  if (before !== after) {
-    improvements.push("Code transformation applied");
-
-    if (usedAST) {
-      improvements.push("AST-based transformation");
-    }
-
-    // Detect specific improvements
-    if (after.includes("key=") && !before.includes("key=")) {
-      improvements.push("Added missing key props");
-    }
-
-    if (after.includes("aria-") && !before.includes("aria-")) {
-      improvements.push("Improved accessibility");
-    }
-
-    if (after.includes("typeof window") && !before.includes("typeof window")) {
-      improvements.push("Added SSR guards");
-    }
-  }
-
-  return improvements;
-}
-
-function calculateChanges(before: string, after: string): number {
-  const beforeLines = before.split("\n");
-  const afterLines = after.split("\n");
-  let changes = Math.abs(beforeLines.length - afterLines.length);
-
-  const minLength = Math.min(beforeLines.length, afterLines.length);
-  for (let i = 0; i < minLength; i++) {
-    if (beforeLines[i] !== afterLines[i]) changes++;
-  }
-  return changes;
-}
-
-function hasConflictPatterns(before: string, after: string): boolean {
-  // Check for double exports
-  const exportMatches = after.match(/export default/g);
-  if (exportMatches && exportMatches.length > 1) {
-    return true;
-  }
-
-  // Check for malformed React.memo wrapping
-  if (after.includes("React.memo(React.memo(")) {
-    return true;
-  }
-
-  // Check for duplicate error boundaries
-  if (
-    after.includes("ErrorBoundary") &&
-    (after.match(/ErrorBoundary/g) || []).length > 2
-  ) {
-    return true;
-  }
-
-  // Check for conflicting 'use client' directives
-  const useClientMatches = after.match(/'use client';/g);
-  if (useClientMatches && useClientMatches.length > 1) {
-    return true;
-  }
-
-  // Check for malformed imports
-  if (after.includes("import import") || after.includes("export export")) {
-    return true;
-  }
-
-  return false;
-}
-
-function hashCode(str: string): string {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash = hash & hash; // Convert to 32bit integer
-  }
-  return hash.toString(36);
-}
-
-// Export utilities for external use
-export { LAYER_LIST, transformationCache, rateLimiter };
-export type { NeuroLintLayerResult, PerformanceMetrics, ErrorBoundary };
