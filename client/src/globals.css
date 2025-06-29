@@ -18,6 +18,40 @@ body {
   background: rgb(var(--background-rgb));
   min-height: 100vh;
   font-family: "Inter", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+/* Professional typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold tracking-tight;
+}
+
+h1 {
+  @apply text-4xl md:text-5xl lg:text-6xl leading-tight;
+}
+
+h2 {
+  @apply text-2xl md:text-3xl leading-tight;
+}
+
+h3 {
+  @apply text-xl md:text-2xl leading-tight;
+}
+
+/* Professional section padding */
+.section-padding {
+  @apply py-16 md:py-20 lg:py-24;
+}
+
+.container-padding {
+  @apply px-4 md:px-6 lg:px-8;
 }
 
 /* Smooth scrolling */
@@ -165,20 +199,20 @@ html {
 
 /* Global button styles */
 .btn {
-  @apply px-4 py-2 rounded-xl font-medium transition-all duration-300 ease-out;
+  @apply px-4 py-2 rounded-xl font-bold transition-all duration-300 ease-out;
 }
 
 .btn-primary {
-  @apply bg-black text-white border border-zinc-800 hover:bg-white hover:text-black transform hover:scale-105 active:scale-95;
+  @apply bg-zinc-900 text-white border border-zinc-700 hover:bg-zinc-800 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl;
 }
 
 .btn-secondary {
-  @apply bg-zinc-900 text-white border border-zinc-800 hover:bg-white hover:text-black transform hover:scale-105 active:scale-95;
+  @apply bg-zinc-800 text-white border border-zinc-700 hover:bg-zinc-700 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl;
 }
 
 /* Card styles */
 .card {
-  @apply bg-black border border-zinc-800 rounded-xl p-6;
+  @apply bg-zinc-900/80 border border-zinc-800 rounded-xl p-6 backdrop-blur-sm transition-all duration-300 hover:bg-zinc-900/90 hover:border-zinc-700;
 }
 
 /* Table styles */
@@ -206,11 +240,25 @@ html {
 
 /* Interactive elements */
 .interactive {
-  @apply transition-all duration-300 ease-out transform hover:scale-105 active:scale-95;
+  @apply transition-all duration-300 ease-out transform hover:scale-105 active:scale-95 hover:shadow-lg;
 }
 
 .interactive-subtle {
-  @apply transition-all duration-300 ease-out transform hover:scale-102 active:scale-98;
+  @apply transition-all duration-300 ease-out transform hover:scale-102 active:scale-98 hover:shadow-md;
+}
+
+/* Professional section styling */
+.section-professional {
+  @apply transition-all duration-500 ease-out;
+}
+
+/* Enhanced hover states */
+.hover-lift {
+  @apply transition-all duration-300 ease-out hover:transform hover:-translate-y-1 hover:shadow-xl;
+}
+
+.hover-glow {
+  @apply transition-all duration-300 ease-out hover:shadow-2xl hover:shadow-zinc-900/50;
 }
 
 /* Glass morphism effect */
