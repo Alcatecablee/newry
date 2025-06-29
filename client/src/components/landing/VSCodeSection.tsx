@@ -3,13 +3,20 @@ import { Code2, Lightbulb, Eye, Settings, Download, Star } from "lucide-react";
 
 export function VSCodeSection() {
   return (
-    <section className="py-24 px-4 bg-zinc-900/30 backdrop-blur-xl">
+    <section
+      className="section-padding container-padding bg-zinc-950/80 backdrop-blur-xl"
+      role="region"
+      aria-labelledby="vscode-heading"
+    >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-20">
-          <h2 className="text-2xl font-bold mb-8 text-white">
+        <div className="text-center mb-16">
+          <h2
+            id="vscode-heading"
+            className="text-2xl font-bold mb-6 text-white tracking-tight"
+          >
             Code in Your Editor
           </h2>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto font-medium">
+          <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto font-medium leading-relaxed">
             Experience NeuroLint directly in Visual Studio Code with real-time
             analysis, instant fixes, and seamless integration into your
             development workflow.
