@@ -64,12 +64,17 @@ export function LandingFeatures() {
   return (
     <section
       id="features"
-      className="w-full flex flex-col items-center py-10 px-2 bg-[#17181c]"
+      className="w-full flex flex-col items-center section-padding container-padding bg-zinc-950"
+      role="region"
+      aria-labelledby="features-heading"
     >
-      <div className="max-w-3xl w-full">
+      <div className="max-w-5xl w-full">
         {/* Features Title */}
-        <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-          <Zap className="w-6 h-6 text-white" />
+        <h2
+          id="features-heading"
+          className="text-2xl font-bold text-white mb-8 flex items-center gap-3 tracking-tight"
+        >
+          <Zap className="w-6 h-6 text-white" aria-hidden="true" />
           Features & Roadmap
         </h2>
 
@@ -198,12 +203,12 @@ export function LandingFeatures() {
       </div>
 
       {/* How it Works */}
-      <div id="how" className="mt-12 max-w-3xl w-full">
-        <h2 className="text-2xl font-bold mb-3 text-white flex items-center gap-2">
-          <Users className="w-6 h-6" />
+      <div id="how" className="mt-16 max-w-4xl w-full">
+        <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-3 tracking-tight">
+          <Users className="w-6 h-6" aria-hidden="true" />
           How it Works
         </h2>
-        <div className="bg-[#13141a] rounded-lg border border-[#262633] p-6 text-gray-200">
+        <div className="bg-zinc-900/80 rounded-xl border border-zinc-800 p-8 text-gray-200 hover-glow transition-all duration-300">
           <ol className="list-decimal ml-5 space-y-2 text-sm">
             <li>
               Upload your TypeScript/Next.js project or configs—no setup
