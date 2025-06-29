@@ -217,7 +217,7 @@ export const FAQSection: React.FC = () => {
               </span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+            <h2 className="text-2xl font-bold mb-6 text-white">
               Everything You Need to Know
             </h2>
 

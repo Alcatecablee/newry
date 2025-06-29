@@ -6,7 +6,7 @@ export function VSCodeSection() {
     <section className="py-24 px-4 bg-zinc-900/30 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
+          <h2 className="text-2xl font-bold mb-8 text-white">
             Code in Your Editor
           </h2>
           <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto font-medium">

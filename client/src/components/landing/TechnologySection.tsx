@@ -57,7 +57,7 @@ export const TechnologySection: React.FC = () => {
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+          <h2 className="text-2xl font-bold mb-6 text-white">
             How NeuroLint Works
           </h2>
           <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
