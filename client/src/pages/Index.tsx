@@ -354,7 +354,7 @@ export default function Index() {
       <CLISection />
 
       {/* VS Code Extension Section */}
-      <section id="vscode" className="py-20 bg-black border-t border-zinc-800">
+      <section id="vscode" className="py-20 bg-black">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
@@ -625,7 +625,7 @@ export default function Index() {
       </section>
 
       {/* Integrations Section */}
-      <section className="py-20 bg-black border-t border-zinc-800">
+      <section className="py-20 bg-black">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
