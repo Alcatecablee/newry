@@ -68,8 +68,8 @@ export function LandingFeatures() {
     >
       <div className="max-w-3xl w-full">
         {/* Features Title */}
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 flex items-center gap-2">
-          <Zap className="text-white" />
+        <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+          <Zap className="w-6 h-6 text-white" />
           Features & Roadmap
         </h2>
 
@@ -188,7 +188,7 @@ export function LandingFeatures() {
             commands.
           </li>
           <li>
-            <span className="font-bold text-green-400">
+            <span className="font-bold text-white">
               Seeking co-founder to master the orchestration—layers are solid,
               we need help integrating them for truly seamless, automated
               multi-layer repair!
@@ -199,7 +199,7 @@ export function LandingFeatures() {
 
       {/* How it Works */}
       <div id="how" className="mt-12 max-w-3xl w-full">
-        <h2 className="text-2xl font-bold mb-3 text-blue-300 flex items-center gap-2">
+        <h2 className="text-2xl font-bold mb-3 text-white flex items-center gap-2">
           <Users className="w-6 h-6" />
           How it Works
         </h2>
