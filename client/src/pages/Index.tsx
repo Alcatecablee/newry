@@ -4,34 +4,6 @@ import { FAQSection } from "@/components/landing/FAQSection";
 import { TechnologySection } from "@/components/landing/TechnologySection";
 import { CLISection } from "@/components/landing/CLISection";
 
-// Add CSS keyframes for glowing border animation
-const glowBorderStyles = `
-  @keyframes borderTrace {
-    0% {
-      transform: rotate(0deg);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    90% {
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(360deg);
-      opacity: 0;
-    }
-  }
-`;
-
-// Inject styles into document head
-if (typeof document !== "undefined") {
-  const styleSheet = document.createElement("style");
-  styleSheet.type = "text/css";
-  styleSheet.innerText = glowBorderStyles;
-  document.head.appendChild(styleSheet);
-}
-
 import {
   Target,
   Zap,
