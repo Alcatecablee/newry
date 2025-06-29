@@ -262,49 +262,89 @@ html {
   animation-duration: 5s !important;
 }
 
-/* GUARANTEED VISIBLE BORDER ANIMATION */
-@keyframes borderGlow {
+/* BORDER TRACING ANIMATION - WORKING VERSION */
+@keyframes rotatingBorder {
   0% {
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-  }
-  50% {
-    border-color: rgba(255, 255, 255, 0.8);
-    box-shadow:
-      0 0 20px rgba(255, 255, 255, 0.6),
-      0 0 40px rgba(255, 255, 255, 0.3);
+    transform: rotate(0deg);
   }
   100% {
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glowIntensity {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
   }
 }
 
 /* Base glow border class */
 .glow-border {
-  border: 2px solid rgba(255, 255, 255, 0.2) !important;
-  transition: all 0.3s ease;
+  position: relative;
+}
+
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    transparent 350deg,
+    rgba(255, 255, 255, 0.9) 360deg
+  );
+  z-index: -1;
+  opacity: 0;
+  animation: glowIntensity 2s ease-in-out infinite;
+}
+
+.glow-border::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(to right, #000, #000);
+  z-index: -1;
 }
 
 /* Always animated */
-.glow-border-always {
-  animation: borderGlow 3s ease-in-out infinite;
+.glow-border-always::before {
+  animation:
+    rotatingBorder 3s linear infinite,
+    glowIntensity 2s ease-in-out infinite;
+  opacity: 1;
 }
 
 /* Hover animated */
-.glow-border-hover:hover {
-  animation: borderGlow 2s ease-in-out infinite;
+.glow-border-hover:hover::before {
+  animation:
+    rotatingBorder 2s linear infinite,
+    glowIntensity 1.5s ease-in-out infinite;
+  opacity: 1;
 }
 
 /* Random delays */
-.glow-border-delay-1 {
-  animation: borderGlow 4s ease-in-out infinite 1s;
+.glow-border-delay-1::before {
+  animation:
+    rotatingBorder 4s linear infinite 1s,
+    glowIntensity 2.5s ease-in-out infinite 1s;
+  opacity: 1;
 }
 
-.glow-border-delay-2 {
-  animation: borderGlow 5s ease-in-out infinite 2s;
+.glow-border-delay-2::before {
+  animation:
+    rotatingBorder 5s linear infinite 2s,
+    glowIntensity 3s ease-in-out infinite 2s;
+  opacity: 1;
 }
 
-.glow-border-delay-3 {
-  animation: borderGlow 3.5s ease-in-out infinite 3s;
+.glow-border-delay-3::before {
+  animation:
+    rotatingBorder 3.5s linear infinite 3s,
+    glowIntensity 2s ease-in-out infinite 3s;
+  opacity: 1;
 }
