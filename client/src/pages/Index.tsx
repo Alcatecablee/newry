@@ -280,12 +280,28 @@ export default function Index() {
               },
             ].map((feature, index) => {
               const getGlowClass = () => {
-                if (index === 0) return "glow-border glow-border-always";
-                if (index === 1) return "glow-border glow-border-hover";
-                if (index === 2) return "glow-border glow-border-delay-1";
-                if (index === 3) return "glow-border glow-border-hover";
-                if (index === 4) return "glow-border glow-border-delay-2";
-                if (index === 5) return "glow-border glow-border-hover";
+                const colors = [
+                  "blue",
+                  "purple",
+                  "green",
+                  "pink",
+                  "orange",
+                  "cyan",
+                ];
+                const color = colors[index];
+
+                if (index === 0)
+                  return `glow-border glow-border-always glow-border-${color}`;
+                if (index === 1)
+                  return `glow-border glow-border-hover glow-border-${color}`;
+                if (index === 2)
+                  return `glow-border glow-border-delay-1 glow-border-${color}`;
+                if (index === 3)
+                  return `glow-border glow-border-hover glow-border-${color}`;
+                if (index === 4)
+                  return `glow-border glow-border-delay-2 glow-border-${color}`;
+                if (index === 5)
+                  return `glow-border glow-border-hover glow-border-${color}`;
                 return "";
               };
 
