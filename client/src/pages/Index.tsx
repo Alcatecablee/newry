@@ -4,6 +4,8 @@ import { FAQSection } from "@/components/landing/FAQSection";
 import { TechnologySection } from "@/components/landing/TechnologySection";
 import { CLISection } from "@/components/landing/CLISection";
 
+
+
 import {
   Target,
   Zap,
@@ -278,48 +280,22 @@ export default function Index() {
                   "Analyzes test coverage and suggests areas needing more testing.",
                 icon: CheckCircle,
               },
-            ].map((feature, index) => (
-              <div
-                key={index}
-                className="feature-card bg-black/70 backdrop-blur-xl p-10 rounded-3xl relative border-2 border-zinc-800/50 hover:border-zinc-600/80 transition-all duration-300 hover:bg-black/90 group h-[280px] flex flex-col overflow-hidden"
-                style={{
-                  position: "relative",
-                }}
-              >
+            ].map((feature, index) => {
+              const getGlowClass = () => {
+                if (index === 0) return "glow-border glow-border-always";
+                if (index === 1) return "glow-border glow-border-hover";
+                if (index === 2) return "glow-border glow-border-delay-1";
+                if (index === 3) return "glow-border glow-border-hover";
+                if (index === 4) return "glow-border glow-border-delay-2";
+                if (index === 5) return "glow-border glow-border-hover";
+                return "";
+              };
+
+              return (
                 <div
-                  style={{
-                    content: '""',
-                    position: "absolute",
-                    inset: "-2px",
-                    borderRadius: "24px",
-                    background: `conic-gradient(
-                      from 0deg,
-                      transparent 0deg,
-                      rgba(255, 255, 255, 0.8) 90deg,
-                      transparent 180deg,
-                      rgba(255, 255, 255, 0.6) 270deg,
-                      transparent 360deg
-                    )`,
-                    zIndex: -1,
-                    opacity: index === 0 || index === 2 || index === 4 ? 1 : 0,
-                    animation:
-                      index === 0
-                        ? "borderTrace 4s linear infinite"
-                        : index === 2
-                          ? "borderTrace 5s linear infinite 2s"
-                          : index === 4
-                            ? "borderTrace 6s linear infinite 4s"
-                            : "none",
-                    transition: "opacity 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (index === 1 || index === 3 || index === 5) {
-                      e.currentTarget.style.animation =
-                        "borderTrace 2s linear infinite";
-                      e.currentTarget.style.opacity = "1";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
+                  key={index}
+                  className={`feature-card bg-black/70 backdrop-blur-xl p-10 rounded-3xl relative border-2 border-zinc-800/50 hover:border-zinc-600/80 transition-all duration-300 hover:bg-black/90 group h-[280px] flex flex-col ${getGlowClass()}`}
+                >
                     if (index === 1 || index === 3 || index === 5) {
                       e.currentTarget.style.animation = "none";
                       e.currentTarget.style.opacity = "0";
