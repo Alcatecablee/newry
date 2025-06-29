@@ -2,7 +2,10 @@ import { Zap, Users, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { GlowingBorder, getRandomGlowVariant } from "@/components/ui/glowing-border";
+import {
+  GlowingBorder,
+  getRandomGlowVariant,
+} from "@/components/ui/glowing-border";
 
 const LAYERS = [
   {
@@ -83,7 +86,7 @@ export function LandingFeatures() {
           <div className="flex items-center text-white text-base font-semibold">
             <Users className="mr-2" />
             <span>
-              Engineer or AI researcher? Help build the world’s first
+              Engineer or AI researcher? Help build the world��s first
               fully-automated code refactoring platform!
             </span>
           </div>
@@ -221,25 +224,26 @@ export function LandingFeatures() {
         </h2>
         <GlowingBorder variant="pulse" color="blue">
           <div className="bg-zinc-900/80 rounded-xl border border-zinc-800 p-8 text-gray-200 hover-glow transition-all duration-300">
-          <ol className="list-decimal ml-5 space-y-2 text-sm">
-            <li>
-              Upload your TypeScript/Next.js project or configs—no setup
-              required.
-            </li>
-            <li>
-              Select the analysis layer(s) you want to run, including full-stack
-              config upgrades.
-            </li>
-            <li>
-              Preview and approve changes. Full dry run, transparency, and
-              safety tooling always enabled.
-            </li>
-            <li>
-              Enjoy a modernized, production-ready codebase in seconds. Advanced
-              orchestrator coming soon.
-            </li>
-          </ol>
-        </div>
+            <ol className="list-decimal ml-5 space-y-2 text-sm">
+              <li>
+                Upload your TypeScript/Next.js project or configs—no setup
+                required.
+              </li>
+              <li>
+                Select the analysis layer(s) you want to run, including
+                full-stack config upgrades.
+              </li>
+              <li>
+                Preview and approve changes. Full dry run, transparency, and
+                safety tooling always enabled.
+              </li>
+              <li>
+                Enjoy a modernized, production-ready codebase in seconds.
+                Advanced orchestrator coming soon.
+              </li>
+            </ol>
+          </div>
+        </GlowingBorder>
       </div>
     </section>
   );
