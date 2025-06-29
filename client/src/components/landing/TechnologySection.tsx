@@ -61,7 +61,7 @@ export const TechnologySection: React.FC = () => {
         <div className="text-center mb-16">
           <h2
             id="technology-heading"
-            className="text-2xl font-bold mb-6 text-white tracking-tight"
+            className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white"
           >
             How NeuroLint Works
           </h2>

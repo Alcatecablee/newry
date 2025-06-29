@@ -107,7 +107,7 @@ function UserProfile({ userId }: { userId: string }) {
         <div className="text-center mb-16">
           <h2
             id="demo-heading"
-            className="text-2xl font-bold mb-6 text-white tracking-tight"
+            className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white"
           >
             See NeuroLint in Action
           </h2>

@@ -12,7 +12,7 @@ export function VSCodeSection() {
         <div className="text-center mb-16">
           <h2
             id="vscode-heading"
-            className="text-2xl font-bold mb-6 text-white tracking-tight"
+            className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white"
           >
             Code in Your Editor
           </h2>

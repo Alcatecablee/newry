@@ -224,7 +224,7 @@ export const FAQSection: React.FC = () => {
 
             <h2
               id="faq-heading"
-              className="text-2xl font-bold mb-6 text-white tracking-tight"
+              className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white"
             >
               Everything You Need to Know
             </h2>
