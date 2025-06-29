@@ -261,3 +261,68 @@ html {
 .random-duration-long {
   animation-duration: 5s !important;
 }
+
+/* GLOWING BORDER TRACE ANIMATION */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Base class for glowing border */
+.glow-border {
+  position: relative;
+}
+
+.glow-border::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 270deg,
+    rgba(255, 255, 255, 0.7) 360deg
+  );
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Always animated */
+.glow-border-always::before {
+  animation: rotate 3s linear infinite;
+  opacity: 1;
+}
+
+/* Hover animated */
+.glow-border-hover::before {
+  transition: opacity 0.3s ease;
+}
+
+.glow-border-hover:hover::before {
+  animation: rotate 2s linear infinite;
+  opacity: 1;
+}
+
+/* Random delays */
+.glow-border-delay-1::before {
+  animation: rotate 4s linear infinite 1s;
+  opacity: 1;
+}
+
+.glow-border-delay-2::before {
+  animation: rotate 5s linear infinite 2s;
+  opacity: 1;
+}
+
+.glow-border-delay-3::before {
+  animation: rotate 3.5s linear infinite 3s;
+  opacity: 1;
+}
