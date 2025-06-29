@@ -262,204 +262,96 @@ html {
   animation-duration: 5s !important;
 }
 
-/* BORDER TRACING ANIMATION - Line travels around perimeter */
-@keyframes traceTop {
-  0%,
-  25%,
-  50%,
-  75%,
-  100% {
-    opacity: 0;
-    transform: scaleX(0);
+/* WORKING BORDER TRACE - GLOWING LINE TRAVELS AROUND PERIMETER */
+@keyframes borderTrace {
+  0% {
+    top: 0;
+    left: -30px;
+    width: 60px;
+    height: 2px;
+    transform: rotate(0deg);
   }
-  0%,
   24% {
-    opacity: 1;
-    transform: scaleX(1);
-    transform-origin: left;
+    top: 0;
+    left: calc(100% - 30px);
+    width: 60px;
+    height: 2px;
+    transform: rotate(0deg);
   }
-}
-
-@keyframes traceRight {
-  0%,
-  25%,
-  50%,
-  75%,
-  100% {
-    opacity: 0;
-    transform: scaleY(0);
+  25% {
+    top: -30px;
+    left: calc(100% - 2px);
+    width: 2px;
+    height: 60px;
+    transform: rotate(0deg);
   }
-  25%,
   49% {
-    opacity: 1;
-    transform: scaleY(1);
-    transform-origin: top;
+    top: calc(100% - 30px);
+    left: calc(100% - 2px);
+    width: 2px;
+    height: 60px;
+    transform: rotate(0deg);
   }
-}
-
-@keyframes traceBottom {
-  0%,
-  25%,
-  50%,
-  75%,
-  100% {
-    opacity: 0;
-    transform: scaleX(0);
+  50% {
+    top: calc(100% - 2px);
+    left: calc(100% + 30px);
+    width: 60px;
+    height: 2px;
+    transform: rotate(180deg);
   }
-  50%,
   74% {
-    opacity: 1;
-    transform: scaleX(1);
-    transform-origin: right;
+    top: calc(100% - 2px);
+    left: 30px;
+    width: 60px;
+    height: 2px;
+    transform: rotate(180deg);
   }
-}
-
-@keyframes traceLeft {
-  0%,
-  25%,
-  50%,
-  75%,
-  100% {
-    opacity: 0;
-    transform: scaleY(0);
+  75% {
+    top: calc(100% + 30px);
+    left: 0;
+    width: 2px;
+    height: 60px;
+    transform: rotate(180deg);
   }
-  75%,
   99% {
-    opacity: 1;
-    transform: scaleY(1);
-    transform-origin: bottom;
+    top: 30px;
+    left: 0;
+    width: 2px;
+    height: 60px;
+    transform: rotate(180deg);
+  }
+  100% {
+    top: 0;
+    left: -30px;
+    width: 60px;
+    height: 2px;
+    transform: rotate(0deg);
   }
 }
 
 /* Base glow border class */
 .glow-border {
   position: relative;
+  overflow: hidden;
 }
 
-/* Top border */
 .glow-border::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  left: -30px;
+  width: 60px;
   height: 2px;
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.9),
     transparent
   );
   border-radius: 1px;
   opacity: 0;
-  transform: scaleX(0);
-  transform-origin: left;
-  z-index: 10;
-}
-
-/* Right border */
-.glow-border::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(
-    180deg,
-    transparent,
-    rgba(255, 255, 255, 0.8),
-    transparent
-  );
-  border-radius: 1px;
-  opacity: 0;
-  transform: scaleY(0);
-  transform-origin: top;
-  z-index: 10;
-}
-
-/* We need additional pseudo elements for bottom and left, so we'll use a different approach */
-.glow-border {
-  position: relative;
-}
-
-.glow-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0.8) 20%,
-    transparent 20%,
-    transparent 100%
-  );
-  background-size: 500% 100%;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  opacity: 0;
-  z-index: -1;
-}
-
-@keyframes borderTrace {
-  0% {
-    background-position: 0% 0%;
-    opacity: 1;
-  }
-  25% {
-    background-position: 100% 0%;
-    opacity: 1;
-  }
-  25.01% {
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(255, 255, 255, 0.8) 20%,
-      transparent 20%,
-      transparent 100%
-    );
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 0% 100%;
-    opacity: 1;
-  }
-  50.01% {
-    background: linear-gradient(
-      270deg,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(255, 255, 255, 0.8) 20%,
-      transparent 20%,
-      transparent 100%
-    );
-    background-position: 0% 0%;
-  }
-  75% {
-    background-position: 100% 0%;
-    opacity: 1;
-  }
-  75.01% {
-    background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(255, 255, 255, 0.8) 20%,
-      transparent 20%,
-      transparent 100%
-    );
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 0% 100%;
-    opacity: 1;
-  }
+  z-index: 1000;
+  pointer-events: none;
 }
 
 /* Always animated */
