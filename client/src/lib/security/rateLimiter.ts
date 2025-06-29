@@ -81,7 +81,7 @@ export class RateLimiter {
     const entries = Array.from(this.requests.entries());
     
     for (const [key, entry] of entries) {
-      if (now - entry.lastRequest > this.windowMs) {
+      if (now > entry.resetTime) {
         this.requests.delete(key);
       }
     }

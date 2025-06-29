@@ -74,14 +74,13 @@ export function TestRunner() {
 
       const startTime = Date.now();
       try {
-        // Pass enabledLayers to orchestrator
-        const { transformed, layers, layerOutputs } =
-          await NeuroLintOrchestrator(
-            testCase.input,
-            undefined,
-            useAST,
-            testEnabledLayers,
-          );
+        // Use the static method instead of calling the class directly
+        const { transformed, layers } = await NeuroLintOrchestrator.processCode(
+          testCase.input,
+          undefined,
+          useAST,
+          testEnabledLayers,
+        );
         const validation = validateTestResult(testCase, transformed);
         const executionTime = Date.now() - startTime;
 
@@ -93,10 +92,10 @@ export function TestRunner() {
           missingFixes: validation.missingFixes,
           executionTime,
           // Store per-test pipeline and enabled layers
-          pipeline: layerOutputs,
+          pipeline: [testCase.input, transformed], // Simplified for now
           testEnabledLayers,
         });
-        layerPipelines.push(layerOutputs);
+        layerPipelines.push([testCase.input, transformed]);
       } catch (error) {
         const executionTime = Date.now() - startTime;
         testResults.push({

@@ -1,10 +1,10 @@
-import { LayerOne } from "./layers/layer1";
-import { LayerTwo } from "./layers/layer2";
-import { LayerThree } from "./layers/layer3";
-import { LayerFour } from "./layers/layer4";
-import { LayerFive } from "./layers/layer5";
-import { LayerSix } from "./layers/layer6";
-import { ASTOrchestrator } from "./ast";
+import { LayerOne } from "./layers/layer-1-config";
+import { LayerTwo } from "./layers/layer-2-entities";
+import { LayerThree } from "./layers/layer-3-components";
+import { LayerFour } from "./layers/layer-4-hydration";
+import { LayerFive } from "./layers/layer-5-nextjs";
+import { LayerSix } from "./layers/layer-6-testing";
+import { ASTOrchestrator } from "./ast/orchestrator";
 
 export interface NeuroLintLayer {
   id: number;

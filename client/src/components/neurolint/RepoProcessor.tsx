@@ -52,7 +52,7 @@ export function RepoProcessor({
       setProgress({ current: i + 1, total: files.length });
 
       try {
-        const { transformed, layers } = await NeuroLintOrchestrator(
+        const { transformed, layers } = await NeuroLintOrchestrator.processCode(
           file.content,
           file.path,
           true,
