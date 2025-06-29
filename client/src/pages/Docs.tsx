@@ -80,7 +80,7 @@ export default function Docs() {
           </TabsList>
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-6">
-            <Card className="bg-zinc-900 border-zinc-800">
+            <Card className="bg-[#111111] border-2 border-zinc-800 rounded-3xl hover:border-zinc-600 transition-all duration-300">
               <CardHeader>
                 <CardTitle className="text-white">
                   Meet <span className="text-purple-400">NeuroLint</span>:
