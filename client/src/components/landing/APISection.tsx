@@ -77,7 +77,7 @@ export function APISection() {
                     onClick={() => setActiveTab("analyze")}
                     className={`px-6 py-3 text-sm font-medium transition-colors ${
                       activeTab === "analyze"
-                        ? "text-blue-400 border-b-2 border-blue-400 bg-gray-750"
+                        ? "text-white border-b-2 border-zinc-600 bg-zinc-800"
                         : "text-gray-400 hover:text-white"
                     }`}
                   >
@@ -87,7 +87,7 @@ export function APISection() {
                     onClick={() => setActiveTab("transform")}
                     className={`px-6 py-3 text-sm font-medium transition-colors ${
                       activeTab === "transform"
-                        ? "text-blue-400 border-b-2 border-blue-400 bg-gray-750"
+                        ? "text-white border-b-2 border-zinc-600 bg-zinc-800"
                         : "text-gray-400 hover:text-white"
                     }`}
                   >
@@ -97,7 +97,7 @@ export function APISection() {
                     onClick={() => setActiveTab("response")}
                     className={`px-6 py-3 text-sm font-medium transition-colors ${
                       activeTab === "response"
-                        ? "text-blue-400 border-b-2 border-blue-400 bg-gray-750"
+                        ? "text-white border-b-2 border-zinc-600 bg-zinc-800"
                         : "text-gray-400 hover:text-white"
                     }`}
                   >
