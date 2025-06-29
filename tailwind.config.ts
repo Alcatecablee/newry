@@ -67,10 +67,19 @@ export default {
         "accordion-down": {
           from: {
             height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+        },
+      },
+      transitionTimingFunction: {
+        "bounce-in": "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+        "ease-spring": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "ease-out-back": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "ease-in-out-circ": "cubic-bezier(0.85, 0, 0.15, 1)",
+      },
+      backdropBlur: {
+        xs: "2px",
+      },
+    },
+  },
         },
         "accordion-up": {
           from: {
@@ -116,6 +125,15 @@ export default {
         "glow-border-always": "borderTrace 4s linear infinite",
         "glow-border-hover": "borderTrace 2s linear infinite",
         "glow-border-random": "borderTrace 5s linear infinite",
+        "shimmer": "shimmer 2s infinite linear",
+        "bounce-gentle": "bounce-gentle 0.6s ease-in-out",
+        "spin-slow": "spin-slow 3s linear infinite",
+        "fade-in-blur": "fade-in-blur 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "slide-in-down": "slideInDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "slide-in-up": "slideInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "slide-in-left": "slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "slide-in-right": "slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "stagger": "stagger-appear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
       },
     },
   },
