@@ -262,47 +262,56 @@ html {
   animation-duration: 5s !important;
 }
 
-/* BORDER TRACING ANIMATION - Line travels around perimeter */
-@keyframes borderTrace {
+/* BORDER TRACING ANIMATION - Glowing line travels around perimeter */
+@keyframes traceBorder {
   0% {
-    clip-path: inset(0 100% 100% 0);
+    transform: translate(-100%, -50%) rotate(0deg);
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
   }
   25% {
-    clip-path: inset(0 0 100% 0);
+    transform: translate(calc(var(--width) + 50%), -50%) rotate(0deg);
+    opacity: 1;
+  }
+  27% {
+    transform: translate(calc(var(--width) + 50%), -50%) rotate(90deg);
+    opacity: 1;
   }
   50% {
-    clip-path: inset(0 0 0 0);
+    transform: translate(calc(var(--width) + 50%), calc(var(--height) + 50%))
+      rotate(90deg);
+    opacity: 1;
+  }
+  52% {
+    transform: translate(calc(var(--width) + 50%), calc(var(--height) + 50%))
+      rotate(180deg);
+    opacity: 1;
   }
   75% {
-    clip-path: inset(0 0 0 100%);
+    transform: translate(-50%, calc(var(--height) + 50%)) rotate(180deg);
+    opacity: 1;
+  }
+  77% {
+    transform: translate(-50%, calc(var(--height) + 50%)) rotate(270deg);
+    opacity: 1;
+  }
+  98% {
+    transform: translate(-50%, -50%) rotate(270deg);
+    opacity: 1;
   }
   100% {
-    clip-path: inset(100% 0 0 100%);
-  }
-}
-
-@keyframes borderTraceSmooth {
-  0% {
-    background-position: 0% 50%;
-  }
-  25% {
-    background-position: 100% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  75% {
-    background-position: 0% 100%;
-  }
-  100% {
-    background-position: 0% 50%;
+    transform: translate(-50%, -50%) rotate(360deg);
+    opacity: 0;
   }
 }
 
 /* Base class for glowing border trace */
 .glow-border {
   position: relative;
-  overflow: hidden;
+  --width: 100%;
+  --height: 100%;
 }
 
 .glow-border::before {
@@ -310,56 +319,69 @@ html {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: inherit;
-  padding: 2px;
+  width: 60px;
+  height: 2px;
   background: linear-gradient(
     90deg,
     transparent,
-    transparent,
-    rgba(255, 255, 255, 0.8),
-    transparent,
+    rgba(255, 255, 255, 0.9),
     transparent
   );
-  background-size: 200% 200%;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  z-index: -1;
+  border-radius: 1px;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  z-index: 10;
+  transform-origin: center;
+}
+
+.glow-border::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  border-radius: 1px;
+  opacity: 0;
+  z-index: 9;
+  transform-origin: center;
+  filter: blur(2px);
 }
 
 /* Always animated */
-.glow-border-always::before {
-  animation: borderTraceSmooth 3s linear infinite;
+.glow-border-always::before,
+.glow-border-always::after {
+  animation: traceBorder 4s linear infinite;
   opacity: 1;
 }
 
 /* Hover animated */
-.glow-border-hover:hover::before {
-  animation: borderTraceSmooth 2s linear infinite;
+.glow-border-hover:hover::before,
+.glow-border-hover:hover::after {
+  animation: traceBorder 3s linear infinite;
   opacity: 1;
 }
 
 /* Random delays */
-.glow-border-delay-1::before {
-  animation: borderTraceSmooth 4s linear infinite 1s;
+.glow-border-delay-1::before,
+.glow-border-delay-1::after {
+  animation: traceBorder 5s linear infinite 1s;
   opacity: 1;
 }
 
-.glow-border-delay-2::before {
-  animation: borderTraceSmooth 5s linear infinite 2s;
+.glow-border-delay-2::before,
+.glow-border-delay-2::after {
+  animation: traceBorder 6s linear infinite 2.5s;
   opacity: 1;
 }
 
-.glow-border-delay-3::before {
-  animation: borderTraceSmooth 3.5s linear infinite 3s;
+.glow-border-delay-3::before,
+.glow-border-delay-3::after {
+  animation: traceBorder 4.5s linear infinite 3.5s;
   opacity: 1;
 }
