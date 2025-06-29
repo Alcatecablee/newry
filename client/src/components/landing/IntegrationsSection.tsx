@@ -83,19 +83,20 @@ export function IntegrationsSection() {
   return (
     <section
       id="integrations"
-      className="relative z-10 section-padding container-padding bg-zinc-950 backdrop-blur-sm"
+      className="py-24 px-4 relative"
       role="region"
       aria-labelledby="integrations-heading"
     >
-      <div className="container mx-auto">
-        <div className="text-center mb-16">
+      <div className="absolute inset-0 bg-black"></div>
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="text-center mb-20">
           <h2
             id="integrations-heading"
             className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white"
           >
             Seamless Integrations
           </h2>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto font-medium">
             Connect NeuroLint with your existing development tools and
             workflows. From CI/CD pipelines to version control systems, we've
             got you covered.
