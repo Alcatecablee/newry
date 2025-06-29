@@ -209,7 +209,7 @@ export default function Index() {
       </section>
 
       {/* Test Suite CTA Section */}
-      <section className="py-16 px-4 bg-zinc-900/30">
+      <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
             See NeuroLint in Action
@@ -229,9 +229,8 @@ export default function Index() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-24 px-4 relative">
-        <div className="absolute inset-0 bg-black"></div>
-        <div className="max-w-7xl mx-auto relative z-10">
+      <section id="features" className="py-24 px-4">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
               Multi-Layer Analysis System
@@ -300,7 +299,7 @@ export default function Index() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-24 px-4 bg-zinc-900/30 backdrop-blur-xl">
+      <section className="py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
@@ -354,7 +353,7 @@ export default function Index() {
       <CLISection />
 
       {/* VS Code Extension Section */}
-      <section id="vscode" className="py-20 bg-black">
+      <section id="vscode" className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
@@ -480,9 +479,8 @@ export default function Index() {
       </section>
 
       {/* REST API Section */}
-      <section className="py-24 px-4 relative">
-        <div className="absolute inset-0 bg-black"></div>
-        <div className="max-w-7xl mx-auto relative z-10">
+      <section className="py-24 px-4">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
               Enterprise REST API
@@ -625,7 +623,7 @@ export default function Index() {
       </section>
 
       {/* Integrations Section */}
-      <section className="py-20 bg-black">
+      <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
