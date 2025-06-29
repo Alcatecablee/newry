@@ -2,7 +2,10 @@ import { Zap, Users, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { GlowingBorder, getRandomGlowVariant } from "@/components/ui/glowing-border";
+import {
+  GlowingBorder,
+  getRandomGlowVariant,
+} from "@/components/ui/glowing-border";
 
 const LAYERS = [
   {
@@ -118,58 +121,57 @@ export function LandingFeatures() {
                 color={layer.status === "live" ? "green" : "white"}
               >
                 <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1b21] border border-[#292939] w-full relative">
+                  <Badge
+                    variant={layer.status === "live" ? "default" : "secondary"}
+                    className={
+                      layer.status === "live"
+                        ? "bg-zinc-700 text-white"
+                        : "bg-[#23233b] text-gray-300"
+                    }
+                  >
+                    {layer.status === "live"
+                      ? "LIVE"
+                      : layer.experimental
+                        ? "EXPERIMENTAL"
+                        : "READY"}
+                  </Badge>
+                  {/* Name/Index */}
+                  <span
+                    className={
+                      layer.status === "live"
+                        ? "font-bold text-white"
+                        : "text-gray-400"
+                    }
+                  >
+                    {idx + 1}. {layer.name}
+                  </span>
+                  <span className="ml-2 text-xs text-gray-300 flex-1">
+                    {layer.description}
+                  </span>
+                  {/* If experimental, show demo toggle */}
+                  {layer.experimental && (
+                    <label className="flex items-center gap-1 ml-1">
+                      <input
+                        type="checkbox"
+                        className="form-checkbox rounded border-zinc-400 focus:ring-2 focus:ring-zinc-400 accent-zinc-400 w-5 h-5 bg-[#26233b]"
+                        checked={experimentalStates[layer.name] || false}
+                        onChange={() => handleToggle(layer.name)}
+                        disabled={true}
+                      />
+                      <span className="text-xs text-zinc-400">Demo</span>
+                    </label>
+                  )}
+                  {/* Show warning on hover if experimental */}
+                  {layer.experimental && (
+                    <div className="absolute right-2 bottom-2 flex items-center">
+                      <AlertTriangle className="w-4 h-4 text-zinc-400" />
+                      <span className="sr-only">Experimental, not live!</span>
+                    </div>
+                  )}
+                </div>
               </GlowingBorder>
             );
           })}
-              <Badge
-                variant={layer.status === "live" ? "default" : "secondary"}
-                className={
-                  layer.status === "live"
-                    ? "bg-zinc-700 text-white"
-                    : "bg-[#23233b] text-gray-300"
-                }
-              >
-                {layer.status === "live"
-                  ? "LIVE"
-                  : layer.experimental
-                    ? "EXPERIMENTAL"
-                    : "READY"}
-              </Badge>
-              {/* Name/Index */}
-              <span
-                className={
-                  layer.status === "live"
-                    ? "font-bold text-white"
-                    : "text-gray-400"
-                }
-              >
-                {idx + 1}. {layer.name}
-              </span>
-              <span className="ml-2 text-xs text-gray-300 flex-1">
-                {layer.description}
-              </span>
-              {/* If experimental, show demo toggle */}
-              {layer.experimental && (
-                <label className="flex items-center gap-1 ml-1">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox rounded border-zinc-400 focus:ring-2 focus:ring-zinc-400 accent-zinc-400 w-5 h-5 bg-[#26233b]"
-                    checked={experimentalStates[layer.name] || false}
-                    onChange={() => handleToggle(layer.name)}
-                    disabled={true}
-                  />
-                  <span className="text-xs text-zinc-400">Demo</span>
-                </label>
-              )}
-              {/* Show warning on hover if experimental */}
-              {layer.experimental && (
-                <div className="absolute right-2 bottom-2 flex items-center">
-                  <AlertTriangle className="w-4 h-4 text-zinc-400" />
-                  <span className="sr-only">Experimental, not live!</span>
-                </div>
-              )}
-            </div>
-          ))}
         </div>
 
         {/* Current Implementation Notice */}
