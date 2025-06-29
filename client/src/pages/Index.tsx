@@ -100,7 +100,7 @@ const TypewriterHeadline: React.FC = () => {
 
   return (
     <div className="mb-12">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-8 text-white leading-none tracking-tight min-h-[1.2em] whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-8 text-white leading-none tracking-tight min-h-[1.2em] whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
         {currentText}
       </h1>
     </div>
