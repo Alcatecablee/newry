@@ -196,10 +196,10 @@ export default function APIDocumentation() {
 
   const renderMethodBadge = (method: string) => {
     const colors = {
-      GET: "bg-green-900 text-green-200 border-green-700",
-      POST: "bg-blue-900 text-blue-200 border-blue-700",
-      PUT: "bg-yellow-900 text-yellow-200 border-yellow-700",
-      DELETE: "bg-red-900 text-red-200 border-red-700",
+      GET: "bg-zinc-800 text-zinc-300 border-zinc-700",
+      POST: "bg-zinc-800 text-zinc-300 border-zinc-700",
+      PUT: "bg-zinc-800 text-zinc-300 border-zinc-700",
+      DELETE: "bg-zinc-800 text-zinc-300 border-zinc-700",
     };
     return (
       <Badge
@@ -386,7 +386,7 @@ export default function APIDocumentation() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-3">
                       <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                        <div className="w-2 h-2 bg-zinc-500 rounded-full mt-2"></div>
                         <div>
                           <h4 className="font-medium text-white">
                             SSO Integration
@@ -533,7 +533,7 @@ export default function APIDocumentation() {
                                   {param.required && (
                                     <Badge
                                       variant="outline"
-                                      className="text-xs bg-red-900 text-red-200 border-red-700"
+                                      className="text-xs bg-zinc-800 text-zinc-300 border-zinc-700"
                                     >
                                       Required
                                     </Badge>
@@ -693,7 +693,7 @@ export default function APIDocumentation() {
                       <div className="flex items-center gap-2 mb-2">
                         <Badge
                           variant="outline"
-                          className="bg-blue-900 text-blue-200 border-blue-700 font-mono text-xs"
+                          className="bg-zinc-800 text-zinc-300 border-zinc-700 font-mono text-xs"
                         >
                           GET
                         </Badge>
