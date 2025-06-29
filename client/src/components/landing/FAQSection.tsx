@@ -206,7 +206,12 @@ export const FAQSection: React.FC = () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <section className="py-20 bg-black border-t border-zinc-800" id="faq">
+      <section
+        className="section-padding container-padding bg-zinc-950 border-t border-zinc-800"
+        id="faq"
+        role="region"
+        aria-labelledby="faq-heading"
+      >
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
