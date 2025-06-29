@@ -2,10 +2,7 @@ import { Zap, Users, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  GlowingBorder,
-  getRandomGlowVariant,
-} from "@/components/ui/glowing-border";
+import { GlowingBorder, getRandomGlowVariant } from "@/components/ui/glowing-border";
 
 const LAYERS = [
   {
@@ -222,7 +219,8 @@ export function LandingFeatures() {
         <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white text-center">
           How it Works
         </h2>
-        <div className="bg-zinc-900/80 rounded-xl border border-zinc-800 p-8 text-gray-200 hover-glow transition-all duration-300">
+        <GlowingBorder variant="pulse" color="blue">
+          <div className="bg-zinc-900/80 rounded-xl border border-zinc-800 p-8 text-gray-200 hover-glow transition-all duration-300">
           <ol className="list-decimal ml-5 space-y-2 text-sm">
             <li>
               Upload your TypeScript/Next.js project or configs—no setup
