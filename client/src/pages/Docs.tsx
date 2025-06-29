@@ -346,22 +346,22 @@ export default function Docs() {
           <TabsContent value="overview" className="space-y-6">
             <Card className="bg-zinc-900 border-zinc-800">
               <CardHeader>
-                <CardTitle className="text-white">NeuroLint Overview</CardTitle>
+                <CardTitle className="text-white">
+                  Meet <span className="text-purple-400">NeuroLint</span>:
+                  Effortless Code Cleanup & Modernization
+                </CardTitle>
                 <CardDescription className="text-zinc-400">
-                  Advanced code analysis and transformation tool with AI-ready
-                  architecture
+                  Advanced toolkit to bring React/TypeScript codebases into the
+                  modern age without the grind
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-6">
                 <div>
-                  <h3 className="font-semibold text-white mb-3">
-                    What is NeuroLint?
-                  </h3>
                   <p className="text-zinc-400 mb-4">
-                    NeuroLint is your advanced toolkit to bring React/TypeScript
-                    codebases into the modern age without the grind. Save hours,
-                    enforce best practices automatically, and bulletproof your
-                    codebase for scale.
+                    <strong>NeuroLint</strong> is your advanced toolkit to bring
+                    React/TypeScript codebases into the modern age—without the
+                    grind. Save hours, enforce best practices automatically, and
+                    bulletproof your codebase for scale.
                   </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -370,8 +370,8 @@ export default function Docs() {
                         Autofix, don't just lint
                       </h4>
                       <p className="text-zinc-400 text-sm">
-                        Cleans up code, modernizes patterns, and fixes issues
-                        automatically
+                        Cleans up code, modernizes patterns, and fixes the
+                        painful stuff automatically
                       </p>
                     </div>
                     <div className="bg-zinc-800 p-4 rounded-lg">
@@ -379,8 +379,8 @@ export default function Docs() {
                         Layered magic
                       </h4>
                       <p className="text-zinc-400 text-sm">
-                        6 layers scan and upgrade everything from config to
-                        accessibility
+                        4 "layers" scan and upgrade everything from config to
+                        accessibility, prop types to hydration bugs
                       </p>
                     </div>
                     <div className="bg-zinc-800 p-4 rounded-lg">
@@ -388,15 +388,16 @@ export default function Docs() {
                         CI-ready & safe
                       </h4>
                       <p className="text-zinc-400 text-sm">
-                        Use as dev tool, one-off fixer, or continuous guardrail
+                        Use as a dev tool, one-off fixer, or continuous
+                        guardrail on every commit
                       </p>
                     </div>
                     <div className="bg-zinc-800 p-4 rounded-lg">
                       <h4 className="font-medium text-white mb-2">
-                        Enterprise-ready
+                        Contrib-friendly
                       </h4>
                       <p className="text-zinc-400 text-sm">
-                        SOC2 compliant with audit logging and team management
+                        Patterns, layers, and safety features are easy to extend
                       </p>
                     </div>
                   </div>
@@ -404,11 +405,34 @@ export default function Docs() {
 
                 <Separator className="bg-zinc-700" />
 
-                <div>
+                <div className="space-y-4">
                   <h3 className="font-semibold text-white mb-3">Quick Start</h3>
+
                   <div className="bg-zinc-800 p-4 rounded-lg">
-                    <pre className="text-sm text-zinc-300 font-mono">
-                      {`# Install the CLI
+                    <h4 className="font-medium text-white mb-3">
+                      Installation & Basic Usage
+                    </h4>
+                    <pre className="text-sm text-zinc-300 bg-zinc-900 p-3 rounded font-mono mb-3">
+                      {`# Install dependencies
+npm install
+
+# Fix everything, fast
+npm run fix all
+
+# Preview, don't apply
+npm run fix dry run
+
+# Just run a specific layer (e.g., component best practices)
+npm run fix layer 3`}
+                    </pre>
+                  </div>
+
+                  <div className="bg-zinc-800 p-4 rounded-lg">
+                    <h4 className="font-medium text-white mb-3">
+                      CLI Installation
+                    </h4>
+                    <pre className="text-sm text-zinc-300 bg-zinc-900 p-3 rounded font-mono">
+                      {`# Install the CLI globally
 npm install -g @neurolint/cli
 
 # Initialize in your project
@@ -418,11 +442,103 @@ neurolint init
 neurolint analyze src/
 
 # Fix issues automatically
-neurolint fix src/ --backup
-
-# Preview changes without applying
-neurolint fix src/ --dry-run`}
+neurolint fix src/ --backup`}
                     </pre>
+                  </div>
+                </div>
+
+                <Separator className="bg-zinc-700" />
+
+                <div>
+                  <h3 className="font-semibold text-white mb-3">
+                    Layered Autofixing: What Happens?
+                  </h3>
+                  <ul className="space-y-2 text-zinc-400">
+                    <li>
+                      <strong>Layer 1: Config++</strong> — Updates TS/Next
+                      configs, package.json scripts, unlocks modern tooling
+                    </li>
+                    <li>
+                      <strong>Layer 2: Code Patterns</strong> — Cleans up HTML
+                      entities, removes noise, upgrades patterns & imports
+                    </li>
+                    <li>
+                      <strong>Layer 3: Component Intelligence</strong> — Fixes
+                      missing keys, adds accessibility, improves prop types,
+                      enforces best TSX hygiene
+                    </li>
+                    <li>
+                      <strong>Layer 4: Hydration & SSR</strong> — Guards against
+                      SSR bugs, hydration drift, unsafe localStorage—rock-solid
+                      for modern Next.js/React apps
+                    </li>
+                  </ul>
+                </div>
+
+                <Separator className="bg-zinc-700" />
+
+                <div>
+                  <h3 className="font-semibold text-white mb-3">
+                    Example Fixes (See It Work!)
+                  </h3>
+                  <ul className="space-y-2 text-zinc-400">
+                    <li>
+                      • Converts{" "}
+                      <code className="bg-zinc-700 px-1 rounded">
+                        &quot; → "
+                      </code>{" "}
+                      and other HTML entities
+                    </li>
+                    <li>
+                      • Adds missing <strong>key</strong> props to mapped
+                      components
+                    </li>
+                    <li>
+                      • Modernizes <strong>Button</strong> and form patterns
+                    </li>
+                    <li>
+                      • Protects <strong>localStorage</strong> calls for
+                      SSR-safety
+                    </li>
+                    <li>
+                      • Adds <strong>alt</strong> to images and fixes
+                      accessibility snags
+                    </li>
+                    <li>• Upgrades out-of-date configs automatically</li>
+                  </ul>
+                </div>
+
+                <Separator className="bg-zinc-700" />
+
+                <div>
+                  <h3 className="font-semibold text-white mb-3">
+                    External Resources
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    <a
+                      href="https://github.com/Alcatecablee/neurolint/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-4 py-2 rounded-lg text-sm transition-colors"
+                    >
+                      View on GitHub
+                    </a>
+                    <a
+                      href="https://github.com/Alcatecablee/neurolint/wiki"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-4 py-2 rounded-lg text-sm transition-colors"
+                    >
+                      Wiki & API
+                    </a>
+                    <a
+                      href="mailto:founder@neurolint.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-white text-black hover:bg-zinc-200 px-4 py-2 rounded-lg text-sm transition-colors"
+                    >
+                      Contact Us
+                    </a>
                   </div>
                 </div>
               </CardContent>
@@ -873,11 +989,11 @@ neurolint analyze --layers=1,2,3,4,6 src/`}
   // API Configuration
   apiUrl: "https://api.neurolint.com",
   apiKey: process.env.NEUROLINT_API_KEY,
-  
+
   // Analysis Settings
   enabledLayers: [1, 2, 3, 4],
   timeout: 30000,
-  
+
   // File Processing
   include: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
   exclude: [
@@ -887,16 +1003,16 @@ neurolint analyze --layers=1,2,3,4,6 src/`}
     "**/.next/**",
     "**/coverage/**"
   ],
-  
+
   // Output Settings
   outputFormat: "table",
   showProgress: true,
   verbose: false,
-  
+
   // Backup Settings
   createBackups: true,
   backupDir: ".neurolint-backups",
-  
+
   // Enterprise Settings
   teamId: process.env.NEUROLINT_TEAM_ID,
   enterpriseFeatures: {
