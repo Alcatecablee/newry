@@ -117,6 +117,15 @@ export default {
           },
         },
       },
+      transitionTimingFunction: {
+        "bounce-in": "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+        "ease-spring": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "ease-out-back": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "ease-in-out-circ": "cubic-bezier(0.85, 0, 0.15, 1)",
+      },
+      backdropBlur: {
+        xs: "2px",
+      },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
