@@ -480,24 +480,28 @@ export default function Index() {
       </section>
 
       {/* REST API Section */}
-      <section id="api" className="py-20 bg-black border-t border-zinc-800">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-6">
+      <section className="py-24 px-4 relative">
+        <div className="absolute inset-0 bg-black"></div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
               Enterprise REST API
             </h2>
-            <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto font-medium">
               Production-ready API for code analysis and transformation with
               enterprise-grade security, compliance, and scalability
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-white mb-3">
-                Enterprise Security
-              </h3>
-              <ul className="space-y-2 text-zinc-400">
+            <div className="bg-black/70 backdrop-blur-xl p-10 rounded-3xl border-2 border-zinc-800/50 hover:border-zinc-600/80 transition-all duration-300 hover:bg-black/90 group h-[280px] flex flex-col">
+              <div className="flex items-center gap-4 mb-6">
+                <Shield className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
+                <h3 className="text-2xl font-black text-white">
+                  Enterprise Security
+                </h3>
+              </div>
+              <ul className="space-y-3 text-gray-300 leading-relaxed font-medium flex-grow">
                 <li>• SOC 2 Type II compliant</li>
                 <li>• GDPR and ISO 27001 certified</li>
                 <li>• SSO integration support</li>
@@ -505,11 +509,14 @@ export default function Index() {
               </ul>
             </div>
 
-            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-white mb-3">
-                High Performance
-              </h3>
-              <ul className="space-y-2 text-zinc-400">
+            <div className="bg-black/70 backdrop-blur-xl p-10 rounded-3xl border-2 border-zinc-800/50 hover:border-zinc-600/80 transition-all duration-300 hover:bg-black/90 group h-[280px] flex flex-col">
+              <div className="flex items-center gap-4 mb-6">
+                <Zap className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
+                <h3 className="text-2xl font-black text-white">
+                  High Performance
+                </h3>
+              </div>
+              <ul className="space-y-3 text-gray-300 leading-relaxed font-medium flex-grow">
                 <li>• 99.9% uptime SLA</li>
                 <li>• Sub-100ms response times</li>
                 <li>• Auto-scaling infrastructure</li>
@@ -517,11 +524,14 @@ export default function Index() {
               </ul>
             </div>
 
-            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-white mb-3">
-                Advanced Features
-              </h3>
-              <ul className="space-y-2 text-zinc-400">
+            <div className="bg-black/70 backdrop-blur-xl p-10 rounded-3xl border-2 border-zinc-800/50 hover:border-zinc-600/80 transition-all duration-300 hover:bg-black/90 group h-[280px] flex flex-col">
+              <div className="flex items-center gap-4 mb-6">
+                <Settings className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
+                <h3 className="text-2xl font-black text-white">
+                  Advanced Features
+                </h3>
+              </div>
+              <ul className="space-y-3 text-gray-300 leading-relaxed font-medium flex-grow">
                 <li>• 6-layer analysis engine</li>
                 <li>• Real-time transformation</li>
                 <li>• Audit logging and reporting</li>
@@ -529,62 +539,63 @@ export default function Index() {
               </ul>
             </div>
           </div>
-
-          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-8">
+          <div className="bg-[#111111] border-2 border-zinc-800 rounded-3xl p-10 hover:border-zinc-600 transition-all duration-300 hover:bg-zinc-900/50">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div>
-                <h3 className="text-2xl font-semibold text-white mb-4">
+                <h3 className="text-2xl font-black text-white mb-6 tracking-tight">
                   Core Endpoints
                 </h3>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <span className="bg-blue-900 text-blue-200 px-2 py-1 rounded text-xs font-mono">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <span className="bg-blue-900 text-blue-200 px-3 py-2 rounded-xl text-sm font-mono font-bold">
                       POST
                     </span>
-                    <span className="text-zinc-300 font-mono">
+                    <span className="text-white font-mono font-medium">
                       /api/analyze
                     </span>
-                    <span className="text-zinc-500">
+                    <span className="text-gray-300">
                       Advanced code analysis
                     </span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="bg-blue-900 text-blue-200 px-2 py-1 rounded text-xs font-mono">
+                  <div className="flex items-center gap-4">
+                    <span className="bg-blue-900 text-blue-200 px-3 py-2 rounded-xl text-sm font-mono font-bold">
                       POST
                     </span>
-                    <span className="text-zinc-300 font-mono">
+                    <span className="text-white font-mono font-medium">
                       /api/transform
                     </span>
-                    <span className="text-zinc-500">Code transformation</span>
+                    <span className="text-gray-300">Code transformation</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="bg-green-900 text-green-200 px-2 py-1 rounded text-xs font-mono">
+                  <div className="flex items-center gap-4">
+                    <span className="bg-green-900 text-green-200 px-3 py-2 rounded-xl text-sm font-mono font-bold">
                       GET
                     </span>
-                    <span className="text-zinc-300 font-mono">/api/layers</span>
-                    <span className="text-zinc-500">
+                    <span className="text-white font-mono font-medium">
+                      /api/layers
+                    </span>
+                    <span className="text-gray-300">
                       Available analysis layers
                     </span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="bg-purple-900 text-purple-200 px-2 py-1 rounded text-xs">
+                  <div className="flex items-center gap-4">
+                    <span className="bg-purple-900 text-purple-200 px-3 py-2 rounded-xl text-sm font-bold">
                       ENTERPRISE
                     </span>
-                    <span className="text-zinc-300 font-mono">
+                    <span className="text-white font-mono font-medium">
                       /api/enterprise/*
                     </span>
-                    <span className="text-zinc-500">
+                    <span className="text-gray-300">
                       Advanced enterprise features
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-zinc-800 rounded-lg p-6">
-                <h4 className="text-lg font-medium text-white mb-3">
+              <div className="bg-black/50 rounded-2xl p-6">
+                <h4 className="text-xl font-black text-white mb-4 tracking-tight">
                   Quick Start
                 </h4>
-                <pre className="text-sm text-zinc-300 bg-zinc-900 p-4 rounded font-mono overflow-x-auto">
+                <pre className="text-sm text-gray-300 bg-black/50 p-4 rounded-xl font-mono overflow-x-auto">
                   {`curl -X POST \\
   https://api.neurolint.com/v1/analyze \\
   -H "Authorization: Bearer YOUR_TOKEN" \\
@@ -598,14 +609,14 @@ export default function Index() {
             </div>
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-16">
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="/api-docs" className="inline-block">
-                <button className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-zinc-200 transition-colors">
+                <button className="bg-white text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-xl">
                   View Full Documentation
                 </button>
               </a>
-              <button className="border border-zinc-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-zinc-800 transition-colors">
+              <button className="border-2 border-zinc-800 text-white px-8 py-4 rounded-xl font-bold text-lg hover:border-zinc-600 transition-all duration-300">
                 Request Enterprise Demo
               </button>
             </div>
