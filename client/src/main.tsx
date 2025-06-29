@@ -1,6 +1,7 @@
-import './polyfills';
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import "./polyfills";
+import { createRoot } from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import "./globals.css";
 
 createRoot(document.getElementById("root")!).render(<App />);
