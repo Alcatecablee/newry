@@ -86,7 +86,7 @@ export default function Docs() {
                   Meet <span className="text-purple-400">NeuroLint</span>:
                   Effortless Code Cleanup & Modernization
                 </CardTitle>
-                <CardDescription className="text-zinc-400">
+                <CardDescription className="text-gray-300">
                   Advanced toolkit to bring React/TypeScript codebases into the
                   modern age without the grind
                 </CardDescription>

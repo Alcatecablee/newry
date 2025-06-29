@@ -279,7 +279,7 @@ export default function APIDocumentation() {
             <Card className="bg-[#111111] border-2 border-zinc-800 rounded-3xl hover:border-zinc-600 transition-all duration-300">
               <CardHeader>
                 <CardTitle className="text-white">API Overview</CardTitle>
-                <CardDescription className="text-zinc-400">
+                <CardDescription className="text-gray-300">
                   RESTful API for advanced code analysis and transformation with
                   enterprise-grade security and compliance
                 </CardDescription>
