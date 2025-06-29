@@ -215,62 +215,65 @@ export default function APIDocumentation() {
     <div className="min-h-screen bg-black text-white">
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <Button
-              variant="outline"
-              onClick={() => navigate(-1)}
-              className="mb-4 border-zinc-700 text-zinc-300 hover:bg-zinc-800"
-            >
-              ← Back
-            </Button>
-            <h1 className="text-4xl font-bold text-white mb-2">
-              NeuroLint API Documentation
-            </h1>
-            <p className="text-xl text-zinc-400">
-              Enterprise-grade code analysis and transformation API
-            </p>
-          </div>
-          <div className="text-right">
-            <div className="text-sm text-zinc-500 mb-1">API Version</div>
-            <div className="text-lg font-mono text-white">v1.0.0</div>
+        <div className="mb-16">
+          <Button
+            variant="outline"
+            onClick={() => navigate(-1)}
+            className="mb-6 border-2 border-zinc-800 text-zinc-300 hover:bg-zinc-800 hover:border-zinc-600 bg-black px-6 py-3 rounded-xl"
+          >
+            ← Back
+          </Button>
+          <div className="flex items-end justify-between">
+            <div>
+              <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
+                NeuroLint API Documentation
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl font-medium">
+                Enterprise-grade code analysis and transformation API
+              </p>
+            </div>
+            <div className="text-right">
+              <div className="text-sm text-gray-400 mb-1">API Version</div>
+              <div className="text-2xl font-mono font-black text-white">
+                v1.0.0
+              </div>
+            </div>
           </div>
         </div>
 
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="bg-zinc-900 border-zinc-700">
+        <Tabs defaultValue="overview" className="space-y-8">
+          <TabsList className="bg-[#111111] border-2 border-zinc-800 p-2 rounded-2xl">
             <TabsTrigger
               value="overview"
-              className="data-[state=active]:bg-zinc-800"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
             >
               Overview
             </TabsTrigger>
             <TabsTrigger
               value="authentication"
-              className="data-[state=active]:bg-zinc-800"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
             >
               Authentication
             </TabsTrigger>
             <TabsTrigger
               value="endpoints"
-              className="data-[state=active]:bg-zinc-800"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
             >
               Endpoints
             </TabsTrigger>
             <TabsTrigger
               value="enterprise"
-              className="data-[state=active]:bg-zinc-800"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
             >
               Enterprise
             </TabsTrigger>
             <TabsTrigger
               value="sdks"
-              className="data-[state=active]:bg-zinc-800"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
             >
               SDKs
             </TabsTrigger>
           </TabsList>
-
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-6">
             <Card className="bg-zinc-900 border-zinc-800">

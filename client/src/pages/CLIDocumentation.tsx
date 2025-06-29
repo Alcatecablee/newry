@@ -284,59 +284,56 @@ export default function CLIDocumentation() {
     <div className="min-h-screen bg-black text-white">
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <Button
-              variant="outline"
-              onClick={() => navigate(-1)}
-              className="mb-4 border-zinc-700 text-zinc-300 hover:bg-zinc-800"
-            >
-              ← Back
-            </Button>
-            <h1 className="text-4xl font-bold text-white mb-2">
-              NeuroLint CLI Documentation
-            </h1>
-            <p className="text-xl text-zinc-400">
-              Enterprise command-line tool for advanced code analysis and
-              transformation
-            </p>
-          </div>
+        <div className="mb-16">
+          <Button
+            variant="outline"
+            onClick={() => navigate(-1)}
+            className="mb-6 border-2 border-zinc-800 text-zinc-300 hover:bg-zinc-800 hover:border-zinc-600 bg-black px-6 py-3 rounded-xl"
+          >
+            ← Back
+          </Button>
+          <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white">
+            NeuroLint CLI Documentation
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl font-medium">
+            Enterprise command-line tool for advanced code analysis and
+            transformation
+          </p>
         </div>
 
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="bg-zinc-900 border-zinc-700">
+        <Tabs defaultValue="overview" className="space-y-8">
+          <TabsList className="bg-[#111111] border-2 border-zinc-800 p-2 rounded-2xl">
             <TabsTrigger
               value="overview"
-              className="data-[state=active]:bg-zinc-800"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
             >
               Overview
             </TabsTrigger>
             <TabsTrigger
               value="installation"
-              className="data-[state=active]:bg-zinc-800"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
             >
               Installation
             </TabsTrigger>
             <TabsTrigger
               value="commands"
-              className="data-[state=active]:bg-zinc-800"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
             >
               Commands
             </TabsTrigger>
             <TabsTrigger
               value="configuration"
-              className="data-[state=active]:bg-zinc-800"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
             >
               Configuration
             </TabsTrigger>
             <TabsTrigger
               value="enterprise"
-              className="data-[state=active]:bg-zinc-800"
+              className="data-[state=active]:bg-zinc-800 data-[state=active]:text-white text-gray-400 px-6 py-3 rounded-xl font-medium"
             >
               Enterprise
             </TabsTrigger>
           </TabsList>
-
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-6">
             <Card className="bg-zinc-900 border-zinc-800">
@@ -749,11 +746,11 @@ neurolint fix src/ --backup`}
   // API Configuration
   apiUrl: "https://api.neurolint.com",
   apiKey: process.env.NEUROLINT_API_KEY,
-  
+
   // Analysis Settings
   enabledLayers: [1, 2, 3, 4],
   timeout: 30000,
-  
+
   // File Processing
   include: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
   exclude: [
@@ -763,16 +760,16 @@ neurolint fix src/ --backup`}
     "**/.next/**",
     "**/coverage/**"
   ],
-  
+
   // Output Settings
   outputFormat: "table",
   showProgress: true,
   verbose: false,
-  
+
   // Backup Settings
   createBackups: true,
   backupDir: ".neurolint-backups",
-  
+
   // Enterprise Settings
   teamId: process.env.NEUROLINT_TEAM_ID,
   enterpriseFeatures: {
