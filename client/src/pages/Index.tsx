@@ -65,6 +65,7 @@ const TypewriterHeadline: React.FC = () => {
     "Code Optimization",
     "Performance Tuning",
     "Code Transformation",
+    "Modernize Legacy Code",
   ];
 
   React.useEffect(() => {
