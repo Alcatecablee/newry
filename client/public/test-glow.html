@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glow Border Test</title>
+    <style>
+      body {
+        background: #000;
+        color: white;
+        font-family: Arial, sans-serif;
+        padding: 2rem;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .glow-test {
+        position: relative;
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 3rem;
+        width: 300px;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .glow-test::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: conic-gradient(
+          from 0deg,
+          transparent 270deg,
+          rgba(255, 255, 255, 0.8) 360deg
+        );
+        border-radius: inherit;
+        z-index: -1;
+        animation: rotate 3s linear infinite;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow-test">
+      <h1>Glowing Border Test<br />Should be rotating</h1>
+    </div>
+  </body>
+</html>
