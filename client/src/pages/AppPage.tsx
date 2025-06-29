@@ -10,7 +10,7 @@ import { NeuroLintOrchestrator } from "@/lib/neurolint/orchestrator";
 import { NeuroLintLayerResult } from "@/lib/neurolint/orchestrator";
 import { Badge } from "@/components/ui/badge";
 import { CopyButton } from "@/components/ui/copy-button";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { Loader2 } from "lucide-react";
 
 interface ProcessingResults {
   original: string;
@@ -99,7 +99,7 @@ export default function AppPage() {
               <Button onClick={processCode} disabled={isProcessing}>
                 {isProcessing ? (
                   <>
-                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Processing...
                   </>
                 ) : (

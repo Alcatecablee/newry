@@ -18,6 +18,7 @@ import {
   ThumbsUp,
   ThumbsDown,
 } from "lucide-react";
+import { UserCard } from "@/components/UserCard";
 
 interface CollaborationSession {
   id: string;
