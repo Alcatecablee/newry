@@ -796,28 +796,28 @@ html {
 
 /* Random Animation Delays */
 .random-delay-short {
-  animation-delay: calc(random(10) + 5s) !important;
+  animation-delay: 2s !important;
 }
 
 .random-delay-medium {
-  animation-delay: calc(random(12) + 8s) !important;
+  animation-delay: 4s !important;
 }
 
 .random-delay-long {
-  animation-delay: calc(random(15) + 10s) !important;
+  animation-delay: 6s !important;
 }
 
 /* Random Animation Durations */
 .random-duration-short {
-  animation-duration: calc(random(3) + 3s) !important;
+  animation-duration: 3s !important;
 }
 
 .random-duration-medium {
-  animation-duration: calc(random(3) + 4s) !important;
+  animation-duration: 4s !important;
 }
 
 .random-duration-long {
-  animation-duration: calc(random(4) + 4s) !important;
+  animation-duration: 5s !important;
 }
 
 /* Glowing Border Animations */
