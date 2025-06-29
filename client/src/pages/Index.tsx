@@ -4,8 +4,6 @@ import { FAQSection } from "@/components/landing/FAQSection";
 import { TechnologySection } from "@/components/landing/TechnologySection";
 import { CLISection } from "@/components/landing/CLISection";
 
-
-
 import {
   Target,
   Zap,
@@ -296,23 +294,18 @@ export default function Index() {
                   key={index}
                   className={`feature-card bg-black/70 backdrop-blur-xl p-10 rounded-3xl relative border-2 border-zinc-800/50 hover:border-zinc-600/80 transition-all duration-300 hover:bg-black/90 group h-[280px] flex flex-col ${getGlowClass()}`}
                 >
-                    if (index === 1 || index === 3 || index === 5) {
-                      e.currentTarget.style.animation = "none";
-                      e.currentTarget.style.opacity = "0";
-                    }
-                  }}
-                />
-                <div className="flex items-center gap-4 mb-6">
-                  <feature.icon className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
-                  <h3 className="text-2xl font-black text-white">
-                    {feature.title}
-                  </h3>
+                  <div className="flex items-center gap-4 mb-6">
+                    <feature.icon className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-300" />
+                    <h3 className="text-2xl font-black text-white">
+                      {feature.title}
+                    </h3>
+                  </div>
+                  <p className="text-gray-300 leading-relaxed font-medium flex-grow">
+                    {feature.description}
+                  </p>
                 </div>
-                <p className="text-gray-300 leading-relaxed font-medium flex-grow">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
