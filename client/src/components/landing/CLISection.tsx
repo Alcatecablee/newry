@@ -42,19 +42,19 @@ export function CLISection() {
 
   return (
     <section
-      className="section-padding container-padding bg-zinc-950/80 backdrop-blur-xl"
+      className="py-24 px-4 bg-zinc-900/30 backdrop-blur-xl"
       role="region"
       aria-labelledby="cli-heading"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <h2
             id="cli-heading"
             className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white"
           >
             Enterprise CLI Tool
           </h2>
-          <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto font-medium leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto font-medium">
             Production-ready command line interface with robust error handling,
             team management, and enterprise-grade security features.
           </p>
