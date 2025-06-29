@@ -52,15 +52,20 @@ export const TechnologySection: React.FC = () => {
   return (
     <section
       id="technology"
-      className="py-20 bg-black border-t border-zinc-800"
+      className="section-padding container-padding bg-zinc-950 border-t border-zinc-800"
+      role="region"
+      aria-labelledby="technology-heading"
     >
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-2xl font-bold mb-6 text-white">
+          <h2
+            id="technology-heading"
+            className="text-2xl font-bold mb-6 text-white tracking-tight"
+          >
             How NeuroLint Works
           </h2>
-          <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-zinc-400 max-w-3xl mx-auto leading-relaxed">
             Currently in beta with AI-ready architecture. Built on proven
             rule-based technologies with comprehensive patterns designed for
             future AI integration.

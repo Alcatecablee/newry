@@ -99,14 +99,19 @@ function UserProfile({ userId }: { userId: string }) {
   return (
     <section
       id="demo"
-      className="relative z-10 py-20 bg-black backdrop-blur-sm"
+      className="relative z-10 section-padding container-padding bg-zinc-950 backdrop-blur-sm"
+      role="region"
+      aria-labelledby="demo-heading"
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-2xl font-bold mb-6 text-white">
+          <h2
+            id="demo-heading"
+            className="text-2xl font-bold mb-6 text-white tracking-tight"
+          >
             See NeuroLint in Action
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Watch how our advanced rule-based system transforms problematic code
             into clean, efficient, and type-safe solutions across all 6 analysis
             layers.
