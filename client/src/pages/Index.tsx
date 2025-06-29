@@ -432,7 +432,7 @@ export default function Index() {
               <div className="bg-black/30 p-4 rounded-lg">
                 <div className="space-y-3">
                   <div className="flex items-center gap-2 text-sm">
-                    <div className="w-4 h-4 bg-blue-500 rounded-sm flex items-center justify-center">
+                    <div className="w-4 h-4 bg-zinc-600 rounded-sm flex items-center justify-center">
                       <Code className="w-2 h-2 text-white" />
                     </div>
                     <span className="text-zinc-300">Header.tsx</span>
@@ -448,10 +448,10 @@ export default function Index() {
                     <div className="text-zinc-500">4 return (</div>
                     <div className="flex">
                       <span className="text-zinc-500">5 </span>
-                      <span className="text-white bg-yellow-500/20 px-1">
+                      <span className="text-white bg-zinc-700 px-1">
                         &lt;div className="header"&gt;
                       </span>
-                      <div className="ml-2 bg-red-500/20 border border-red-500/50 rounded px-2 py-1 text-xs text-red-300">
+                      <div className="ml-2 bg-zinc-700 border border-zinc-600 rounded px-2 py-1 text-xs text-zinc-300">
                         NeuroLint: Use semantic HTML5 elements
                       </div>
                     </div>
@@ -462,12 +462,12 @@ export default function Index() {
                     <div className="text-zinc-500">8 );</div>
                     <div className="text-zinc-500">9 {"}"}</div>
                   </div>
-                  <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded text-sm">
-                    <div className="flex items-center gap-2 text-blue-300 mb-2">
+                  <div className="mt-4 p-3 bg-zinc-800 border border-zinc-700 rounded text-sm">
+                    <div className="flex items-center gap-2 text-zinc-300 mb-2">
                       <Zap className="w-4 h-4" />
                       <span className="font-medium">Quick Fix Available</span>
                     </div>
-                    <div className="text-blue-200 text-xs">
+                    <div className="text-zinc-300 text-xs">
                       Replace with semantic &lt;header&gt; element for better
                       accessibility
                     </div>
@@ -547,7 +547,7 @@ export default function Index() {
                 </h3>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
-                    <span className="bg-blue-900 text-blue-200 px-3 py-2 rounded-xl text-sm font-mono font-bold">
+                    <span className="bg-zinc-800 text-zinc-300 px-3 py-2 rounded-xl text-sm font-mono font-bold">
                       POST
                     </span>
                     <span className="text-white font-mono font-medium">
@@ -567,7 +567,7 @@ export default function Index() {
                     <span className="text-gray-300">Code transformation</span>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="bg-green-900 text-green-200 px-3 py-2 rounded-xl text-sm font-mono font-bold">
+                    <span className="bg-zinc-800 text-zinc-300 px-3 py-2 rounded-xl text-sm font-mono font-bold">
                       GET
                     </span>
                     <span className="text-white font-mono font-medium">
