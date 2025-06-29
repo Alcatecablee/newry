@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glowing Border Animation Example</title>
+    <style>
+      body {
+        background: #000;
+        color: white;
+        font-family: Arial, sans-serif;
+        padding: 2rem;
+        margin: 0;
+      }
+
+      /* Glowing Border Animation */
+      @keyframes borderTrace {
+        0% {
+          transform: rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .glow-box {
+        position: relative;
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 1rem;
+        min-height: 150px;
+        overflow: hidden;
+      }
+
+      .glow-box::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: inherit;
+        background: conic-gradient(
+          from 0deg,
+          transparent 0deg,
+          rgba(255, 255, 255, 0.8) 90deg,
+          transparent 180deg,
+          rgba(255, 255, 255, 0.6) 270deg,
+          transparent 360deg
+        );
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      /* Always glowing */
+      .glow-always::before {
+        animation: borderTrace 4s linear infinite;
+        opacity: 1;
+      }
+
+      /* Hover only */
+      .glow-hover:hover::before {
+        animation: borderTrace 2s linear infinite;
+        opacity: 1;
+      }
+
+      /* Random delays */
+      .glow-random-1::before {
+        animation: borderTrace 5s linear infinite;
+        animation-delay: 1s;
+        opacity: 1;
+      }
+
+      .glow-random-2::before {
+        animation: borderTrace 6s linear infinite;
+        animation-delay: 3s;
+        opacity: 1;
+      }
+
+      .glow-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .demo-label {
+        font-size: 0.875rem;
+        color: #888;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Glowing Border Animation Examples</h1>
+
+    <div class="glow-grid">
+      <div class="glow-box glow-always">
+        <div class="demo-label">Always Animated</div>
+        <h3>Syntax Analysis</h3>
+        <p>
+          This box always has a glowing border animation that traces around the
+          edges continuously.
+        </p>
+      </div>
+
+      <div class="glow-box glow-hover">
+        <div class="demo-label">Hover to Animate</div>
+        <h3>Pattern Detection</h3>
+        <p>
+          This box only shows the glowing border when you hover over it. Try it!
+        </p>
+      </div>
+
+      <div class="glow-box glow-random-1">
+        <div class="demo-label">Random Delay (1s)</div>
+        <h3>Component Analysis</h3>
+        <p>
+          This box starts animating after a 1 second delay, then loops
+          continuously.
+        </p>
+      </div>
+
+      <div class="glow-box glow-hover">
+        <div class="demo-label">Hover to Animate</div>
+        <h3>Data Flow Check</h3>
+        <p>
+          Another hover-triggered animation. Each box can have different
+          animation speeds.
+        </p>
+      </div>
+
+      <div class="glow-box glow-random-2">
+        <div class="demo-label">Random Delay (3s)</div>
+        <h3>Framework Optimization</h3>
+        <p>This box waits 3 seconds before starting its animation loop.</p>
+      </div>
+
+      <div class="glow-box glow-hover">
+        <div class="demo-label">Hover to Animate</div>
+        <h3>Testing Coverage</h3>
+        <p>Final example of a hover-triggered glowing border animation.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 3rem; text-align: center; color: #666">
+      <p>
+        These animations are lightweight, respect user motion preferences, and
+        work with any border radius.
+      </p>
+    </div>
+  </body>
+</html>
