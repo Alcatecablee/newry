@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Terminal,
@@ -14,9 +14,32 @@ import {
   Shield,
   Settings,
   Webhook,
+  Check,
 } from "lucide-react";
 
 export function CLISection() {
+  const [copied, setCopied] = useState(false);
+
+  const handleInstallClick = async () => {
+    const installCommand = "npm install -g @neurolint/cli";
+
+    try {
+      await navigator.clipboard.writeText(installCommand);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      // Fallback for browsers that don't support clipboard API
+      const textArea = document.createElement("textarea");
+      textArea.value = installCommand;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
   return (
     <section id="cli" className="py-20 bg-black border-t border-zinc-800">
       <div className="max-w-6xl mx-auto px-6">
@@ -37,9 +60,21 @@ export function CLISection() {
                 Install from NPM
               </h3>
               <div className="flex gap-4">
-                <button className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
-                  <Download className="w-5 h-5" />
-                  Install CLI
+                <button
+                  onClick={handleInstallClick}
+                  className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center gap-2 relative"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-5 h-5" />
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <Download className="w-5 h-5" />
+                      Install CLI
+                    </>
+                  )}
                 </button>
                 <Link
                   to="/docs"
