@@ -77,7 +77,7 @@ export function CLISection() {
                   )}
                 </button>
                 <Link
-                  to="/docs"
+                  to="/cli-docs"
                   className="border border-zinc-800 text-white px-6 py-3 rounded-lg font-medium hover:border-white transition-colors flex items-center gap-2"
                 >
                   <ExternalLink className="w-4 h-4" />
