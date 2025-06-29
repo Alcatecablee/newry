@@ -72,9 +72,8 @@ export function LandingFeatures() {
         {/* Features Title */}
         <h2
           id="features-heading"
-          className="text-2xl font-bold text-white mb-8 flex items-center gap-3 tracking-tight"
+          className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white text-center"
         >
-          <Zap className="w-6 h-6 text-white" aria-hidden="true" />
           Features & Roadmap
         </h2>
 
@@ -204,8 +203,7 @@ export function LandingFeatures() {
 
       {/* How it Works */}
       <div id="how" className="mt-16 max-w-4xl w-full">
-        <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-3 tracking-tight">
-          <Users className="w-6 h-6" aria-hidden="true" />
+        <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tight text-white text-center">
           How it Works
         </h2>
         <div className="bg-zinc-900/80 rounded-xl border border-zinc-800 p-8 text-gray-200 hover-glow transition-all duration-300">
