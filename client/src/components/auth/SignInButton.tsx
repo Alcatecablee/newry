@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { LogIn, UserPlus, X, AlertCircle, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/providers/AuthProvider";
+import { useFocusTrap, VisuallyHidden } from "@/components/ui/accessibility";
+import { SwipeToDismiss } from "@/components/ui/mobile-gestures";
 
 export function SignInButton() {
   const [showModal, setShowModal] = useState(false);
@@ -18,6 +20,7 @@ export function SignInButton() {
   const modalRef = useRef<HTMLDivElement>(null);
   const firstInputRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const focusTrapRef = useFocusTrap(showModal && isModalVisible);
 
   // Modal management with animations
   const openModal = () => {
@@ -143,24 +146,30 @@ export function SignInButton() {
           transition: "opacity 300ms ease-out",
         }}
       >
-        <div
-          ref={modalRef}
-          style={{
-            backgroundColor: "rgb(24, 24, 27)",
-            borderRadius: "12px",
-            border: "1px solid rgb(39, 39, 42)",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-            width: "100%",
-            maxWidth: "400px",
-            maxHeight: "90vh",
-            overflow: "auto",
-            margin: "auto",
-            transform: isModalVisible ? "scale(1)" : "scale(0.95)",
-            transformOrigin: "center center",
-            transition: "transform 300ms ease-out",
-            position: "relative",
-          }}
-        >
+        <SwipeToDismiss onDismiss={closeModal} direction="vertical">
+          <div
+            ref={focusTrapRef}
+            style={{
+              backgroundColor: "rgb(24, 24, 27)",
+              borderRadius: "16px",
+              border: "1px solid rgb(39, 39, 42)",
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)",
+              width: "100%",
+              maxWidth: "420px",
+              maxHeight: "90vh",
+              overflow: "auto",
+              margin: "auto",
+              transform: isModalVisible ? "scale(1) translateY(0)" : "scale(0.95) translateY(20px)",
+              transformOrigin: "center center",
+              transition: "transform 400ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+              position: "relative",
+              willChange: "transform, opacity",
+            }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+            aria-describedby="modal-description"
+          >
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-zinc-800">
             <h2 id="modal-title" className="text-xl font-semibold text-white">
@@ -208,13 +217,14 @@ export function SignInButton() {
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-all duration-300 ease-out hover:border-zinc-600"
+                  className="w-full px-4 py-4 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 cubic-bezier(0.4, 0, 0.2, 1) hover:border-zinc-600 text-lg md:text-base touch-manipulation"
                   placeholder="Enter your full name"
                   required
                   disabled={loading}
                   aria-describedby={
                     mode === "signup" ? "fullName-help" : undefined
                   }
+                  autoComplete="name"
                 />
                 <p id="fullName-help" className="sr-only">
                   Enter your full name for account registration
@@ -232,19 +242,20 @@ export function SignInButton() {
               >
                 Email Address *
               </label>
-              <input
-                id="email"
-                ref={mode === "signin" ? firstInputRef : undefined}
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-all duration-300 ease-out hover:border-zinc-600"
-                placeholder="Enter your email"
-                required
-                disabled={loading}
-                autoComplete="email"
-                aria-describedby="email-help"
-              />
+                <input
+                  id="email"
+                  ref={mode === "signin" ? firstInputRef : undefined}
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-4 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 cubic-bezier(0.4, 0, 0.2, 1) hover:border-zinc-600 text-lg md:text-base touch-manipulation"
+                  placeholder="Enter your email"
+                  required
+                  disabled={loading}
+                  autoComplete="email"
+                  aria-describedby="email-help"
+                  inputMode="email"
+                />
               <p id="email-help" className="sr-only">
                 Enter a valid email address
               </p>
@@ -266,7 +277,7 @@ export function SignInButton() {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pr-12 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-all duration-300 ease-out hover:border-zinc-600"
+                  className="w-full px-4 py-4 pr-14 bg-zinc-800 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 cubic-bezier(0.4, 0, 0.2, 1) hover:border-zinc-600 text-lg md:text-base touch-manipulation"
                   placeholder="Enter your password"
                   required
                   minLength={6}
@@ -279,15 +290,19 @@ export function SignInButton() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-zinc-400 hover:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:ring-offset-zinc-800 rounded p-1 transition-all duration-200"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-zinc-400 hover:text-zinc-300 hover:bg-zinc-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-800 rounded-md p-2 transition-all duration-200 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                   disabled={loading}
+                  aria-pressed={showPassword}
                 >
                   {showPassword ? (
-                    <EyeOff className="w-4 h-4" />
+                    <EyeOff className="w-5 h-5" />
                   ) : (
-                    <Eye className="w-4 h-4" />
+                    <Eye className="w-5 h-5" />
                   )}
+                  <VisuallyHidden>
+                    {showPassword ? "Password is visible" : "Password is hidden"}
+                  </VisuallyHidden>
                 </button>
               </div>
               <p id="password-help" className="text-xs text-zinc-500 mt-1">
@@ -337,7 +352,7 @@ export function SignInButton() {
               </button>
             </p>
           </div>
-        </div>
+        </SwipeToDismiss>
       </div>
     );
   }
