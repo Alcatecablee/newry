@@ -53,13 +53,21 @@ export function APISection() {
   };
 
   return (
-    <section id="api" className="relative z-10 py-20 bg-black backdrop-blur-sm">
-      <div className="container mx-auto px-6">
+    <section
+      id="api"
+      className="relative z-10 section-padding container-padding bg-zinc-950 backdrop-blur-sm"
+      role="region"
+      aria-labelledby="api-heading"
+    >
+      <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-2xl font-bold mb-6 text-white">
+          <h2
+            id="api-heading"
+            className="text-2xl font-bold mb-6 text-white tracking-tight"
+          >
             REST API Integration
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Integrate NeuroLint's powerful analysis engine directly into your
             applications, CI/CD pipelines, and custom tools with our
             comprehensive REST API.
