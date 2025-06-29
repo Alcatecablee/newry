@@ -467,7 +467,7 @@ export default function APIDocumentation() {
                           {endpoint.enterprise && (
                             <Badge
                               variant="outline"
-                              className="bg-purple-900 text-purple-200 border-purple-700 text-xs"
+                              className="bg-zinc-800 text-zinc-300 border-zinc-700 text-xs"
                             >
                               Enterprise
                             </Badge>

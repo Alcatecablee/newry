@@ -578,7 +578,7 @@ export default function Index() {
                     </span>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="bg-purple-900 text-purple-200 px-3 py-2 rounded-xl text-sm font-bold">
+                    <span className="bg-zinc-800 text-zinc-300 px-3 py-2 rounded-xl text-sm font-bold">
                       ENTERPRISE
                     </span>
                     <span className="text-white font-mono font-medium">
