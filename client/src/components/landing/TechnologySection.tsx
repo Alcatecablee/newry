@@ -52,12 +52,11 @@ export const TechnologySection: React.FC = () => {
   return (
     <section
       id="technology"
-      className="py-24 px-4 relative"
+      className="py-24 px-4"
       role="region"
       aria-labelledby="technology-heading"
     >
-      <div className="absolute inset-0 bg-black"></div>
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-20">
           <h2

@@ -4,12 +4,11 @@ import { Code2, Lightbulb, Eye, Settings, Download, Star } from "lucide-react";
 export function VSCodeSection() {
   return (
     <section
-      className="py-24 px-4 relative"
+      className="py-24 px-4"
       role="region"
       aria-labelledby="vscode-heading"
     >
-      <div className="absolute inset-0 bg-black"></div>
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
           <h2
             id="vscode-heading"

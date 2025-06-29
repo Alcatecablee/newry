@@ -64,7 +64,7 @@ export function LandingFeatures() {
   return (
     <section
       id="features"
-      className="w-full flex flex-col items-center py-24 px-4 bg-zinc-900/30 backdrop-blur-xl"
+      className="w-full flex flex-col items-center py-24 px-4"
       role="region"
       aria-labelledby="features-heading"
     >

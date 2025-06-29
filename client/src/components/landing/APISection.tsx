@@ -55,7 +55,7 @@ export function APISection() {
   return (
     <section
       id="api"
-      className="py-24 px-4 bg-zinc-900/30 backdrop-blur-xl"
+      className="py-24 px-4"
       role="region"
       aria-labelledby="api-heading"
     >

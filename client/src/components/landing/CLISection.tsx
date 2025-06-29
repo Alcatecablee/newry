@@ -41,11 +41,7 @@ export function CLISection() {
   };
 
   return (
-    <section
-      className="py-24 px-4 bg-zinc-900/30 backdrop-blur-xl"
-      role="region"
-      aria-labelledby="cli-heading"
-    >
+    <section className="py-24 px-4" role="region" aria-labelledby="cli-heading">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
           <h2
